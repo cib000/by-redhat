@@ -53,7 +53,7 @@ YAML 소개
 4. **주석 가능**
    - `#` 뒤에 작성 가능
 
-```
+
 
 ---
 
@@ -72,6 +72,10 @@ users:
     role: admin
   - name: Bob
     role: user
+
+```
+
+
 
 server와 users는 키(key)
 
