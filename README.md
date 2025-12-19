@@ -219,28 +219,31 @@ server:
 ### 1-1. 한 줄 코드
 ```markdown
 `한 줄 코드 표시`
-
+```
 
 렌더링 결과: 한 줄 코드 표시
 
 1-2. 여러 줄 코드 (Code Block)
-def hello():
+```def hello():
     print("Hello, Markdown!")
 
+```
 
 렌더링 결과:
 
 def hello():
     print("Hello, Markdown!")
 
+
+
 2️⃣ 목록 표시 (UL / LI)
 2-1. Markdown 방식
-- 항목 1
+```- 항목 1
 - 항목 2
   - 하위 항목 2-1
   - 하위 항목 2-2
 - 항목 3
-
+```
 
 렌더링 결과:
 
@@ -255,7 +258,7 @@ def hello():
 항목 3
 
 2-2. HTML 방식
-<ul>
+```<ul>
   <li>항목 1</li>
   <li>항목 2
     <ul>
@@ -265,11 +268,14 @@ def hello():
   </li>
   <li>항목 3</li>
 </ul>
-
+```
 
 렌더링 결과:
 
 <ul> <li>항목 1</li> <li>항목 2 <ul> <li>하위 항목 2-1</li> <li>하위 항목 2-2</li> </ul> </li> <li>항목 3</li> </ul>
+
+
+
 3️⃣ 수평 구분선 (Horizontal Rule)
 Markdown
 ---
@@ -277,19 +283,24 @@ Markdown
 
 렌더링 결과:
 
-HTML
+```HTML
 <hr>
-
+```
 
 렌더링 결과:
 
 <hr>
+
+
+
 4️⃣ 이미지 삽입
 Markdown
 ![이미지 설명](images/sample.png)
 
-HTML
+```HTML
 <img src="images/sample.png" alt="이미지 설명" width="300">
+```
+
 
 5️⃣ 링크
 Markdown
@@ -303,6 +314,9 @@ HTML
 
 
 렌더링 결과: <a href="https://github.com" target="_blank">GitHub</a>
+
+
+
 
 6️⃣ YAML 소개
 
@@ -325,7 +339,7 @@ JSON, XML과 비슷하지만 가독성 높음
 주석 가능 # 설명
 
 6-2. YAML 예시
-server:
+```server:
   host: 127.0.0.1
   port: 8080
   ssl: true
@@ -335,6 +349,8 @@ users:
     role: admin
   - name: Bob
     role: user
+```
+
 
 7️⃣ Markdown과 YAML 연계
 
@@ -345,7 +361,7 @@ key: value
 list:
   - item1
   - item2
-
+```
 
 - 실제 동작/설정용으로는 **별도 `.yaml` 파일 필요**
 
@@ -353,12 +369,14 @@ list:
 
 ## 8️⃣ 핵심 요약
 
+```1
 - Markdown: **설명서, 문서화**  
 - YAML: **설정, 데이터 직렬화**  
 - Markdown 안에 YAML 예시는 **문서화 목적**  
 - 이미지, 링크, 코드 블록, 구분선, 목록 등 모두 **가독성 중심**  
 - 필요시 HTML 태그와 혼합 가능  
 - GitHub에서도 바로 렌더링 가능
+```
 
 ---
 
