@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <title>Winfo PE</title>
+  <link rel="shortcut icon" href="favicon.ico" >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courgette:400,700">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <base target="_blank">
+
+  	<!-- <script src="https://use.fontawesome.com/c79e2f3459.js"></script> -->
+	<meta name="keywords" content="Developer, Designer, Menu, Hamburger Icons Animations, CSS3, HTML, Buttons, Web, animation, animations, hamburger, icon, icons, span, transition, transform ">
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
+
+</head>
+
+<body>
+
+<!-- 왼쪽 메뉴 시작 -->
+<div class="leftMenu" style="overflow-y:scroll; overflow-x:hidden;">
+  <div class="hamburger active" style="position:fixed;">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <ul class="leftMenuList">
+  <hr style="width:99%;"></hr>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-home" aria-hidden="true"></i>
+        <span>윈도우포럼</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a href="https://windowsforum.kr/index.php?mid=&act=dispCommunicationMessages&message_type=R">
+            <span>쪽지함</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://windowsforum.kr/index.php?mid=home&act=dispMemberInfo">
+            <span>회원정보보기</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://windowsforum.kr/index.php?mid=home&act=dispMemberLogout">
+            <span>로그아웃</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://windowsforum.kr/home">
+            <span>첫화면</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-home" aria-hidden="true"></i>
+		<!-- <i class="fa fa-table" aria-hidden="true"></i> -->
+        <span>리눅스 포럼</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a href="https://kjvvv.kr/">
+            <span>첫화면</span>
+          </a>
+        </li>
+		<li>
+          <a href="https://kjvvv.kr/index.php?mid=main_new&act=dispCommunicationMessages">
+            <span>쪽지함</span>
+          </a>
+        </li>
+		<li>
+          <a href="https://kjvvv.kr/index.php?mid=main_new&act=dispMemberInfo">
+            <span>회원정보 보기</span>
+          </a>
+        </li>
+		<li>
+          <a href="https://kjvvv.kr/index.php?mid=main_new&act=dispNcenterliteNotifyList">
+            <span>내 알림 목록</span>
+          </a>
+        </li>
+		<li>
+          <a href="https://kjvvv.kr/private">
+            <span>비게</span>
+          </a>
+        </li>
+		<li>
+          <a href="https://kjvvv.kr/index.php?mid=main_new&act=dispMemberLogout">
+            <span>로그아웃</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+	<li>
+      <a class="dropdown">
+        <i class="fa fa-home" aria-hidden="true"></i>
+		<!-- <i class="fa fa-table" aria-hidden="true"></i> -->
+        <span>11Q 정보모아</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a href="https://11q.kr/www/">
+            <span>첫화면</span>
+          </a>
+        </li>
+		<li>
+          <a href="https://11q.kr/www/bbs/new5.php">
+            <span>새로운 글</span>
+          </a>
+        </li>
+		<li>
+          <a href="https://11q.kr/www/bbs/logout.php">
+            <span>로그아웃</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="http://linoit.com/users/cib000/canvases/%ED%8A%9C%EB%B8%8C%EB%B6%81%EA%B3%B5%EA%B0%9C%EB%A9%94%EB%AA%A8" title="모자의 공개 안부 메모장">
+        <i class="fa fa-comment" aria-hidden="true"></i>
+        <span>By R.H Open Memo</span>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-user-md" aria-hidden="true"></i>
+        <span>메 일 읽 기</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a href="https://mail.daum.net/">
+            <span>다음 메일 확인</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://mail.naver.com/">
+            <span>네이버 메일 확인</span>
+          </a>
+        </li>
+		<li>
+          <a href="https://www.google.com/gmail/">
+            <span>구글 메일 확인</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-heartbeat" aria-hidden="true"></i>
+        <span>웹 클라우드</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a class="dropdown">
+            <span>구글 드라이브</span>
+          </a>
+          <ul class="dropdownlist">
+            <li>
+              <a href="https://drive.google.com/drive/my-drive">
+                <span>구글 드라이브</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://drive.google.com/drive/shared-drives">
+                <span>공유 드라이브</span>
+              </a>
+            </li>
+			<li>
+              <a href="https://drive.google.com/drive/shared-with-me">
+                <span>공유 문서함</span>
+              </a>
+            </li>
+			<li>
+              <a href="https://drive.google.com/drive/trash">
+                <span>휴지통</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="dropdown">
+            <span>네이버 마이 박스</span>
+          </a>
+          <ul class="dropdownlist">
+            <li>
+              <a href="https://mybox.naver.com/#/">
+                <span>네이버 마이 박스</span>
+              </a>
+            </li>
+			<li>
+              <a href="http://whale.naver.com/">
+                <span>네이버 웨일</span>
+              </a>
+            </li>
+			<li>
+              <a href="https://www.naver.com/my.html">
+                <span>네이버 오피스</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-stethoscope" aria-hidden="true"></i>
+        <span>쇼핑몰</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a href="http://www.danawa.com/">
+            <span>다나와 검색하기</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://www.enuri.com/">
+            <span>에누리 검색하기</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://www.auction.co.kr/">
+            <span>옥션 쇼핑하기</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.11st.co.kr/main">
+            <span>11번가 쇼핑하기</span>
+          </a>
+        </li>
+		<li>
+          <a href="http://www.compuzone.co.kr/">
+            <span>컴퓨존 쇼핑하기</span>
+          </a>
+        </li>
+		<li>
+           <span>... 더 추가하기</span>
+        </li>
+      </ul>
+    </li>
+	<li>
+      <a class="dropdown">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+        <span>데이터 관리</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a>
+            <span>예비</span>
+          </a>
+        </li>
+		<li>
+          <a>
+			<i class="fa fa-hand-o-right" aria-hidden="true"></i><span> 예비</span>
+          </a>
+        </li>
+
+      </ul>
+    </li>
+</div><!-- 왼쪽 메뉴 끝 -->
+
+
+<!-- partial:index.partial.html -->
+<!-- Masthead -->
+<header class="masthead">
+	<div class="boards-menu">
+		<!-- button class="boards-btn btn"><i class="fab fa-trello boards-btn-icon"></i>검색</!--button>
+		<div class="board-search">
+			<input type="search" class="board-search-input" aria-label="Board Search">
+			<i class="fas fa-search search-icon" aria-hidden="true"></i>
+		</div>-->
+	</div>
+	<div class="logo">
+            <h1><i class="fab fa-trello logo-icon" aria-hidden="true"></i>윈포를 더 편하게 ... by QuantumPE</h1>
+	</div>
+	<div class="user-settings">
+		<button class="user-settings-btn btn" aria-label="Create">
+			<i class="fas fa-plus" aria-hidden="true"></i>
+		</button>
+		<!-- <button class="user-settings-btn btn" aria-label="Information">
+			<i class="fas fa-info-circle" aria-hidden="true"></i>
+		</button>  -->
+		<button class="user-settings-btn btn" aria-label="Notifications">
+			<i class="fas fa-bell" aria-hidden="true"></i>
+		</button>
+		<button class="user-settings-btn btn" aria-label="User Settings">
+			<i class="fas fa-user-circle" aria-hidden="true"></i>
+		</button>
+		<button class="user-settings-btn btn" aria-label="User Settings">
+			<a href="https://www.youtube.com/embed/videoseries?list=UUf-qxUuK7rJsm8MR83TmFNw&amp;autoplay=1&rel=0&showinfo=0&autohide=1&amp;enablejsapi=1;sub_confirmation=1" title="유튜브  재생목록 감상"><i class="fab fa-youtube"></i></a>
+		</button>
+	</div>
+</header>
+<!-- End of masthead -->
+
+<!-- Board info bar -->
+<section class="board-info-bar">
+	<div class="board-controls">
+		<button class="board-title btn">
+			<h2><a href="https://windowsforum.kr/">
+			<img src="https://windowsforum.kr/layouts/neat/img/logo.png" height="35px"></a> 쉽게 활용하기</h2>
+		</button>
+		<!-- <button class="star-btn btn" aria-label="Star Board">
+			<i class="far fa-star" aria-hidden="true"></i>
+		</button>
+		<button class="personal-btn btn">Personal</button>
+		<button class="private-btn btn"><i class="fas fa-briefcase private-btn-icon" aria-hidden="true"></i>Private</button> -->
+	</div>
+
+	<button class="menu-btn btn"><i class="fas fa-ellipsis-h menu-btn-icon" aria-hidden="true"></i>메뉴보기</button>
+</section>
+<!-- End of board info bar -->
+
+<!-- Lists container -->
+<section class="lists-container">
+	<div class="list">
+		<h3 class="list-title">게시판 목록</h3>
+		<ul class="list-items">
+			<li><a href="https://windowsforum.kr/notice">공지사항</a></li>
+			<li><a href="https://windowsforum.kr/info">최신정보</a></li>
+			<li><a href="https://windowsforum.kr/qna">질문/답변</a></li>
+			<li><a href="https://windowsforum.kr/lecture">강좌/팁</a></li>
+			<li><a href="https://windowsforum.kr/gallery">스크린샷</a></li>
+			<li><a href="https://windowsforum.kr/data">자료실</a></li>
+			<li><a href="https://windowsforum.kr/review">사용/설치기</a></li>
+			<li><a href="https://windowsforum.kr/free">자유게시판</a></li>
+			<li><a href="https://windowsforum.kr/sisa">시사/토론</a></li>
+			<li><a href="https://windowsforum.kr/sale">알뜰구매정보</a></li>
+			<li><a href="https://windowsforum.kr/market">회원장터</a></li>
+			<li><a href="https://windowsforum.kr/hwgallery">하드웨어갤러리</a></li>
+			<li><a href="https://windowsforum.kr/recommend">추천싸이트</a></li>
+			<li><a href="https://windowsforum.kr/vote">설문조사</a></li>
+			<li><a href="https://windowsforum.kr/wallpaper">배경화면</a></li>
+			<li><a href="https://windowsforum.kr/slecture">연재강좌</a></li>
+			<li><a href="https://windowsforum.kr/event">이벤트</a></li>
+			<li><a href="https://www.youtube.com/channel/UCJPSzzXdfTOAd9ZShJZksMg">유튜브</a></li>
+		</ul>
+		<button class="add-card-btn btn">....추가하기</button>
+	</div>
+
+	<div class="list">
+		<h3 class="list-title">이웃의 추천 블로그 외</h3>
+		<ul class="list-items">
+			<li><a href="https://oldnew.tistory.com/">🏰 꼼지락</a></li>
+			<li><a href="https://nature2357.tistory.com/">🏰 knm</a></li>
+			<li><a href="https://jsb000.tistory.com/category">🏰 홍차의 꿈</a></li>
+			<li><a href="https://ntwow.tistory.com/">🏰 New Technology</a></li>
+			<li><a href="https://comduck.tistory.com/">🏰 컴덕은 심장이...</a></li>
+			<li><a href="https://noways.tistory.com/">🏰 This is Noway</a></li>
+			<li><a href="https://lsh0452.tistory.com/">🏰 설중매</a></li>
+			<li><a href="https://snpbox.tistory.com/">🏰 스누피</a></li>
+			<li><a href="https://cappleblog.tistory.com/">🏰 캐플</a></li>
+			<li><a href="https://decompiler.tistory.com/">🏰 윈도우 바람빼기</a></li>
+			<li><a href="https://autoit3.tistory.com/">🏰 지니제스크</a></li>
+			<li><a href="https://nheart2.tistory.com/">🏰 나인하트</a></li>
+			<li><a href="https://hangulhwa.tistory.com/">🏰 한글화</a></li>
+			<li><a href="https://venusgirls.tistory.com/">🏰 <span style="color:rgb(255,0,153);"><em><span style="font-family:'Comic Sans MS', cursive;"><strong><span style="font-size:18px;color:rgb(239,0,124);"><span style="color:rgb(255,0,0);">V</span></span><span style="font-size:12px;color:rgb(239,0,124);"><span style="color:rgb(255,108,0);font-size:13px;">e</span><span style="color:rgb(255,170,0);font-size:13px;">n</span><span style="color:rgb(166,207,0);font-size:13px;">u</span><span style="color:rgb(0,158,37);font-size:13px;">s</span></span><span style="font-size:18px;color:rgb(0,117,200);">G</span><span style="font-size:12px;color:rgb(239,0,124);"><span style="color:rgb(58,50,195);font-size:13px;">i</span><span style="color:rgb(120,32,185);font-size:13px;">r</span><span style="color:rgb(239,0,124);font-size:13px;">l</span></span></strong></span></em></span><strong><span style="font-size:16px;"><span style="font-family:'나눔손글씨 펜';"><span style="color:#f1c40f;"><span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, serif;"><span style="font-family:'나눔손글씨 펜';"><span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, serif;"><sup><span style="font-family:'나눔손글씨 펜';"><span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, serif;"><span style="font-family:'나눔손글씨 펜';"><span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, serif;"></span></span></span></span><span style="font-family:'나눔손글씨 펜';"><span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, serif;"><span style="font-family:'나눔손글씨 펜';"><span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, serif;"></span></span></span></span></sup></span></span></span></span></span></span></strong></a><sup><strong><span style="font-size:13px;"><span style="color:rgb(255,108,0);"><span style="color:rgb(0,0,0);"><strong><span style="font-size:9px;"> 💋</span></strong></span></span></span></strong><strong><span style="font-size:13px;"><span style="color:rgb(255,108,0);"><span style="color:rgb(0,0,0);"><strong><span style="font-size:13px;"><span style="color:rgb(125,125,125);font-size:12px;">´``°³о</span><span style="font-size:14px;">💗<span style="font-size:12px;">﻿</span></span></span></strong></span></span></span></strong></sup><a href="https://venusgirls.tistory.com/" rel="nofollow"><sub><span style="font-size:13px;"></span></sub><span style="font-size:12px;"><span style="font-size:10px;font-family:'굴림체', Gulimche, Tahoma;"><span style="font-family:'맑은 고딕', 'Malgun Gothic', 'Segoe UI';font-size:16px;"></span></span></span></a></li>
+			<li><a href="https://sunstar2.tistory.com/">🏰 새터의 태양</a></li>
+			<li><a href="https://windowexe.tistory.com/">🏰 프로세스 자료천국 블로그</a></li>
+			<li><a href="https://howcode.co.kr/main/">🏰 하우코드</a></li>
+			<li><a href="https://blog.naver.com/windowexe">🏰 프로세서 자료천국</a></li>
+			<li>-------------------------------</li>
+		</ul>
+		<button class="add-card-btn btn">....추가하기</button>
+	</div>
+
+	<div class="list">
+		<h3 class="list-title">업로드 공유 클라우드</h3>
+		<ul class="list-items">
+			<li><a href="https://gofile.io/welcome">gofile.io</a></li>
+			<li><a href="https://workupload.com/">workupload.com</a></li>
+			<li><a href="https://anonfiles.com/">anonfiles.com</a></li>
+			<li><a href="https://file.cm/">file.cm</a></li>
+			<li><a href="https://onuploads.com/">onuploads.com</a></li>
+			<li><a href="https://krakenfiles.com/">krakenfiles.com</a></li>
+			<li><a href="https://tmpstorage.com/">tmpstorage.com</a></li>
+			<li><a href="https://filerio.in/">filerio.in</a></li>
+			<li><a href="https://transfer.pcloud.com/">transfer.pcloud.com</a></li>
+			<li><a href="https://gigafile.nu/">gigafile.nu</a></li>
+			<li><a href="https://bayfiles.com/">bayfiles.com</a></li>
+			<li><a href="https://clicknupload.to/">clicknupload.to</a></li>
+			<li><a href="https://tusfiles.com/">tusfiles.com</a></li>
+			<li><a href="http://uppit.com/">uppit.com</a></li>
+			<li><a href="https://uptobox.com/">uptobox.com</a></li>
+			<li><a href="https://wetransfer.com/">wetransfer.com</a></li>
+			<li><a href="http://uploadhive.com/">uploadhive.com</a></li>
+			<li><a href="https://files.fm/">files.fm</a></li>
+			<li><a href="https://usersdrive.com/">usersdrive.com</a></li>
+			<li><a href="https://Up-load.io/">Up-load.io</a></li>
+			<li><a href="https://uploadrar.com/">uploadrar.com</a></li>
+			<li>- 추가 ( 뒬수도/안될수도 )-</li>
+			<li><a href="https://drive.google.com/drive/">구글드라이브</a></li>
+			<li><a href="https://mybox.naver.com/">네이버 박스</a></li>
+			<li><a href="https://tmpstorage.com/">임시저장소</a></li>
+			<li><a href="https://www.icloud.com/">icloud.com</a></li>
+			<li><a href="https://www.terabox.com/">terabox.com</a></li>
+			<li><a href="https://www.microsoft.com/ko-kr/microsoft-365/onedrive/online-cloud-storage">MS-원드라이브</a></li>
+			<li><a href="https://postimages.org/">postimages.org</a></li>
+			<li><a href="https://www.filedropper.com/">filedropper.com</a></li>
+			<li><a href="https://depositfiles.com/">depositfiles.com</a></li>
+			<li><a href="https://www.mediafire.com/">mediafire.com</a></li>
+			<li><a href="https://adrive.com/plans">adrive.com</a></li>
+			<li><a href="https://www.zippyshare.com/">zippyshare.com</a></li>
+			<li><a href="https://www.upload.ee/">upload.ee</a></li>
+			<li><a href="https://icedrive.net/">icedrive.net</a></li>
+			<li><li>- 추가 ( 종합 )-</li>
+			<li><a href="https://www.mirrored.to/">mirrored.to</a></li>
+			<li><li>- 내 아이피 확인 -</li>
+			<li><a href="https://www.findip.kr/">findip.kr</a></li>
+			<li><li>---- 추가하기 ----</li>
+		</ul>
+		<button class="add-card-btn btn">....추가하기</button>
+	</div>
+
+	<div class="list">
+		<h3 class="list-title">알려진 자료실</h3>
+		<ul class="list-items">
+			<li>-< 와레즈 백신/광고차단필수 >-</li>
+			<li><a href="http://2baksa.ws/">2baksa.ws</a></li>
+			<li><a href="https://diakov.net/soft/">diakov.net</a></li>
+			<li><a href="https://downloadly.ir/">downloadly.ir</a></li>
+			<li><a href="https://rsload.net/repack/">rsload.net</a></li>
+			<li><a href="https://repack.me/">repack.me</a></li>
+			<li><a href="https://filecr.com/category/ms-windows/?id=144057012797">filecr.com</a></li>
+			<li><a href="https://scloud.ws/">scloud.ws</a></li>
+			<li><a href="https://sanet.st/full/">sanet.st</a></li>
+			<li><a href="https://lrepacks.net/">lrepacks.net</a></li>
+			<li>-< 와레즈 백신/광고차단필수 >-</li>
+			<li><a href="https://prog-top.net/">prog-top.net</a></li>
+			<li><a href="https://filecr.com/en/?id=94959091584">filecr.com</a></li>
+			<li><a href="https://karanpc.com/">karanpc.com</a></li>
+			<li><a href="https://s0ft4pc.com/">s0ft4pc.com</a></li>
+			<li><a href="https://haxoff.net/">haxoff.net</a></li>
+			<li><a href="https://haxpc.net/">haxpc.net</a></li>
+			<li><a href="https://www.oneindir.com/">oneindir.com</a></li>
+			<li><a href="https://free.appnee.com/">free.appnee.com</a></li>
+			<li><a href="https://www.fullprogramlarindir.net/">fullprogramlarindir.net</a></li>
+			<li>-< 와레즈 백신/광고차단필수 >-</li>
+			<li><a href="https://www.nirsoft.net/">nirsoft.net</a></li>
+			<li><a href="https://www.softwareok.com/">softwareok.com</a></li>
+			<li>-< 와레즈 백신/광고차단필수 >-</li>
+
+		</ul>
+		<button class="add-card-btn btn">....추가하기</button>
+	</div>
+
+	<div class="list">
+		<div class="list">
+
+		<h3 class="list-title">로컬_인트라넷</h3>
+
+		<ul class="list-items">
+			<li><a href="http://127.0.0.1:8084">큐빗토렌트 웹</a></li>
+			<li><a href="http://127.0.0.1:8086">에브라씽 웹</a></li>
+			<li><a href="http://127.0.0.1:5456">HFS 웹</a></li>
+			<li><a href="http://127.0.0.1:9090">Berryz WebShare</a></li>
+			<li><a href="ftp://127.0.0.1:1010">FTP 접속</a></li>
+		</ul>
+		<button class="add-card-btn btn">....추가하기</button>
+	</div>
+
+		<div class="list">
+		<h3 class="list-title">주소단축_서비스</h3>
+			<ul class="list-items">
+			<li><a href="https://han.gl/">han.gl</a></li>
+			<li><a href="https://bitly.com/">bitly.com</a></li>
+			<li><a href="http://asq.kr/">asq.kr</a></li>
+			<li><a href="https://tinyurl.com/app">tinyurl.com</a></li>
+			<li><a href="https://www.shrunken.com/index.php?shortUrlDomain=3.ly">3.ly</a></li>
+			<li><a href="https://url.kr/">url.kr</a></li>
+			<li><a href="https://url.vet/">url.vet</a></li>
+			<li><a href="https://c11.kr/">c11.kr</a></li>
+			<li><a href="https://hoy.kr/">hoy.kr</a></li>
+			<li><a href="https://vivoldi.com/">vivoldi.com</a></li>
+			</ul>
+			<button class="add-card-btn btn">....추가하기</button>
+		</div>
+	</div>
+
+		<div class="list">
+		<h3 class="list-title">번역_서비스</h3>
+		<ul class="list-items">
+			<li><a href="https://translate.google.co.kr/?hl=ko&tab=TT">구글번역 서비스</a></li>
+			<li><a href="https://papago.naver.com/">파파고번역 서비스</a></li>
+			<li><a href="https://translators.to/">translators.to 번역 서비스</a></li>
+		</ul>
+		<br />
+		<h3 class="list-title">교통정보_서비스</h3>
+		<ul class="list-items">
+			<li><a href="http://www.roadplus.co.kr/main/main.do#none">교통정보 서비스</a></li>
+			<li><a href="http://www.ulleung.go.kr/Live/live2.htm?liveId=01">독도 서비스</a></li>
+		</ul>
+		<br />
+		<h3 class="list-title">토렌트_서비스</h3>
+		<ul class="list-items">
+			<li><a href="https://grep.kr/">grep.kr</a></li>
+			<li><a href="http://magnet2torrent.com/">magnet2torrent</a></li>
+			<li><a href="http://mgnet.me/">mgnet.me</a></li>
+			<li><a href="https://thepiratebay.org/index.html">thepiratebay.org</a></li>
+			<li><a href="https://btdig.com/index.htm">btdig.com</a></li>
+			<li><a href="https://www.btranking.com/">btranking.com</a></li>
+		</ul>
+		<button class="add-card-btn btn">....추가하기</button>
+	</div>
+
+	<div class="list">
+		<h3 class="list-title">온라인백신_서비스</h3>
+		<ul class="list-items">
+			<li>---< 참고 >---</li>
+			<li><a href="https://www.virustotal.com/gui/home/upload">바이러스토탈</a></li>
+			<li><a href="https://www.virscan.org/">바이러스스캔</a></li>
+			<li><a href="https://www.hybrid-analysis.com/">하이브리드 분석</a></li>
+			<li>---< 치료 >---</li>
+			<li><a href="https://malzero.xyz/">멜웨어 제로</a></li>
+			</ul>
+
+
+		<br></br>
+		<h3 class="list-title">온라인_서비스</h3>
+		<ul class="list-items">
+			<li>---< 웹 포토샵 >---</li>
+			<li><a href="https://pixlr.com/kr/editor/">💒 웹포토샵 #1</a></li>
+			<li><a href="https://sumo.app/paint/">💒 웹포토샵 #2</a></li>
+			<li>---< 웹 작업 >---</li>
+			<li><a href="https://onlineconvertfree.com/kr/">💒 변환기</a></li>
+			<li><a href="https://bbom.org/tools/ani.html">💒 웹움짤</a></li>
+			<li>---< 사운드/음성 >---</li>
+			<li><a href="https://talktyper.com/">💒 음성을 글자로</a></li>
+			</ul>
+		<button class="add-card-btn btn">....추가하기</button>
+	</div>
+
+	<div class="list">
+		<h3 class="list-title">생활인_서비스</h3>
+		<ul class="list-items">
+			<li><a href="https://taxvat.calculate.co.kr/">💒 부가가치세 계산기</a></li>
+			<li><a href="http://www.3fish.kr/Study/Chinese/ChineseDictionary.htm">💒 생활옥편</a></li>
+			<li><a href="https://www.yougetsignal.com/tools/open-ports/">💒 내컴 포트확인</a></li>
+			<li><a href="https://bbom.org/tools/ani.html">💒 웹움짤</a></li>
+			<li><a href="https://talktyper.com/">💒 음성을 글자로</a></li>
+			</ul>
+
+
+		<br></br>
+		<h3 class="list-title">웹개발자_참조</h3>
+			<ul class="list-items">
+			<li><a href="https://www.blueb.co.kr/">💒 블루비</a></li>
+			<li><a href="https://codepen.io/">💒 코드펜</a></li>
+			<li><a href="https://www.svgrepo.com/">💒 SVG</a></li>
+			<li><a href="https://fontawesome.com/">💒 fontawesome</a></li>
+			<li><a href="https://www.unphp.net/">💒 인코드/디코드</a></li>
+			<li><a href="https://ko.infobyip.com/">💒 ko.infobyip</a></li>
+			</ul>
+		<button class="add-card-btn btn">....추가하기</button>
+
+	</div>
+<!--
+	<div class="list">
+
+		<h3 class="list-title">Practise Website Ideas</h3>
+
+		<ul class="list-items">
+			<li>Airsoft/Paintballing Centre</li>
+			<li>Bar/Pub</li>
+			<li>Bicycle Shop/Repair</li>
+			<li>Cafe/Coffee Shop</li>
+			<li>Car Showroom/Garage/Repair/Parts</li>
+			<li>Construction Company</li>
+			<li>Fitness/Gym/Leisure Centre</li>
+			<li>Nightclub</li>
+			<li>Party Planning Company</li>
+			<li>PC Build/Repair Service</li>
+			<li>Portfolio/CV</li>
+			<li>Real Estate/AirBnB</li>
+			<li>Restaurant</li>
+			<li>Skiing/Snowboarding Centre/Company</li>
+			<li>Streaming Service for Movies/TV</li>
+			<li>Streaming Service for Video Games</li>
+			<li>Taxi Service</li>
+			<li>Travel Agency</li>
+			<li>Zoo/Safari Park</li>
+		</ul>
+
+		<button class="add-card-btn btn">Add a card</button>
+
+	</div>
+
+	<div class="list">
+
+		<h3 class="list-title">JavaScript Project Ideas</h3>
+
+		<ul class="list-items">
+			<li>Analog Clock</li>
+			<li>Basic Quiz</li>
+			<li>Bill/Cost Splitter</li>
+			<li>Countdown Timer</li>
+			<li>Form Validator</li>
+			<li>Geolocation (Find places near you etc.)</li>
+			<li>Gif Search</li>
+			<li>Note Taking App</li>
+			<li>Random Name Picker</li>
+			<li>Secret Message Encoder/Decoder</li>
+			<li>Sortable Image Gallery</li>
+			<li>Sortable Table</li>
+			<li>Tip Calculator</li>
+			<li>To-Do List</li>
+			<li>Unit Converter</li>
+		</ul>
+
+		<button class="add-card-btn btn">Add a card</button>
+
+	</div>
+
+	<button class="add-list-btn btn">....추가하기</button>
+-->
+
+</section>
+<!-- End of lists container -->
+<!-- partial -->
+<script  src="./script.js"></script>
+
+</body>
+</html>
