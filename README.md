@@ -29,6 +29,109 @@
 
 
 
+YAML 소개
+
+# 🟡 YAML 소개
+
+**YAML** = *YAML Ain’t Markup Language*  
+- “YAML은 마크업 언어가 아니다”라는 의미  
+- **사람이 읽고 쓰기 쉬운 데이터 직렬화 형식**  
+- JSON, XML과 비슷하지만 더 간단하고 가독성이 좋음
+- 주로 **설정 파일(config), 데이터 저장, 자동화 도구**에서 사용
+
+---
+
+## 1️⃣ YAML의 기본 특징
+
+1. **들여쓰기로 구조 표현**
+   - 중괄호 `{}` 대신 **공백/탭 들여쓰기**로 계층 구조 표현
+2. **키-값 쌍**
+   - `key: value` 형식
+3. **리스트 표현**
+   - `- 항목1`  
+   - `- 항목2`
+4. **주석 가능**
+   - `#` 뒤에 작성 가능
+
+---
+
+## 2️⃣ 간단한 예시
+
+```yaml
+# 서버 설정 예시
+server:
+  host: 127.0.0.1
+  port: 8080
+  ssl: true
+
+# 사용자 목록
+users:
+  - name: Alice
+    role: admin
+  - name: Bob
+    role: user
+
+server와 users는 키(key)
+
+host, port, ssl은 값(value)
+
+users는 리스트(배열) 구조
+
+3️⃣ YAML 사용 용도
+
+프로그램 설정 파일
+
+예: Docker Compose(docker-compose.yml), GitHub Actions(.github/workflows/*.yml)
+
+데이터 직렬화
+
+프로그램 간 데이터 교환용
+
+자동화 / DevOps
+
+CI/CD 파이프라인 정의, Kubernetes 리소스 정의 등
+
+4️⃣ JSON과 비교
+항목	YAML	JSON
+가독성	높음 (들여쓰기 중심)	중간 (중괄호, 콤마 사용)
+주석	가능 (# 사용)	불가능
+구조 표현	들여쓰기	중괄호, 배열 기호
+예시	key: value	"key": "value"
+5️⃣ 추가 설명 / 팁
+
+문자열 처리
+
+공백이 포함된 문자열은 큰따옴표 " " 또는 작은따옴표 ' ' 사용 가능
+
+숫자와 불리언
+
+true, false → 불리언
+
+숫자는 그대로 숫자로 인식
+
+들여쓰기 주의
+
+스페이스 2~4개 권장, 탭(TAB) 사용 피함
+
+계층 구조
+
+들여쓰기로 깊이 표현 가능, JSON보다 훨씬 직관적
+
+💡 요약
+
+YAML은 사람 친화적 설정/데이터 형식
+
+JSON과 유사하지만 가독성 높고 주석 가능
+
+Markdown, GitHub Actions, Docker, Kubernetes 등과 잘 어울림
+
+들여쓰기와 ASCII 문자 사용에 주의하면 안정적으로 사용 가능
+
+
+
+
+
+
 이곳은 ㅁ자의 소소한 개발 테스트 연구실입니다.
 
 최고일 수 없고, 최선일 수 없습니다.
