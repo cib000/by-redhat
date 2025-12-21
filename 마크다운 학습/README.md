@@ -1,412 +1,413 @@
-Filter 에서 넘기고 HandlerInterceptor 에서 받고
-====
+[공통] 마크다운 markdown 작성법
+======================
 
-다음과 같은 요구사항을 받고 처리한 과정을 정리한다.
+> 영어지만, 조금 더 상세하게 마크다운 사용법을 안내하고 있는    
+> "Markdown Guide (https://www.markdownguide.org/)" 를 보시는 것을 추천합니다. ^^
 
-# 요구사항
+> 아, 그리고 마크다운만으로 표현이 부족하다고 느끼신다면, HTML 태그를 활용하시는 것도 좋습니다.
 
-- 특정 API 호출시 접근이력(URL, 요청파라미터, 클라이언트 입력정보)을 남겨야 한다.
 
-# 구현
+# 1. 마크다운에 관하여
+## 1.1. 마크다운이란?
+[**Markdown**](https://www.markdownguide.org/getting-started/)은 텍스트 기반의 마크업언어로 2004년 존그루버에 의해 만들어졌으며 쉽게 쓰고 읽을 수 있으며 HTML로 변환이 가능하다. 특수기호와 문자를 이용한 매우 간단한 구조의 문법을 사용하여 웹에서도 보다 빠르게 컨텐츠를 작성하고 보다 직관적으로 인식할 수 있다.
+마크다운이 최근 각광받기 시작한 이유는 깃헙([https://github.com](https://github.com)) 덕분이다. 깃헙의 저장소Repository에 관한 정보를 기록하는 README.md는 깃헙을 사용하는 사람이라면 누구나 가장 먼저 접하게 되는 마크다운 문서였다. 마크다운을 통해서 설치방법, 소스코드 설명, 이슈 등을 간단하게 기록하고 가독성을 높일 수 있다는 강점이 부각되면서 점점 여러 곳으로 퍼져가게 된다.
 
-스프링 웹애플리케이션에서 위 요구사항을 충족시킬 수 있는 방법을 고민하다가 `HandlerInterceptor`([https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/HandlerInterceptor.html](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/HandlerInterceptor.html)) 를 떠올렸다. 
+## 1.2. 마크다운의 장-단점
+### 1.2.1. 장점
+	1. 간결하다.
+	2. 별도의 도구없이 작성가능하다.
+	3. 다양한 형태로 변환이 가능하다.
+	4. 텍스트(Text)로 저장되기 때문에 용량이 적어 보관이 용이하다.
+	5. 텍스트파일이기 때문에 버전관리시스템을 이용하여 변경이력을 관리할 수 있다.
+	6. 지원하는 프로그램과 플랫폼이 다양하다.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f4e605ec-9a14-4c43-ae48-b69e67f8eefc/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f4e605ec-9a14-4c43-ae48-b69e67f8eefc/Untitled.png)
+### 1.2.2. 단점
+	1. 표준이 없다.
+	2. 표준이 없기 때문에 도구에 따라서 변환방식이나 생성물이 다르다.
+	3. 모든 HTML 마크업을 대신하지 못한다.
 
-우선은 API 호출정보를 기록할 지점을 선정하는데 사용할 애노테이션을 선언한다.
+****
+# 2. 마크다운 사용법(문법)
+## 2.1. 헤더Headers
+* 큰제목: 문서 제목
+    ```
+    This is an H1
+    =============
+    ```
+    This is an H1
+    =============
 
-`PrivacyInfoAccess`
+* 작은제목: 문서 부제목
+    ```
+    This is an H2
+    -------------
+    ```
+    This is an H2
+    -------------
 
-```java
-import java.lang.annotation.*;
+* 글머리: 1~6까지만 지원
+```
+# This is a H1
+## This is a H2
+### This is a H3
+#### This is a H4
+##### This is a H5
+###### This is a H6
+```
+# This is a H1
+## This is a H2
+### This is a H3
+#### This is a H4
+##### This is a H5
+###### This is a H6
+####### This is a H7(지원하지 않음)
 
-@Target({ElementType.TYPE, ElementType.METHOD}) // 클래스 혹은 메서드에 선언할 수 있다.
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface PrivacyInfoAccess {
+## 2.2. BlockQuote
+이메일에서 사용하는 ```>``` 블럭인용문자를 이용한다.
+```
+> This is a first blockqute.
+>	> This is a second blockqute.
+>	>	> This is a third blockqute.
+```
+> This is a first blockqute.
+>	> This is a second blockqute.
+>	>	> This is a third blockqute.
 
-    /**
-     * @return 민감정보항목(= 메뉴)
-     */
-    String name() default "";
+이 안에서는 다른 마크다운 요소를 포함할 수 있다.
+> ### This is a H3
+> * List
+>	```
+>	code
+>	```
 
-    /**
-     * @return 상세설명(= 수행업무명)
-     */
-    String description() default "";
+## 2.3. 목록
+### ● 순서있는 목록(번호)
+순서있는 목록은 숫자와 점을 사용한다.
+```
+1. 첫번째
+2. 두번째
+3. 세번째
+```
+1. 첫번째
+2. 두번째
+3. 세번째
+
+**현재까지는 어떤 번호를 입력해도 순서는 내림차순으로 정의된다.**
+```
+1. 첫번째
+3. 세번째
+2. 두번째
+```
+1. 첫번째
+3. 세번째
+2. 두번째
+
+딱히 개선될 것 같지는 않다. 존 그루버가 신경안쓰고 있다고...
+
+### ● 순서없는 목록(글머리 기호: `*`, `+`, `-` 지원)
+```
+* 빨강
+  * 녹색
+    * 파랑
+
++ 빨강
+  + 녹색
+    + 파랑
+
+- 빨강
+  - 녹색
+    - 파랑
+```
+* 빨강
+  * 녹색
+    * 파랑
+
++ 빨강
+  + 녹색
+    + 파랑
+
+- 빨강
+  - 녹색
+    - 파랑
+
+혼합해서 사용하는 것도 가능하다(내가 선호하는 방식)
+
+```
+* 1단계
+  - 2단계
+    + 3단계
+      + 4단계
+```
+
+* 1단계
+  - 2단계
+    + 3단계
+      + 4단계
+
+## 2.4. 코드
+4개의 공백 또는 하나의 탭으로 들여쓰기를 만나면 변환되기 시작하여 들여쓰지 않은 행을 만날때까지 변환이 계속된다.
+
+### 2.4.1. 들여쓰기
+```
+This is a normal paragraph:
+
+    This is a code block.
+    
+end code block.
+```
+
+실제로 적용해보면,
+
+적용예:
+
+*****
+This is a normal paragraph:
+
+    This is a code block.
+
+end code block.
+*****
+
+> 한줄 띄어쓰지 않으면 인식이 제대로 안되는 문제가 발생합니다.
+
+```
+This is a normal paragraph:
+    This is a code block.
+end code block.
+```
+
+적용예:
+
+*****
+This is a normal paragraph:
+    This is a code block.
+end code block.
+*****
+
+### 2.4.1. 코드블럭
+코드블럭은 다음과 같이 2가지 방식을 사용할 수 있습니다:
+
+* `<pre><code>{code}</code></pre>` 이용방식
+
+```
+<pre>
+<code>
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+
+}
+</code>
+</pre>
+```
+
+<pre>
+<code>
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+}
+</code>
+</pre>
+
+* 코드블럭코드("\```") 을 이용하는 방법
+
+<pre>
+<code>
+```
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+}
+```
+</code>
+</pre>
+
+```
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
 }
 ```
 
-이렇게 생성한 `PrivacyInfoAccess` 애노테이션을 원하는 컨트롤러 지점에 선언한다. 
+**깃헙**에서는 코드블럭코드("\```") 시작점에 사용하는 언어를 선언하여 [문법강조(Syntax highlighting)](https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-code-blocks#syntax-highlighting)이 가능하다.
+
+<pre>
+<code>
+```java
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+}
+```
+</code>
+</pre>
 
 ```java
-@RestController
-public class GreetingController {
-
-    @PrivacyInfoAccess(name = "GreetingController/get")
-    @GetMapping("/greeting")
-    public Greeting greeting(@RequestParam(defaultValue = "허니몬") String name) {
-        return new Greeting("Hello, " + name);
-    }
-
-    @PrivacyInfoAccess(name = "GreetingController/post", description = "test")
-    @PostMapping("/greeting")
-    public Greeting postGreeting(@RequestBody Greeting greeting) {
-        return greeting;
-    }
-
-    @Getter
-    @NoArgsConstructor
-    public static class Greeting {
-        private String statement;
-
-        public Greeting(String statement) {
-            this.statement = statement;
-        }
-    }
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
 }
 ```
 
-이제 `HandlerInterceptor`를 구현하고 스프링에 등록한다.
 
-`PrivacyInfoAccessHandlerInterceptor`
+## 2.5. 수평선 ```<hr/>```
+아래 줄은 모두 수평선을 만든다. 마크다운 문서를 미리보기로 출력할 때 *페이지 나누기* 용도로 많이 사용한다.
 
-```java
-import io.honeymon.training.programming.annotation.PrivacyInfoAccess;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.stereotype.Component;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
+```
+* * *
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.Objects;
+***
 
-@Slf4j
-@Component
-public class PrivacyInfoAccessHandlerInterceptor implements HandlerInterceptor {
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (handler instanceof HandlerMethod) {
-            HandlerMethod targetHandler = (HandlerMethod) handler;
-            PrivacyInfoAccess privacyInfoAccess = ((HandlerMethod) handler).getMethodAnnotation(PrivacyInfoAccess.class);
-            if (Objects.isNull(privacyInfoAccess)) {
-                privacyInfoAccess = AnnotatedElementUtils.findMergedAnnotation(((HandlerMethod) handler).getBeanType(), PrivacyInfoAccess.class);
-            }
+*****
 
-            if (Objects.nonNull(privacyInfoAccess)) { // 부합대상 확인
-                log.debug("AccessInfo(Name: {}, Description: {})", privacyInfoAccess.name(), privacyInfoAccess.description());
-                log.debug("URI: {} {}", request.getMethod(), request.getRequestURI());
+- - -
 
-                for (String parameterKey : request.getParameterMap().keySet()) {
-                    log.debug("Parameter: (Key: {}, Value: {})", parameterKey, request.getParameter(parameterKey));
-                }
-
-                if(Arrays.asList("POST", "PUT").contains(request.getMethod())) {
-                    log.debug("Body: {}", request.getAttribute("requestBody"));
-                }
-            }
-        }
-
-        return true;
-    }
-}
+---------------------------------------
 ```
 
-동작을 간단하게 설명하자면 웹요청이 있을 때마다 `PrivacyInfoAccessHandlerInterceptor` 를 거치게 되는데 이 과정에서 요청을 처리하는 핸들러(=Controller) 정보를 `handler` 를 이용해서 확인한다. 대상 핸들러에 `@PrivacyInfoAccess` 라는 애노테이션이 선언됐는지를 확인하고 그렇다면 뭔가를 하겠다는 것이다. 코드상에서는 간단하게 로그만 출력했지만 해당 정보를 추려서 별도로 DB에 저장할 계획이다. 그래서 `@Component` 를 선언하여 스프링 컨테이너에서 관리할 컴포넌트로 선언했다.
+* 적용예
+* * *
 
-그리고 나름 중요한 부분이 `request.getAttribute("requestBody")` 이다. POST, PUT 방식으로 데이터를 전송할 때 RequestBody 에 요청정보가 담긴다. `HttpServletRequest` 에 `InputStream` 타입으로 저장되는데 이 정보를 읽으면 소멸되어 버린다. 
+***
 
-```java
-log.debug("Body: {}", request.getReader().lines().collect(Collectors.joining(",")));
+*****
+
+- - -
+
+---------------------------------------
+
+
+## 2.6. 링크
+* 참조링크
+
+```
+[link keyword][id]
+
+[id]: URL "Optional Title here"
+
+// code
+Link: [Google][googlelink]
+
+[googlelink]: https://google.com "Go google"
 ```
 
-위처럼 HandlerInterceptor 에서 `HttpServletRequest` `reader` 를 호출하면 요런 로그를 확인할 수 있다.
+Link: [Google][googlelink]
 
-```java
-2020-06-18 10:08:42.785 ERROR 24930 --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalStateException: getReader() has already been called for this request] with root cause
+[googlelink]: https://google.com "Go google"
 
-java.lang.IllegalStateException: getReader() has already been called for this request
-	at org.apache.catalina.connector.Request.getInputStream(Request.java:1057) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.connector.RequestFacade.getInputStream(RequestFacade.java:365) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.springframework.http.server.ServletServerHttpRequest.getBody(ServletServerHttpRequest.java:212) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver$EmptyBodyCheckingHttpInputMessage.<init>(AbstractMessageConverterMethodArgumentResolver.java:317) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:194) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:158) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:131) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:167) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:134) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:93) ~[spring-boot-actuator-2.3.0.RELEASE.jar:2.3.0.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:373) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_252]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_252]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.35.jar:9.0.35]
-	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_252]
+* 외부링크
+```
+사용문법: [Title](link)
+적용예: [Google](https://google.com, "google link")
+```
+Link: [Google](https://google.com, "google link")
+
+* 자동연결
+```
+일반적인 URL 혹은 이메일주소인 경우 적절한 형식으로 링크를 형성한다.
+
+* 외부링크: <http://example.com/>
+* 이메일링크: <address@example.com>
 ```
 
-한마디로 줄이면,
+* 외부링크: <http://example.com/>
+* 이메일링크: <address@example.com>
 
-> 네가 reader 를 호출해서 이 요청 처리를 할 수 없어!!
-
-라는 의미다. 왜 컨텐츠를 바이너리데이터(Base64 인코딩)를 전송하는지는 못찾겠다!
-
-- [https://developer.mozilla.org/ko/docs/Web/HTTP/Methods/POST](https://developer.mozilla.org/ko/docs/Web/HTTP/Methods/POST)
-- [https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletRequest.html](https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletRequest.html)
-
-어쨌든, Java EE 사양에 정의된 `ServletRequest`를 살펴보면 `getInputStream` 과  `getReader` 이 선언되어 있는 것을 확인할 수 있다. 둘 중에 편한 사용하기 편한유형을 선택하여 호출한다. 
-
-> HttpServletRequest 에 담겨있는 정보를 반복적으로 읽을 수 있는 방법은 뭐가 있을까?
-
-를 고민은 많은 자바 개발자가 했다. 그리고 그 결과들을 여기저기서 살펴볼 수 있다.
-
-스프링 개발자도 마찬가지였는데 `spring-web` 모듈에 있는 `ContentCachingRequestWrapper`를 살펴볼 수 있다(p.s. 스프링 프레임워크 5.0 에서는 Serlvet 3.1 API 에 맞춰 작성되었던 코드가 현재(5.2.6)는 Servlet 4.0 스펙에 맞춰 변경되어있다). 
-
-`ContentCachingRequestWrapper` 를 참고하여 다시 읽고쓸 수 있는 `ReadableHttpServletRequestWrapper` 를 작성해보자.
-
-```java
-import org.springframework.util.StreamUtils;
-
-import javax.servlet.ReadListener;
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.*;
-
-public class ReadableHttpServletRequestWrapper extends HttpServletRequestWrapper {
-    private final byte[] bytes;
-
-    /**
-     * Constructs a request object wrapping the given request.
-     *
-     * @param request the {@link HttpServletRequest} to be wrapped.
-     * @throws IllegalArgumentException if the request is null
-     */
-    public ReadableHttpServletRequestWrapper(HttpServletRequest request) throws IOException {
-        super(request);
-
-        InputStream inputStream = super.getInputStream();
-        this.bytes = StreamUtils.copyToByteArray(inputStream);
-    }
-
-    @Override
-    public ServletInputStream getInputStream() {
-        return new CustomServletInputStream(this.bytes);
-    }
-
-    @Override
-    public BufferedReader getReader() throws IOException {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(this.bytes);
-        return new BufferedReader(new InputStreamReader(byteArrayInputStream));
-    }
-
-    public String getRequestBody() {
-        return new String(this.bytes);
-    }
-
-    private class CustomServletInputStream extends ServletInputStream {
-        private final InputStream sourceInputStream;
-
-        public CustomServletInputStream(byte[] body) {
-            this.sourceInputStream = new ByteArrayInputStream(body);
-        }
-
-        @Override
-        public boolean isFinished() {
-            try {
-                return sourceInputStream.available() == 0;
-            } catch (IOException e) {
-                return false;
-            }
-        }
-
-        @Override
-        public boolean isReady() {
-            return true;
-        }
-
-        @Override
-        public void setReadListener(ReadListener readListener) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int read() throws IOException {
-            return this.sourceInputStream.read();
-        }
-
-        @Override
-        public int read(byte[] b, int off, int len) throws IOException {
-            return this.sourceInputStream.read(b, off, len);
-        }
-
-        @Override
-        public int read(byte[] b) throws IOException {
-            return this.sourceInputStream.read(b);
-        }
-
-        @Override
-        public long skip(long n) throws IOException {
-            return this.sourceInputStream.skip(n);
-        }
-
-        @Override
-        public int available() throws IOException {
-            return this.sourceInputStream.available();
-        }
-
-        @Override
-        public void close() throws IOException {
-            this.sourceInputStream.close();
-        }
-
-        @Override
-        public synchronized void mark(int readlimit) {
-            this.sourceInputStream.mark(readlimit);
-        }
-
-        @Override
-        public synchronized void reset() throws IOException {
-            this.sourceInputStream.reset();
-        }
-
-        @Override
-        public boolean markSupported() {
-            return this.sourceInputStream.markSupported();
-        }
-    }
-}
+## 2.7. 강조
+```
+*single asterisks*
+_single underscores_
+**double asterisks**
+__double underscores__
+~~cancelline~~
 ```
 
-코드는 간단하다.  `HttpServletRequest` 이 가지고 있는 binary data(InputStream) 를 `ReadableHttpServletRequestWrapper` 내에 `bytes` 필드에 보관하고 `getReader` 혹은 `getInputStream` 메서드가 호출될 때 `CustomServletInputStream` 으로 감싸서 내보내는 형식이다. 참 쉽죠!?
+* *single asterisks*
+* _single underscores_
+* **double asterisks**
+* __double underscores__
+* ~~cancelline~~
 
-2019년 이전의 자료들은 대부분 Servlet 3.1 API 를 구현한 것이라 `read` 메시지 이외의 것을 찾아보기 힘들다.
+> ```문장 중간에 사용할 경우에는 **띄어쓰기** 를 사용하는 것이 좋다.```   
+> 문장 중간에 사용할 경우에는 띄어쓰기를 사용하는 것이 좋다.
 
-이제 `ReadableHttpServletRequestWrapperFilter` 필더를 작성한다.
 
-```java
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+## 2.8. 이미지
+```
+![Alt text](/path/to/img.jpg)
+![Alt text](/path/to/img.jpg "Optional title")
+```
+![석촌호수 러버덕](http://cfile6.uf.tistory.com/image/2426E646543C9B4532C7B0)
+![석촌호수 러버덕](http://cfile6.uf.tistory.com/image/2426E646543C9B4532C7B0 "RubberDuck")
 
-@WebFilter
-public class ReadableHttpServletRequestWrapperFilter implements Filter {
-    public static final String REQUEST_BODY = "requestBody";
+사이즈 조절 기능은 없기 때문에 ```<img width="" height=""></img>```를 이용한다.
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        try {
-            ReadableHttpServletRequestWrapper requestWrapper = new ReadableHttpServletRequestWrapper((HttpServletRequest) request);
-            requestWrapper.setAttribute(REQUEST_BODY, requestWrapper.getRequestBody());
-
-            chain.doFilter(requestWrapper, response);
-        } catch (Exception e) {
-            chain.doFilter(request, response);
-        }
-    }
-}
+예
+```
+<img src="/path/to/img.jpg" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+<img src="/path/to/img.jpg" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
 ```
 
-필터가 등록되면 `doFilter` 가 호출되는 순간 `HttpServletRequest` 를 `ReadableHttpServletRequestWrapper` 으로 감싼 후 Attribute 에 `requestBody`에 특정 값을 주입한다. 
+<img src="http://cfile6.uf.tistory.com/image/2426E646543C9B4532C7B0" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+<img src="http://cfile6.uf.tistory.com/image/2426E646543C9B4532C7B0" width="40%" height="30%" title="%(비율) 크기 설정" alt="RubberDuck"></img>
 
-그리고 `@WebFilter` 라는 애노테이션이 있는데, 해당 필터를 탐색할 수 있도록 하는 메타데이터 애노테이션이다.
+## 2.9. 줄바꿈
+3칸 이상 띄어쓰기(` `)를 하면 줄이 바뀐다.
 
-이제 스프링 부트에 `@ServletComponentScan` 을 추가로 선언하면 `@WebFilter` 를 탐색하여 등록한다.
+```
+* 줄 바꿈을 하기 위해서는 문장 마지막에서 3칸이상을 띄어쓰기해야 한다. 
+이렇게
 
-- [https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-embedded-container-servlets-filters-listeners-scanning](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-embedded-container-servlets-filters-listeners-scanning)
-- `@ServletComponentScan` 을 선언하면 `@WebFilter` , `@WebServlet` 과 `@WebListener` 를 탐색하여 등록한다. 이 방법은 **임베디드 컨테이너를 사용하는 경우만 유효** 하다. 단독 실행되고 있는 컨테이너에 war 형태로 배포하는 경우는 별도로 `web.xml` 혹은 `SpringBootServletInitializer`에서 등록해야 한다.
-
-다음과 같이 선언하면 `@WebFilter` 선언되어있는 필터를 임베디드 컨테이너 필터에 등록한다.
-
-```java
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-
-@ServletComponentScan
-@SpringBootApplication
-public class TrainingProgrammingApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(TrainingProgrammingApplication.class, args);
-    }
-}
+* 줄 바꿈을 하기 위해서는 문장 마지막에서 3칸이상을 띄어쓰기해야 한다.___\\ 띄어쓰기
+이렇게
 ```
 
-애플리케이션을 실행하고 `@PrivacyInfoAccess` 가 선언된 핸들러를 호출하면 다음과 같은 결과를 얻을 수 있다.
+* 줄 바꿈을 하기 위해서는 문장 마지막에서 3칸이상을 띄어쓰기해야 한다. 이렇게
 
-```java
-// 호출
-http POST localhost:8080/greeting statement=honeymon
-HTTP/1.1 200
-Connection: keep-alive
-Content-Type: application/json
-Date: Thu, 18 Jun 2020 01:44:50 GMT
-Keep-Alive: timeout=60
-Transfer-Encoding: chunked
+* 줄 바꿈을 하기 위해서는 문장 마지막에서 3칸이상을 띄어쓰기해야 한다.    \
+이렇게
 
-{
-    "statement": "honeymon"
-}
 
-// 실행결과로그
-2020-06-18 10:44:50.570 DEBUG 25192 --- [nio-8080-exec-1] .s.h.PrivacyInfoAccessHandlerInterceptor : AccessInfo(Name: GreetingController/post, Description: test)
-2020-06-18 10:44:50.571 DEBUG 25192 --- [nio-8080-exec-1] .s.h.PrivacyInfoAccessHandlerInterceptor : URI: POST /greeting
-2020-06-18 10:44:50.571 DEBUG 25192 --- [nio-8080-exec-1] .s.h.PrivacyInfoAccessHandlerInterceptor : Body: {"statement": "honeymon"}
-```
+****
+# 3. 마크다운 사용기
+## 3.1. 위지윅(WSYWIG) 에디터
+우리가 흔하게 접하는 웹에서 사용되는 에디터(네이버, 다음, 구글 등)이 대부분 위지윅 에디터에 속하며 기본적으로 HTML을 이용하여 스타일을 적용하여 문장을 꾸미는 형태를 취하게 된다. 그래서 하루패드와 같은 마크다운 에디터의 View 영역의 내용을 복사하여 붙여넣기를 하면 대체적으로 View영역에서 보이는 그대로 복사되는 편이다. 다만, 붙여넣기 이후에 문장들을 수정하려고 할 때 문제가 되는데, 이는 스타일이 포함된 태그가 수정과정에서 변형되면서 전체적인 영향을 끼치는 탓이다. 티스토리 블로그에서는 쉽지 않고... 워드프레스의 경우에는 마크다운으로 작성된 포스트를 HTML로 변환해주는 기능을 활용하는 것이 좋다.
+결론은, **복사해서 붙여넣기하면 가급적이면 본문은 수정하지 않는 것이 좋다.**
 
-이제 요구사항에 맞춰서! 진행한다.
+## 3.2. 깃헙Github, 비트버킷Bitbucket과 요비Yobi 등
+최근 유행하는 협업개발플랫폼의 경우에는 마크다운을 변환하는 컨버터 기능을 기본탑재하고 있기 때문에 마크다운 문법으로 작성한 텍스트를 그대로 복사해서 붙여넣거나 업로드하는 것만으로 마크다운의 적용이 가능하다.
 
-# 참고
+## 3.3. MS워드 적용
+View 영역의 항목을 그대로 붙여넣거나 HTML 내보내기 등으로 생성한 파일을 불러오는 형태로 사용가능하다. 적용한 헤더를 워드가 읽어드리면서 목차에 적용하기 때문에 이를 활용하면 목차까지도 손쉽게 적용이 가능해진다.
 
-- `ServletRequest`: [https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletRequest.html](https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletRequest.html)
-- `HttpServletRequest`: [https://javaee.github.io/javaee-spec/javadocs/javax/servlet/http/HttpServletRequest.html](https://javaee.github.io/javaee-spec/javadocs/javax/servlet/http/HttpServletRequest.html)
-- Interceptor: [https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-config-interceptors](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-config-interceptors)
-- Add filter: [https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-add-a-servlet-filter-or-listener](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-add-a-servlet-filter-or-listener)
-- `ContentCachingRequestWrapper`: [https://github.com/spring-projects/spring-framework/blob/master/spring-web/src/main/java/org/springframework/web/util/ContentCachingRequestWrapper.java](https://github.com/spring-projects/spring-framework/blob/master/spring-web/src/main/java/org/springframework/web/util/ContentCachingRequestWrapper.java)
-- `MultiReadHttpServletRequest` : [https://github.com/holyeye/spring-trace/blob/master/spring-trace-web/src/main/java/spring/trace/web/MultiReadHttpServletRequest.java](https://github.com/holyeye/spring-trace/blob/master/spring-trace-web/src/main/java/spring/trace/web/MultiReadHttpServletRequest.java)
+*****
+
+# 4. 정리
+마크다운은 기본문법만 알고있다면 일반 텍스트편집기에서도 손쉽게 작성이 가능한 마크업언어다. 현재 다양한 도구와 플랫폼에서 지원하고 있기 때문에 더욱 손쉽게 스타일적용된 문서를 작성할 수 있어 점점 널리 사용되고 있다.   
+
+> 마크다운을 이해하고 사용하면서 쉽고 빠르게 스타일문서를 작성해보세요.
+
+저는 Dropbox 프로를 구매해서 집-랩탑-스마트폰이 각각 연동을 시켜서 사용하고 있습니다. 드랍박스에 저장된 마크다운 문서는 Dropbox 웹서비스 상에서 제공하기 때문에 웹상에서 바로 열람할 수도 있어 링크를 걸어서 다른 사람과 공유하는 형식으로 사용하고 있다.
+* 링크 예: [Markdown 설명](https://www.dropbox.com/s/mzp9tq4qtfjdlif/20141021_markdown_use_tip.md?dl=0)
+
+***** 
+
+# P.S.
+최근에는 여러 기능이 포함되며 무거워지는[Notion](https://www.notion.so/product) 을 대신해서 [옵시디언(Obsidian)](https://obsidian.md/) 조금씩 사용중이다. Notion 에서 작성한 문서는 Atom(<https://atom.io/>), Visual Studio Code(<https://code.visualstudio.com/>), Notepad++(<https://notepad-plus-plus.org/>)텍스트 편집기에 복붙(복사하고 붙여넣기)하면 마크다운문법으로 작성된 문장이 기입되고 이지윅 에디터를 제공하는 웹에디터에 붙여넣기 하면 거의 완벽한 형태로 복사된다. 그래서 애용중이다.
+
+## ○ 참고문서
+* [78 Tools for writing and previewing Markdown](http://mashable.com/2013/06/24/markdown-tools/)
+* [John gruber 마크다운 번역](http://nolboo.github.io/blog/2013/09/07/john-gruber-markdown/)
+* [깃허브 취향의 마크다운 번역](http://nolboo.github.io/blog/2014/03/25/github-flavored-markdown/)
+* [허니몬의 마크다운 작성법](http://www.slideshare.net/ihoneymon/ss-40575068)
+* Notion.so(<https://www.notion.so/product>)
+* Atom(<https://atom.io/>)
+* Visual Studio Code(<https://code.visualstudio.com/>)
+* Notepad++(<https://notepad-plus-plus.org/>)
