@@ -82,7 +82,7 @@
 
 
 <details>
-<summary>접기/펼치기</summary>
+<summary>WAI</summary>
 
 <!-- summary 아래 한칸 공백 두어야함 -->
 ## Who am i ?
