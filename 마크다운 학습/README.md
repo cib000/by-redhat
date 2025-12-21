@@ -14,6 +14,7 @@
 
 * https://github.com/mundimark/awesome-markdown-editors
 
+* https://ghostwriter.kde.org/
 
 
 
