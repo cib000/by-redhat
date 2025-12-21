@@ -1,0 +1,24 @@
+<footer class="site-footer">
+  <div class="container">
+    <p style="font-size: 14px; font-weight: 600"><a href="/about/">About</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="/contact/">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/mattcone/markdown-guide">GitHub</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="/api/v1/">API</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="/privacy-policy/">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="/terms-and-conditions/">Terms and Conditions</a></p>
+    <p style="margin-top: 15px; font-size: 14px;">&#169; {{ site.time | date: '%Y' }}. A <a href="https://www.mattcone.com">{{ site.author.name }}</a> project. <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Made with 🌶️ in <a href="https://www.newmexico.org/">New Mexico</a>.</p>
+  </div>
+</footer>
+<script type="text/javascript" src="/assets/javascript/anchor.min.js"></script>
+<script>
+  anchors.options = {
+  placement: 'right',
+  };
+  anchors.add('h1, h2, h3, h4, h5').remove('.no-anchor');
+</script>
+
+<!-- for search -->
+<script src="/assets/javascript/docsearch.min.js"></script>
+<script>
+  docsearch({
+    container: '#docsearch',
+    appId: 'G2ZRR9A979',
+    apiKey: 'f522befe6142f2279344e025a79539a7',
+    indexName: 'markdownguide'
+  });
+</script>

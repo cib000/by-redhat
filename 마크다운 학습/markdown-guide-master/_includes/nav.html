@@ -1,0 +1,55 @@
+<a id="jotbird-banner" class="jotbird-banner" href="https://www.jotbird.com" target="_blank" rel="noopener noreferrer">
+  <div class="container jotbird-banner__inner">
+    <img src="https://assets.jotbird.com/logo-black-white(2).svg" alt="JotBird" class="jotbird-banner__logo">
+    <span class="jotbird-banner__text">Introducing JotBird —  instantly publish Markdown as a shareable web page. ✨</span>
+    <button class="jotbird-banner__close" type="button" aria-label="Dismiss announcement">×</button>
+  </div>
+</a>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var banner = document.getElementById('jotbird-banner');
+    if (!banner || !window.localStorage) return;
+
+    if (localStorage.getItem('hideJotbirdBanner') === '1') {
+      banner.style.display = 'none';
+      return;
+    }
+
+    var closeBtn = banner.querySelector('.jotbird-banner__close');
+    if (!closeBtn) return;
+
+    closeBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      banner.style.display = 'none';
+      localStorage.setItem('hideJotbirdBanner', '1');
+    });
+  });
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mdg-nav">
+  <div class="container">
+    <a class="navbar-brand" href="/" style="margin-top: 2px; margin-bottom: 3px">
+      <img src="/assets/images/markdown-mark-white.svg" height="23" width="47" class="d-inline-block align-top" alt="Markdown Guide" style="margin-top: 4px; padding-right: 10px">
+      Markdown Guide
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="margin-top: 2px">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link {% if page.title == 'Getting Started' %}active{% endif %}" href="/getting-started/">Get Started</a>
+        <a class="nav-item nav-link {% if page.title == 'Markdown Cheat Sheet' %}active{% endif %}" href="/cheat-sheet/">Cheat Sheet</a>
+        <a class="nav-item nav-link {% if page.title == 'Basic Syntax' %}active{% endif %}" href="/basic-syntax/">Basic Syntax</a>
+        <a class="nav-item nav-link {% if page.title == 'Extended Syntax' %}active{% endif %}" href="/extended-syntax/">Extended Syntax</a>
+        <a class="nav-item nav-link {% if page.title == 'Hacks' %}active{% endif %}" href="/hacks/">Hacks</a>
+        <a class="nav-item nav-link {% if page.url contains 'tools' %}active{% endif %}" href="/tools/">Tools</a>
+        <a class="nav-item nav-link {% if page.title == 'The Markdown Guide Book' %}active{% endif %}" href="/book/">Book</a>
+      </div>
+      <div class="ml-auto mt-3 mt-lg-0">
+        <div id="docsearch"></div>
+      </div>
+    </div>
+  </div>
+</nav>
