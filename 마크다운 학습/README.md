@@ -1,3 +1,23 @@
+
+
+* https://stackedit.io/
+
+* https://www.marktext.cc/
+
+* https://beavernotes.com/ (깔끔해, 곰 같은 느낌?)
+
+* https://typo.robino.dev/ (기능 많음)
+
+* https://acreom.com/ (빠른 메모 모달 팝업 예쁨!)
+
+* https://github.com/mundimark/awesome-markdown-editors/issues/31
+
+* https://github.com/mundimark/awesome-markdown-editors
+
+
+
+
+
 [공통] 마크다운 markdown 작성법
 ======================
 
