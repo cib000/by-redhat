@@ -79,14 +79,13 @@
 
 ---
 
-## 접기 시작
+
 
 <details>
 <summary>접기/펼치기</summary>
 
 <!-- summary 아래 한칸 공백 두어야함 -->
-## 접은 제목
-접은 내용
+## Who am i ?
+>Infodata pw is by-redhat
 </details>
 
-## 접기 끝
