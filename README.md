@@ -3,6 +3,10 @@
 > 이곳은 ㅁ자의 소소한 개발 테스트와 개인 설정 연구실입니다.  
 > GitHub 프로필 관련 설정 파일과 관리 체크리스트, Markdown 정리 문서를 보관합니다.
 
+
+
+[![box](https://markdown-box-generator.vercel.app/api/box?title=by_BYRH's_todays&author=by_BYRH&date=2025-7-28&style=default)](https://github.com/cib000/by-redhat)
+
 ---
 
 ## 📁 저장소 구성
