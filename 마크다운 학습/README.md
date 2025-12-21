@@ -9,7 +9,11 @@
 * https://github.com/mundimark/awesome-markdown-editors
 * https://ghostwriter.kde.org/
 * https://www.dropbox.com/paper/new
-
+* https://www.scipress.io/
+* https://kate-editor.org/
+* https://github.com/nezanuha/markdown-text-editor
+* https://www.zettlr.com/
+* https://bytpad.byt24.com/
 
 
 [공통] 마크다운 markdown 작성법
