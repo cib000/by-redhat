@@ -5,23 +5,23 @@
 
 
 
-[![box](https://markdown-box-generator.vercel.app/api/box?title=by_BYRH's_todays&author=by_BYRH&date=2025-7-28&style=tistory)](https://github.com/cib000/by-redhat)[![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=insta)](https://cib000.github.io/by-redhat/)
+[![box](https://markdown-box-generator.vercel.app/api/box?title=by_BYRH's_todays&author=by_BYRH&date=2025-7-28&style=tistory)](https://github.com/cib000/by-redhat)[![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=liinked)](https://cib000.github.io/by-redhat/)
 
 
 <details>
-<summary>박스 스타일 정보</summary>
-  
-박스 스타일 정보
-테마 스타일 타입은 src/themes/BoxStyleType.ts에 정의되어있습니다.
-
-제목	요청 타입
-티스토리 스타일	TISTORY
-브런치 스타일	BRUNCH
-인스타그램 스타일	INSTA
-링크드인 스타일	LIINKED
-기본 스타일	DEFAULT
-
-tistory brunch insta liinked default 
+<summary>박스 스타일 정보</summary>   
+     
+박스 스타일 정보   
+테마 스타일 타입은 src/themes/BoxStyleType.ts에 정의되어있습니다.   
+   
+제목	요청 타입   
+티스토리 스타일	TISTORY   
+브런치 스타일	BRUNCH   
+인스타그램 스타일	INSTA   
+링크드인 스타일	LIINKED   
+기본 스타일	DEFAULT   
+   
+tistory brunch insta liinked default    
    
    
 ```
