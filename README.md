@@ -214,27 +214,23 @@ ___
 
 
 ---
-
-
-
-> [!<EMOJI>]
-> Custom note
-> Message to the reader
+   
+   
    
    
 <details>
 <summary>WAI</summary>
-
+   
 <!-- summary 아래 한칸 공백 두어야함 -->
 ## Who am i ?
 >Infodata pw is    
 by-redhat
 </details>
    
-
-
+   
+   
 > [!WARNING] 
->    ????????????????
+>    ????????????????   
 > [!TIP]
 > 팁
     
