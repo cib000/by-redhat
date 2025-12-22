@@ -7,7 +7,7 @@
 
 [![box](https://markdown-box-generator.vercel.app/api/box?title=by_BYRH's_todays&author=by_BYRH&date=2025-7-28&style=default)](https://github.com/cib000/by-redhat)
 
-[![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=default)](https://cib000.github.io/by-redhat/)
+[![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=LIINKED)](https://cib000.github.io/by-redhat/)
 
 ---
 
