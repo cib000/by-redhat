@@ -1,13 +1,13 @@
 # 🖥️ ㅁ자의 GitHub 연구실 - by-redhat
-
+<br><br>
 > 이곳은 ㅁ자의 소소한 개발 테스트와 개인 설정 연구실입니다.  
 > GitHub 프로필 관련 설정 파일과 관리 체크리스트, Markdown 정리 문서를 보관합니다.
-
-
+<br><br>
+### 주요정보 링크
 
 [![box](https://markdown-box-generator.vercel.app/api/box?title=by_BYRH's_todays&author=by_BYRH&date=2025-7-28&style=tistory)](https://github.com/cib000/by-redhat)[![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=brunch)](https://cib000.github.io/by-redhat/)
 
-
+<br><br>
 <details>
 <summary>박스 스타일 정보</summary>   
 <br><br>     
