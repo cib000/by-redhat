@@ -217,7 +217,8 @@ ___
 
 
 
-> [!<EMOJI>] Custom note
+> [!<EMOJI>]
+> Custom note
 > Message to the reader
    
    
@@ -234,7 +235,6 @@ by-redhat
 
 > [!WARNING] 
 >    ????????????????
-   
 > [!TIP]
 > 팁
     
