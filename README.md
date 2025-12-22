@@ -79,6 +79,8 @@ ___
 > [!CAUTION]
 > 어떤 행동이 가져올 수 있는 부정적인 잠재적 결과.
 
+> [!QUESTION] Consider this…
+> How do we invalidate the cache?
 
 > [!노트]  
 > 사용자가 훑어볼 때에도 고려해야 할 정보를 강조 표시합니다.
