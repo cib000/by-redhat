@@ -49,10 +49,20 @@ ___
 ```
 <u>이 텍스트는 밑줄이 됩니다.</u>   
 ~~이 텍스트는 취소선이 됩니다.~~   
-   
----   
-***   
-___   
+
+
+```
+[![the google logo][logo]][google]
+
+[logo]: http://www.google.com/images/logo.gif
+[google]: http://www.google.com/ "click to visit Google.com"
+```
+
+[![the google logo][logo]][google]
+
+[logo]: http://www.google.com/images/logo.gif
+[google]: http://www.google.com/ "click to visit Google.com"
+
    
    
    
