@@ -64,19 +64,19 @@ ___
 [google]: http://www.google.com/ "click to visit Google.com"
 
    
-> [!NOTE]  
+> [!note]  
 > Highlights information that users should take into account, even when skimming.
    
-> [!TIP]
+> [!tip]
 > Optional information to help a user be more successful.
    
-> [!IMPORTANT]  
+> [!important]  
 > Crucial information necessary for users to succeed.
    
-> [!WARNING]  
+> [!warning]  
 > Critical content demanding immediate user attention due to potential risks.
    
-> [!CAUTION]
+> [!caution]
 > Negative potential consequences of an action.
    
    
