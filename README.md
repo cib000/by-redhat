@@ -68,13 +68,10 @@ ___
    
    
    
-</details>
+</details>   
+
 ---
 
-[![the google logo][logo]][google]
-
-[logo]: http://www.google.com/images/logo.gif
-[google]: http://www.google.com/ "click to visit Google.com"
 
 ## 📁 저장소 구성
 
