@@ -10,10 +10,10 @@
 
 <details>
 <summary>박스 스타일 정보</summary>   
-     
+<br><br>     
 박스 스타일 정보   
 테마 스타일 타입은 src/themes/BoxStyleType.ts에 정의되어있습니다.   
-   
+<br><br>   
 제목	요청 타입   
 티스토리 스타일	TISTORY   
 브런치 스타일	BRUNCH   
