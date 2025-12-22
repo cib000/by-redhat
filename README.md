@@ -270,14 +270,12 @@ by-redhat
 
 > [!CAUTION]
 > 어떤 행동이 가져올 수 있는 부정적인 잠재적 결과.
-
-           
-[![box](https://markdown-box-generator.vercel.app/api/box?title=ㅁ자의_소일&author=by_BYRH&date=2025-7-28&style=tistory)](https://github.com/cib000/by-redhat)
     
+              
+[![box](https://markdown-box-generator.vercel.app/api/box?title=ㅁ자의_소일&author=by_BYRH&date=2025-7-28&style=tistory)](https://github.com/cib000/by-redhat)
 [![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=brunch)](https://cib000.github.io/by-redhat/)
    
 [![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=LIINKED)](https://cib000.github.io/by-redhat/)
-
 [![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=INSTA)](https://cib000.github.io/by-redhat/)
-
-
+    
+    
