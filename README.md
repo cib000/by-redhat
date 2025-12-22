@@ -236,3 +236,27 @@ by-redhat
 > 팁
     
      
+
+> [!NOTE]  
+> 사용자가 훑어볼 때에도 고려해야 할 정보를 강조 표시합니다.
+
+> [!TIP]
+> 사용자의 성공을 돕기 위한 선택적 정보입니다.
+
+> [!IMPORTANT]  
+> 사용자의 성공에 필수적인 핵심 정보입니다.
+
+> [!WARNING]  
+> 잠재적 위험으로 인해 사용자의 즉각적인 주의가 필요한 중요 콘텐츠입니다.
+
+> [!CAUTION]
+> 어떤 행동이 가져올 수 있는 부정적인 잠재적 결과.
+
+> [!<EMOJI>] Custom note
+> Message to the reader
+
+> [!QUESTION] Consider this…
+> How do we invalidate the cache?
+
+
+   
