@@ -252,11 +252,6 @@ by-redhat
 > [!CAUTION]
 > 어떤 행동이 가져올 수 있는 부정적인 잠재적 결과.
 
-> [!<EMOJI>] Custom note
-> Message to the reader
-
-> [!QUESTION] Consider this…
-> How do we invalidate the cache?
-
+   
 
    
