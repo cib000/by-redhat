@@ -10,9 +10,37 @@
 
 <br>
 
+<<<<<<< HEAD
 ## 사용 방법
 ```bash
 [![box](https://markdown-box-generator.vercel.app/api/box?title=Default_Title&author=Author&date=2025-7-28&style=default)](https://github.com/jongeuni/markdown-box-generator)
+=======
+
+[![box](https://github.com/cib000/by-redhat/tree/main/api/box?title=ㅁ자의_소일&author=by_BYRH&date=2025-7-28&style=tistory)](https://github.com/cib000/by-redhat)    
+[![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=brunch)](https://cib000.github.io/by-redhat/)     
+
+<br><br>
+
+> [!TIP]
+> 접고 펼치는 기능 추가
+   
+<details>
+<summary>박스 스타일 정보</summary>   
+<br><br>     
+박스 스타일 정보   
+테마 스타일 타입은 src/themes/BoxStyleType.ts에 정의되어있습니다.   
+<br><br>   
+제목	요청 타입   
+티스토리 스타일	TISTORY   
+브런치 스타일	BRUNCH   
+인스타그램 스타일	INSTA   
+링크드인 스타일	LIINKED   
+기본 스타일	DEFAULT   
+   
+tistory brunch insta liinked default    
+   
+   
+>>>>>>> 218fd0f012830695504e8969d21cbaefad54ad8b
 ```
 ### 🔍 param
 - **title**
