@@ -22,31 +22,42 @@
 기본 스타일	DEFAULT
 
 tistory brunch insta liinked default 
-
-
-왼쪽 화살표 : &larr;, &leftarrow;
-오른쪽 화살표 : &rarr;, &rightarrow;
-위 화살표 : &uarr; , &uparrow;
-아래 화살표 : &darr;, &downarrow;
-
-
-수평선 (구분선)
---- (하이픈 3개)
-*** (별표 3개)
-___ (언더바 3개)
-
-
-<u>이 텍스트는 밑줄이 됩니다.</u>
-~~이 텍스트는 취소선이 됩니다.~~
-
+   
+   
+```
+왼쪽 화살표 : &larr;, &leftarrow;   
+오른쪽 화살표 : &rarr;, &rightarrow;   
+위 화살표 : &uarr; , &uparrow;   
+아래 화살표 : &darr;, &downarrow;   
+```
+&larr;, &leftarrow;, &rarr;, &rightarrow;, &uarr; , &uparrow;, &darr;, &downarrow;   
+   
+   
+수평선 (구분선)   
+```
+--- (하이픈 3개)   
+*** (별표 3개)   
+___ (언더바 3개)   
+```
 ---
 ***
 ___
 
-
-
-
-
+```
+<u>이 텍스트는 밑줄이 됩니다.</u>   
+~~이 텍스트는 취소선이 됩니다.~~   
+```
+<u>이 텍스트는 밑줄이 됩니다.</u>   
+~~이 텍스트는 취소선이 됩니다.~~   
+   
+---   
+***   
+___   
+   
+   
+   
+   
+   
 </details>
 ---
 
