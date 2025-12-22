@@ -64,20 +64,32 @@ ___
 [google]: http://www.google.com/ "click to visit Google.com"
 
    
-> [!note]  
-> Highlights information that users should take into account, even when skimming.
+> [!NOTE]  
+> 사용자가 훑어볼 때에도 고려해야 할 정보를 강조 표시합니다.
    
-> [!tip]
-> Optional information to help a user be more successful.
+> [!TIP]
+> 사용자의 성공을 돕기 위한 선택적 정보입니다.
    
-> [!important]  
-> Crucial information necessary for users to succeed.
+> [!IMPORTANT]  
+> 사용자의 성공에 필수적인 핵심 정보입니다.
    
-> [!warning]  
-> Critical content demanding immediate user attention due to potential risks.
+> [!WARNING]  
+> 잠재적 위험으로 인해 사용자의 즉각적인 주의가 필요한 중요 콘텐츠입니다.
    
-> [!caution]
-> Negative potential consequences of an action.
+> [!CAUTION]
+> 어떤 행동이 가져올 수 있는 부정적인 잠재적 결과.
+
+
+> [!노트]  
+> 사용자가 훑어볼 때에도 고려해야 할 정보를 강조 표시합니다.
+   
+> [!팁!
+> 사용자의 성공을 돕기 위한 선택적 정보입니다.
+
+
+> [!<EMOJI>] Custom note
+> Message to the reader
+  
    
    
    
