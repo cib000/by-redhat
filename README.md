@@ -215,6 +215,12 @@ ___
 
 ---
 
+
+
+> [!<EMOJI>] Custom note
+> Message to the reader
+   
+   
 <details>
 <summary>WAI</summary>
 
