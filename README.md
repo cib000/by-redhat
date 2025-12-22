@@ -13,6 +13,8 @@
 <br><br>
 
 > [!TIP]
+> 접고 펼치는 기능 추가
+   
 <details>
 <summary>박스 스타일 정보</summary>   
 <br><br>     
