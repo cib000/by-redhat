@@ -273,7 +273,10 @@ by-redhat
 
            
 [![box](https://markdown-box-generator.vercel.app/api/box?title=ㅁ자의_소일&author=by_BYRH&date=2025-7-28&style=tistory)](https://github.com/cib000/by-redhat)
-
+    
 [![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=brunch)](https://cib000.github.io/by-redhat/)
+   
+[![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=LIINKED)](https://cib000.github.io/by-redhat/)
 
-[![box](https://github.com/cib000/by-redhat.vercel.app/api/box?title=ㅁ자의_소일&author=by_BYRH&date=2025-7-28&style=tistory)](https://github.com/cib000/by-redhat)
+
+
