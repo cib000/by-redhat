@@ -316,6 +316,7 @@ by-redhat
 🎧 
 [공부용 BGM 재생](./imgs/이승철 - 그런 사람 또 없습니다.mp3)
 
+[송악사기타연주곡 11집 (Songaxa Guitar Cover 11)](https://www.youtube.com/watch?v=T2vMRusx87E&list=RDT2vMRusx87E&start_radio=1)
 
 <!-- Study BGM -->
 <audio controls loop>
