@@ -12,6 +12,10 @@
 
 <br><br>
 
+![이지즐찾][EZfav_Logo.png](./img/EZfav_Logo.png)
+
+<br><br>
+
 > [!TIP]
 > 접고 펼치는 기능 추가
    
