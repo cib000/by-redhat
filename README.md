@@ -16,7 +16,7 @@
 [![EZFav][logo]][EZFav]
 
 [logo]: ./imgs/ezfav_logo.gif
-[EZFav]  https://cib000.github.io/by-redhat  "click to visit 이지즐찾
+[EZFav]:  https://cib000.github.io/by-redhat  "click to visit 이지즐찾
          
 
 <br><br>
