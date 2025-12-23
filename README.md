@@ -12,7 +12,7 @@
 
 <br><br>
    
-![이지즐찾](./imga/ezfav_logo.gif)  &ensp;&ensp;&ensp;  
+![이지즐찾](./imga/ezfav_logo.gif)
     
 ![이지즐찾](./imgs/ezfav_logo.png)   
    
