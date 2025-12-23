@@ -12,7 +12,7 @@
 
 <br><br>
    
-![이지즐찾](./img/EZfav_Logo.png)   
+![이지즐찾](./img/EZfav_Logo.png)   ![이지즐찾](./img/EZfav_Logo.png)   
    
 <br><br>
    
