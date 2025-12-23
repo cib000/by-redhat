@@ -226,6 +226,12 @@ ___
 [logo2]: ./imgs/profile_2.svg
 [google2]: https://translate.google.co.kr/?hl=ko&tab=TT&sl=auto&tl=ko&op=translate "click to visit 구글번역"
       
+
+[![the google3 logo3][logo3]][google3]
+
+[logo3]: ./imgs/profile_3.svg
+[google3]: https://translate.google.co.kr/?hl=ko&tab=TT&sl=auto&tl=ko&op=translate "click to visit 구글번역"
+      
       
 ---
    
