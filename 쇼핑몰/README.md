@@ -1,9 +1,9 @@
 # 쇼핑몰  정리
 
+
+<!----------
 [![the danawa logo][logo]][danawa]
 [![the enuri logo2][logo2]][enuri]
-
-
 
 [logo]: ./imgs/danawa_logo.png
 [danawa]: https://www.danawa.com "다나와 가격비교"
@@ -11,10 +11,13 @@
 [logo2]: ./imgs/에누리_로고.png
 [enuri]: https://www.enuri.com "에누리 가격비교"
 
-<a href="https://www.danawa.com" target="-blank">
-<img src="./imgs/danawa_logo.png" width="150px" height="60px"></a>     
+=============== -->
 
+<a href="https://www.danawa.com" target="-blank" title="다나와 가격비교">
+<img src="./imgs/danawa_logo.png" width="150px" height="60px"></a>     
    
+<a href="https://www.enuri.com" target="-blank" title="에누리 가격비교">
+<img src="./imgs/에누리_로고.png" width="150px" height="60px"></a>    
    
    
 
