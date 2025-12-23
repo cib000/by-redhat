@@ -313,7 +313,7 @@ by-redhat
 [![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=INSTA)](https://cib000.github.io/by-redhat/)
     
     
-🎧 [공부용 BGM 재생](./imgs/이승철 - 그런 사람 또 없습니다.mp3)
+🎧 [!공부용 BGM 재생](./imgs/이승철 - 그런 사람 또 없습니다.mp3)
 
 
 <!-- Study BGM -->
