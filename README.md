@@ -206,6 +206,11 @@ ___
 > > 지식이라는 것은........
          
 ![지식이라는_것은](./imgs/지식은.png)   
+
+[![the google1 logo1][logo1]][google1]
+
+[logo1]: ./imgs/지식은.png
+[google1]: https://translate.google.co.kr/?hl=ko&tab=TT&sl=auto&tl=ko&op=translate "click to visit Google translate"
    
       
 ---
