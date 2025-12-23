@@ -1,10 +1,13 @@
 # 쇼핑몰  정리
 
 [![the danawa logo][logo]][danawa]
+[![the enuri logo2][logo2]][enuri]
 
 [logo]: ./imgs/danawa_logo.png
 [danawa]: https://www.danawa.com "다나와 가격비교"
 
+[logo2]: ./imgs/에누리_로고.png
+[enuri]: https://www.enuri.com "에누리 가격비교"
 
   
 [에뉴리](https://www.enuri.com/)   
