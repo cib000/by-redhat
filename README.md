@@ -10,12 +10,15 @@
 
 [![box](https://markdown-box-generator.vercel.app/api/box?title=ㅁ자의_소일&author=by_BYRH&date=2025-7-28&style=tistory)](https://github.com/cib000/by-redhat)[![box](https://markdown-box-generator.vercel.app/api/box?title=이지즐찾&author=by_BYRH&date=2025-7-28&style=brunch)](https://cib000.github.io/by-redhat/)
 
-<br><br>
-   
-![이지즐찾](./imga/ezfav_logo.gif)  &ensp;&ensp;&ensp;  
-    
-![이지즐찾](./imgs/ezfav_logo.png)   
-   
+> [!TIP]
+> gif 이미자와 링크를 표시 - 클릭하면 해당 링크를 새창/새탭으로 이동합니다.
+
+[![EZFav][logo]][EZFav]
+
+[logo]: ./imgs/ezfav_logo.gif
+[EZFav]: https://cib000.github.io/by-redhat  "click to visit 이지즐찾"
+         
+
 <br><br>
    
 > [!TIP]
