@@ -13,13 +13,12 @@
 <br><br>
    
 
-[![EZFav logo][logo]][EZFav]
+[![EZFav][logo]][EZFav]
 
 [logo]: ./imgs/ezfav_logo.gif
 [EZFav]  https://cib000.github.io/by-redhat  "click to visit 이지즐찾
          
-![이지즐찾](./imgs/ezfav_logo.gif)   
-   
+
 <br><br>
    
 > [!TIP]
