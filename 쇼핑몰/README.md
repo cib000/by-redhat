@@ -117,7 +117,13 @@
 [google]: http://www.google.com/ "click to visit Google.com"
       
       
-      
+    
+---
+   
+    
+# 글꼴 정보
+	
+	
 나눔스퀘어라운드     https://hangeul.naver.com/font (네이버글꼴)   
 나눔스퀘어네오         https://hangeul.naver.com/font (네이버글꼴)   
 나눔고딕                     https://hangeul.naver.com/font (네이버글꼴)   
@@ -127,5 +133,8 @@
 노토산스KR               https://fonts.google.com/noto/specimen/Noto+Sans+KR?query=noto+sans+kr (구글폰트)   
 프리텐다드 가변        https://github.com/orioncactus/pretendard (Github Pretendard 개발자님)   
 위드라이브체             https://noonnu.cc/font_page/963 (눈누)   
+   
+   
+---
    
    
