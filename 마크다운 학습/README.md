@@ -15,19 +15,22 @@
 * https://www.zettlr.com/
 * https://bytpad.byt24.com/
 - [🙋‍♂️ Visit ONE:A's Github](https://github.com/onealog)
-
+   
 - [이모지 활용](https://www.webfx.com/tools/emoji-cheat-sheet/)
-
+   
+- <a href="https://www.webfx.com/tools/emoji-cheat-sheet" target="_blank">  이모지 활용 </a>
+   
 | :jack_o_lantern: 도움이 되었나요? |  |
 |:-:|:-:|
 | ⭕ | ❌ |
-    
+
+	<!--
 <button>O</button>
 <button>X</button>
     
 [⭕ O](#)
 [❌ X](#)
-
+-->
 
 
 	   
