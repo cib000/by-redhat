@@ -3,10 +3,10 @@
 [![the danawa logo][logo]][danawa]
 
 [logo]: ./imgs/danawa_logo.png
-[danawa]: https://www.danawa.com 
+[danawa]: https://www.danawa.com "다나와 가격비교"
 
 
-[다나와](https://www.danawa.com/)   
+  
 [에뉴리](https://www.enuri.com/)   
    
    
