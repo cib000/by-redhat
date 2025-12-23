@@ -209,7 +209,7 @@ ___
 
 [![the google1 logo1][logo1]][google1]
 
-[logo1]: ./imgs/지식은.png
+[logo1]: ./imgs/profile_1.svg
 [google1]: https://translate.google.co.kr/?hl=ko&tab=TT&sl=auto&tl=ko&op=translate "click to visit Google translate"
    
       
