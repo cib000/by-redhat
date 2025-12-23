@@ -25,6 +25,8 @@
 <button>O</button>
 <button>X</button>
     
+[⭕ O](#)
+[❌ X](#)
 
 
 
