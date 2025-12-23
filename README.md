@@ -203,8 +203,15 @@ ___
 ---
    
    
+![설명](./imgs/지식은.png)
+![Images](./imgs/지식은.png)   
+   
+---
    
    
+   
+   
+    
 <details>
 <summary>WAI</summary>
    
