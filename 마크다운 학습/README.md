@@ -21,8 +21,10 @@
 | O | X |
 |:-:|:-:|
 | ⭕ | ❌ |
-
-
+    
+<button>O</button>
+<button>X</button>
+    
 
 
 
