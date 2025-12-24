@@ -98,7 +98,7 @@ body {
 
 a, a:visited { 
 	font: bold 16px NanumGothic; 
-	color:var(--list-item-color); 	
+	color: #00FFFF; /*var(--list-item-color); 	  */
 	text-decoration:none; 
 }
 
