@@ -95,8 +95,9 @@ body {
 	transition: background 0.6s;
 }
 
-a { 
-	
+a, a:visited { 
+	font: bold 16px NanumGothic; 
+	color:var(--c-hover-colorredred); 	
 	text-decoration:none; 
 }
 
@@ -107,12 +108,12 @@ a:hover {
 	text-decoration:none;
 }
 
-a:visited,
+/*
 a:active {
 	color:var(--c-hover-colorredred); 
 	text-decoration: none;
 }
-
+*/
 .btn {
     display: flex;
     justify-content: center;
