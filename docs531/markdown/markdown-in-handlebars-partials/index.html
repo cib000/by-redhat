@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Markdown in Handlebars Partials</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <script id="side-by-side-partial" type="text/x-handlebars-template">
+  <div class="side-by-side">
+    <div class="side-by-side__left">
+      <h3>Do</h3>
+      {{left}}
+    </div>
+    <div class="side-by-side__right">
+      <h3>Don't</h3>
+      {{right}}
+    </div>
+  </div>
+</script>
+
+<script id="sample-markdown" type="text/x-handlebars-template">
+
+# A simple Markdown page
+
+With some `typical`
+
+* Markdown
+* Content
+
+While pretty cool, this is simply a boring vertical flow.
+
+## Now it gets interesting
+
+What if we wanted a section with a 2-column layout?
+
+{{> side-by-side left = (mdToHtml "
+
+* Write awesome docs
+* Fast
+* Faster
+
+Hi! I'm in the left column, and I'm **still** Markdown.
+
+") right = (mdToHtml "
+
+* Repeat yourself
+* Ever
+* I mean it
+
+I'm the right column, and I'm also still `Markdown`.
+
+")}}
+
+And now we're back to a vertical flow. This isn't hard to do, but today it can be annoying. I'll show you how to use [Handlebars](http://handlebarsjs.com/) to add some sugar to your Markdown.
+
+## Details
+
+There are several approaches you could take to creating a 2-column layout.
+
+#### 1. HTML in Markdown
+
+The simplest option is to just insert an HTML blob for your multi-column layout straight into the Markdown file.
+
+```
+My *Markdown* page.
+
+<div class="side-by-side">
+  <div class="side-by-side__left">
+    <h3>Do</h3>
+    <ul>
+      <li>Write awesome docs</li>
+      <li>Fast</li>
+      <li>Faster</li>
+    </ul>
+    <p>Hi! I'm in the left column, but this isn't <strong>Markdown</strong></p>
+  </div>
+  ... etc ...
+</div>
+
+Normal Markdown continues...
+```
+
+Whew! Just typing out that list in HTML was a pain. Sure, we could get less verbose using something like Jade, but this is a Markdown document. I want to write in Markdown.
+
+Plus, you might want a bunch of these 2-column layouts (maybe with "do" and "don't" headers) in your docs. Do you really wanna copy around all that HTML?
+
+#### 2. HTML, but with 2-pass Markdown compilation
+
+The next solution I tried was to pre-process the Markdown with Handlebars. Handlebars has helpers. I put a `mdToHtml` helper *inside* the HTML block:
+
+```
+My *Markdown* page.
+
+<div class="side-by-side">
+  <div class="side-by-side__left">
+    <h3>Do</h3>
+    \{{mdToHtml "
+    
+    * Write awesome docs
+    * Fast
+    * Faster
+    
+    Hi! I'm in the left column, and I'm **still** Markdown.
+    
+    "}}
+  </div>
+  ... etc ...
+</div>
+
+Normal Markdown continues...
+```
+
+So there's a 2 stage compilation before the page becomes HTML. First Handlebars processes the document, and the `mdToHtml` helper transforms the Markdown with in HTML blocks into HTML. Then we have the same scenario as #1, a Markdown file with some pure HTML blocks. That is fed to the Markdown processor.
+
+But... you would still have to copy all of the HTML that isn't Markdown, which again is repeating yourself. Isn't this what Handlebars [partials](http://handlebarsjs.com/partials.html) are for?
+
+#### 3. Nesting Handlebars helpers within Handlebars partials within the Markdown
+
+That's a mouthful, but check out how simple it is:
+
+```
+My *Markdown* page.
+
+\{{> side-by-side left = (mdToHtml "
+
+* Write awesome docs
+* Fast
+* Faster
+
+Hi! I'm in the left column, and I'm **still** Markdown.
+
+") right = (mdToHtml "
+
+* Repeat yourself
+* Ever
+* I mean it
+
+I'm the right column, and I'm also still `Markdown`.
+
+")}}
+
+Normal Markdown continues...
+```
+
+Need to change the column headers ("do", "don't")? No problem, you can do that in a single location. This approach scales incredibly well, is simple to learn, and makes it far easier to create more interesting documents.
+
+So give it a try in your blog, styleguide, API documentation, whatever. Make more interesting and expressive things 😊
+
+</script>
+
+<div id="output"></div>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js'></script><script  src="./script.js"></script>
+
+  </body>
+  
+</html>

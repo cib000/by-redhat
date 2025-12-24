@@ -1,0 +1,77 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
+body {
+  background: #CFD8DC;
+  color: #01579B;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#title {
+  background: #01579B;
+  box-shadow: 1px 3px 15px #0173ce;
+  color: #80ffcc;
+  font-family: "Merriweather", serif;
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  padding: 30px 0;
+  text-align: center;
+  width: 75%;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.input {
+  padding: 10px;
+  width: 50%;
+}
+.input h3 {
+  background: #00FF99;
+  border-left: 2px solid #01579B;
+  border-radius: 2px;
+  margin-bottom: 2px;
+  padding: 12px;
+}
+.input textarea {
+  border-radius: 2px;
+  color: #404040;
+  width: 99%;
+}
+
+.output {
+  padding: 10px;
+  width: 50%;
+}
+.output h3 {
+  background: #00FF99;
+  border-radius: 2px;
+  border-right: 2px solid #01579B;
+  margin-bottom: 2px;
+  padding: 12px;
+}
+.output .outputText {
+  background: #fff;
+  border: 1px solid #a3b4bc;
+  color: #1a1a1a;
+  border-radius: 2px;
+  height: auto;
+  padding-left: 5px;
+}
+
+.clearBtn {
+  border-radius: 4px;
+  border: 1px solid #01579B;
+  color: #01579B;
+  cursor: pointer;
+  font-size: 0.8em;
+  margin-left: 10px;
+  padding: 4px 8px;
+}
+.clearBtn:hover {
+  background: #01579B;
+  color: #CFD8DC;
+  transition: background 0.5s;
+}

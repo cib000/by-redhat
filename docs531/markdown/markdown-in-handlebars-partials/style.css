@@ -1,0 +1,24 @@
+.side-by-side {
+  display: flex;
+  flex-direction: row;
+  background: #eee;
+  padding: 0 20px;
+}
+
+.side-by-side__left {
+  flex: 1 0%;
+  margin: 0 4px 0 0;
+}
+
+.side-by-side__left h3 {
+  color: green;
+}
+
+.side-by-side__right {
+  flex: 1 0%;
+  margin: 0 0 0 4px;
+}
+
+.side-by-side__right h3 {
+  color: red;
+}
