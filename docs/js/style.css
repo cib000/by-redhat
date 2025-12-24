@@ -97,7 +97,7 @@ body {
 
 a, a:visited { 
 	font: bold 16px NanumGothic; 
-	color:var(--c-hover-colorredred); 	
+	color:var(--text_color); 	
 	text-decoration:none; 
 }
 
