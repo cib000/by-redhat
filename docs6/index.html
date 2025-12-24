@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <title>이지 즐찾 v 6.0</title>
+  <link rel="icon" type="image/x-icon" href="./moja.ico">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courgette:400,700">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style2.css">
+
+</head>
+
+
+
+<body>
+
+
+<ul>
+
+
+  <li>
+    <input id="rad1" type="radio" name="rad"/>
+    <label for="rad1">
+      <div>시스템 URI</div>
+    </label>
+    <div class="accslide">
+      <div class="content">
+        <h1>모자의 정보 나눔터 - 시스템 URI</h1><br>
+        <p>시스템 설정 및 제어판 URI...</p>
+
+<pre>
+URI 란?
+URI(Uniform Resources Identifier)는 해석하자면 통합 자원 식별자라고 하는데요. 
+URL 과 URN을 포괄하는 개념으로 생각하시면 됩니다. 윈도우의 자원을 식별하는 통합 지시문구라고 생각하시면 됩니다.
+
+</pre>
+
+
+<details>
+<summary>업데이트 및 보안</summary>
+<a href="ms-settings:activation">활성화</a><br>
+<a href="ms-settings:backup"> 백업</a><span> Windows 11에서는 제거된 페이지, Sync(동기화) 열기)</span><br>
+<a href="ms-settings:delivery-optimization">배달 최적화</a>
+<a href="ms-settings:delivery-optimization-activity">배달 최적화</a>
+<a href="ms-settings:delivery-optimization-advanced">배달 최적화</a><br>
+<a href="ms-settings:findmydevice">내 디바이스 찾기</a>
+<a href="ms-settings:developers">개발자용</a>
+<a href="ms-settings:recovery">복구</a>
+<a href="ms-settings:signinoptions-launchsecuritykeyenrollment">  보안 키 등록 시작	</a>
+<a href="ms-settings:troubleshoot">문제 해결</a>
+<a href="ms-settings:windowsdefender">Windows 보안</a><br>
+<a href="ms-settings:windowsinsider">Windows 참가자 프로그램</a><span>(사용자가 WIP에 등록한 경우에만 표시) </span>
+<a href="ms-settings:windowsinsider-optin">Windows 참가자 프로그램</a><br><br>
+<a href="ms-settings:windowsupdate">Windows 업데이트</a>
+<a href="ms-settings:windowsupdate-action">Windows 업데이트</a><br>
+<a href="ms-settings:windowsupdate-activehours">Windows 업데이트 - 활성 시간</a>
+<a href="ms-settings:windowsupdate-options">Windows 업데이트 - 고급 옵션</a>	
+<a href="ms-settings:windowsupdate-optionalupdates">Windows 업데이트 - 선택적 업데이트</a>
+<a href="ms-settings:windowsupdate-restartoptions">Windows 업데이트 - 다시 시작 옵션</a><br>	
+<a href="ms-settings:windowsupdate-seekerondemand">주문형 Windows Update-Seeker</a>	
+<a href="ms-settings:windowsupdate-history">Windows 업데이트 - 업데이트 기록 보기</a>
+</details>
+
+
+<details>
+<summary>계정</summary>
+<a href="ms-settings:workplace">회사 또는 학교 액세스</a>
+<a href="ms-settings:emailandaccounts">  이메일 & 앱 계정</a>
+<a href="ms-settings:otherusers"> 가족 & 다른 사용자	</a>
+<a href="ms-settings:assignedaccess">  키오스크 설정	</a><br>
+<a href="ms-settings:signinoptions">로그인 옵션</a>
+<a href="ms-settings:signinoptions-dynamiclock">로그인 옵션 2</a><br>
+<a href="ms-settings:sync">설정 동기화</a>
+<a href="ms-settings:backup">설정 백업</a><span>	(Windows 11에서는 백업 페이지를 사용할 수 없음)</span><br>
+<a href="ms-settings:signinoptions-launchfaceenrollment">Windows Hello 설정</a>
+<a href="ms-settings:signinoptions-launchfingerprintenrollment">Windows Hello 설정 2</a>
+<a href="ms-settings:yourinfo">사용자 정보</a><br>
+</details>
+
+
+<details>
+<summary>앱</summary>
+<a href="ms-settings:appsfeatures">앱 & 기능</a><br>
+<a href="ms-settings:appsfeatures-app">앱 기능</a>
+	<span>(앱의 추가 기능 & 다운로드 가능 콘텐츠 관리, 다시 설정 등)</span><br>
+<a href="ms-settings:appsfeatures-app">앱 기능 2</a>
+	<span>URI로 이 페이지에 액세스하려면 URI를 사용해서 앱의 패키지 제품군 이름의 선택적 매개변수를 전달하세요.</span><br>
+<a href="ms-settings:appsforwebsites">웹사이트용 앱</a><br>
+<a href="ms-settings:defaultapps">기본 앱</a>
+	<span>(Windows 11 버전 21H2(2023-04 누적 업데이트 포함) 또는 22H2(2023-04 누적 업데이트 포함) 또는 그 이상에서 도입된 동작)<br>
+앱의 기본 설정 페이지를 직접 시작하려면 해당 앱의 Uri 이스케이프 이름을 사용해서 쿼리 문자열 매개변수를 다음 형식으로 추가하세요.<br>
+- registeredAppMachine=<설치된 머신 1개당 앱의 Uri 이스케이프 이름><br>
+- registeredAppUser=<설치된 사용자 1명당 앱의 Uri 이스케이프 이름><br>
+- registeredAUMID=<Uri 이스케이프 애플리케이션 사용자 모델 ID> 자세한 내용은 기본 앱 설정 페이지 시작하기를 참조하세요.
+</span><br>
+<a href="ms-settings:defaultbrowsersettings">기본 브라우저 설정</a><span> (Windows 11에서는 사용할 수 없음) </span>
+<a href="ms-settings:optionalfeatures">선택적 기능 관리</a>
+<a href="ms-settings:maps">오프라인 지도</a>	
+<a href="ms-settings:maps-downloadmaps">Maps 다운로드</a><br>
+<a href="ms-settings:startupapps">시작 앱</a>	
+<a href="ms-settings:videoplayback">비디오 재생</a><br>
+</details>
+
+<details>
+<summary>제어 센터</summary>
+<a href="ms-settings:controlcenter">제어 센터</a>
+</details>
+
+<details>
+<summary>코타나 ( Cortana )</summary>
+<a href="ms-settings:cortana-notifications">내 모든 디바이스의 Cortana</a>
+<a href="ms-settings:cortana-moredetails">자세한 정보</a>
+<a href="ms-settings:cortana-permissions">사용 권한 & 기록</a><br>
+<a href="ms-settings:cortana-windowssearch">Windows 검색</a>
+<a href="ms-settings:cortana-language">Cortana에 말하기</a>
+<a href="ms-settings:cortana">Cortana에 말하기 2</a>
+<a href="ms-settings:cortana-talktocortana">Cortana에 말하기 3</a>
+</details>
+
+<details>
+<summary>디바이스</summary>
+<a href="ms-settings:autoplay">AutoPlay</a>
+<a href="ms-settings:bluetooth">Bluetooth</a>
+<a href="ms-settings:connecteddevices">연결된 디바이스</a><br>
+<a href="ms-settings:camera">기본 카메라</a><span> (Windows 10 버전 1809 이상에서는 사용할 수 없는 동작)</span><br>
+<a href="ms-settings:camera">카메라 설정</a>  <span>(Windows 11 빌드 22000 이상에 도입된 동작) 카메라의 설정을 직접 시작하려면<br> 
+해당 카메라 디바이스의 Uri 이스케이프 기호 링크 이름에 설정된 쿼리 문자열 매개변수 cameraId을(를) 추가하세요. <br>
+자세한 내용은 카메라 설정 페이지 시작하기를 참조하세요.</span><br>
+<a href="ms-settings:mousetouchpad">마우스 & 터치 패드</a><span> (터치 패드가 있는 디바이스에서만 사용 가능한 터치 패드 설정)</span><br>
+<a href="ms-settings:pen">펜 & Windows Ink</a>
+<a href="ms-settings:printers">프린터 & 스캐너</a>
+<a href="ms-settings:devices-touch">터치</a><br>
+<a href="ms-settings:devices-touchpad">터치패드</a><span>(터치 패드 하드웨어가 있는 경우에만 사용 가능)</span><br>
+<a href="ms-settings:devicestyping-hwkbtextsuggestions">텍스트 제안</a>
+<a href="ms-settings:typing">입력</a>
+<a href="ms-settings:usb">USB</a><br>
+<a href="ms-settings:wheel">휠</a><span> (Surface Dial 디바이스가 페어링된 경우에만 사용 가능)</span>
+<a href="ms-settings:mobile-devices">사용자 전화</a>
+</details>
+
+
+<details>
+<summary>간편한 액세스</summary>
+<a href="ms-settings:easeofaccess-audio">오디오</a>
+<a href="ms-settings:easeofaccess-closedcaptioning">폐쇄 자막</a><br>
+<a href="ms-settings:easeofaccess-colorfilter">색 필터</a>
+<a href="ms-settings:easeofaccess-colorfilter-adaptivecolorlink">색 필터</a>
+<a href="ms-settings:easeofaccess-colorfilter-bluelightlink">색 필터</a>
+<a href="ms-settings:easeofaccess-display">표시</a>
+<a href="ms-settings:easeofaccess-eyecontrol">아이 컨트롤</a>
+<a href="ms-settings:fonts">글꼴</a>
+<a href="ms-settings:easeofaccess-highcontrast">고대비</a>
+<a href="ms-settings:easeofaccess-keyboard">키보드 ( Keyboard )</a><br>
+<a href="ms-settings:easeofaccess-magnifier">돋보기</a>
+<a href="ms-settings:easeofaccess-mouse">마우스</a>
+<a href="ms-settings:easeofaccess-mousepointer">마우스 포인터 & 터치</a>	
+<a href="ms-settings:easeofaccess-narrator">내레이터</a>
+<a href="ms-settings:easeofaccess-narrator-isautostartenabled">내레이터</a><br>
+<a href="ms-settings:easeofaccess-speechrecognition">음성</a>
+<a href="ms-settings:easeofaccess-cursor">텍스트 커서</a>
+<a href="ms-settings:easeofaccess-visualeffects">시각 효과</a>
+</details>
+
+
+<details>
+<summary>Extras</summary>
+<a href="ms-settings:extras">Extras</a><span> (타사에서 "설정 앱"을 설치한 경우에만 사용 가능)</span>
+</details>
+
+<details>
+<summary>가족 그룹</summary>
+<a href="ms-settings:family-group"> 가족 그룹</a>
+</details>
+
+<details>
+<summary>게임</summary>
+<a href="ms-settings:gaming-gamebar">게임 바</a>
+<a href="ms-settings:gaming-gamedvr">게임 DVR</a>
+<a href="ms-settings:gaming-gamemode">게임 모드</a>
+<a href="ms-settings:quietmomentsgame">게임 전체 화면 재생</a><br>
+<a href="ms-settings:gaming-trueplay">TruePlay</a><span> (Windows 10, 버전 1809(10.0, 빌드 17763)의 경우 이 기능은 Windows에서 제거됨)</span>
+</details>
+
+<details>
+<summary>혼합 현실</summary>
+<a href="ms-settings:holographic-audio">  오디오 및 음성</a>
+<a href="ms-settings:privacy-holographic-environment "> 환경</a>
+<a href="ms-settings:holographic-headset">  헤드셋 표시</a>
+<a href="ms-settings:holographic-management">  제거</a>
+<a href="ms-settings:holographic-startupandesktop">  시작 및 바탕 화면</a>
+</details>
+
+<details>
+<summary>네트워크 및 인터넷</summary>
+<a href="ms-settings:network-status">네트워크 & 인터넷</a>
+<a href="ms-settings:network-advancedsettings">고급 설정</a>
+<a href="ms-settings:network-airplanemode">비행기 모드</a>
+<a href="ms-settings:proximity">비행기 모드</a>
+<a href="ms-settings:network-cellular">셀룰러 & SIM</a>
+<a href="ms-settings:network-dialup">전화걸기</a><br>
+<a href="ms-settings:network-directaccess">직접 액세스</a><span> (DirectAccess가 활성화된 경우에만 사용 가능)</span>
+<a href="ms-settings:network-ethernet">이더넷</a>
+<a href="ms-settings:network-wifisettings">알려진 네트워크 관리</a>
+<a href="ms-settings:network-mobilehotspot">모바일 핫스팟</a>
+<a href="ms-settings:network-proxy">프록시</a>
+<a href="ms-settings:network-vpn">VPN</a><br>
+<a href="ms-settings:network-wifi">Wi-Fi</a><span>	 (디바이스에 wifi 어댑터가 있는 경우에만 사용 가능)</span>
+<a href="ms-settings:wifi-provisioning">Wi-Fi 프로비전</a>
+</details>
+
+<details>
+<summary>Personalization</summary>
+<a href="ms-settings:personalization-background"> 배경</a>
+<a href="ms-settings:personalization-start-places">시작 화면에 표시되는 폴더 선택</a>
+<a href="ms-settings:personalization-colors">색</a>
+<a href="ms-settings:colors">색</a>
+<a href="ms-settings:personalization-lighting">동적 조명</a><br>
+<a href="ms-settings:personalization-glance">한눈에 보기</a> (Windows 10, 버전 1809 이상에서는 사용되지 않음)
+<a href="ms-settings:lockscreen">잠금 화면</a>
+<a href="ms-settings:personalization-navbar">탐색 모음</a> (Windows 10, 버전 1809 이상에서는 사용되지 않음)<br>
+<a href="ms-settings:personalization">개인 설정(범주)</a>
+<a href="ms-settings:personalization-start">시작</a>
+<a href="ms-settings:taskbar">작업 표시줄</a>
+<a href="ms-settings:personalization-touchkeyboard">터치 키보드</a>
+<a href="ms-settings:themes">테마</a>
+</details>
+
+<details>
+<summary>휴대폰</summary>
+<a href="ms-settings:privacy-accessoryapps">액세서리 앱</a> (Windows 10, 버전 1809 이상에서는 사용되지 않음)
+<a href="ms-settings:privacy-accountinfo">계정 정보</a>
+<a href="ms-settings:privacy-activityhistory">작업 기록</a><br>
+<a href="ms-settings:privacy-advertisingid">광고 ID </a>(Windows 10, 버전 1809 이상에서는 사용되지 않음)
+<a href="ms-settings:privacy-appdiagnostics">앱 진단</a>
+<a href="ms-settings:privacy-automaticfiledownloads">자동 파일 다운로드</a><br>
+<a href="ms-settings:privacy-backgroundapps">배경 앱</a> (Windows 11 21H2 이상에서는 사용할 수 없음)<br>
+참고: Windows 11에서는 백그라운드 앱 권한을 개별적으로 이용할 수 있습니다. <br>
+이 권한을 보려면 앱->설치된 앱으로 이동한 다음, 최신 앱에서 "..."를 선택하고 고급 옵션을 선택하세요. <br>
+최신 앱의 경우 고급 페이지가 있으며, 그룹 정책이 설정되었거나 사용자의 전역 토글 값<br>
+(Windows 10에서는 사용할 수 없는 설정)이 설정된 경우를 제외하면 백그라운드 앱 권한 섹션이 존재합니다. <br>
+URI로 이 페이지에 액세스하려면 <a href="ms-settings:appsfeatures-app">배경 앱</a> URI를 사용해서 앱의 패키지 제품군 이름의 선택적 매개변수를 전달하세요.<br>
+<a href="ms-settings:privacy-backgroundspatialperception">백그라운드 공간 인식</a>
+<a href="ms-settings:privacy-calendar">캘린더</a>
+<a href="ms-settings:privacy-callhistory">통화 기록</a>
+<a href="ms-settings:privacy-webcam">카메라</a>
+<a href="ms-settings:privacy-contacts">연락처</a>
+<a href="ms-settings:privacy-documents">문서</a>
+<a href="ms-settings:privacy-downloadsfolder">폴더 다운로드</a><br>
+<a href="ms-settings:privacy-email">전자 메일</a>
+<a href="ms-settings:privacy-eyetracker">시선 추적기</a> (eyetracker 하드웨어 필요)
+<a href="ms-settings:privacy-feedback">피드백 & 진단</a>
+<a href="ms-settings:privacy-broadfilesystemaccess">파일 시스템</a>
+<a href="ms-settings:privacy"> 또는 <a href="ms-settings:privacy-general">일반</a><br>
+<a href="ms-settings:privacy-graphicscaptureprogrammatic">일반</a>
+<a href="ms-settings:privacy-graphicscapturewithoutborder">그래픽</a>
+<a href="ms-settings:privacy-speechtyping">수동 입력 및 입력</a>
+<a href="ms-settings:privacy-location">위치</a>
+<a href="ms-settings:privacy-messaging">메시지</a>
+<a href="ms-settings:privacy-microphone">마이크</a>
+<a href="ms-settings:privacy-motion">동작</a><br>
+<a href="ms-settings:privacy-musiclibrary">음악 라이브러리</a>
+<a href="ms-settings:privacy-notifications">알림</a>
+<a href="ms-settings:privacy-customdevices">기타 디바이스</a>
+<a href="ms-settings:privacy-phonecalls">전화 통화</a>
+<a href="ms-settings:privacy-pictures">사진</a>
+<a href="ms-settings:privacy-radios">무선</a><br>
+<a href="ms-settings:privacy-speech">음성</a>
+<a href="ms-settings:privacy-tasks">작업</a>
+<a href="ms-settings:privacy-videos">비디오</a>
+<a href="ms-settings:privacy-voiceactivation">음성 활성화</a>
+</details>
+
+
+<details>
+<summary>검색</summary>
+<a href="ms-settings:search">검색</a>
+<a href="ms-settings:search-moredetails">자세한 내용 검색</a>
+<a href="ms-settings:search-permissions">권한 검색</a>
+</details>
+
+<details>
+<summary>소리</summary>
+	<a href="ms-settings:apps-volume">볼륨 믹서
+	<a href="ms-settings:sound">소리
+	<a href="ms-settings:sound-devices">사운드 디바이스
+	<a href="ms-settings:sound-defaultinputproperties">기본 마이크
+	<a href="ms-settings:sound-defaultoutputproperties">기본 오디오 출력</a><br>
+
+오디오 디바이스 속성<br>
+	<a href="ms-settings:sound-properties?endpointId={0.0.0.000000000}.{aaaaaaaa-0000-1111-2222-bbbbbbbbbbbb}">(특정 디바이스)</a>
+참고: URI 사용자는 사용할 문자열을 endpointId 알고 있어야 합니다.<br>
+	<a href="ms-settings:sound-properties?interfaceId=\\?\SWD#MMDEVAPI#{3.0.0.00000003}.{bbbbbbbb-1111-2222-3333-cccccccccc}#{cccccccc-2222-3333-4444-dddddd}">(특정 디바이스)</a>
+참고: URI 사용자는 사용할 문자열을 interfaceId 알고 있어야 하며 보내기 전에 문자열을 올바르게 이스케이프해야 합니다.
+</details>
+
+<details>
+<summary>Surface Hub</summary>
+<a href="ms-settings:surfacehub-accounts">계정</a>
+<a href="ms-settings:surfacehub-sessioncleanup">세션 정리</a>
+<a href="ms-settings:surfacehub-calling">팀 회의</a>
+<a href="ms-settings:surfacehub-devicemanagement">팀 디바이스 관리</a>
+<a href="ms-settings:surfacehub-welcome">시작 화면</a>
+</details>
+
+<details>
+<summary>시스템</summary>
+<a href="ms-settings:about">정보</a>
+<a href="ms-settings:display-advanced">고급 디스플레이 설정</a>  (고급 디스플레이 옵션을 지원하는 디바이스에서만 사용 가능)<br>
+<a href="ms-settings:batterysaver">배터리 절약 모드</a>  (태블릿 같이 배터리가 있는 디바이스에서만 사용 가능)<br>
+<a href="ms-settings:batterysaver-settings">배터리 절약 모드 설정</a>  (태블릿 같이 배터리가 있는 디바이스에서만 사용 가능)<br>
+<a href="ms-settings:batterysaver-usagedetails">배터리 사용</a>  (태블릿 같이 배터리가 있는 디바이스에서만 사용 가능)<br>
+<a href="ms-settings:clipboard">클립보드</a>
+<a href="ms-settings:display">표시</a>
+<a href="ms-settings:savelocations">기본 저장 위치</a>
+<a href="ms-settings:screenrotation">표시</a>
+<a href="ms-settings:quietmomentspresentation">내 디스플레이 복제 중</a>
+<a href="ms-settings:quietmomentsscheduled">이 시간 동안</a>
+<a href="ms-settings:deviceencryption">암호화</a><br>
+<a href="ms-settings:energyrecommendations">에너지 권장 사항 </a> (Windows 11, 버전 22H2, 빌드 22624 이상에 대한 2월 모멘트 업데이트에서 사용 가능)<br>
+<a href="ms-settings:quiethours">집중 지원</a>
+<a href="ms-settings:display-advancedgraphics">그래픽 설정</a>  (고급 그래픽 옵션을 지원하는 디바이스에서만 사용 가능)<br>
+<a href="ms-settings:display-advancedgraphics-default"> 그래픽 기본 설정</a>
+<a href="ms-settings:multitasking">멀티태스킹</a>
+<a href="ms-settings:multitasking-sgupdate">멀티태스킹</a>
+<a href="ms-settings:nightlight">야간 모드 설정</a>
+<a href="ms-settings:project">이 PC에 프로젝팅</a>
+<a href="ms-settings:crossdevice">공유 환경</a><br>
+<a href="ms-settings:tabletmode">태블릿 모드</a> (Windows 11에서 제거됨)
+<a href="ms-settings:taskbar">작업 표시줄</a>
+<a href="ms-settings:notifications">알림 및 작업</a>
+<a href="ms-settings:remotedesktop">원격 데스크톱</a><br>
+<a href="ms-settings:phone">휴대폰</a> (Windows 10, 버전 1809 이상에서는 사용되지 않음)<br>
+<a href="ms-settings:powersleep">전원 및 절전</a>
+<a href="ms-settings:presence">상태 감지</a> (Windows 11 버전 22H2 빌드 22624의 5월 모멘트 업데이트에 추가됨)<br>
+<a href="ms-settings:storagesense">스토리지</a>
+<a href="ms-settings:storagepolicies">스토리지 센스</a>
+<a href="ms-settings:storagerecommendations">스토리지 권장 사항</a>
+<a href="ms-settings:disksandvolumes">디스크 & 볼륨</a>
+</details>
+
+<details>
+<summary>시간 및 언어</summary>
+<a href="ms-settings:dateandtime">날짜/시간</a>
+<a href="ms-settings:regionlanguage-jpnime">일본 IME 설정</a>  (Microsoft 일본 입력기가 설치된 경우 사용 가능)<br>
+<a href="ms-settings:regionformatting">지역</a>
+<a href="ms-settings:keyboard">언어</a>
+<a href="ms-settings:keyboard-advanced">언어</a>
+<a href="ms-settings:regionlanguage">언어</a>
+<a href="ms-settings:regionlanguage-bpmfime">언어</a>
+<a href="ms-settings:regionlanguage-cangjieime">언어</a>
+<a href="ms-settings:regionlanguage-chsime-wubi-udp">언어</a>
+<a href="ms-settings:regionlanguage-quickime">언어</a>
+<a href="ms-settings:regionlanguage-korime">언어</a><br>
+<a href="ms-settings:regionlanguage-chsime-pinyin">Pinyin IME 설정</a>  (Microsoft Pinyin 입력 메서드 편집기가 설치된 경우 사용 가능)<br>
+<a href="ms-settings:regionlanguage-chsime-pinyin-domainlexicon">Pinyin IME 설정</a>
+<a href="ms-settings:regionlanguage-chsime-pinyin-keyconfig">Pinyin IME 설정</a>
+<a href="ms-settings:regionlanguage-chsime-pinyin-udp">Pinyin IME 설정</a>
+<a href="ms-settings:speech">음성</a><br>
+<a href="ms-settings:regionlanguage-chsime-wubi">Wubi IME 설정</a>  (Microsoft Wubi 입력기가 설치된 경우 사용 가능)<br>
+<a href="ms-settings:regionlanguage-adddisplaylanguage">표시 언어 추가</a>
+<a href="ms-settings:regionlanguage-languageoptions">언어 옵션</a>
+<a href="ms-settings:regionlanguage-setdisplaylanguage">표시 언어 설정</a>
+</details>
+
+
+<details>
+<summary>사용자 계정</summary>
+	<a href="ms-settings:workplace-provisioning">프로비저닝</a> (기업에서 프로비전 패키지를 배포한 경우에만 사용 가능)<br>
+	<a href="ms-settings:workplace-repairtoken">토큰 복구</a>
+	<a href="ms-settings:provisioning">프로비저닝</a>  (기업에서 프로비전 패키지를 배포하고 모바일에서만 사용 가능)<br>
+	<a href="ms-settings:windowsanywhere">Windows Anywhere</a>  (디바이스에서 Windows Anywhere를 지원해야 함)
+</details>
+
+<p><a class="redcur" target="_blank" href="https://learn.microsoft.com/ko-kr/windows/uwp/launch-resume/launch-settings-app">Windows 설정 앱 실행</a> 을 기반으로 윈도우10 x64 시스템에서  정리되었습니다.</p>
+<br><br><br><br><br><br><br>
+
+      </div>
+    </div>
+  </li>
+
+
+<!-- ********************************************************************************************************************  -->
+
+  <li>
+    <!-- Using radio inputs means only one can be selected at a time-->
+    <!-- The ID must be unique so the label will point to the input-->
+    <input id="rad2" type="radio" name="rad"  checked="checked"/>
+    <label for="rad2">
+      <div>이지즐찾 v 6.0 [ page 1 ]</div>
+    </label>
+    <div class="accslide">
+      <div class="content">
+        <h1>이지즐찾 v 6.0 [ page 1 ]</h1>
+<br><br>
+
+
+<header class="masthead">
+
+</header>
+
+<section class="board-info-bar">
+</section>
+<!-- End of board info bar -->
+
+<!-- ********************************************************************************************************************  -->
+<!-- ********************************************************************************************************************  -->
+
+<!-- Lists container -->
+<section class="lists-container">
+	<div class="list">
+		<h3 class="list-title">이지즐찾 v 6.0 [ 페이지 1 ]</h3>
+		<ul class="list-items">
+			<li>Complete </li>
+			<li><a href="https://cafe.myds.me/0/sub_ex/audioplayer9/index.html" target="_blank">♪ 분위기 전환 ♪</a> 새창..</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li><a href="" onclick="window.open('https://cafe.myds.me/0/sub_ex/audioplayer9/index.html','_blank', 'width=375, height=375, toolbar=no, menubar=no, scrollbars=no, resizable=no');" onfocus="this.blur()">♪ 분위기 전환 ♪</a> 팝업..</li>
+		</ul>
+		<button class="add-card-btn btn"></button>
+	</div>
+
+<!-- ********************************************************************************************************************  -->
+
+	<div class="list">
+		<h3 class="list-title">클라우드</h3>
+		<ul class="list-items">
+			<li>업로드 클라우드</li>			
+			<li><a target="_blank" href="https://gigafile.nu/">기가파일</a> <span>일본어</span></li>
+			<li><a target="_blank" href="https://megaup.net/index.html">megaup.net</a></li>
+			<li><a target="_blank" href="https://depositfiles.com/">depositfiles.com</a></li>
+			<li><a target="_blank" href="https://www.pcloud.com/">pcloud.com</a></li>
+			<li><a target="_blank" href="https://clicknupload.to/?op=login">clicknupload.to</a></li>
+			<li><a target="_blank" href="https://download.gg/">download.gg</a></li>
+			<li><a target="_blank" href="https://gofile.io/uploadFiles">gofile.io</a></li>
+			<li><a target="_blank" href="https://krakenfiles.com/">krakenfiles.com</a></li>
+			<li><a target="_blank" href="https://wetransfer.com/">wetransfer.com</a></li>
+			<li><a target="_blank" href="https://uploadhive.com/">uploadhive.com</a></li>
+			<li><a target="_blank" href="https://up-load.io/">up-load.io</a></li>
+			<li><a target="_blank" href="https://postimages.org/">postimages.org</a></li>
+			<li><a target="_blank" href="https://www.mediafire.com/">mediafire.com</a></li>
+
+			<li><a target="_blank" href="https://www.mirrored.to/">mirrored.to</a></li>
+
+
+			<li>자 료 실</li>
+			<li><a target="_blank" href="https://gigafile.nu/">기가파일</a></li>
+			<li><a target="_blank" href="https://gigafile.nu/">기가파일</a></li>
+			<li><a target="_blank" href="https://gigafile.nu/">기가파일</a></li>
+			<li><a target="_blank" href="https://gigafile.nu/">기가파일</a></li>
+
+		</ul>
+		<button class="add-card-btn btn"></button>
+	</div>
+
+<!-- ********************************************************************************************************************  -->
+
+	<div class="list">
+		<h3 class="list-title">커 뮤 니 티</h3>
+		<ul class="list-items">
+			<li><a target="_blank" href="https://jsb000.tistory.com/">홍차의 꿈</a></li>
+			<li><a target="_blank" href="https://oldnew.tistory.com/category">꼼지락</a></li>
+			<li><a target="_blank" href="https://nature2357.tistory.com/">knm</a></li>
+			<li><a target="_blank" href="https://tiktok888.tistory.com/">틱톡 유틸</a></li>
+			<li><a target="_blank" href="https://spirity-kor-patch.tistory.com/">또 다른 한글 패치</a></li>
+			<li><a target="_blank" href="https://noways.tistory.com/">This is Noway!</a></li>
+			<li><a target="_blank" href="https://koko4u.tistory.com/">우 리 두 리</a></li>
+
+
+			<li>이미지 작업</li>
+			<li><a target="_blank" href="https://pixlr.com/editor/">웹포토샵 #1</a></li>
+
+
+			<li>속도체크</li>
+			<li><a target="_blank" href="https://www.speedtest.net/">SPEEDTEST</a></li>
+			<li><a target="_blank" href="http://www.kospeed.org/">코스피드</a></li>
+
+
+
+			<li>온라인 서비스</li>
+			<li><a target="_blank" href="https://wepplication.github.io/tools/">온라인 도구 모음</a></li>
+
+
+
+			<li>홈페이지</li>
+			<li><a target="_blank" href="http://sir.kr/">그누보드</a></li>
+			<li><a target="_blank" href="http://amina.co.kr/">아미나</a></li>
+
+
+
+			<li>주소단축</li>
+			<li><a target="_blank" href="https://url.kr/">url.kr</a></li>
+			<li><a target="_blank" href="https://tinyurl.com/">tinyurl.com</a></li>
+			<li><a target="_blank" href="https://www.3.ly/">3.ly</a></li>
+			<li><a target="_blank" href="https://url.sg/">url.sg</a></li>
+			<li><a target="_blank" href="https://han.gl/">han.gl</a></li>
+
+
+			<li>스팸조회</li>
+			<li><a target="_blank" href="http://moyaweb.com/index.do">moyaweb.com</a></li>
+			<li><a target="_blank" href="https://www.thecall.co.kr/bbs/board.php?bo_table=phone">thecall.co.kr</a></li>
+
+
+			<li>드라이버</li>
+			<li><a target="_blank" href="https://necacom.net/">최신 드라이버</a></li>
+
+
+			<li>드라이버</li>
+			<li><a target="_blank" href="http://www.3fish.kr/Study/Chinese/ChineseDictionary.htm">옥편</a></li>
+
+
+			<li>드라이버</li>
+			<li><a target="_blank" href="https://www.microsoft.com/ko-kr/microsoft-365/onedrive/online-cloud-storage">MS-ONE DRIVE</a></li>
+			<li><a target="_blank" href="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fdrive.google.com%2Fdrive%2F&emr=1&followup=https%3A%2F%2Fdrive.google.com%2Fdrive%2F&ifkv=ARpgrqekr5AawhGRguE9BNjErT02cGeYKNtfeSOlCPr6U7kDTl285BYxDe7LJf3D6Mtl0wcS07emIw&osid=1&passive=1209600&service=wise&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-1945795019%3A1728476768579074&ddm=1">구글 드라이브</a></li>
+			<li><a target="_blank" href="https://mybox.naver.com/#/">네이버 박스</a></li>
+
+
+
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+		</ul>
+		<button class="add-card-btn btn"></button>
+	</div>
+
+<!-- ********************************************************************************************************************  -->
+
+</section>
+<!-- End of lists container -->
+
+      </div>
+    </div>
+  </li>
+
+
+<!-- ********************************************************************************************************************  -->
+<!-- ********************************************************************************************************************  -->
+
+
+
+  <li>
+    <!-- Using radio inputs means only one can be selected at a time-->
+    <!-- The ID must be unique so the label will point to the input-->
+    <input id="rad3" type="radio" name="rad"/>
+    <label for="rad3">
+      <div>이지즐찾 v 6.0  [ page 2 ]</div>
+    </label>
+    <div class="accslide">
+      <div class="content">
+        <h1>이지즐찾 v 6.0  [ page 2 ]</h1>
+
+        <p>Lorem ipsum...</p>
+
+
+<!-- ********************************************************************************************************************  -->
+<!-- Lists container -->
+<section class="lists-container">
+
+
+	<div class="list">
+		<h3 class="list-title">커 뮤 니 티</h3>
+		<ul class="list-items">
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+		</ul>
+		<button class="add-card-btn btn"></button>
+	</div>
+
+<!-- ********************************************************************************************************************  -->
+
+	<div class="list">
+		<h3 class="list-title">커 뮤 니 티</h3>
+		<ul class="list-items">
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+		</ul>
+		<button class="add-card-btn btn"></button>
+	</div>
+
+<!-- ********************************************************************************************************************  -->
+
+	<div class="list">
+		<h3 class="list-title">목적 사이트</h3>
+		<ul class="list-items">
+			<li><a target="_blank" href="https://snskeyboard.com/emoji/">이모티콘 & 특수문자 종합</a>💒</li>
+			<li title="기본적으로 Win + Shift + H 바로 가기를 사용하여 마우스 강조 표시를 켜고 끌 수 있습니다.">마우스 커서 아이콘 ✅</li>
+			<li><a target="_blank" href="https://www.flaticon.com/kr/free-icons/mouse-cursor">33,482 마우스 커서</a>💒</li>
+			<li><a target="_blank" href="http://www.cursors-4u.com/">cursors-4u</a>💒</li>
+			<li><a target="_blank" href="http://www.rw-designer.com/cursor-library">rw-designer.com</a>💒</li>
+			<li><a target="_blank" href="https://kr.freepik.com/" >kr.freepik</a>💒</li>
+			<li>독도 서비스</li>
+			<li><a target="_blank" href="https://www.ulleung.go.kr/live/index.do">울릉도, 독도 실시간 웹방송</a>💒</li>
+			<li><a target="_blank" href="https://www.dokdo.re.kr/home/main/main.do">독도 종합정보시스템</a>💒</li>
+			<li>백신 서비스</li>
+			<li><a target="_blank" href="https://malzero.xyz/">멜웨어제로</a>💒</li>
+			<li><a target="_blank" href="https://singularlabs.com/software/system-ninja/">System Ninja</a>💒</li>
+			<li><a target="_blank" href="https://www.hybrid-analysis.com/">hybrid-analysis</a>💒</li>
+			<li><a target="_blank" href="https://www.virustotal.com/gui/">virustotal.com</a>💒</li>
+			<li><a target="_blank" href="https://www.yougetsignal.com/tools/open-ports/">오픈 포트 검사기</a>💒</li>
+
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+			<li>예__비</li>
+		</ul>
+		<button class="add-card-btn btn"></button>
+	</div>
+
+
+</section>
+<!-- End of lists container -->
+
+
+
+      </div>
+    </div>
+  </li>
+
+
+<!-- ********************************************************************************************************************  -->
+<!-- ********************************************************************************************************************  -->
+
+  <li>
+    <input id="rad4" type="radio" name="rad"/>
+    <label for="rad4">
+      <div>스크랩  정보</div>
+    </label>
+    <div class="accslide">
+      <div class="content">
+        <h1>스크랩 정보활용</h1>
+        <p>정보 스크랩 확인...</p> <br>
+
+
+<details>
+<summary>👥💯 시끌벅적 즐거운 댓글 💐💬</summary>
+<br>
+<h2>즐거운 댓글 이모티콘</h2>    구문을 복사해서 사용하세요..! 👏🏻<br><br>
+<p class="wrapp">
+일어난💤🛎⏰사람👥멘션💬남겨라🕰⏱💨<br><br>
+
+💎짜증🤧을내어서🌈무얼하나🌟 💎짜증🤧을내어서🌈무얼하나🌟 <br><br>
+
+*꧁༺༺ৡۣ͜͡ৡ교༒주ৡۣ͜͡ৡ༻༻꧂*님 ☣️포교☣️해주세요!🔔땡★땡★땡★↑(짝!)교렐루야!♩♪♬🔔꧁⍢⃝꧂﻿<br><br>
+
+🌈무지개반사🌌우주반사🏅절대반사🌚블랙홀반사🙌🏻자동반사💎크리스탈반사👑슈퍼울트라반사🐉흑염룡반사💫안드로메다반사<br><br>
+
+☃️알래스카반사🐺시베리아허스키반사🌞복사열반사👻유령반사👾외계인반사🤖인공지능반사⚜️제우스반사🎵리듬에몸을맡기고반사<br><br>
+
+👁호루스의눈반사🖕법규반사🕴무중력반사🌪허리케인반사<br><br>
+
+꽥꽥 🦆 꽤앵액액ㅋㅋㅋㅋ🦆🦆<br><br>
+
+준비됐어?🕵️‍♂️시작해볼까😼골반뒤로🔙한번더☝️뒤로뒤로뒤로↩박수짝짝👏다리비틀어🕺원몰타임☝️박수짝짝👏원몰타임☝️왼쪽으로⬅️오른쪽으로➡️내차롄가?🐿박수세번3️⃣짝짝짝👏다시↩세번3️⃣짝짝짝👏고태현점프🐿두팔앞으로🙆‍♂️업업⬆️한번더☝️업업⬆️다같이👥슬라이드🕺💃<br><br>
+
+[속보] 응~👌🏻 어쩔티비~ 📺💁🏻‍♂️ 저쩔티비~📺 💁🏻‍♀️ 안물티비~안궁티비~뇌절티비~우짤래미~ 저짤래미~ 쿠쿠루삥뽕🕺🏻 지금 화났죠?🔥😛 개킹받죠? 죽이고 싶죠? 🤗어차피 내가 사는곳 모르죠? 응~못 죽이죠?👊🏻🤟🏻 어~또 빡치죠? 😌아무것도 모르죠? 아무것도 못하죠?😉 그냥 화났죠? 냬~알걨섑니댸👏🏻🙃🙃<br><br>
+
+싸늘하다🤧가슴에🙈과제가📚날아와🐣꽃힌다🔪하지만☝️걱정하지마라😌손은✋눈보다👀빠르니까🃏🎴싸늘하다🤧가슴에🙈과제가📚날아와🐣꽃힌다🔪하지만☝️걱정하지마라😌손은✋눈보다👀빠르니까🃏🎴싸늘하다🤧가슴에🙈과제가📚날아와🐣꽃힌다🔪하지만☝️걱정하지마라😌손은✋눈보다👀빠르니까🃏🎴싸늘하다🤧가슴에🙈과제가📚날아와🐣꽃힌다🔪하지만☝️걱정하지마라😌손은✋눈보다👀빠르니까🃏🎴<br><br>
+
+🍀여러분📣📣오늘하루도📣📣행복이📣📣가득하길📣📣바래용🍀🍀<br><br>
+
+코 끝에선 화➰❤️ 입안에선 후➰💚 때론 달콤하게🍫 때론 시큰하게🌿민트초코가 세상을 지배한다🍦 <br><br>
+
+📯📯📯뿌〰️아이고 깜짝이야😵어?핑핑아🐌오늘이 무슨요일이야? 먀~🐌월요일?😲아~월요일🎷월요일🌝좋아〰️🙆‍♀️최고로 좋아〰️🙆‍♀️<br><br>
+
+난🧀일할때🍔제일 멋지지😎오늘부터💪열심히🧠할거야 오좋아💩월요일 좋아〰️🛁같이 불러🎙핑핑아🐌<br><br>
+
+냔냔냐냐냐〰️냔냔냐냐냐〰️월요일🎶월요일🎶월요일🥁월요일 좋아〰️<br><br>
+
+🦑제발 좀 조용히해🤬월요일이 좋아서 난리떠는🤸‍♀️멍청이는 이세상에 너뿐🧀일꺼야🗿⭐️월요일 좋아🦑<br><br>
+
+맙소사🤯진짜 맛있는 날이야💨🦑제발 그만 해💦<br><br>
+
+냠냠 게살버거 넌 세🍔개🍔먹어🍔오예 노래하자🎤내월요일🧀좋아〰️월요일🦑좋아⭐️〰<br><br>
+
+
+</p><br>
+
+
+</details>
+
+<!-- ********************************************************************************************************* -->
+<details>
+<summary>👥 즐거운 격려&응원의 댓글 💬</summary>
+<br>
+<h2>응원 배려 격려의  댓글</h2> 📣 구문을 복사해서 사용하세요..! 👏🏻<br><br>
+<p class="wrapp">
+
+📣 감사합니다👏🏻<br><br>
+💢 수고하셨습니다👏🏻<br><br>
+👩‍👩‍👧‍👦 다복하세요.. 😃ঌ<br><br>
+💪 건강하세요 🙏 =͟͟͞͞Ꙭ̯<br><br>
+о³°```″´·♧♧[수고 하셨습니다.]♧♧·´″```°³о  ^.^ ★<br><br>
+³°```″함께 하다보니 모자의 배움이 커짐니다·´″```°³о 💯  ^.^<br><br>
+👥 응원을 아끼지 않습니다 👏🏻<br><br>
+🙆‍♂️ 무한한 배려에 감사한 마음을 표합니다 🙌<br><br>
+⚖️ 고맙습니다 🧲<br><br>
+💌 노고에 감사함을 전합니다. 🥇➰➰☕<br><br>
+🌸𓂃𓂃𓂃✨ 무조건 안녕하셔야만 합니다  👣𓂃𓂃𓂃📌
+
+
+
+</p><br>
+
+</details>
+
+<!-- ********************************************************************************************************* -->
+
+
+<details>
+<summary>⌚💯 이모티콘 & 특수문자 💐🧷</summary>
+
+<br>
+<h2>자주 사용되는 이모티콘</h2>
+<p class="wrapp">
+☞     ヘ（。□°）ヘ       ദ്ദി˶˙ᵕ˙˶ )  
+🕺💃 🦆 💤🛎⏰ 🕺🏻  📺
+✐  ✌  ✍  ♈    ♋    ✎    ◤◢ ◣◥ ✄ ✁  🙌   💒   💯   ✨   💤   ✂️   🧷  💬  💾  🛠️  ⚙️  💢  💥  📝  🚦  🚥  🍜  ✏️  ✍️  👻  💒  📻  🎧  ♻️  ⚡  ⏏  🗑  
+🎗  🧯  😷  ■■■■■□98%  🔈  🔊  📧   ️ 🖥️ ⌨️ 💯 👀 ⋆˚🐾˖° ◌⑅⃝*॰ॱ✍ 🎓  🟣 🎁  👀 🚨  🔫..🔄  🎈  💀  😅  📑  🔓 💪  😤  ☕  🤩  ⭐️ 🌈  👨‍💻  🌸 
+🙏 ☯ 💦   =͟͟͞͞Ꙭ̯  ˘̴͈́ꈊ˘̴͈́  =͟͟͞͞Ꙭ̯˘̴͈́ꈊ˘̴͈́🥺ྀིʕتʔʕت̫ʔʕت̫͡ʔʕ¨̮ʔʚဝိူɞ💁ᩚ—̳͟͞͞💁ᩚ💁🏻ᩚ—̳͟͞͞💁🏿ᩚ💁🏼‍♂️ᩚ—̳͟͞͞💁🏼‍♂️ᩚ💁🏽‍♂️ᩚ—̳͟͞͞💁‍♂️ᩚ  =͟͟͞͞ ͟͟͞͞𖤐⏤͟͟͞͞★⇝ۣۜ☆ۣۜ⇜=͟͟͞͞ ͟͟͞͞𖤐˗ˋˏϟˎˊ˗⏤͟͟͞͞★★
+᭄ꦿ᭄ꦿ꙰ૈ☆─ꞋꞌꞋ★ꞋꞌꞋ─★̶̲ . ˖ ͘ ⭑ ֺ ๋  𓂃 ৎ୭ 𓂃❃⃟⸽⸽⃟─⊳࿐ྀུ ❀ꦿ֗⚘༉＊*•̩̩͙✩•̩̩͙*＊✿ڿڰۣ✿∘˚˳°∘°★!¡   ✎⁾⁾⁾⪩⪨Ƹ̵̡Ӝ̵̨̄Ʒⅽ[ː̠̈ː̠̈ː̠̈] ͌ஐﻬਏਓઇଓପଓএ᭄ ⛍⛟⛴⛑✉︀
+⚽︎- ̗̀⚠︎ ̖́-🕊  ͗︎︎♡☠︎- ̗̀⚠︎ ̖́-*☂︎*̣̩⋆̩   🧡ྀི💛ྀི💚ྀི💙ྀི🩵ྀི💜ྀི🤎ྀི  🤍ྀི💗💓💔💟💕💖💘💝💞 ☯☪卍☠☢☣✠✜☫☬☮☸☨☩♅❖✜♆⚶⚴☦⚳卐✡  
+◭◮⫷⫸♳♴♵♶♷♸♹♺♲♻♼♽⚠  🖐🖕🖖🖑🖏🖔🖙🖚🖒🖓🖛🖜🖝🖞🖟🖠🖡🖢🖣☚☛☜☝   ☞☟✊✋✌👎👍👌👋👊👉👈👇👆✍   👏👐🖎🤘🤙🤛🤜🤝🤞🤟  
+☔☕☘♿⛽⛱⛲⛳⚾⚽⛙⛗⛖⛕✨➰➿➽➾➪➩  (ᐢ⸝⸝>̶̥̥̥᷄ ·̫ <̶̥̥̥᷅⸝⸝ᐢ)꜆꜄💕  ꒰ঌ❤︎⸝⸝ʚ̴̶̷̷ · ʚ̴̶̷̷⸝⸝໒꒱𓂃🎀𓈒𓏸(🎀ॣ•͈з•͈ ॣ)  ◟(ᵔ ̮ ᵔ)͜💐 ʚ🧸ྀིɞ  ( ͡~ ͜ʖ ͡°) 🚰·̫🚰  
+ミ꙳.ヾ🚰ㅅ🚰ﾉﾞ♡  ヾ(´•👅•｀)ノ 💪🏿₍ ᐢ. ̫ .ᐢ ₎💪🏿 ՞•･•՞🐾  ( ˶˙🐽˙˵ ᐡ )  🐟·´¯`·.´¯`·.¸🐠  🌴(っ˘0˘)🍺🍸(ˆᵕˆ๑)   *☸⛵☸*   
+.•♡ᖰ🐹ᖳ♡•.   ˘ω˘ ) 🤳🏻✨   🌀﹏🌀つ 🗺️ \̅_̅/̷̚ʾ ♡⃞⃛୭ 💙ྀི  ⌚ ⌛ \̅_̅/̷̚ʾ♡⃞⃛୭💙ྀི⌚⌛  ␦⸮︖ˀ̣﹖ ␦⸮︖ˀ̣﹖⏩ ⏪ ⏫ ⏬ ⏰ ␦⸮︖ˀ̣﹖⏩⏪⏫⏬
+⏰⟰⟱ 🤸 🔎 🍼 🥘 📚 🎒 📷  👚 🤝 ⭐
+</p><br><br>
+
+<h2>전경 이모지</h2>
+<p class="wrapp">
+🙂😶🤑🤣🥰😈❤️🧡💛💚💙💜🖤💎🤷🤷‍♂️⚽⚾🏀🏐🏈🏉🥎🧶💿🍎🍏🍅☁️⏺️📔📕📗📘📙📒📄🌑🌒🌓🌔🌖🌗🌘🌙🌚✅☑️✖️❌🏁🚩🏴🏳️🏳️‍🌈🏴‍☠️
+</p><br><br>
+
+
+<h2>톤(ZWJ)</h2>
+<p class="wrapp">
+ 🏻   🏼    🏽    🏾    🏿 
+</p><br><br>
+
+<h2>사람과 표정</h2>
+<p class="wrapp">
+😀😃😄😁😆😅🤣😂🙂😉😊😇🥰😍🤩😘😗☺️😚😙😏😋😛😜🤪😝🤗🤭🤫🤔🤤🥳🤠😎🤓🧐🙃🤐🤨😐😑😶😶‍🌫️😒🙄😬😮‍💨🤥🙂‍↔️🙂‍↕️😌😔
+😪😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵😵‍💫🤯🥱😕😟🙁☹️😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫😤😡😠🤬👿😈👿💀☠️💩🤡👹👺👻👽👾🤖😺😸😹
+😻😼😽🙀😿😾🙈🙉🙊👋🤚🖐️✋🖖👌🤏✌️🤞🤟🤘🤙👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🙌👐🤲🤝🙏✍️💅🤳💪🦾🦿🦵🦶👂🦻👃🧠🦷🦴👀👅👄👣
+🧬🩸👶🧒👦👧🧑👱👨🧔🧔‍♂️🧔‍♀️👨‍🦰👨‍🦱👨‍🦳👨‍🦲👩👩‍🦰🧑‍🦰👩‍🦱🧑‍🦱👩‍🦳🧑‍🦳👩‍🦲🧑‍🦲👱‍♀️👱‍♂️🧓👴👵🧏🧏‍♂️🧏‍♀️👳👳‍♂️👳‍♀️👲🧕🤰👼🗣️👤👥🦰🦱🦲🦳🙍🙍‍♂️🙍‍♀️🙎🙎‍♂️🙎‍♀️🙅🙅‍♂️🙅‍♀️🙆🙆‍♂️🙆‍♀️💁💁‍♂️💁‍♀️🙋🙋‍♂️🙋‍♀️🧏🧏‍♂️🧏‍♀️🤱🤷‍♀️🤷‍♂️🤷🤦‍♀️🤦‍♂️🤦🙇‍♀️🙇‍♂️🙇👩‍🍼👨‍🍼🧑‍🍼💆💆‍♂️💆‍♀️💇💇‍♂️💇‍♀️🚶🧎‍♂️🧎🧍‍♀️🧍‍♂️🧍🚶‍♂️‍➡️🚶‍♀️‍➡️🚶‍➡️🚶‍♀️🚶‍♂️🧎‍♀️🧎‍➡️🧎‍♀️‍➡️🧎‍♂️‍➡️🧑‍🦯🧑‍🦯‍➡️👨‍🦯👨‍🦯‍➡️👩‍🦯👩‍🦯‍➡️👨‍🦽‍➡️👨‍🦽🧑‍🦽‍➡️🧑‍🦽👩‍🦼‍➡️👩‍🦼👨‍🦼‍➡️👨‍🦼🧑‍🦼‍➡️🧑‍🦼👩‍🦽👩‍🦽‍➡️🏃🏃‍♂️🏃‍♀️🏃‍➡️🏃‍♀️‍➡️🏃‍♂️‍➡️💃🕺🧗‍♀️🧗‍♂️🧗🧖‍♀️👯‍♀️👯‍♂️👯🕴️🤺🏇⛷️🏂🏌️🏌️‍♂️🏌️‍♀️🏄🏄‍♂️🏄‍♀️🏋️⛹️‍♀️⛹️‍♂️⛹️🏊‍♀️🏊‍♂️🏊🚣‍♀️🚣‍♂️🚣🏋️‍♂️🏋️‍♀️🚴🚴‍♂️🚴‍♀️🚵🚵‍♂️🚵‍♀️🤸🤸‍♂️🤾‍♀️🤾‍♂️🤾🤽‍♀️🤽‍♂️🤽🤼‍♀️🤼‍♂️🤼🤸‍♀️🤹🤹‍♂️🤹‍♀️🧘🧘‍♂️🧘‍♀️🛀🛌🧑‍⚕️👨‍⚕️👩‍⚖️👨‍⚖️🧑‍⚖️👩‍🏫👨‍🏫🧑‍🏫👩‍🎓👨‍🎓🧑‍🎓👩‍⚕️🧑‍🌾👨‍🌾👩‍🌾🧑‍🍳👨‍🍳👩‍🍳🧑‍🔧👨‍🔧👩‍🔧🧑‍🏭👨‍💻🧑‍💻👩‍🔬👨‍🔬🧑‍🔬👩‍💼👨‍💼🧑‍💼👩‍🏭👨‍🏭👩‍💻🧑‍🎤👨‍🎤👩‍🎤🧑‍🎨👨‍🎨👩‍🎨🧑‍✈️👨‍✈️👩‍✈️🕵️👮‍♀️👮‍♂️👮👩‍🚒👨‍🚒🧑‍🚒👩‍🚀👨‍🚀🧑‍🚀🕵️‍♂️🕵️‍♀️💂💂‍♂️💂‍♀️👷👷‍♂️👷‍♀️🤶🎅👰‍♀️👰‍♂️👰🤵‍♀️🤵‍♂️🤵👸🤴🧑‍🎄🦸🦸‍♂️🦸‍♀️🦹🦹‍♂️🦹‍♀️🧙🧙‍♂️🧙‍♀️🧝🧜‍♀️🧜‍♂️🧜🧛‍♀️🧛‍♂️🧛🧚‍♀️🧚‍♂️🧚🧝‍♂️🧝‍♀️🧞🧞‍♂️🧞‍♀️🧟🧟‍♂️🧟‍♀️👯👩‍❤️‍💋‍👩👨‍❤️‍💋‍👨👩‍❤️‍💋‍👨💏👬👫👭🧑‍🤝‍🧑👯‍♀️👯‍♂️💑👩‍❤️‍👨👨‍❤️‍👨👩‍❤️‍👩👨‍👩‍👦👨‍👩‍👧👨‍👩‍👧‍👦👨‍👩‍👦‍👦👨‍👩‍👧‍👧👨‍👨‍👦👨‍👦👩‍👩‍👧‍👧👩‍👩‍👦‍👦👩‍👩‍👧‍👦👩‍👩‍👧👩‍👩‍👦👨‍👨‍👧‍👧👨‍👨‍👦‍👦👨‍👨‍👧‍👦👨‍👨‍👧👨‍👦‍👦👨‍👧👨‍👧‍👦👨‍👧‍👧👩‍👦👩‍👦‍👦👩‍👧👩‍👧‍👦👩‍👧‍👧👪🧑‍🧒‍🧒🧑‍🧒🧑‍🧑‍🧒‍🧒🧑‍🧑‍🧒  ༄༅🐲 🐲༄༅   🥋 🥋 
+</p><br><br>
+
+
+<h2>동물과 자연</h2>
+<p class="wrapp">
+🐵🐒🦍🦧🐶🐕🦮🐕‍🦺🐩🐺🐴🐆🐅🐯🦁🐈‍⬛🐈🐱🦝🦊🐎🦄  🦌🐮🐂🐃🐫🐪🐐🐑🐏🐽🐗  🐷🐄🦙🦒🐘🦏🦛🐭🐁🐀🐹🐼🐨🐻‍❄️🐻🦇🦔🐿️🐇🐰🦥🦦🦨🦘🦡🐾🦃🐔🐓🐣🦉🦢🦆🦅🕊️🐧🐦🐥🐤🦩🦚🦜🐦‍⬛🐦‍🔥🐳🦖🦕🐉🐲🐍🦎🐢🐊🐸🐋🐬🐟🐠🐡🦈🐙🐚🐜🐛🦋🐌🦪🦑🦐🦞🦀🐝🐞🦗🕷️🕸️🦂🦟🌺🥀🌹🏵️💮🌸💐🦠🌻🌼🌷🌱🌲🌳🌴🌵🍄🍃🍂🍁🍀☘️🌿🌾🌑🌒🌓🌔🌕🌖🌗🌘🌙🌚🌌🌠🌟⭐🪐🌞🌝☀️🌜🌛☁️⛅⛈️🌤️🌥️🌦️🌧️🌨️🌩️🌪️❄️⚡⛱️☔☂️🌂🌈🌀🌬️🌫️☃️⛄☄️🔥💧🌊
+</p><br><br>
+
+
+<h2>음식과 마실 것</h2>
+<p class="wrapp">
+🍇🍈🍉🍊🍋🍋‍🟩🍌🍍🥭🍎🥥🍅🥝🍓🍒🍑🍐🍏🥑🍆🥔🥕🌽🌶️🥒🥬🥦🥐🍞🍄‍🟫🌰🥜🧅🧄🥖🥨🥯🥞🧇🧀🍖🍗🥩🥙🌯🌮🥪🌭🍕🍟🍔🥓🧆🥚🍳🥘🍲🥣🥗🍿🧈🍠🍜🍛🍚🍙🍘🍱🍝🥫🧂🍢🍣🍤🍥🥮🍡🥟🥠🥡🍦🍬🍫🥧🧁🍰🎂🍪🍩🍨🍧🍭🍮🍯🍼🥛☕🍵🍶🍾🥤🥃🥂🍻🍺🍹🍸🍷🧃🧉🥢🍽️🍴🥄🔪🏺
+</p><br><br>
+
+
+<h2>활동</h2>
+<p class="wrapp">
+🎃🎄🎆🎇🧨✨🎈🎉🎊🎋🏮🎫🎟️🎁🧧🎑🎐🎏🎎🎍🪔🎖️🏆🏅🥇🥈🥉⚽⚾🥎🏀🏐🏈🏉🎾🥏🎳🏏🏑🏒🥍🏓🏸🥊🥋🥅⛳⛸️🎣🤿🎽🎿🛷🥌🎯🪀🪁🔫🎱🔮🎮🕹️🎰🎲🧩♠️♥️♦️♣️♟️🃏🀄🎴🎭🖼️🎨
+</p><br><br>
+
+
+<h2>여행과 장소</h2>
+<p class="wrapp">
+🌍🌎🌏🌐🗺️🗾🧭🏔️⛰️🌋🧱🏗️🏛️🏟️🏞️🏝️🏜️🏖️🏕️🗻🏘️🏚️🏠🏡🏢🏣🏤🏥🏦🗼💒🏰🏯🏭🏬🏫🏪🏩🏨🗽⛪🕌🛕🕍⛩️🕋⛲⛺🌁🎠♨️🌉🌇🌆🌅🌄🏙️🌃🎡🎢💈🎪🛎️🗿🚂🚃🚄🚅🚍🚌🚋🚞🚝🚊🚉🚈🚇🚆🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🦼🦽🛵🏍️🏎️🚜🚛🚚🚙🛺🚲🛴🛹🚏🛣️🛤️🛢️⛽🛶⛵⚓🚧🛑🚦🚥🚨🚤🛳️⛴️🛥️🚢✈️🛩️🛫🛬🪂🛸🚀🛰️🚡🚠🚟🚁💺
+</p><br><br>
+
+
+<h2>사물과 물체</h2>
+<p class="wrapp">
+🎀🎗️👓🕶️🥽🥼🦺👔👕👖🩳🩲🩱🥻👘👗🧦🧥🧤🧣👙👚👛👜👝🛍️🎒👞👒👑👢🩰👡👠🥿🥾👟🎩🎓🧢⛑️📿💄💍💎🦯🎼🔕🔔📯📣📢🔊🔉🔈🔇🎵🎶🎙️🎚️🎛️🎤🎧📻🎷📱🥁🪕🎻🎺🎹🎸📲☎️📞📟📠🔋🔌💻🖥️🎞️🎥📀💿💾💽🖲️🖱️⌨️🖨️📽️🎬📺📷📸📹📼📔📕📖📰📄📜📃📒📓📚📙📘📗🗞️📑🔖🏷️✉️📧📨📩📤📥🖋️✒️✏️🗳️📮📭📬📪📫📦🖊️🖌️🖍️📝💼📁📂🗂️📅📆📎📍📌📋📊📉📈📇🗓️🗒️🖇️📏📐✂️🗃️🗄️🗑️⌛⏳⌚🕝🕑🕜🕐🕧🕛🕰️⏲️⏱️⏰🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢💰🧮🕦🕚🕥🕙🕤🕘🕣🕗💴💵💶💷💸💳🧾💹🧳🔒🔦💡🕯️🔎🔍🧶🧸🌡️🔓🔏🔐🔑🗝️🔨🪓⛏️⚒️🛠️🔩🔧🛡️🏹💣⚔️🗡️⚙️🗜️⚖️🔗⛓️‍💥⛓️🪝🧰🧲🩺🩹💉📡🔭🔬🧫🧪⚗️🚪🛏️🛋️🪑🚽🚿🧼🧻🧺🧹🧷🧴🪒🛁🧽🧯🛒
+</p><br><br>
+
+
+<h2>상징</h2>
+<p class="wrapp">
+💌💘💝💖💗💓💞💕💟❣️💙💚💛🧡❤️❤️‍🩹❤️‍🔥💔💜🤎🖤🤍💋💯💢💥💦🟠🔴💤💭🗯️🗨️👁️‍🗨️💬🕳️💨🟡🟢🔵🟣🟤⚫⚪🟥🟧🟨◽◾◻️◼️⬜⬛🟫🟪🟦🟩▪️▫️🔶🔷🔸🔹🔺🔻💠🔘🚻🚺🚹♿🚰🚮🏧🔲🔳🚼🚾🛂🛃🛄🛅⚠️🚸⛔🚫⬆️☣️☢️🔞📵🚷🚱🚯🚭🚳↗️➡️↘️⬇️↙️⬅️↖️↕️↔️↩️🔝🔜🔛🔚🔙🔄  ⤵️⤴️↪️🔀🔁🔂▶️⏩⏭️⏯️◀️⏪⏮️🔅🎦⏏️⏺️⏹️⏸️⏬🔽⏫🔼🔆📶📳📴🛐🕉️✡️☸️☯️✝️☦️☪️☮️🕎🔯♈♉♊☯️☸️✡️🕉️🛐📴📳📶🔆♋♌♍♎♏♐♑♒♓⛎‼️♾️➗➖➕✖️⚧️♂️♀️⁉️❓❔❕❗〰️💱💲#️⃣*️⃣9️⃣8️⃣7️⃣6️⃣5️⃣4️⃣3️⃣2️⃣1️⃣0️⃣🔟🔠🔡🔢🔣🔤🅰️🆎🅱️🆑🆘🆗🅾️🆖🆕Ⓜ️🆔ℹ️🆓🆒🆙🆚🈁🈂️🈷️🈶🈯🉐🈹🈚⚕️🈵🈺㊙️㊗️🈳🈴🈸🉑🈲♻️⚜️📛🔰⭕✅☑️✔️❌❎™️®️©️❇︎❇️✴️✳️〽️➿➰
+</p><br><br>
+
+
+<h2>깃발</h2>
+<p class="wrapp">
+🏁🚩🎌🏴🏳️🏳️‍🌈🏳️‍⚧️🏴‍☠️🏴󠁧󠁢󠁥󠁮󠁧󠁿🏴󠁧󠁢󠁷󠁬󠁳󠁿🏴󠁧󠁢󠁳󠁣󠁴󠁿
+</p><br><br>
+
+
+
+<h2>기타 이모티콘</h2>
+<p class="wrapp">
+①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳ 
+ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ 
+ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ
+㊗ ½    ⅓     ⅔     ¼     ¾     ⅛     ⅝     ⅞
+
+<br><br>
+
+๑• ิ.• ั ๑      ๑ ۩ ۞ ۩ ๑      ♬      ✿       . ｡ . : *      ★ ☆ ε ї з ℡       ❣ · ۰ •       ● ○ ● ¤๑⊹⊱⋛⋌⋚⊰⊹ ۩۩.. ..۩۩๑ ๑۩۞۩๑ ✲ ❈  ▀ ▄ █  ▌▐░  ▒ ▬ ▀ ▄ █ ▌ ▐ ░ ▒ ▬ ✔,✓,⍻,☑,✅,⌗,☺,✖,✕,☓,,ₓ,ˣ,❎,⛝,☒,☐,⛒,⊗,✗,✘,〤,⛌,※,*,∗,＊,⁂,⁎⁑,⁕,⊛,⧆,❋,✸,✹,✽,✳,❇,🪐,☄,㈜,㍿,㏇,©,℗,®,℠,™,℡,℻,℀,℁,℅,℆,㉿,⅍,№,Œ,♿,✎,☕,♿,⚔,⚓,⚛,✡,✈,🚀,☘,✂,🎬,🔎,🎥,🎗,💰,🧯,🕸,⚖,✝,✞,✠,✟,✚,☧,☨,☩,✛,卍,卐,,🎲,⚀,⚁,⚂,⚃,⚄,⚅,☹,🥺,😒,😂,☺,😁,🤣,😍,😘,☻,㋡,ヅ,ツ,ت,👀,💤,🌛,🌜,🎃,♂,♀,⚤,☿,⚣,⚥,⚦,⚧,⚨,⚢,⚲,♩,♪,🎶,♬,♫,🎵,♭,♮,♯,🎼,𓏢,🎹,🎸,🎺,🥁,🎤,🎧,📻,♤,♠,♡,♥,❤️,💕,💔,♧,♣,🗑,,,🔥,⍶,☠,⚕,🤝,✊,✋,✌,👍,👎,🤙,👈,👉,👌,🫰,🤏,🖕,👋,🫶,⏏,🧭,💢,🌀,,,🂡,♔,♕,♖,♗,♘,♙,♚,♛,♜,♝,♞,♟,⌘,⎗,⎘,⎙,🖨️,🖥️,⌨️,📧,🎮,☎,☏,🔈,🔉,🔊,,🎳,🏆,⚽,🏀,🏈,⚾,🏓,🏹,🎯,⛷️,🧨,💥,💣,⌛,📈,🔙,🔝,🔜,🔚,🌏,🔋,🐭,🐮,🐯,🐰,🐲,🪱,🐴,🐏,🐵,🐓,🐶,🐷,🐫,🐢,,🐾,👣,
+
+<br><br>
+
+Α,Β,Γ,Δ,Ε,Ζ,Η,Θ,Ι,Κ,Λ,Μ,Ν,Ξ,Ο,Π,Ρ,Σ,Τ,Υ,Φ,Χ,Ψ,Ω,α,β,γ,δ,ε,ζ,η,θ,ι,κ,λ,μ,ν,ξ,ο,π,ρ,ς,σ,τ,υ,φ,χ,ψ,ω,Æ,Á,Â,Â,À,Å,Ã,Ä,Ç,Ð,É,Ê,È,Ë,Í,Î,Ì,Ï,Ñ,Ó,Ô,Ò,Ø,Õ,Ö,Þ,Ú,Û,Ù,Ü,Ý,á,â,æ,à,å,ã,ä,ç,é,ê,è,ð,ë,í,î,ì,ï,ñ,ó,ô,ò,ø,õ,ö,ß,þ,ú,û,ù,ü,ý,ÿ,㊗,㊙,㊣,㊤,㊥,㊦,㊧,㊨,🈲,🈚,🈵,🈴,🈳,🈹,🉐,🉑,㎕,㎖,㎗,ℓ,㎘,㏿,㏄,Å,㎙,㎛,㎚,㎜,㎝,㎞,㎟,㎠,㎡,㎢,㎣,㎤,㎥,㎦,㍷,㍸,㍹,㎍,㎎,㎏,㎅,㎆,㎇,㏔,㏏,㎈,㎉,㎧,㎨,㎰,㎱,㎲,㎳,㎩,㎪,㎫,㎬,㍱,㎴,㎵,㎶,㎷,㎸,㎹,㍵,㎀,㎁,㎂,㎃,㎄,㎺,㎻,㎼,㎽,㎾,㎊,㎋,㎌,Ω,㏀,㏁,℧,㎐,㎑,㎒,㎓,㎔,㍳,㍺,㍴,㍶,㏍,㏏,㏋,㏌,㏖,㏅,㎭,㎮,㎯,㏛,㏊,㍲,㏈,㏝,㏐,
+㏓,㏃,㏉,㏜,㏆,㏎,㏑,㏒,㏕,㏞,㏟,㏙,㏚,㏗,,㏇,㏂,㏘,°,μ°,℃,℉,²,³,′,″
+
+<br><br>
+
+▸,►,▶,◂,◄,◀,▴,▲,,▾,▼,,◤,◢,◣,◥,▹,⊳,▷,◃,⊲,◁,▵,∆,△,▿,∇,▽,◸,◿,◺,◹,◭,◮,◬,≜,♳,♴,♵,♶,♷,♸,♹,♺,♲,♻,⚠,⊵,⊴,▻,◅,⋗,⋖,⋫,⋪,⋭,⋬, ⑅,⫸,⫷,࿏,◯,〇,○,◦,。,⚫,⬤,●,•,·,◉,◎,◑,◐,◓,◒,♼,♽,✪,⍟,❂,◍,◌,꙰,〶,∅,⭙,⛒,ꕕ,◔,◕,◴,◵,◶,◷,☢,⦺,⦻,⦼,⊗,⦽,⦾,⦿,⧀,⧁,⧂,⧃,⊕,⊖,⊘,⊙,⊚,⊛,⊜,⚆,⚈,⚇,⚉,⛣,❍,◖,◗,◠,◡,◚,◛,◙,◜,◝,◞,◟,◘,∘,⚬,ᐝ,⚭,⚮,⚯,⚲,♾,Ø,☼,☺,☹,🚫,⦸,▫,□,☐,▪,■,▀,⛝,⌧,⧄,⧅,⧆,⧇,⧈,✉,◰,◱,◲,◳,❏,❐,❑,❒,▢,▣,⧉,▤,▥,▦,▧,▨,▩,⎚,◧,◨,◩,◪,⚀,⊡,⊞,⊟,◫,⊠,⚁,⚂,⚃,⚄,⚅,▮,∎,▯,▭,▰,▱,▁,▂,▃,▄,▅,▆,▇,▉,▊,▋,█,▌,▐,▍,▎,▏,▕,▔,▬,❘,❙,❚,░,▒,▓,〓,☰,☲,☱,☴,☵,☶,☳,☷,⬟,⬠,⭓,⭔,☖,☗,◊,⟠,⧫,⋄,◆,◇,◈,❖,⬬,⬭,⬮,⬯,⎔,⎚,⌑,▰,▱,⬢,⬡,⬣,★,☆,✰,✬,✫,✩,⚝,⛦,⛧,✪,⍟,✡,𓇼,✦,✧,〈,〉,‹,›,﹤,﹥,＜,＞,˂,˃,❬,❭,⟨,⟩,❮,❯,❰,❱,
+,《,》,«,»,「,」,｢,｣,『,』,【,】,〖,〗,〚,〛,〔,〕,（,）,﹙,﹚,⸨,⸩,｛,｝,﹛,﹜,﹝,﹞,〘,〙,︵,︶,︷,︸,︹,︺,︻,︼,︽,︾,︿,﹀,﹁,﹂,﹃,﹄,⌃,⌄,˅,˄,☰,≡,Ξ,㊂,≣,‑,‒,–,—,―,‗,¯,˘,ˆ,～,.⁄,ᐟ,`,º,﹕,：,；,⋮,︙,⦙,⁞,⋯,…,⋰,⋱,∷,𓃑,𓏬,𓏧,•,·,¨,¦,",',⛶,,,🆔,🆘,🆕,🆗,🆕,  ,📂,📁,⌨,🗨,💭,💬,§,¶,❡,⁋,※,†,‡,⁊,№,‣ ,ˀˁ,ꔚ,＃,＄,％,＆,＊,＠,❝,❞,❛,❟,❠,‧,。,﹐,﹒,﹔,ˊ,！,❗,‼,ℹ,¡,?,？,︖,‽,⁇,⁈,⁉,⯑,؟,¿,⸘,⁰,¹,²,³,⁴,⁵,⁶,⁷,⁸,⁹,⁺,⁻,⁼,⁽,⁾,ⁿ,₀,₁,₂,₃,₄,₅,₆,₇,₈,₉,₊,₋,₌,₍,₎,ₐ,ₑ,ₒ,ₓ,ₔ,°,ⁱ,²,³,ⱽ,ʰ,ⁱ,ʲ,ˡ,ⁿ,ʳ,ˢ,ʷ,ˣ,ʸ,ₐ,ₑ,ₕ,ⱼ,ₖ,ₗ,ₘ,ₙ,ₒ,ₚ,ₛ,ₜₓ,ª,│,┃,╽,╿,╏,║,╎,┇,︱,┊,︳,┋,┆,╵,〡,〢,╹,╻,╷,〣,☰,☱,☲,☳,☴,☵,☶,☷,≡,✕,═,━,─,╍,┅,┉,┄,┈,╌,╴,╶,╸,╺,╼,╾,﹉,﹍,﹊,﹎,︴,﹏,﹌,﹋,╳,╲,╱,︶,︵,〆,`,ᐟ,‐,⁃,⎯,⚊,⚋,⚌,⚍,⚎,⚏,ᝣ﹄,﹃,﹂,﹁,┕,┓,└,┐,┖,┒,┗,┑,┍,┙,┏,┛,┎,┚,┌,┘,「,」,『,』,˩,˥,├,┝,┞,┟,┠,┡,┢,┣,┤,┥,┦,┧,┨,┩,┪,┫,┬,┭,┮,┯,┰,┱,┲,┳,┴,┵,┶,┷,┸,┹,┺,┻,┼,┽,┾,┿,╀,╁,╂,╃,╄,╅,╆,╇,╈,╉,╊,╋,╒,╕,╓,╖,╔,╗,╘,╛,╙,╜,╚,╝,╞,╡,╟,╢,╠,╣,╥,╨,╧,╤,╦,╩,╪,╫,╬,〒,⊢,⊣,⊤,⊥,╭,╮,╯,╰,⊦,⊧,⊨,⊩,⊪,⊫,⊬,⊭,⊮,⊯,⊺,〦,〧,〨,˦,˧,˨,⑁,⑂,⑃,∟,½,⅓,⅔,¼,¾,⅛,⅜,⅝,⅞,↉,%,℅,‰,‱,➕,✚,＋,⁺,₊,➖,⧿,±,∓,∔,✖,×,➗,÷,／,＝,≒,≠,≡,≢,≅,≟,≑,≃,≄,≇,π,∞,♾,Σ,∑,⟌,√,∛,∜,∫,∬,∭,∮,∯,∰,∱,∲,∳,∀,∃,∄,∂,∆,∇,⋂,⋃,∩,∪,⊂,⊃,⊆,⊇,∈,∋,∉,∊,∌,∍,∏,∐,∖,∗,∙,∝,∟,⦤,⦥,∠,⦣,∡,∢,⋀,⋁,∧,∨,∣,∤,∥,∦,∴,∵,∼,∽,≈,∶,∷,∸,∹,∺,∻,∾,≤,≥,≦,≧,≨,≩,≪,≫,≬,≭,≮,≯,≰,≱,≲,≳,≴,≵,≶,≷,≸,≹,≺,≻,≼,≽,≾,≿,⊀,⊁,⊄,⊅,⊈,⊉,⊊,⊋,⊌,⊍,⊎,⊏,⊐,⊑,⊒,⊓,⊔,ⁿ,⟜,⟝,⟞,⟟,⟠,⟡,⟢,⟣,⟤,⟥,⟦,⟧,⟨,⟩,⟪,⟫,⟬,⟭,⟮,⟯,⦁,⦂,⦃,⦄,⦅,⦆,⦇,⦈,⦉,⦊,⦋,⦌,⦍,⦎,⦏,⦐,
+
+<br><br>
+
+♨,☏,☎,↕,↗,↙,↖,↘,↔,◀,▶,🙌,🕺,🎓,🎈,🍰,🍻,५✍⋆*,♤,♠,♡,♥,♧,♣,▦,▩,🌈,✅,🌟,🐱,😷,💒,( ◠‿◠✿),(っ,◕‿◕)っ,ʚ🧸ɞ,˗ˏ🌙,♬,㉿,㈜,№,㏇,™,㏂,㏘,℡,®,㉾,(´･ᴗ･`)♡,(◍•ᴗ•◍)♡,█◤◢◤◢◤◢◤◢█,τнänκ чöü♥,■■■■■□98%,𓂃🧸𓈒 𓂂𓏸,-ˋˏ ༻🥀༺ ˎˊ-,♂,♀,☜,☞,👌,🌷,❗,🙋,💤,💋🌸,✨,👀,💯,⚽,🌐,⋆˚🐾˖°,◌⑅⃝*॰ॱ✍,◥█̆̈◤࿉∥,︻[]▄▅▆▇◤,✩°｡⋆⸜ 🎧,✧˖🎀 ✧˖Volume: ▁▂▃▄▅▆▇▉,˖✻*˸🏝️♪*˸*⋆🐠♪。˖✻*🏖️♪*˸*⋆。♪˖✻*˸⛱️♪*˸*⋆。🍧♪,💕🌼˚*•.¸✨¸.•*”💕🌼˚*•.¸✨¸.•*”💕🌼˚*•.¸✨¸.•*”,Return,📳,📴,📶,⭕,📆,📅,🗓️,📝,💼,📋,
+✂️,🧲,🧷,🚮,♿,🚹,🚺,🚻,🚾,🚼,🛂,🛃,  ,🛅,⚠️,🚸,🏧,🚮,☢️,☣️,🆒,🆓,🆔,🆖,❎,🏴‍☠️,💬,  ️‍🗨️,  ️,👁️,💈,⏰,🌂,☂️,☔,⛱️,⚡,❄️,☃️,⛄,🔇,🔈,🔉,🔊,🔕,🎤,🎧,📻,🔋,🖱️,🖲️,💾,🛠️,🚽,🛒,♻️,™️,🆖,🆕,🆘,🆙,💠,🚩,🈷️,🈶,🈯,🉐,🈹,🈚,🈲,🉑,🈸,🈴,🈳,㊗️,㊙️,🈺,🈵,🔞,📵,🚷,🚱,🚯,🚭,🚳,🚫,⛔,🚸,⚠️,🧻,🚬,⚙️,📡,💢,💥,💦,💨,♬,㉿,㈜,№,㏇,™,㏂,㏘,℡,®,㉾,(´･ᴗ･)♡,(◍•ᴗ•◍)♡,👻,👽,⛱️,⛈️,🌤️,🌥️,🌦️,🌧️,🌨️,🌩️,🌡️,🍜,🍠,🍚,🍛,🚥,🚦,🚧,🎙️,🎚️,  ️,📤,📥,📝,📋,📌,🗄️,🗃️,✂️,🗑️,🖨️,✏️,✍️
+
+<br><br>
+
+㉠,㉡,㉢,㉣,㉤,㉥,㉦,㉧,㉨,㉩,㉪,㉫,㉬,㉭,㉮,㉯,㉰,㉱,㉲,㉳,㉴,㉵,㉶,㉷,㉸,㉹,㉺,㉻,㈀,㈁,㈂,㈃,㈄,㈅,㈆,㈇,㈈,㈉,㈊,㈋,㈌,㈍,㈎,㈏,㈐,㈑,㈒,㈓,㈔,㈕,㈖,㈗,㈘,㈙,㈚,㈛,ㄱ,ㄴ,ㄷ,ㄹ,ㅁ,ㅂ,ㅅ,ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ,ㄲ,ㄳ,,ㅥ,ㅦ,ㅧ,ㅨ,ㄵ,ㄶ,,ㄸ,,ㄺ,ㅩ,ㅪ,ㄻ,ㄼ,ㅫ,ㄽ,ㅬ,ㄾ,ㄿ,ㅭ,ㅀ,ㅮ,ㅯ,ㅰ,ㅱ,,ㅲ,ㅳ,ㅃ,ㅴ,ㅵ,ㅶ,ㅷ,ㅸ,ㅹ,,ㅺ,ㅻ,ㅼ,ㅽ,ㅆ,ㅾ,ㅿ,ㆀ,ㆁ,ㆂ,ㆃ,ㅉ,ㆄ,ㆅ,ㆆ,ㅏ,ㅑ,ㅓ,ㅕ,ㅗ,ㅛ,ㅜ,ㅠ,ㅡ,ㅐ,ㅒ,ㅔ,ㅖ,ㅢ,ㅘ,ㅙ,ㅚ,ㅝ,ㅞ,ㅟ,ㆇ,ㆈ,ㆉ,ㆊ,ㆋ,ㆌ,ⓐ,ⓑ,ⓒ,ⓓ,ⓔ,ⓕ,ⓖ,ⓗ,ⓘ,ⓙ,ⓚ,ⓛ,ⓜ,ⓝ,ⓞ,ⓟ,ⓠ,ⓡ,ⓢ,ⓣ,ⓤ,ⓥ,ⓦ,ⓧ,ⓨ,ⓩ,Ⓐ,Ⓑ,Ⓒ,Ⓓ,Ⓔ,Ⓕ,Ⓖ,Ⓗ,Ⓘ,Ⓙ,Ⓚ,Ⓛ,Ⓜ,Ⓝ,Ⓞ,Ⓟ,Ⓠ,Ⓡ,Ⓢ,Ⓣ,Ⓤ,Ⓥ,Ⓦ,Ⓧ,Ⓨ,Ⓩ,⒜,⒝,⒞,⒟,⒠,⒡,⒢,⒣,⒤,⒥,⒦,⒧,⒨,⒩,⒪,⒫,⒬,⒭,⒮,⒯,⒰,⒱,⒲,⒳,⒴,⒵
+
+<br><br>
+
+ʙ,ғ,ɢ,ʜ,ɪ,ʟ,ɴ,ǫ,ʀ,s,x,ʏ,￠,¢,₵,£,₤,¤,¥,€,$,§,₩,₡,₫,₲,₦,₭,₽,₱,₪,₸,৳,₿,Ð,₨,ƒ,₮,₳,₴,₦,฿,៛,₠,₢,₣,௹,₰,₯,₺
+,﷼,৲,₹,≋,Ł,℥,☄,☉,♁,☇,☈,☽,☾,༄,࿓,☀,♨,☼,🌞,🌤,⛅,☁,⛈,⛆,☂,🌂,⚡,𐓷,ϟ,🌊,☃,⛇,❄,❆,❅,✔,✓,⍻,☑,✅,⌗,✖,✕,☓,×,ₓ,ˣ,❎,⛝,☒,☐,⛒,⊗,✗,✘,〤,⛌,※,*,∗,＊,⁂,⁎⁑,⁕,⊛,⧆,❋,✸,✹,✽,✳,❇,🪐,☄,㈜,㍿,㏇,©,℗,®,℠,™,℡,℻,℀,℁,℅,℆,㉿,⅍,№,Œ,♿,✎,☕,♿,⚔,⚓,⚛,✡,✈,🚀,☘,✂,🎬,🔎,🎥,🎗,💰,🧯,🕸,⚖,✝,✞,✠,✟,✚,☧,☨,☩,✛,卍,卐,,🎲,⚀,⚁,⚂,⚃,⚄,⚅,☹,🥺,😒,😂,☺,😁,🤣,😍,😘,☻,㋡,ヅ,ツ,ت,👀,💤,🌛,🌜,🎃,♂,♀,⚤,☿,⚣,⚥,⚦,⚧,⚨,⚢,⚲,♩,♪,🎶,♬,♫,🎵,♭,♮,♯,🎼,𓏢,🎹,🎸,🎺,🥁,🎤,🎧,📻,♤,♠,♡,♥,❤️,💕,💔,♧,♣,🗑,🔥,⍶,☠,⚕,
+🤝,✊,✋,✌,👍,  ,🤙,👈,👉,👌,  ,🤏,🖕,👋,⏏,🧭,💢,🌀,🂡,♔,♕,♖,♗,♘,♙,♚,♛,♜,♝,♞,♟,⌘,⎗,⎘,⎙,🖨️,🖥️,⌨️,📧,🎮,☎,☏,🔈,🔉,🔊,🎳,🏆,⚽,🏀,  ,⚾,🏓,🏹,🎯,⛷️,🧨,💥,💣,⌛,📈,🔙,🔝,🔜,🔚,🌏,🔋,🐭,🐮,🐯,🐰,🐲,🪱,🐴,🐏,🐵,🐓,🐶,🐷,🐫,🐢,🐾,👣,♨,☏,☎,↕,↗,↙,↖,↘,↔,◀,🙌,🕺,🎓,🎈,🍰,🍻,५✍⋆*,♤,♠,♡,♥,♧,♣,▦,▩,🌈,✅,🌟,🐱,😷,💒,( ◠‿◠✿),(っ,◕‿◕)っ,ʚ🧸ɞ,˗ˏ🌙,
+♬,㉿,㈜,№,㏇,™,㏂,㏘,℡,®,㉾,(´･ᴗ･`)♡,(◍•ᴗ•◍)♡,█,◤◢◤◢◤◢◤◢█,τнänκ чöü♥,■■■■■□98%,𓂃🧸𓈒 𓂂𓏸,-ˋˏ ༻🥀༺ ˎˊ-,♂,♀,☜,☞,👌,🌷,❗,🙋,💤,💋, 🌸,✨,👀,💯,⚽,🌐,⋆˚🐾˖°,◌⑅⃝*॰ॱ✍,◥█̆̈◤,࿉∥,︻[]▄▅▆▇◤,✩°｡⋆⸜ 🎧,✧˖,🎀 ✧˖Volume: ▁▂▃▄▅▆▇▉,˖✻*˸🏝️♪*˸*⋆🐠♪。,˖✻*🏖️♪*˸*⋆。🐬♪˖✻*˸⛱️♪*˸*⋆。🍧♪,💕🌼˚*•.¸✨¸.•*”💕🌼˚*•.¸,✨¸.•*”💕🌼˚*•.¸✨¸.•*”,⏏,🧭,💢,🌀,🂡,♔,♕,♖,♗,♘,♙,♚,♛,♜,♝,♞,♟,⌘,⎗,⎘,⎙,🖨️,🖥️,⌨️,📧,🎮,Return,📳,📴,📶,♀️,⭕,📆,📅,🗓️,📝,💼,📋,✂️,🧲,🧷,🚮,♿,🚹,🚺,🚻,🚾,🚼,🛂,🛃,🛄,🛅,⚠️,🚸,🏧,🚮,☢️,☣️,🆒,🆓,🆔,🆖,❎,🏴‍☠️,💬,👁️‍🗨️,🗨️,👁️,  ,⏰,🌂,☂️,☔,⛱️,⚡,❄️,☃️,⛄,🔇,🔈,🔉,🔊,🔕,🎤,🎧,📻,🔋,🖱️,🖲️,💾,🛠️,🚽,🛒,♻️,™️,🆖,🆕,🆘,🆙,💠,🚩,🈷️,🈶,🈯,🉐,  ,🈚,🈲,🉑,🈸,🈴,🈳,㊗️,㊙️,🈺,🈵,🔞,📵,🚷,🚱,🚯,🚭,🚳,🚫,⛔,🚸,⚠️,🧻,🚬,⚙️,📡,💢,💥,💦,♬,㉿,㈜,№,㏇,™,㏂,㏘,℡,®,㉾,(´･ᴗ･`)♡,(◍•ᴗ•◍)♡,👻,👽,⛱️,⛈️,🌤️,🌥️,🌦️,🌧️,🌨️,🌩️,🌡️,🍜,🍠,🍚,🍛,🚥,🚦,🚧,🎙️,🎚️,🎛️,📤,📥,
+📝,📋,📌,🗄️,🗃️,✂️,🗑️,🖨️,✏️,✍️,🤝,✊,✋,✌,👍,👎,🤙,👈,👉,👌,🫰,🤏,🖕,👋,⏏,🧭,💢,🌀,🂡,♔,♕,♖,♗,♘,♙,♚,♛,♜,♝,♞,♟,⌘,⎗,⎘,⎙,🖨️,🖥️,⌨️,📧,🎮,☎,☏,🔈,🔉,🔊,🎳,🏆,⚽,🏀,🏈,⚾,🏓,🏹,🎯,⛷️,🧨,💥,💣,⌛,📈,🔙,🔝,🔜,🔚,🌏,🔋,🐭,🐮,🐯,🐰,🐲,🪱,🐴,🐏,🐵,🐓,🐶,🐷,🐫,🐢,🐾,👣
+
+<br><br>
+
+▣ ▤ ▥ ▦ ▩ ◘ ◙ ◈ ✪ ◎ ◑ ◐ ❁ ❀ ✿ ✾ ▶ ▷ ◀ ◁ ō ゃ  ♥ ♡ ๑ ۩ ﺴ  ☞  ☜  ☎  ☏ ♡ ⊙ ◎ ☺ ☻ ✖ ╄ ஐ  ﻬ  ►  ◄  ▧ ▨ ♨ ◐ ◑ ↔ ↕ ▪ ▫ ☼ ♦ ▀ ▄ █  ▌▐░  ▒ ▬ ♦ ◊ ◦ ☼  ♠ ♣ ▣   ▥ ▦ ▩ ◘ ◙ ◈ ♫ ♬ ♪ ♩ ♭ ♪ の ☆ → あ ぃ ￡ ❤＃  ＠ ＆ ＊ ❁ ❀ ✿ ✾ ❃ ✺ ❇ ❈   ❉ ✱ ✲ ✩ ✫ ✬ ✭ ✮ ✰   ✪ ¤ ☼ ☀ ☽ ☾ ❤ ♡ ღ ☻ ☺ ❂ ◕ ⊕ ☉ Θ o O ♋ ☯ ㊝  ⊙ ◎◑ ◐ ۰ • ● ▪ ▫ ｡ ﾟ ๑  ☞ ☜ ☂ ♨ ☎ ☏ × ÷ ＝ ≠ ≒ ∞ ˇ  ± √ ⊥▶ ▷ ◀ ◁ ☀ ☁ ☂ ☃ ☄ ★ ☆ ☇ ☈ ☉ ☊ ☋ ☌ ☍ ☑ ☒☢ ☸ 
+☹ ☺ ☻ ☼ ☽ ☾ ♠ ♡ ♢ ♣ ♤ ♥ ♦ ♧ ♨ ♩ ✙ ✈ ✉ ✌ ✁♝ ♞ ♯♩♪♫♬♭♮ ☎ ☏ ☪ ♈ ♨ ₪ ™ ♂✿ ♥ の ↑ ↓ ← → ↖ ↗ ↙ ↘ ㊣  ◎ ○ ● ⊕ ⊙ ○　 △ ▲  ◇ ◆ ■ □ ▽  ▼ § ￥ 〒 ￠ ￡ ※ ♀ ♂ & ⁂ ℡ ↂ ░  ▣ ▤ ▥ ▦ ▧ ✐✌✍✡ ✓✔✕✖ ♂ ♀ ♥ ♡ ⊙ ◎ ☺ ☻ ► ◄ ▧ ▨ ♨ ◐ ◑ ↔ ↕ ♥ ♡ ▪ ▫  ☼ ♦ ▀  ▄ █ ▌ ▐ ░ ▒ ▬ ♦ ◊ ◘ ◙ ◦ ☼ ♠ ♣ ▣ ▤ ▥ ▦ ▩ ◘ ◙ ◈ ♫ ♬ ♪ ♩ ♭ ♪ ✄☪☣☢☠░ ▒ ▬ ♦ ◊ ◦ ♠ ♣ ▣ ۰•● ❤ ●•۰► ◄ ▧ ▨ ♨ ◐ ◑ ↔ ↕ ▪ ▫ ☼ ♦♧♡♂♀♠♣♥❤☜☞☎☏⊙◎  ☺☻☼▧▨♨◐◑↔↕▪ ▒ ◊◦▣▤▥ ▦▩◘ ◈◇♬♪♩♭♪の   → あぃ￡Ю〓§♤♥▶ ✿ ✲ ❈ ➹ ~.~ ◕‿- ❣ ✚ ✪ ✣ ✤ ✥ ✦❉ ❥ ❦ ❧ ❃ ❂ ❁ ❀ ✄ ☪ ☣ ☢ ☠ ☭ღღღ ▶ ▷ ◀ ◁ ☀ ☁ ☂ ☃ ☄  ☇  ☈ ⊙ ☊ ☋ ☌ ☍ⓛⓞⓥⓔ๑•ิ.•ั๑ ๑۩۞۩๑ ♬✿ ☉♡ ♢ ♣ ♤ ♥ ♦ ♧ ♨ ♩ ✙✈ ✉ ✌ ✁ ✎ ✐ ❀ ✰ ❁ ❤ ❥ ❦❧ ➳ ➽ εїз℡❣·۰• ●○●ゃōゃ♥ ♡๑۩ﺴ ☜ ☞ ☎ ☏♡ ⊙◎ ☺ ☻✖╄ஐﻬ ► ◄ ▧ ▨ ♨  ◐ ◑ ↔ ↕ ▪ ▫ ☼ ♦ ▀ ▄ █▌ ▐░ ▒ ▬♦ ◊ ◦ ☼ ♠ ♣  ▣ ▤ ▥ ▦ ▩ ◘ ◙ ◈ ♫ ♬ ♪ ♩ ♭ ♪ の  → あ ぃ ￡ ❤ ❁ ❀ ✿  ✾ ❃ ✺ ❇ ❈ ❊ ❉ ✱ ✲ ✩ ✫ ✬ ✭ ✮ ✰  ✪ ¤  ☼ ☀ ☽ ☾ ❤ ♡ ღ☻ ☺ ❂ ◕ ⊕ ☉ Θ o O ♋ ☯ ㊝ ⊙ ◎ ◑ ◐ ۰ •  ● ▪ ▫ ｡ ﾟ ๑ ☜ ☞ ☂ ♨ ☎ ☏▶ ▷ ◀ ◁ ☀ ☁ ☂ ☃  ☄  ☇ ☈ ☉ ☊ ☋ ☌ ☍ ☑ ☒☢ ☸ ☹ ☺ ☻ ☼ ☽ ☾ ♠ ♝ ♞♯♩♪♫♬♭♮  ☎ ☏ ☪ ♈ ♨ ºº ₪ ¤ 큐 « »™ ♂✿ ♥  の ↑ ↓ ← → ↖ ↗ ↙ ↘ ㊣ ◎ ○ ● ⊕ ⊙ ○ △ ▲ ☆ ★ ◇ ◆ ■ □ ▽ ▼ §  ￥〒 ￠ ￡ ※ ♀ ♂ © ® ⁂ ℡  ↂ░ ▣ ▤ ▥ ▦ ▧ ✐✌✍✡✓✔✕✖ ♂ ♀ ♥ ♡ ☜ ☞ ☎ ☏ ⊙ ◎ ☺ ☻ ► ◄ ▧ ▨ ♨ ◐ ◑ ↔ ↕ ♥ ♡ ▪ ▫ ☼ ♦ ▀ ▄  █ ▌ ▐ ░ ▒ ▬ ♦ ◊ ◘ ◙ ◦ ☼ ♠ ♣ ▣ ▤ ▥ ▦ ▩ ◘ ◙ ◈  ♫ ♬ ♪ ♩ ♭ ♪ ✄☪☣☢☠ ✗✘✚✪✣✤✥✦✧✩✫✬✭✮✯✰ ✱✲✳❃❂❁❀✿✾✽✼✻✺✹✸✷ ✶✵✴❄❅❆❇❈❉❊❋❖☀☂☁【】┱ ┲ ❣ ✪ ✣ ✤ ✥ ✦ ❉ ❥ ❦ ❧ ❃ ❂ ❁ ❀ ✄ ☪ ☣ ☢ ☠ ☭ ♈ ➸ ✓ ✔ ✕ ✖ .: ◢ ◣ ◥ ◤ ▽ ▧ ▨ ▣ ▤ ▥ ▦ ▩ ◘ ◙ ▓ ▒ ░ ™ ℡ 凸 の    ๑۞๑    ๑۩ﺴ ﺴ۩๑    o(‧”’‧)o     ❆    べò⊹    ⊱    ⋛⋋ ⋌⋚⊰⊹ ⓛⓞⓥⓔ ☀ ☼ ☜ ☞ ⊙® ◈ ♦ ◊ ◦ ◇ ◆ εїз❃❂❁❀✿✾✽✼✻✺✹✸✷ ✶✵ ✴❄❅❆❇❈❉ ❊❋❖❤❥❦❧ ↔ ↕ ▪ → ︷╅╊✿  
+
+<br><br>
+
+(¯`•._.• •._.•´¯)    (¯`•¸•´¯)     ❤`•.¸¸.•´´¯`•• .¸¸.•´¯`•.•    ●•۰• ••.•´¯`  •.•• ••.•´¯`•.••    —¤÷(`[¤* *¤]´)÷¤——(•·÷[ ]÷·•)—   (⊙▂⊙✖ )    (づ ￣ ³￣)づ     ( c//”-}{-*\\x)    (-’๏_๏’-)    (◐ o ◑ )    (⊙…⊙ )๏
+[-ิ_•ิ]    ๏    (•ิ_•ิ)    \    (•ิ_•ิ\)     (/•ิ_•ิ)     (︶︹︺)     (¯`v´¯)  `·.¸.·´      ¸.·´    ¸.·¨)     ¸.·¨)     (¸.·´     (¸.·´     (¸.·¨¯`      ♥ ♥ ❣ ❤ ❥ ❦ ❧ ♡ ɞ ʚ ღ ஐ ლ დ ഇ   (¯`•.•´¯)     (¯`•.•´¯)      *`•.¸(¯`•.•´¯)    ¸.•´ ♥ ☆ ♥ `•.¸.•´ ♥ º   ☆.¸¸.•´¯`♥ (¯`v´¯)       .`•.¸.•´ ★     ¸.•´.•´¨)     ¸.•¨)      (¸.•´      (¸.•´     (¸.•¨¯`* ♥      (¯`•.•´¯)     (¯`•.•´¯)    *`•.¸(¯`•.•´¯)    ¸.•´      ¤ º° ¤`•.¸.•´ ¤ °º ¤   
+</p>
+
+<br><br><br><br>
+
+
+</details>
+
+      </div>
+    </div>
+  </li>
+</ul>
+
+
+
+<!-- ********************************************************************************************************************  -->
+<!-- ********************************************************************************************************************  -->
+
+<!--
+  <li>
+    <input id="rad6" type="radio" name="rad"/>
+    <label for="rad6">
+      <div>Five  panel</div>
+    </label>
+    <div class="accslide">
+      <div class="content">
+        <h1>Five panel</h1>
+        <p>Lorem ipsum...</p>
+      </div>
+    </div>
+  </li>
+</ul>
+-->
+
+
+
+<!-- ********************************************************************************************************************  -->
+<!-- ********************************************************************************************************************  -->
+
+<!-- partial -->
+  
+</body>
+</html>

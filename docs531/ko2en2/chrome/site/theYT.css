@@ -1,0 +1,524 @@
+/* trac.css */
+body {
+	background-color: #f3f7fc;
+	color: #333;
+}
+body, th, tr {
+	font: normal 14px 'Malgun Gothic', Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif;
+}
+h1, h2, h3, h4 {
+	font-family: 'Malgun Gothic', Arial, Verdana, 'Bitstream Vera Sans', Helvetica, sans-serif;
+}
+h1 { font-size: 20px }
+h2 { font-size: 17px }
+h3 { font-size: 15px }
+hr { border-top-color: #bcc; }
+
+:link, :visited {
+	color:#304088;
+	border-bottom: 1px dotted #357;
+}
+
+:link:hover, :visited:hover {
+	color:#304088;
+	background-color:#d0d0d0;
+}
+
+h1:target, h2:target, h3:target, h4:target, h5:target, h6:target, span:target {
+	background: #c0ffff;
+	box-shadow: .1em .1em .4em .1em #add;
+}
+
+input[type=button], input[type=submit], input[type=reset], .trac-button {
+	background: #eaecf0;
+
+	font-size: 12px;
+	font-family: 'Malgun Gothic', Arial, Verdana, 'Bitstream Vera Sans', Helvetica, sans-serif;
+}
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover, .trac-button:hover {
+	background: #f2f2f2;
+}
+
+fieldset {
+	background: #f0f3f8;
+}
+p.hint, span.hint, span.trac-datetimehint { font-style: normal; }
+
+input[type=button].trac-delete, input[type=submit].trac-delete, .trac-button.trac-delete {
+	color: #c32333;
+}
+input[type=button].trac-delete:hover, input[type=submit].trac-delete:hover, .trac-button.trac-delete:hover {
+	color: #d32333;
+}
+
+#banner { position: relative; }
+#banner:after { content: ""; display: block; clear: both; }
+
+#header {
+	position: absolute;
+	bottom: 0;
+}
+#header img { margin: 0 }
+
+#search { float: right; }
+#search input { font-size: 12px }
+
+.nav ul {
+	font-size: 11px;
+}
+.nav li {
+	border-right: 1px solid #d0d0d0;
+}
+
+#metanav {
+	float: right;
+	clear: right;
+}
+#metanav form.trac-logout button {
+	color: #57d;
+}
+#metanav form.trac-logout button:hover { background-color: #d0d0d0; color: #203070 }
+
+#metanav .active :link, #metanav .active :visited { background-color: #e0e8f0; }
+#metanav .active :link:hover, #metanav .active :visited:hover { background-color: #d0d0d0; }
+
+#mainnav {
+	font-family: 'Malgun Gothic', Verdana, 'Bitstream Vera Sans', Helvetica, Arial, sans-serif;
+	box-shadow: 0 .5em 1.5em #eef1f5;
+	border: 1px solid #e0e2e4;
+}
+
+#mainnav li {
+	background-color: #f1f4fb;
+	padding: .2em 0;
+}
+
+#mainnav :link, #mainnav :visited {
+	color: #555;
+	padding: .2em 20px;
+}
+
+#mainnav :link:hover, #mainnav :visited:hover {
+	background-color: #334161;
+}
+
+#mainnav .active :link, #mainnav .active :visited {
+	background-color: #334161;
+}
+
+#altlinks li :link, #altlinks li :visited {
+	color: #707174;
+}
+
+#footer {
+	color: #aaa;
+}
+#footer :link, #footer :visited { color: #aaa; }
+#footer p.left {
+	margin-left: 0;
+	border-left: none;
+}
+
+div.trac-content {
+	border: 1px solid #e0e2e4;
+}
+
+#prefs {
+	background: #f0f3f7;
+}
+
+#info {
+	background: #f0f3f7;
+}
+
+a.missing:link, a.missing:visited, a.missing, span.missing, a.forbidden, span.forbidden { color: #899 }
+a.missing:hover { color: #000 }
+
+pre.wiki, pre.literal-block {
+	font-family: "굴림체", monospace;
+}
+
+code, tt {
+	color: #006;
+	border: 1px solid #cde;
+}
+
+blockquote.citation {
+	border-color: #44b;
+}
+.citation blockquote.citation { border-color: #4b4; }
+.citation .citation blockquote.citation { border-color: #b44; }
+.citation .citation .citation blockquote.citation { border-color: #55c; }
+
+table.wiki th {
+	background-color: #eaf0fa;
+}
+
+.wikitoolbar { float: left; }
+.wikitoolbar :link:hover, .wikitoolbar :visited:hover {
+	border: 1px solid #2bf;
+}
+
+table.listing thead tr { background: #f0f3f7 }
+table.listing tbody tr:hover td { background: #dde6ee !important }
+
+.suggestions { border: 1px solid #678; }
+
+#notice.system-message, .notice.system-message {
+	background: #dfd;
+	border: 1px solid #125;
+}
+
+div.system-message .trac-close-msg {
+	color: #1313d3;
+}
+
+#environmentinfo #config tr.modified { background: #dff; }
+
+@media screen {
+	.searchword0 { background: #cff }
+	.searchword1 { background: #cfc }
+	.searchword2 { background: #ff9 }
+}
+
+@media print {
+	body {
+		background-color: white;
+	}
+}
+
+/* admin.css */
+#tabs {
+	background: #f0f3f7;
+}
+#tabs li li.active {
+	background: #ccd4dd;
+	box-shadow: .1em .2em .5em #9aa;
+}
+
+/* browser.css */
+.browser h1 :link, .browser h1 :visited { color: #00b }
+.browser h1 .first:link, .browser h1 .first:visited { color: #899 }
+
+div.message {
+	background: #f0f3f7;
+}
+
+table.dirlist td span.loading {
+	font-style: normal;
+
+	color: #666;
+}
+
+.chglist tr.verbose td.filler, .chglist tr.verbose td.log {
+	color: #444;
+}
+
+/* code.css */
+table.code th {
+	border-bottom: 1px solid #899;
+}
+table.code tbody th {
+	background: #dde5ee;
+	color: #678;
+}
+table.code tbody th :link, table.code tbody th :visited {
+	color: #678;
+}
+table.code tbody tr:hover td {
+	background: #dde5ee;
+}
+
+/* diff.css */
+.diff table.trac-diff th {
+	border-bottom: 1px solid #899;
+}
+.diff table.trac-diff thead th {
+	background: #eaeef2;
+}
+.diff table.trac-diff tbody th {
+	background: #dde5ee;
+	color: #678;
+}
+.diff table.trac-diff tbody tr:hover td {
+	background: #dde5ee;
+}
+.diff table.trac-diff tbody.mod tr:hover td, .diff table.trac-diff tbody.add tr:hover td, .diff table.trac-diff tbody.rem tr:hover td {
+	background: #ccd5dd;
+}
+.diff table.trac-diff tbody.mod tr:hover td del, .diff table.trac-diff tbody.mod tr:hover td ins {
+	background: #99b5bb;
+}
+
+/* 임시 패치 */
+pre.diff span { display: block }
+
+/* prefs.css */
+#content.prefs #tabs li {
+	background: #e0e2e6;
+}
+
+/* report.css */
+.report div.reports h3 em {
+	color: #008;
+}
+
+.tickets tr.trac-columns th { background: #f0f3f7 }
+
+/* roadmap.css */
+table.progress td.new { background: none }
+table.progress td.open { background: #f5f5b5 }
+
+.milestone .info h2 {
+	background: #f6f8ff;
+}
+.milestone .info h2 em { color: #00b }
+.milestone .info .date {
+	font-style: normal;
+}
+
+.trac-progress .legend {
+	font-style: normal;
+}
+
+/* search.css */
+#content.search .filters { color: #505050 }
+
+#content.search #results dt a { color: #46a }
+#content.search #results .trac-author, #results .date { color: #489; }
+
+#content.search #quickjump { font-style: normal }
+
+/* ticket.css */
+#field-description-help { color: #666; font-size: 85%; margin-top: 0.1em; }
+
+#ticket {
+	background: #e6ecf8;
+	border: 1px solid #b0c6d8;
+}
+
+#ticket > h2 {
+	color: #458;
+}
+#ticket > h2 .trac-type {
+	color: #569;
+}
+
+#ticket .date {
+	color: #689;
+}
+
+#ticket table.properties {
+	border-top: 1px solid #b0c6d8;
+}
+#ticket table.properties > tbody > tr { border-bottom: 1px dotted #d6dff8 }
+#ticket table.properties > tbody > tr > td, #ticket table.properties > tbody > tr > th {
+	font-size: 85%;
+}
+#ticket table.properties > tbody > tr > th {
+	color: #446880;
+}
+#ticket table.properties > tbody > tr > th.missing { color: #99b5d4; }
+
+#ticket div.description h3 {
+	border-bottom: 1px solid #b0c6d8;
+	color: #446880;
+}
+
+#trac-comment-editor textarea {
+	background: #e0ffff;
+}
+
+#changelog .changes { background: #dff; }
+#changelog .changes, #ticketchange .changes {
+ color: #366;
+ border-color: #aee #9dd #9dd #aee;
+}
+
+label[for=comment] { color: #666; font-size: 85%; margin-top: 0.2em; }
+
+/* timeline.css */
+.timeline h2 {
+	background: #f6f8ff;
+}
+
+.timeline dt :link, .timeline dt :visited {
+	color: #333;
+}
+.timeline dt :link:hover, .timeline dt :visited:hover {
+	background-color: #dde5ee;
+	color: #333;
+}
+.timeline dt em {
+	color: #00b;
+}
+.timeline dd {
+	color: #667177;
+}
+
+/* wiki.css */
+.wikipage h1, .wikipage h2, .wikipage h3 {
+	color: #223344;
+}
+
+.wikipage h2 {
+	border-bottom: 1px solid #d0dde5;
+}
+
+.wikipage h3 {
+	border-bottom: 1px dashed #d0dde5;
+}
+
+.wikipage h4, .wikipage h5, .wikipage h6 {
+	border-bottom: 1px dotted #d0dde5;
+	padding: 0 0.5em 0.1em;
+	display: table;
+}
+
+#pagepath {
+	font-size: 11px;
+}
+#pagepath .first:link, #pagepath .first:visited { color: #899 }
+
+#edit #rows {
+	margin: 1.3em 0 0 0;
+}
+
+.wiki-toc {
+	border: 1px outset #cdd;
+	background: #e2ecf5;
+}
+.wiki-toc .active { background: #bbd5ee; }
+
+div.trac-modifiedby {
+	font-style: normal;
+}
+
+div.tracini td.nodefault {
+	font-style: normal;
+}
+
+/* jquery-ui.css */
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { color: #204070; }
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #204070; }
+
+/* acct_mgr.css */
+div.ini span.defaults { color: #899; }
+
+tr.missing td, tr.missing td a { color: #899; }
+
+/* (stats) common.css */
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	border-bottom: 1px solid #d0d3d9;
+}
+
+/* wikicalendar.css */
+table.wiki-calendar caption td.x { font-family: Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif }
+
+table.wiki-calendar caption table { width: 100% }
+
+/* wysiwyg.css */
+iframe.wysiwyg:focus {
+	border: 1px solid #678;
+}
+.wysiwyg-toolbar li a:hover, .wysiwyg-toolbar li.selected a:hover {
+	border: 1px solid #2bf;
+	color: #678;
+}
+
+.wysiwyg-menu :link, .wysiwyg-menu :visited {
+	color: #333;
+}
+.wysiwyg-menu a:hover, .wysiwyg-menu .selected a:hover {
+	border: 1px solid #2bf;
+}
+
+/* 모바일, 작은 화면 */
+@media (max-width: 480px) {
+	body { margin: 0.5em; }
+
+	#header {
+		top: 0.3em;
+		bottom: auto;
+	}
+	#header img { height: 20px; }
+
+	.nav li {
+		padding: 0 .6em;
+	}
+
+	#mainnav li {
+		padding: 0.25em 0;
+	}
+
+	#mainnav :link, #mainnav :visited {
+	    padding: 0.25em 0.75em;
+	}
+
+	#altlinks h3 { display: inline; }
+	#altlinks ul { display: inline; }
+
+	div.trac-content {
+		padding: .5em 0;
+ 		border: none;
+		box-shadow: none;
+	}
+
+	#prefs {
+		display: table;
+		float: none;
+	}
+
+	.wikipage { padding-left: 12px }
+	.wikipage h1, .wikipage h2, .wikipage h3 { margin-left: -12px }
+	.wikipage table h1, .wikipage table h2, .wikipage table h3 { margin-left: 0px }
+
+	#content.about a.logo { float: none; }
+
+	#content.search form input[type=text] {
+		width: 60%;
+		min-width: 25ex;
+	}
+
+	/* wiki */
+	.wikipage .trac-content {
+		margin-left: 0px;
+		padding-left: 0px;
+	}
+
+	.wikipage ul { padding-left: 2em; }
+
+	.wiki-toc {
+		display: table;
+		float: none;
+		margin-left: 0;
+	}
+
+	form .field fieldset table { padding-right: 1em; }
+	form .field fieldset table td input[type="text"] { width: 100%; }
+}
+
+@media handheld, screen and (max-device-width: 480px) {
+	.wikitoolbar, .wysiwyg-toolbar {
+		white-space: normal;
+		height: auto;
+		width: auto;
+	}
+}
+
+/* 추가 */
+#commenting { display: table; }
+#commenting textarea {
+	clear: both;
+	width: 100%;
+}
+
+.trac-recent-changes .listing tbody td, .advanced-recent-change .listing tbody th {
+	border: none;
+}
+.trac-recent-changes .listing tbody td {
+	font-size: 12px;
+}
+.trac-recent-changes .wikitable p {
+	margin: 0;
+}

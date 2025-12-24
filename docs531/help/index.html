@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <title>사용자 도움말</title>
+  <link rel="shortcut icon" href="../favicon.ico" >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+  <link rel='stylesheet' href='./css/bootstrap.min.css'>
+  <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <h1 class="page-header">윈포를 편리하게 .... 사용자 도움말 v2.1</h1>
+  <p class="text-info">*이 템플릿은  Bootstrap v3 - v3.3.7을 활용했습니다.</p>
+  <h3>일반적인 링크의 구성 수정의 방법</h3>
+  <p>공통된 부분에 대한 소스코드의 수정 방법 도움말 <code>각주</code>.<a href="#1">¹</a>
+  </p>
+  <div class="bs-example-padded-bottom">
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
+      각 항목의 수정의 방법 도움말
+    </button>
+
+	<button class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+      유튜브 관련 링크 항목의 수정의 방법 도움말
+    </button>
+
+  </div>
+
+  <h3>화면의 구성과 각각의 부수기능 도움말</h3>
+  <div class="bs-example-padded-bottom">
+	<button class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
+      1. 상단 메뉴의 활용
+    </button>
+
+	<button class="btn btn-primary" data-toggle="modal" data-target="#myModal4">
+      2. 왼쪽 메뉴의 활용
+    </button>
+
+	<button class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+      3. 문서 불러와 읽기 메뉴의 활용
+    </button>
+
+
+  </div>
+
+  <h3>유튜브 영상을 게시글 또는 댓글에 보이게 글쓰기 도움말</h3>
+  <div class="bs-example-padded-bottom">
+	<button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">
+      1. 퍼가기 메뉴의 활용
+    </button>
+
+	<button class="btn btn-primary" data-toggle="modal" data-target="#myModal7">
+      2. 첨부파일중 mp4파일의 본문 삽입
+    </button>
+
+  </div>
+
+
+<!-- --------------------------------------------------- -->
+<!-- --------------------------------------------------- -->
+
+   <!-- Modal1 -->
+  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModal3Label">각 항목의 수정의 방법 도움말</h4>
+        </div>
+        <div class="modal-body">
+          <p>각 항목별 보이는 부분과 찿기및 수정 방법</p>
+
+		  <pre class="code" data-language="html">
+			<h3><i class="fa fa-external-link" aria-hidden="true"></i> 게시판 목록</h3>
+		  </pre>
+
+          <p>위 부분은 "게시판 목록"을 검색하시면 빠른 접근이 가능합니다. 물론 해당 부분의 글자를 수정하신 후 새로고침을 하시면 수정된 모습을 확인 할 수 있습니다.</p>
+		  <p></p>
+		  <p>내부 링크의 수정<p>
+		  <pre class="code" data-language="html">
+			<li><a href="https://windowsforum.kr/notice">공지사항</a></li>
+		  </pre>
+		  <p>위 링크는 목록으로 보이게 하는 구문과 바로가기 링크를 포함한 구문입니다.<br>
+		  이때 해당 링크는 " https://windowsforum.kr/notice " 입니다.<br>
+		  이를 화면에 보이게 하는 문구는 "공지사항" 입니다. 이러한 구조로 되어져 있으므로<br>
+		  사용자분께서는 가장 기본적인 구문들의 구성을 직접 입력한 후 새로고침으로 확인할 수 있습니다.<br>
+		  보이는 부분과 링크에 주의 하시면 됨니다.</p>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal1 -->
+
+   <!-- Modal2 -->
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModal3Label">유튜브 관련 링크 항목의 수정의 방법 도움말</h4>
+        </div>
+        <div class="modal-body">
+          <p>각 항목별 보이는 부분과 찿기및 수정 방법</p>
+
+		  <p>유튜브에 대해서는 여러가지의 방법이 있습니다만 그 기준을 반드시 유튜브에서만 볼 수 <br>
+		  있도록 지정한 부분과 외부에서의 임베드가 가능한 부분을 기준으로 했습니다.<br>
+		  그러하므로 여러가지의 유튜브 링크의 활용에 대해서 일일이 기술하는 것은 <br>
+		  낭비일 수 있으므로 이러한 부분은 검색을 통하여 일일이 학습하시면 도움이 <br>
+		  될 수 있습니다.</p>
+		  <p></p><p></p>
+		  <p>내부 링크의 구분<p>
+		  <pre class="code" data-language="html">
+1. 외부에서 목록을 불러와서 볼 수 있을 때
+[li][a href="https://www.youtube.com/embed/videoseries?list=UUBerW9rbDe49a4p43RRCZxg&amp;autoplay=1&rel=0&showinfo=0&autohide=1&amp;enablejsapi=1'" title="video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen><i class="fa fa-toggle-right" aria-hidden="true"></i> 올드스쿨 뮤직허브-1[/a][/li]
+
+2. 외부에서 목록을 불러와서 볼 수 없을 때
+[li][a href="https://www.youtube.com/watch?v=xYNy0xJHPNU&list=UUg5pl1lurkHt_-R3mT8orvA&amp;autoplay=1&rel=0&showinfo=0&autohide=1&amp;enablejsapi=1" title="video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen><i class="fa fa-toggle-right" aria-hidden="true"></i> 파랑새날다[/a][/li]
+		  </pre>
+
+		  <p>위 구문을 확인하시면 다른 부분이 보입니다.<br>
+		  "https://www.youtube.com/watch?v=" 와 <br>
+		  "https://www.youtube.com/embed/videoseries?list=" 구문의 차이입니다.<br>
+		  이는 활용하는 방법의 하나이므로 전부나 전체가 될 수 없습니다.<br>
+		  "=" 부터 "&" 이전까지의 부분이 해당 유튜브비디오의 고유 ID 입니다.<br>
+		  다른 구문들은 보조의 꾸밈을 하는 구문입니다. 검색을 활용한 학습이 필요합니다.</p>
+		  <p></p><p></p>
+		  <p>단일 비디오 목록만들기와 보기<p>
+		  <p>이 부분에 대해서는 구글등의 검색을 통하여 무수히도 많은 구문과 표현의 방법이 있습니다.<br>
+		  단편화하기에는 무리가 있을듯합니다만 개별 비디오의 목록을 만드는 방법도 또한 제각기의 방법이<br>
+		  여러가지 이므로 이를 활용하여 목록의 일괄 모아보기도 가능합니다. 참고해 보시면 편리합니다.<br>
+		  특히나 강의및 시리즈별 주제로하여 관심이 있는 부분등<br>
+		  사용자 스스로의 목록을 만들어 학습의 효과를 증대할 수 있을 것이라 생각합니다.</p>
+		  <p></p><p></p>
+		  <pre>?version-2&autoplay=1     : 클릭시 자동 실행</pre>
+		  <pre>?version-2&amp;autoplay=1&amp;loop=1&amp;playlist=ID     :  자동실행 + 무한 반복실행</pre>
+		  <pre>공유된 주소 링크 뒤에 ?t='원하는 시간's를 입력   &amp;start=120 : 재생시작시간(초)</pre>
+		  <pre>공유된 주소 링크 뒤에 &amp;end=130 : 재생종료시간(초)</pre>
+		  <p></p><p></p>
+		  <pre>https://www.youtube.com/watch?v=</pre>
+		  <pre>https://www.youtube.com/embed/videoseries?list=</pre>
+		  <pre>유튜브 재생목록 역순으로 재생하는 방법:  &index=1&amp;it-playlist-reverse=true</pre>
+		  <pre>src="https://www.youtube.com/embed/videoseries?list=PLRNL2QMwlxUAdlKSO_cLHfVmELCr7Z1R2"</pre>
+		  <pre>&amp;loop=1&amp;playlist=ufmU1sQ6prE,ufmU1sQ6prE2"</pre>
+		  <pre>src="https://www.youtube.com/embed/jJ0MhzU1l4g?version-2&amp;autoplay=1&amp;loop=1&amp;playlist=jJ0MhzU1l4g"</pre>
+		  <p></p>
+		  <p></p>
+		  <p>유튜브 모든 디바이스 적용</p>
+		  <pre>
+/* 유튜브 모든 디바이스 적용 */
+.youtubeWrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+.youtubeWrap iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+		  </pre>
+		  <pre>
+[iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=재생목록 ID" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>[/iframe]
+		  </pre>
+		  <p>재생목록</p>
+		  <pre>
+3개이상의 동영상 연속재생은 , 로 구분하면 되네요.
+playlist=LGR84Jqm-Vk,WEElVBPGoJY,WEElVBPGoJY
+		  </pre>
+		  <p>재생목록</p>
+		  <pre>
+[li][a href="https://youtube.com/embed/9DoXIFSaw38?autoplay=1&amp;loop=1&amp;playlist=9DoXIFSaw38,TL4_AVODPSE,AStwiDPYSQU&amp;rel=0&amp;showinfo=0&amp;autohide=1&amp;enablejsapi=1'">옛노래 멜로디 1집 전곡 🎵[/a][/li]
+		  </pre>
+		  <p>개별목록의 재생목록화</p>
+		  <pre>
+href="https://youtube.com/embed/9DoXIFSaw38?autoplay=1&amp;loop=1&amp;playlist=9DoXIFSaw38,TL4_AVODPSE,AStwiDPYSQU,WII1fbPahUQ,XLohAPi5oHU,5BR2YED87-8,O2pV36b33n4,mTErISYdtCE,nrqKvLz_TX0&amp;rel=0&amp;showinfo=0&amp;autohide=1&amp;enablejsapi=1'"><i class="fa fa-toggle-right"></i> 향수의 옛노래 멜로디 🎵
+		  </pre>
+		  <p>.</p>
+
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal2 -->
+
+  <!-- Modal3 -->
+  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myLargeModalLabel">상단메뉴및 버튼에 대한 도움말</h4>
+        </div>
+        <div class="modal-body">
+          <p>검색어 및 검색</p>
+          <p>이는 문득 알고싶거나 찿고자할때 즉시 활용하고자 구현한 기능으로 구글 검색만을 지원합니다.<br>
+		  검색어를 입력하신 후 검색버튼을 클릭하시면 새창(탭)으로 검색결과가 보여짐니다.</p>
+		  <p></p><p></p>
+		  <p><i class="fas fa-bell" aria-hidden="true"></i> : 윈포에서 내게 온 쪽지 일괄 확인</p>
+		  <p><i class="fas fa-user-circle" aria-hidden="true"></i> : 윈포에서 나의 회원정보 확인및 수정</p>
+		  <p><i class="fab fa-youtube"></i> : 연구자가 코딩할때 음악을 듣습니다. 사용자 기호에 맞게 수정하시어 활용하시면 됨니다.</p>
+		  <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Refresh_font_awesome.svg/1200px-Refresh_font_awesome.svg.png" width="20px"> : 화면 새로고침을 진행합니다.</p>
+		  <p></p><p></p>
+		  <p>이동을 빠르게 ::: 이는 좌우의 페이지를 빠르게 이동하기 위한 구분입니다.</p>
+		  <p></p><p></p>
+		  <p>마우스의 활용 ::: </p>
+		  <p>1. 화면의 아래 스크롤바를 직접 드래그하여 화면을 이동합니다. </p>
+		  <p>2. 마우스의 가운데 버튼의 클릭으로 상하좌우 화면이동 기능을 활용한 좌우 빠른 이동을 합니다.</p>
+		  <p></p><p></p>
+          <p>이외에도 무수한 방법과 접근이 가능하므로 사용자 여러분의 아이디어를 통한 참여와 공유를 기다림니다.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-primary">화면 빈곳을 클릭시 모달창이 닫힘니다.</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal3 -->
+
+  <!-- Modal4 -->
+  <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>왼편의 메뉴는 또한 사용자의 편의를 위하여 구성된 부분입니다.</p>
+		  <p></p><p></p>
+		  <p>각각의 메뉴는 모두가 내부에 포함되어진 부분과 추가된 부분으로 구성을 했습니다.</p>
+		  <p>이는 동안의 경험을 토대로하여 메뉴를 구성한 것이므로 사용자의 편리에 따른 수정이 필요할 수 있습니다.</p>
+		  <p></p><p></p>
+		  <p>특징.</p>
+		  <p>1. 계단식으로 구성을 해 두었읍니다만 사용자편의대로 수정 활용하시면 됨니다.</p>
+		  <p>2. 마우스를 부근에 가져가면 자동으로 펼쳐지게 구성했습니다. (클릭의 최소화 )</p>
+		  <p>3. 특정 활용부분의 빠른 접근을 위한 메뉴의 구성이 이루어져 있습니다.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-primary">화면 빈곳을 클릭시 모달창이 닫힘니다.</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal4 -->
+
+  <!-- Modal5 -->
+  <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModal5Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+          <p>주제 : 문서 불러와 읽어보기의 기능</p>
+		  <p></p><p></p>
+
+          <pre>
+이 기능을 구현한 것은 순전한 연구자의 습관에서 비롯된 부분입니다.
+무수한 생각과 아이디어가 생각나거나 스칠때면 어김없이 메모했던
+그 습관에서부터 항상 메모를 먼저 확인하고 일자별로 제목별로 구분하며
+확인하고 재확인하며 잊혀져만 가능 것들에 대한 부분이나, 아이디어,
+또는 활용법 등에 대한 메모와 그 메모의 재확인으로하여 지금까지
+이어온 습관에서 비롯한 부분입니다.
+
+그러함으로 txt 또는 HTML 파일만을 지원하며,
+이에 대하여 매번 확인하고 고심하는 부분일 수 있기에 파일에
+제한을 두었습니다. 그러함으로 배경화면을 두고 그 위에 표현하는
+방식으로 구현했으며, 별도의 닫기를 지원하지 않는 이유가 있습니다.
+
+습관상 읽다가 키보드나 마우스이 터치로하여 화면 뒤로 간다거나
+사라지는 등에 의한 불편함을 최소화하고자 했습니다.
+
+이 부분에 대해 불편하시다면 모달창을 활용하시거나,
+닫기버튼을 활용하시면 편리할 듯합니다.
+연구자는 화면 새로고침으로 보이지 않게 했습니다.
+
+상단과 왼쪽의 메뉴에 또한 지원하도록 구성한 이유는,
+언제든지 빠른 접근이 가능하도록 구성하기 위함이며,
+이 또한 자꾸만 시간이 흐름에 따른 잊혀짐에 대한 일정부분의
+방어적기재라고 이해하시면 됨니다.
+
+작은 것에 불과합니다만
+여러분께서의 정성과 웹활용 등에 대한 빠르고 정확한 링크를 제공함으로서
+피싱에 속지 않음은 물론이고, 나만이 아닌 우리라는 마음으로
+동안 여러분과 함께 PE에의 적용및 실컴에서의 활용을 위한 방향으로서
+구성 배포해 드린 부분입니다.
+
+이는 배포를 함으로서 연구자의 손을 떠나 여러분의 손에 들려진 것이므로
+완전한 소유자가 되시어 맘껏 활용하심에 도움이라도 되고져 함이 기반이었습니다.
+
+이를 이용한 상업적인 활용을 엄금하고 불허하오며,
+악용 또한 엄중하게 불허합니다.</pre>
+
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <!-- /.modal5 -->
+
+    <!-- Modal6 -->
+  <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModal6Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" style="color:red;" aria-hidden="true">&times;</button>
+
+          <p>주제 : 포럼의 게시글및 댓글에 유튜브 영상을 보이게 글쓰기 도움말</p>
+		  <p></p><p></p>
+
+
+<p>1. 글쓰기 모드시</p>
+<p></p>
+<pre>
+포럼의 화면에서.....
+글작성시에 상단에 보이는 각종 꾸밈 도구들 중에서
+[ 소스 ] 를 클릭하시면 HTML 화면이 아닌 소스코딩 모드로 전환이 됨니다.
+
+유튜브 화면에서...
+가. 해당 유튜브 화면을 새창 또는 새탭에 불러옵니다.
+나. 영상 바로 아래의 각 버튼중에서 공유<i class="fa fa-share"></i> 버튼을 클릭합니다.
+다. 퍼가기<i class="fa fa-angle-left"> </i><i class="fa fa-angle-right"></i>를 클릭합니다.
+라. 시작시간을 설정하실 필요가 있을 경우 설정을 하시거나 건너띄기 합니다.
+마. 복사를 클릭합니다. ( 클립보드에 복사가 됨니다. )
+
+포럼화면에서....
+소스 상태로 전환이 된 상태이므로
+해당 부분에 붙여넣기 또는 Ctrl + V 를 선택하시거나 타이핑 합니다.
+
+다시금 상단의 각종 꾸밈버튼중에서 [ 소스 ] 를 클릭합니다.
+( HTML 화면으로 다시금 전환 )
+그러면 해당 위치에 유튜브 영상이 보이게 됨니다.
+
+만일 보이지 않는다거나 오류가 발생할 때는
+처음부터 다시금 시도를 합니다.
+</pre>
+<p></p>
+<p>2. 댓글쓰기 모드시</p>
+<p></p>
+<pre>
+위 글쓰기 모드와 동일한 방법입니다만
+아래로 향하는 버튼을 클릭하시면 꾸밈 목록 상자가 보이게 되므로
+이를 활용하시면 됨니다.
+</pre>
+<p></p>
+<p style="color:red;">
+이를 이용한 상업적인 활용을 엄금하고 불허하오며,악용 또한 엄중하게 불허합니다.</p>
+
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal6 -->
+
+    <!-- Modal7 -->
+  <div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModal7Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" style="color:red;" aria-hidden="true">&times;</button>
+
+          <p>주제 : 첨부파일중 mp4파일의 본문 삽입 도움말</p>
+		  <p></p><p></p>
+		<p>1. 글쓰기시</p>
+		<p></p>
+		<p>
+		포럼의 화면에서.....
+
+		우선 필요한 영상의 파일(mp4)을 준비하여 업로드를 우선적으로 진행합니다.
+		첨부가 완료된 해당 영상파일의 직접주소를 복사하여 메모해 둠니다.
+
+
+		글작성시에 상단에 보이는 각종 꾸밈 도구들 중에서
+		[ 소스 ] 를 클릭하시면 HTML 화면이 아닌 소스코딩 모드로 전환이 됨니다.
+		</p>
+		<p></p>
+		<p>아래의 소스코드에서 <i class="fa fa-angle-left"></i> 는 < 로, <i class="fa fa-angle-right"></i> 는 > 로 변경해야 합니다</p>
+<pre><i class="fa fa-angle-left"></i>video muted autoplay loop<i class="fa fa-angle-right"></i>
+<i class="fa fa-angle-left"></i>source src="videos/Clouds.mp4" type="video/mp4"<i class="fa fa-angle-right"></i>
+<i class="fa fa-angle-left"></i>strong<i class="fa fa-angle-right"></i>Your browser does not support the video tag.<i class="fa fa-angle-left"></i>/strong<i class="fa fa-angle-right"></i>
+<i class="fa fa-angle-left"></i>/video<i class="fa fa-angle-right"></i></pre>
+		<p>위 소스코드중에서 src=" " 안에 첨부된 동영상파일의 주소를 붙여넣기 하시면 <br>
+		코드는 완성이 됨니다.<br>
+		모든 브라우져에서 통용되는 코드는 아님니다. <br>
+		이 태그를 지원해야만 가능합니다.</p>
+		<p>
+		포럼화면에서....<br>
+		위 소스를 적절하게 수정하여 복사를 합니다.<br>
+		소스 상태로 전환이 된 상태이므로<br>
+		해당 부분에 붙여넣기 또는 Ctrl + V 를 선택하시거나 타이핑 합니다.<br>
+		<br>
+		다시금 상단의 각종 꾸밈버튼중에서 [ 소스 ] 를 클릭합니다.<br>
+		( HTML 화면으로 다시금 전환 )<br>
+		그러면 해당 위치에 유튜브 영상이 보이게 됨니다.<br>
+		<br>
+		만일 보이지 않는다거나 오류가 발생할 때는<br>
+		처음부터 다시금 시도를 합니다.<br>
+		</p>
+		<p></p>
+		<p>2. 댓글쓰기 모드시</p>
+		<p></p>
+<pre>
+위 글쓰기 모드와 동일한 방법입니다만
+아래로 향하는 버튼을 클릭하시면 꾸밈 목록 상자가 보이게 되므로
+이를 활용하시면 됨니다.
+</pre>
+		<p></p>
+		<p style="color:red;">이를 이용한 상업적인 활용을 엄금하고 불허하오며,악용 또한 엄중하게 불허합니다.</p>
+
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+	<hr>
+  <!-- /.modal7 -->
+
+<!-- ******************************************************* -->
+<!-- ******************************************************* -->
+
+  <footer>
+<p>각주와 알림의 글</p>
+    <ol>
+      <li id="1">반드시 알고가기 :: <a href="">이것은 전체나 최고가 아니며 최선이 아님을 알려드림니다.</a>.</li>
+	  <li>기호문자 등의 출처 :: <a href="https://html5book.ru/shrift-awesome/" target="_blank">shrift-awesome</a>
+	</ol>
+	<ul>
+	  <li>여러분..!</li>
+	  <li>함께 함으로서 우리가 됨을 한번 더 자각하고 참여합시다.</li>
+	  <li>내가 아닌 우리가 되어 봅시다.</li>
+	  <li>상호존중으로 함께 자리합시다.</li>
+	  <li>배려와 온기가 넘치는 함께하는 사회를 우리가 하나되어 이룹시다.</li>
+      <li><span style="padding-left:210px;">- 연구자의 손을 떠나면서 - </span></li>
+	</ul>
+
+
+  </footer>
+</div>
+
+	<!-- partial -->
+	<script src='./css/jquery.min.js'></script>
+	<script src='./css/bootstrap.min.js'></script>
+	<script src='./css/codemirror.min.js'></script>
+	<script src='./css/runmode.min.js'></script>
+	<script src='./css/css.min.js'></script>
+	<script src='./css/javascript.min.js'></script>
+	<script  src="./css/script.js"></script>
+
+</body>
+</html>

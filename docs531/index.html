@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>나의 웹서핑을 쉽게 - 대표즐찾 v5.3p</title>
+  <link rel="shortcut icon" href="imgs/favicon.ico" >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courgette:400,700">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="js/style.css">
+  <link rel="stylesheet" href="js/bw_style.css">
+  <link rel="stylesheet" type="text/css" href="js/animate.css">
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+  <!-- <link rel="stylesheet" href="js/skrollr_style.css"> -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
+  <link rel="stylesheet" href="js/bubbles_style.css">
+  <link rel="stylesheet" href="js/flower_style2.css">
+
+  <script src="js/modernizr.js"></script> <!-- Modernizr -->
+  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script>
+  <script type='text/javascript' src='/js/jquery.mousewheel.min.js'></script>
+  <script type='text/javascript' src='/js/unpkg.com_feather-icons@4.29.0_dist_feather.min.js'></script>
+  <script type="text/javascript" src="js/skrollr.min.js"></script>
+  <base target="_blank">
+  <!--<base href="https://fontsdata.com/">-->
+  <!-- <base href="."> -->
+</head>
+
+<body id="body" class="dark-mode not-loaded flow-body">
+<!-- partial:index.partial.html -->
+<!-- Masthead trello -->
+<header class="masthead">
+	<div class="logo"> <!--  style="background-color: var(--color-2); background: var(--color-2); "   -->
+		<h1 style="height:40px; margin-top: 0px; font-size: 3.0rem; ">
+		<i class="fas fa-wifi logo-icon" aria-hidden="true" style="margin-left: 10%;"></i> 인터넷 서핑을 더 편하게 ... by RedHat v5.3.1p
+		<a href="https://translate.google.co.kr/?hl=ko&tab=TT" title="구글번역 ::- 왼쪽 쉬프트키를 누른 후 마우스 스크롤 하면 좌우 이동이 됨니다.">
+		<img src="./imgs/waf-logo(80).gif" width="140px" height="40px" style="margin-left: 3%; padding-top: 8px; " ></a></h1>
+	</div>
+</header>
+<!-- End of masthead -->
+
+<!-- Board info bar -->
+<section class="board-info-bar" style="margin-top: 20px;">
+	<div class="board-controls">
+		<button class="board-title btn">
+			<h2><a href="https://gigafile.nu/" target="_blank" title="기가파일">📤
+			<!-- img src="imgs/base_logo_img.png" width="80px" height="20px" --></a> </h2>
+		</button>
+
+		<button class="board-title btn">
+			<h2><a href="https://megaup.net/2uioi~i?40b868be6d3dcfb4abd54460d23676ad" target="_blank" title="메가업">
+			<img src="https://megaup.net/themes/flow/images/main_logo_inverted.png" width="80px" height="20px"></a> </h2>
+		</button>
+
+		<button class="board-title btn">
+			<h2><a href="https://krakenfiles.com/" target="_blank" title="크라켄파일">
+			<img src="https://krakenfiles.com/images/kf_logo_dark.png" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button class="board-title btn">
+			<h2><a href="https://tmpstorage.com/" target="_blank" title="임시저장소">
+			<img src="imgs/Up-Sahre.ico" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button style="margin-left:30px;" class="board-title btn">
+			<h2><a href="https://shortener.gigafile.nu/" target="_blank" title="주소를 짧게 gigafile">
+			<img src="imgs/Hemp.ico" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button class="board-title btn">
+			<h2><a href="https://han.gl/" target="_blank" title="주소를 짧게 han.gl">
+			<img src="imgs/Plant.ico" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button style="margin-left:30px;" class="board-title btn">
+			<h2><a href="ms-settings:" target="_blank" title="시스템 설정">
+			<img src="imgs/Tool.ico" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button style="margin-left:30px;" class="board-title btn">
+			<h2><a href="help/index.html" target="_blank" title="도움말">
+			<img src="imgs/Help1.png" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button class="board-title btn">
+			<h2><a href="clock/index.html" target="_self" title="지금 시각">
+			<img src="imgs/clock1.png" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button class="board-title btn">
+			<h2><a href="ko2en/index.html" target="_self" title="한영타변환 1">
+			<img src="imgs/ko2en.png" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button class="board-title btn">
+			<h2><a href="ko2en2/index.html" target="_self" title="한영타변환 2">
+			<img src="imgs/ko2en.png" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button class="board-title btn">
+			<h2><a href="spc/index.html" target="_self" title="특수문자 활용">
+			<img src="imgs/spc.png" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button class="board-title btn">
+			<h2><a href="calc/index.html" target="_blank" title="간단계산기">
+			<img src="imgs/My Calculator.ico" width="30px" height="20px"></a> </h2>
+		</button>
+
+		<button class="board-title btn" onClick="window.location.reload()" title="새로고침">🔄</button>
+
+		<button style="margin-left:30px;" type="board-title btn button" name="dark_light" onclick="toggleDarkLight()" title="Toggle dark/light mode">
+			<img src="imgs/moon.png" width="20px" height="20px">
+			<img src="imgs/sun.png" width="20px" height="20px"></button> <!-- 🌛  -->
+
+		<button class="board-title btn" style="margin-left:30px; ">
+		<h2><a href="main.html" target="_Self" title="축소목록">
+		축소 <img src="imgs/Fullview.ico" width="30px" height="20px"> 전체</a> </h2>
+		</button>
+
+<!--  -->
+	</div>
+
+<br><br>
+</section>
+<!-- End of board info bar -->
+<!-- Lists container -->
+<section class="lists-container">
+
+
+<!-- --------- 처음부터 라인 여기까지 안보기 ( 예외지정 ) ------------------------------------ -->
+
+
+<div class="list">
+<h3 class="list-title"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 1</h3>
+	<ul class="list-items">
+
+<li><a class="btn btn-danger pull-Left btn-block"> 신규항목 </a></li>
+<li>-------------------------------</li>
+	</ul>
+	<button class="add-card-btn btn">....추가하기</button>
+</div>
+
+
+<div class="list">
+<h3 class="list-title"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 2</h3>
+	<ul class="list-items">
+
+<li><a class="btn btn-danger pull-Left btn-block"> 신규항목 </a></li>
+<li>-------------------------------</li>
+	</ul>
+	<button class="add-card-btn btn">....추가하기</button>
+</div>
+
+
+<div class="list">
+<h3 class="list-title"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 3</h3>
+	<ul class="list-items">
+
+<li><a class="btn btn-danger pull-Left btn-block"> 신규항목 </a></li>
+<li>-------------------------------</li>
+	</ul>
+	<button class="add-card-btn btn">....추가하기</button>
+</div>
+
+
+<div class="list">
+<h3 class="list-title"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 4</h3>
+	<ul class="list-items">
+
+<li><a class="btn btn-danger pull-Left btn-block"> 신규항목 </a></li>
+<li>-------------------------------</li>
+	</ul>
+	<button class="add-card-btn btn">....추가하기</button>
+</div>
+
+
+
+<!-- --------- 맨끝에 여기까지 안보기 ( 예외지정 ) ------------------------------------ -->
+
+<!-- ------------------------------------------------------------------------------- -->
+<p class="left_flower">
+	<span class="bg_flower5"></span>
+	<span class="bg_flower6"></span>
+	<span class="bg_dot dot4"></span>
+	<span class="bg_dot dot5"></span>
+	<span class="bg_dot dot6"></span>
+	<span class="bg_dot dot7"></span>
+	<span class="bg_dot dot8"></span>
+	<span class="bg_dot dot9"></span>
+</p>
+<!-- ------------------------------------------------------------------------------- -->
+<div class="container3">
+	<div class="bubbles-container">
+		<svg class="bubbles" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 701 1024" style="overflow: visible;">
+        <g class="bubbles-large" stroke-width="7">
+            <g>
+                <g transform="translate(10 940)">
+                    <circle cx="35" cy="35" r="35"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(373 940)">
+                    <circle cx="35" cy="35" r="35"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(408 940)">
+                    <circle cx="35" cy="35" r="35"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(621 940)">
+                    <circle cx="35" cy="35" r="35"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(179 940)">
+                    <circle cx="35" cy="35" r="35"/>
+                </g>
+            </g>
+        </g>
+
+        <g class="bubbles-small" stroke-width="4">
+            <g>
+                <g transform="translate(147 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(255 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(573 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(429 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(91 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(640 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(321 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(376 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(376 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+            <g>
+                <g transform="translate(497 984)">
+                    <circle cx="15" cy="15" r="15"/>
+                </g>
+            </g>
+        </g>
+
+    </svg>
+ 	</div>
+<!-- ------------------------------------------------------------------------------- -->
+  <div class="night"></div>
+  <div class="flowers">
+    <div class="flower flower--1">
+      <div class="flower__leafs flower__leafs--1">
+        <div class="flower__leaf flower__leaf--1"></div>
+        <div class="flower__leaf flower__leaf--2"></div>
+        <div class="flower__leaf flower__leaf--3"></div>
+        <div class="flower__leaf flower__leaf--4"></div>
+        <div class="flower__white-circle"></div>
+
+        <div class="flower__light flower__light--1"></div>
+        <div class="flower__light flower__light--2"></div>
+        <div class="flower__light flower__light--3"></div>
+        <div class="flower__light flower__light--4"></div>
+        <div class="flower__light flower__light--5"></div>
+        <div class="flower__light flower__light--6"></div>
+        <div class="flower__light flower__light--7"></div>
+        <div class="flower__light flower__light--8"></div>
+
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+        <div class="flower__line__leaf flower__line__leaf--5"></div>
+        <div class="flower__line__leaf flower__line__leaf--6"></div>
+      </div>
+    </div>
+
+    <div class="flower flower--2">
+      <div class="flower__leafs flower__leafs--2">
+        <div class="flower__leaf flower__leaf--1"></div>
+        <div class="flower__leaf flower__leaf--2"></div>
+        <div class="flower__leaf flower__leaf--3"></div>
+        <div class="flower__leaf flower__leaf--4"></div>
+        <div class="flower__white-circle"></div>
+
+        <div class="flower__light flower__light--1"></div>
+        <div class="flower__light flower__light--2"></div>
+        <div class="flower__light flower__light--3"></div>
+        <div class="flower__light flower__light--4"></div>
+        <div class="flower__light flower__light--5"></div>
+        <div class="flower__light flower__light--6"></div>
+        <div class="flower__light flower__light--7"></div>
+        <div class="flower__light flower__light--8"></div>
+
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+
+    <div class="flower flower--3">
+      <div class="flower__leafs flower__leafs--3">
+        <div class="flower__leaf flower__leaf--1"></div>
+        <div class="flower__leaf flower__leaf--2"></div>
+        <div class="flower__leaf flower__leaf--3"></div>
+        <div class="flower__leaf flower__leaf--4"></div>
+        <div class="flower__white-circle"></div>
+
+        <div class="flower__light flower__light--1"></div>
+        <div class="flower__light flower__light--2"></div>
+        <div class="flower__light flower__light--3"></div>
+        <div class="flower__light flower__light--4"></div>
+        <div class="flower__light flower__light--5"></div>
+        <div class="flower__light flower__light--6"></div>
+        <div class="flower__light flower__light--7"></div>
+        <div class="flower__light flower__light--8"></div>
+
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+
+    <div class="grow-ans" style="--d:1.2s">
+      <div class="flower__g-long">
+        <div class="flower__g-long__top"></div>
+        <div class="flower__g-long__bottom"></div>
+      </div>
+    </div>
+
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--1">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--6"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--7"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--8"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--2">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--6"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--7"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--8"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+
+    <div class="grow-ans" style="--d:2.4s">
+      <div class="flower__g-right flower__g-right--1">
+        <div class="leaf"></div>
+      </div>
+    </div>
+
+    <div class="grow-ans" style="--d:2.8s">
+      <div class="flower__g-right flower__g-right--2">
+        <div class="leaf"></div>
+      </div>
+    </div>
+
+    <div class="grow-ans" style="--d:2.8s">
+      <div class="flower__g-front">
+        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--1">
+          <div class="flower__g-front__leaf"></div>
+        </div>
+        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--2">
+          <div class="flower__g-front__leaf"></div>
+        </div>
+        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--3">
+          <div class="flower__g-front__leaf"></div>
+        </div>
+        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--4">
+          <div class="flower__g-front__leaf"></div>
+        </div>
+        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--5">
+          <div class="flower__g-front__leaf"></div>
+        </div>
+        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--6">
+          <div class="flower__g-front__leaf"></div>
+        </div>
+        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--7">
+          <div class="flower__g-front__leaf"></div>
+        </div>
+        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--8">
+          <div class="flower__g-front__leaf"></div>
+        </div>
+        <div class="flower__g-front__line"></div>
+      </div>
+    </div>
+
+    <div class="grow-ans" style="--d:3.2s">
+      <div class="flower__g-fr">
+        <div class="leaf"></div>
+        <div class="flower__g-fr__leaf flower__g-fr__leaf--1"></div>
+        <div class="flower__g-fr__leaf flower__g-fr__leaf--2"></div>
+        <div class="flower__g-fr__leaf flower__g-fr__leaf--3"></div>
+        <div class="flower__g-fr__leaf flower__g-fr__leaf--4"></div>
+        <div class="flower__g-fr__leaf flower__g-fr__leaf--5"></div>
+        <div class="flower__g-fr__leaf flower__g-fr__leaf--6"></div>
+        <div class="flower__g-fr__leaf flower__g-fr__leaf--7"></div>
+        <div class="flower__g-fr__leaf flower__g-fr__leaf--8"></div>
+      </div>
+    </div>
+
+    <div class="long-g long-g--0">
+      <div class="grow-ans" style="--d:3s">
+        <div class="leaf leaf--0"></div>
+      </div>
+      <div class="grow-ans" style="--d:2.2s">
+        <div class="leaf leaf--1"></div>
+      </div>
+      <div class="grow-ans" style="--d:3.4s">
+        <div class="leaf leaf--2"></div>
+      </div>
+      <div class="grow-ans" style="--d:3.6s">
+        <div class="leaf leaf--3"></div>
+      </div>
+    </div>
+
+    <div class="long-g long-g--1">
+      <div class="grow-ans" style="--d:3.6s">
+        <div class="leaf leaf--0"></div>
+      </div>
+      <div class="grow-ans" style="--d:3.8s">
+        <div class="leaf leaf--1"></div>
+      </div>
+      <div class="grow-ans" style="--d:4s">
+        <div class="leaf leaf--2"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.2s">
+        <div class="leaf leaf--3"></div>
+      </div>
+    </div>
+
+    <div class="long-g long-g--2">
+      <div class="grow-ans" style="--d:4s">
+        <div class="leaf leaf--0"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.2s">
+        <div class="leaf leaf--1"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.4s">
+        <div class="leaf leaf--2"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.6s">
+        <div class="leaf leaf--3"></div>
+      </div>
+    </div>
+
+    <div class="long-g long-g--3">
+      <div class="grow-ans" style="--d:4s">
+        <div class="leaf leaf--0"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.2s">
+        <div class="leaf leaf--1"></div>
+      </div>
+      <div class="grow-ans" style="--d:3s">
+        <div class="leaf leaf--2"></div>
+      </div>
+      <div class="grow-ans" style="--d:3.6s">
+        <div class="leaf leaf--3"></div>
+      </div>
+    </div>
+
+    <div class="long-g long-g--4">
+      <div class="grow-ans" style="--d:4s">
+        <div class="leaf leaf--0"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.2s">
+        <div class="leaf leaf--1"></div>
+      </div>
+      <div class="grow-ans" style="--d:3s">
+        <div class="leaf leaf--2"></div>
+      </div>
+      <div class="grow-ans" style="--d:3.6s">
+        <div class="leaf leaf--3"></div>
+      </div>
+    </div>
+
+    <div class="long-g long-g--5">
+      <div class="grow-ans" style="--d:4s">
+        <div class="leaf leaf--0"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.2s">
+        <div class="leaf leaf--1"></div>
+      </div>
+      <div class="grow-ans" style="--d:3s">
+        <div class="leaf leaf--2"></div>
+      </div>
+      <div class="grow-ans" style="--d:3.6s">
+        <div class="leaf leaf--3"></div>
+      </div>
+    </div>
+
+    <div class="long-g long-g--6">
+      <div class="grow-ans" style="--d:4.2s">
+        <div class="leaf leaf--0"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.4s">
+        <div class="leaf leaf--1"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.6s">
+        <div class="leaf leaf--2"></div>
+      </div>
+      <div class="grow-ans" style="--d:4.8s">
+        <div class="leaf leaf--3"></div>
+      </div>
+    </div>
+
+    <div class="long-g long-g--7">
+      <div class="grow-ans" style="--d:3s">
+        <div class="leaf leaf--0"></div>
+      </div>
+      <div class="grow-ans" style="--d:3.2s">
+        <div class="leaf leaf--1"></div>
+      </div>
+      <div class="grow-ans" style="--d:3.5s">
+        <div class="leaf leaf--2"></div>
+      </div>
+      <div class="grow-ans" style="--d:3.6s">
+        <div class="leaf leaf--3"></div>
+      </div>
+    </div>
+  </div>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+
+<!-- End of lists container -->
+<!-- partial -->
+	<script>
+	$(function() {
+	   $("body").mousewheel(function(event, delta) {
+	      this.scrollLeft -= (delta * 30);
+	      event.preventDefault();
+	   });
+	});
+	</script>
+
+	<script>
+	 var nowZoom = 100; // 현재비율
+	 var maxZoom = 200; // 최대비율
+	 var minZoom = 100; // 최소비율(현재와 같아야 함)
+	// +, – 키를 입력하면 화면 확대, 축소를 한다.
+	//화면 키운다.
+	 function zoomIn() {
+	  if (nowZoom < maxZoom) {
+	   nowZoom += 25; // 25%씩 커진다.
+	  } else {
+	   return;
+	  }
+	  document.body.style.zoom = nowZoom + “%”;
+	 }
+	 //화면 줄인다.
+	 function zoomOut() {
+	  if (nowZoom > minZoom) {
+	   nowZoom -= 25; // 25%씩 작아진다.
+	  } else {
+	   return;
+	  }
+	  document.body.style.zoom = nowZoom + “%”;
+	 }
+	</script>
+
+	<script src="js/script.js"></script>
+	<script src="js/jquery-2.1.4.js"></script>
+	<script src="js/main.js"></script> <!-- Resource jQuery -->
+
+<!-- partial -->
+	<script  src="js/bw_script.js"></script>
+<!-- partial -->
+	<script  src="js/flower_script.js"></script>
+
+</body>
+</html>
