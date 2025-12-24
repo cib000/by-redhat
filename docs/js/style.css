@@ -98,7 +98,7 @@ body {
 
 a  { 
 	font: bold 16px NanumGothic; 
-	color: #00FFFF; /*var(--list-item-color); 	  */
+	color: #0000FF; /*var(--list-item-color); 	  */
 	text-decoration:none; 
 }
 
