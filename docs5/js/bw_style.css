@@ -1,0 +1,131 @@
+/* 기본색상 전역선언 */
+:root {
+    font-size: 10px;
+	scroll-behavior: smooth;
+
+ /* 배경색 */
+  --bodbg_color: #000000; /* 검정 */
+  --bodbg_color3: #a3a2a2; /* 백색 */
+  --bodbg_color2: #ffffff; /* 백색 */
+  
+  /* 제목 마우스 오버 색상 */
+  --c-text-logo: #00ffff;
+
+  /* 제목바 배경색 */
+  --title_bgcolor: #6565db; /* 옅은 보라 */
+
+  /* 글자색  (제목바 포함 ) */
+  --text_color: #080808;  /* 검정 */
+
+  /* 아이템 배경색 */
+  --item_bgcolor: #969699;  /* 밝은 회색 */
+  
+  /* 추가하기 배경색 */
+  --addcard_bgcolor: #6b6969; /* #02fafa; */
+
+  /* 추가하기 글자색 */
+  --addcard_textcolor: #0919ed;
+
+  /* 마우스 오버시 색상 */  
+  --c-hover-button: #05e7fc; /* 마우스 오버시 배경색 - 하늘색 */
+  --c-hover-colorredred: #fc0505; /* 마우스 오버시 글자색 : Red */ 
+
+  /* 그림자 형태 및 색상 */
+  --slider-shadow: inset 0 1px 1px #ddd, 0 2px 3px #ccc;
+  --dot_color: #03fc07;
+
+}
+
+
+/* ***************************************************** */
+/* 검정테마용 색상 */
+/* ***************************************************** */
+body.dark-mode {
+  background-color: var(--bodbg_color); /* 검은색 */
+}
+
+body.dark-mode button {
+  background-color: var(--bodbg_color);
+  cursor: pointer;
+}
+
+body.dark-mode .board-info-bar .btn {
+  background-color: var(--bodbg_color3); /* 검은색 */
+} 
+
+body.dark-mode .board-info-bar .btn:hover {
+    background-color: var(--c-hover-button); /* #006aa8; */
+}
+
+body.dark-mode .add-card-btn {
+	background-color: var(--addcard_bgcolor);
+	color: #000000;
+}
+
+body.dark-mode .add-card-btn:hover {
+    background-color: var(--c-bg-secondary); /* #cdd2d4; */
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+body.dark-mode .list-items li {
+	background-color: #807c7c;
+}
+
+body.dark-mode .list-items li:hover {
+    background-color: var(--c-hover-button); /* #02e3f7; */
+	color: var(--c-hover-colorred);
+}
+
+
+
+/* 밝은테마용 색상 */
+/* ***************************************************** */
+
+body.light-mode {
+  background-color: var(--bodbg_color2); /* 백색 */
+}
+
+body.light-mode button {
+  background-color: var(--bodbg_color); /* 백색 */
+  cursor: pointer;
+}
+
+body.light-mode .board-info-bar .btn {
+  background-color: var(--bodbg_color2); /* 백색 */
+}
+
+body.light-mode .board-info-bar .btn:hover {
+    background-color: var(--c-hover-button); /* #006aa8; */
+}
+
+
+body.light-mode .add-card-btn {
+	background-color: var(--addcard_bgcolor);
+	color: #000000;
+}
+
+body.light-mode .add-card-btn:hover {
+    background-color: var(--c-bg-secondary); /* #cdd2d4; */
+    color: #ff0000;
+    text-decoration: underline;
+}
+
+
+body.light-mode .list-items li {
+	background-color: #bfbdbd;
+}
+
+body.light-mode .list-items li:hover {
+    background-color: var(--c-hover-button); /* #02e3f7; */
+	color: var(--c-hover-colorred);
+}
+
+body.light-mode .list {
+    background-color: #fff; /*var(--bodbg_color); */
+	color: var(--title_bgcolor);
+}
+
+
+/* ***************************************************** */
+/* ***************************************************** */

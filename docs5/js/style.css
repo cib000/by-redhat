@@ -14,7 +14,7 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
 
 
 :root {
-    font-size: 12px;
+    font-size: 10px;
 	scroll-behavior: smooth;
 
  /* 배경색 */
@@ -91,7 +91,6 @@ body {
 	background: var(--bodbg_color);
     color: var(--bodbg_color);
 	overflow-y: hidden;
-	overflow-x: auto;
 	transition: background 0.6s;
 }
 
@@ -342,7 +341,7 @@ a:hover {
   }
   
 .list-items li {
-    font-size: 1.6rem;
+    font-size: 1.1rem;
     font-weight: 500;
     line-height: 1.5;
     background-color:  var(--item_bgcolor);
@@ -540,7 +539,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 /* 하단 스크롤바 막대색 */
 .lists-container::-webkit-scrollbar-thumb {
     background-color: #00C9FF;  /* transparent;  #66a3c7; */
-    border: 0.2rem solid #00C9FF;
+    border: 0.4rem solid #00C9FF;
     border-top-width: 0;
 }
 

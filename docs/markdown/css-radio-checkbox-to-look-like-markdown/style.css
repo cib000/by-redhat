@@ -1,0 +1,34 @@
+/* Essentials - :not(old) for fallback */
+input[type=checkbox]:not(old),
+input[type=radio]:not(old) {
+  display: none;
+}
+input[type=checkbox]:not(old) + label:before,
+input[type=radio]:not(old) + label:before {
+  content: '[ ] ';
+}
+input[type=checkbox]:checked:not(old) + label:before,
+input[type=radio]:checked:not(old) + label:before {
+  content: '[x] ';
+}
+label {
+  cursor: pointer;
+  margin: 0 2em 0 0;
+}
+/* Cosmetics */
+body {
+  font: 200 1rem/2.6rem 'Source Code Pro';
+  text-align: center;
+  color: #9ea7a6;
+  background-color: #232c31;
+  user-select: none;
+}
+#a {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+#five + label {
+  margin-left: 1em;
+}

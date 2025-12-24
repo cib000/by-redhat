@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+:root {
+    font-size: 10px;
+	scroll-behavior: smooth;
+
+ /* 배경색 */
+  --bodbg_color: #000000; /* 검정 */
+  --bodbg_color2: #a3a2a2; /* 백색 */
+  --bodbg_color3: #ffffff; /* 백색 */
+  
+  /* 제목 마우스 오버 색상 */
+  --c-text-logo: #00ffff;
+  
+  /* 제목바 배경색 */
+  --title_bgcolor: #6565db; /* 옅은 보라 */
+
+  /* 글자색  (제목바 포함 ) */
+  --text_color: #080808;  /* 검정 */
+
+  /* 아이템 배경색 */
+  --item_bgcolor: #969699;  /* 밝은 회색 */
+  
+  /* 추가하기 배경색 */
+  --addcard_bgcolor: #6b6969; /* #02fafa; */
+
+  /* 추가하기 글자색 */
+  --addcard_textcolor: #0919ed;
+
+  /* 마우스 오버시 색상 */  
+  --c-hover-button: #05e7fc; /* 마우스 오버시 배경색 - 하늘색 */
+  --c-hover-colorredred: #fc0505; /* 마우스 오버시 글자색 : Red */ 
+
+  /* 그림자 형태 및 색상 */
+  --slider-shadow: inset 0 1px 1px #ddd, 0 2px 3px #ccc;
+  --dot_color: #03fc07;
+}
+
+
+.fa-heart { color: red; }
+.fa-dev { color: #FFFF00; }
+.fa-twitter-square { color:#1da0f1; }
+.fa-instagram { color: #f0007c; }
+.fa-linkedin{ color:#0073b1; }
+.fa-codepen { color:#FFFF00; }
+.fa-wifi { color: #FFFF00; }
+.fa-external-link { color:#fff; }
+.fa-paw { color: #FFFF00; }
+.fa-fire { color: #FFFF00; }
+.fa-cloud-upload { color: #FFFF00; }
+.fa-cloud-download { color: #FFFF00; }
+.fa-toggle-right { color: #FFFF00; }
+.fa-fire { color: #FFFF00; }
+.fa-fire { color: #FFFF00; }
+
+
+body {
+	/* width: 80vw;
+	height: 100vh; */
+    font-family: Arial, sans-serif;
+    background-color: #c0c0c0;
+	/* background-position: center top; 	background-size: cover; */
+	font-size: 2rem;
+    color: #000;
+	/* overflow-y: hidden; */
+
+          
+}
+
+
+dl h3 {
+	margin-left:80px;
+	
+	margin-top:20px;
+	margin-bottom:20px;
+	
+}
+
+dl p {
+	margin-left:80px;
+	
+	margin-top:20px;
+	margin-bottom:20px;
+	
+}
+
+dt h3 {
+	margin-left:40px;
+	
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+dt a {
+	margin-left:80px;
+	text-decoration:none;
+
+}
+

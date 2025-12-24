@@ -1,0 +1,14 @@
+.direction-ltr {
+	direction: ltr;
+}
+
+@keyframes tip-fade {
+	from,
+	to {
+		opacity: 0;
+	}
+	20%,
+	80% {
+		opacity: 1;
+	}
+}

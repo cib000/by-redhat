@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <title>간단계산기</title>
+  <link rel="shortcut icon" href="My Calculator.ico" >
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>간단 계산기 _ byRH</title>
+        <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+    </head>
+
+    <body>
+	<header>
+
+	<nav style="margin-left:10%;">
+	<!-- <a href="../index.html" target="_self"><Button> 돌아가기 </Button></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+	<button onClick="window.location.reload()">새로고침</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<!-- <a onClick="window.location.reload()" style="cursor: pointer;">[새로고침]</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+	<button onclick="closeTabClick()">창 닫기</button>
+
+	<!--
+	<form><input type="button" value="페이지 새로 고침" onClick="window.location.reload()"></form>
+	<form><input type="button" value="페이지 새로 고침" onClick="history.go(0)"></form>
+	<form><input type="button" value="페이지 새로 고침" onClick="window.location.href=window.location.href"></form>
+	<!-- <META HTTP-EQUIV="refresh" CONTENT="15"> 그러면 15초마다 페이지가 자동 새로 고침(리로드)됩니다 -->
+	<!-- jQuery로 페이지를 리로드(새로 고침)하려는 경우에는 다음과 같이 location.reload()를 사용하면 됩니다.
+
+	$('#something').click(function() {
+	location.reload();
+	});
+	// 참조 페이지: stackoverflow -->
+
+	</nav>
+	    <script>
+        function newTabClick() {
+            window.open('new-tab.html', '_blank');
+        }
+
+        function closeTabClick() {
+            window.close();
+        }
+    </script>
+
+	</header>
+
+
+        <table>
+            <tr>
+                <td colspan="7">
+                    <input type="text" id="display" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span data-tooltip="사용안함:예정">
+					<input id="btnAns" type="button" name="offbtn" value="Ans" style="cursor:default;" /></span>
+                </td>
+                <td>
+                    <input id="btnPi" type="button" name="operator" value="π" onclick="set('3.14')" />
+                </td>
+                <td>
+                    <span data-tooltip="사용안함:예정">
+					<input id="btnE" type="button" name="offbtn" value="e" style="cursor:default;" /></span>
+                </td>
+                <td>
+                    <input id="btnOParen" type="button" name="operator" value="(" onclick="set('(')" />
+                </td>
+                <td>
+                    <input id="btnCParen" type="button" name="operator" value=")" onclick="set(')')" />
+                </td>
+                <td>
+                    <span data-tooltip="사용안함:예정">
+					<input id="btnPcnt" type="button" name="offbtn" value="%" style="cursor:default;" /></span>
+                </td>
+                <td>
+                    <input id="btnCE" type="button" name="operator2" value="AC" onclick="ce()" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span data-tooltip="사용안함:예정">
+					<input id="btnRad" type="button" name="offbtn" value="rad" style="cursor:default;" /></span>
+                </td>
+                <td>
+                    <span data-tooltip="사용안함:&#10;&#13;예정">
+					<input id="btnDeg" type="button" name="offbtn" value="deg" style="cursor:default;" /></span>
+                </td>
+                <td>
+                    <span data-tooltip="사용안함:예정">
+					<input id="btnFact" type="button" name="offbtn" value="x!" style="cursor:default;" /></span>
+                </td>
+                <td>
+                    <input id="btn7" type="button" value="7" onclick="set('7')" />
+                </td>
+                <td>
+                    <input id="btn8" type="button" value="8" onclick="set('8')" />
+                </td>
+                <td>
+                    <input id="btn9" type="button" value="9" onclick="set('9')" />
+                </td>
+                <td>
+                    <input id="btnDiv" type="button" name="operator" value="÷" onclick="set('/')" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="btnSineInv" type="button" name="operator" value="asin" onclick="asine()" />
+                </td>
+                <td>
+                    <input id="btnSine" type="button" name="operator" value="sin" onclick="sine()" />
+                </td>
+                <td>
+                    <span data-tooltip="사용안함:예정">
+					<input id="btnLN" type="button" name="offbtn" value="ln" style="cursor:default;" /></span>
+                </td>
+                <td>
+                    <input id="btn4" type="button" value="4" onclick="set('4')" />
+                </td>
+                <td>
+                    <input id="btn5" type="button" value="5" onclick="set('5')" />
+                </td>
+                <td>
+                    <input id="btn6" type="button" value="6" onclick="set('6')" />
+                </td>
+                <td>
+                    <input id="btnMul" type="button" name="operator" value="×" onclick="set('*')" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="btnCosInv" type="button" name="operator" value="acos" onclick="acosine()" />
+                </td>
+                <td>
+                    <input id="btnCos" type="button" name="operator" value="cos" onclick="cosine()" />
+                </td>
+                <td>
+                    <input id="btnLog" type="button" name="operator" value="log" onclick="fLog()" />
+                </td>
+                <td>
+                    <input id="btn1" type="button" value="1" onclick="set('1')" />
+                </td>
+                <td>
+                    <input id="btn2" type="button" value="2" onclick="set('2')" />
+                </td>
+                <td>
+                    <input id="btn3" type="button" value="3" onclick="set('3')" />
+                </td>
+                <td>
+                    <input id="btnSub" type="button" name="operator" value="-" onclick="set('-')" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="btnTanInv" type="button" name="operator" value="atan" onclick="atangent()" />
+                </td>
+                <td>
+                    <input id="btnTan" type="button" name="operator" value="tan" onclick="tangent()" />
+                </td>
+                <td>
+                    <input id="btnSqrt" type="button" name="operator" value="√" onclick="sqrRoot()" />
+                </td>
+                <td>
+                    <input id="btn0" type="button" value="0" onclick="set('0')" />
+                </td>
+                <td>
+                    <input id="btnPeriod" type="button" value="." onclick="set('.')" />
+                </td>
+                <td>
+                    <input id="btnEqual" type="button" name="equal" value="=" onclick="answer()" />
+                </td>
+                <td>
+                    <input id="btnAdd" type="button" name="operator" value="+" onclick="set('+')" />
+                </td>
+        </table>
+        <script src="js/index.js"></script>
+    </body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

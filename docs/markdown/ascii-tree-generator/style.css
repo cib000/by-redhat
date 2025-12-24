@@ -1,0 +1,20 @@
+body {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: stretch;
+}
+#input,
+#output {
+  font-size: 16px;
+  font-family: monospace;
+  flex: 1 1 50%;
+  margin: 8px;
+  padding: 8px;
+}
+#output {
+  background-color: rgba(0,0,0,0.08);
+}

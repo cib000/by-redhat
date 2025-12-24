@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Markdown Editor WYSIWYG</title>
+    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/theme/material.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/fonts/Material-Design-Iconic-Font.woff'><link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div id="app">
+  <header id="controls">
+    <div class="native-header">
+      <div class="title"> </div>
+      <div class="close"></div>
+      <div class="minimize"></div>
+      <div class="expand"></div>
+      <div class="license"> <i class="zmdi zmdi-cloud"></i><span>PRO</span></div>
+    </div>
+    <div class="tabcontrol">
+      <div class="tab1 active">
+        <div class="box">Introduction</div>
+      </div>
+      <div class="tab2">
+        <div class="box">test</div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="tabgroup"><a id="undo"><i class="zmdi zmdi-undo"></i></a><a id="redo"> <i class="zmdi zmdi-redo"></i></a></div>
+      <div class="tabgroup headlines"><a id="h1"><i>h1</i></a><a id="h2"> <i>h2</i></a><a id="h3"><i>h3</i></a><a id="h4"> <i>h4</i></a><a id="h5"> <i>h5</i></a><a id="h6"> <i>h6</i></a></div>
+      <div class="tabgroup"><a id="image"><i class="zmdi zmdi-image-o"></i></a><a id="link"> <i class="zmdi zmdi-format-italic"></i></a></div>
+      <div class="tabgroup"><a id="bold"><i class="zmdi zmdi-format-bold"></i></a><a id="italic"> <i class="zmdi zmdi-format-italic"></i></a><a id="strike"><i class="zmdi zmdi-format-strikethrough"></i></a><a id="bq"> <i class="zmdi zmdi-format-quote"></i></a></div>
+      <div class="tabgroup"><a id="hr"><i class="zmdi zmdi-minus"></i></a><a id="bullets"><i class="zmdi zmdi-format-list-bulleted"></i></a><a id="numbers"><i class="zmdi zmdi-format-list-numbered"></i></a></div>
+      <div class="tabgroup"><a id="code"><i class="zmdi zmdi-code"></i></a><a id="codeblock"><i class="zmdi zmdi-code-setting"></i></a></div>
+      <div class="tabgroup"><a id="grid"><i class="zmdi zmdi-grid"></i></a></div>
+    </div>
+  </header>
+  <div class="flex-container">
+    <textarea id="markdown"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/52377/cloudmark-editor-header.png" height="auto" style="width:100%; max-width:500px; margin:0 auto; display:block;"/>
+  
+ 
+# Welcome to CloudMark!
+<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/52377/cloudmar-tagline.png" style="max-width:350px"/>
+  
+----   
+ 
+## 👋 Introductions
+ 
+Hi! I'm Phil. I'm a software engineer, designer, and while I can make cool apps like CloudMark, I often forget how to write markup, and has to look things up a lot—so I figured it would make sense to create an application for others, like me, to help make the process easier.  
+ 
+All suggestions, bugs, or issues—please report them. As I'm a one man-shop, I can only work on this as time permits; but I am dedicated to keeping this application as bug/frustration free as possible *(that's the whole point, right?!)*.
+  
+----   
+  
+## 🎬 Getting Started
+To familiarize yourself with the interface, take a look at the top control bar. It has HUMAN options which require no knowledge of Markdown syntax, at all. You can **bold**, *italicize*, ~~strikethrough~~ and do a ton of other cool stuff.
+  
+The pane you see on the right is your ➡️ <strong> Preview Pane</strong>. It's what will show up when you import it to your GitHub, BitBucket, Stash, or Mecurial repositories. The one you see on the left contains all the markdown code <stong>⬅️ Markdown Pane</strong>. 
+ 
+Also, there are different layouts CloudMark can present to you, depending on your writing style. You can view and edit in Portrait, Landscape, Distraction-Free, and Preview modes.
+ 
+----   
+ 
+## 🌊 Kitchen Sink
+### This section will show you all the different types of formatting you can accomplish with markdown syntax.
+```
+Note: Not all providers have the same feature subsets for markdown, and some have extended capabilities which CloudMark offers—so refer to their supported syntax if things aren't looking correct!
+``` 
+ 
+<br/>  
+## Headers
+___
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6  
+  
+<br/>  
+## Horizontal Rules
+___  
+Just like that. Putting some text here so things don't look strange 😁.
+ 
+<br/>  
+## Text Emphasis
+___
+  
+**This is bold text**  
+*This is italic text*  
+~~Strikethrough~~  
+  
+<br/>  
+## Blockquotes  
+___  
+ 
+> Blockquotes can also be nested...
+>> ...by using additional greater-than signs right next to each other...
+> > > ...or with spaces between arrows.
+ 
+<br/>  
+## Lists
+___  
+### Unordered  
++ Create a list by starting a line with `+`, `-`, or `*`
++ Sub-lists are made by indenting 2 spaces:
+ - Marker character change forces new list start:
+   * Ac tristique libero volutpat at
+   + Facilisis in pretium nisl aliquet
+   - Nulla volutpat aliquam velit
++ Very easy!  
+  
+#### Example:  
+ 
+```
++ Create a list by starting a line with `+`, `-`, or `*`
++ Sub-lists are made by indenting 2 spaces:
+- Marker character change forces new list start:
+  * Ac tristique libero volutpat at
+  + Facilisis in pretium nisl aliquet
+  - Nulla volutpat aliquam velit
++ Very easy!  
+```
+<br/>    
+### Ordered
+1. Lorem ipsum dolor sit amet
+2. Consectetur adipiscing elit
+3. Integer molestie lorem at massa  
+ 
+#### Example:  
+ 
+```   
+1. Lorem ipsum dolor sit amet
+2. Consectetur adipiscing elit
+3. Integer molestie lorem at massa
+```  
+ 
+<br/>  
+## Code Snippets
+___  
+Inline `code`
+Indented code
+   // Some comments
+   line 1 of code
+   line 2 of code
+   line 3 of code
+Block code "fences"
+```
+Sample text here...
+```
+Syntax highlighting
+``` js
+let bar = 1;  
+const foo = function (bar) {  
+	return bar++  
+}  
+console.log(foo(5));
+```
+ 
+<br/>  
+## Tables
+___  
+| Option | Description |
+| ------ | ----------- |
+| data   | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default. |
+| ext    | extension to be used for dest files. |
+  
+ 
+<br/>  
+## ⭐️ Adknowledgements
+___  
+ 
+This application wouldn't be possible without so many talented developers who have paved the way for popular applications such as Slack, VSCode, Atom to make it to the desktop; being built in traditional web development languages. Huge thanks and grattitude to all the talent and inspiration out there! In no particular order, thank you to CodeMirror, Marked, Electron, and CodePen for all your hard work! You might not believe it—this application was <strong>originally built in CodePen</strong>, fully functional! 
+  
+#### So again, thank you from me, and the cloud blobs—who appreciate your support!
+ 
+   
+<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/52377/cloudmark-blobs.png" style="margin-top:15px" /></textarea>
+    <div id="rendered"> 
+      <div id="output">test</div>
+    </div>
+  </div>
+</div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/xml/xml.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/edit/matchbrackets.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js'></script><script  src="./script.js"></script>
+
+  </body>
+  
+</html>

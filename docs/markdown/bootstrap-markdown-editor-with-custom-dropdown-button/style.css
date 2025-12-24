@@ -1,0 +1,6 @@
+/*
+Just to make sure that there is a pointer cursor on the dropdown list items.
+*/
+.md-editor .dropdown-menu li {
+  cursor: pointer;
+}

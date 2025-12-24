@@ -1,0 +1,548 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/52377/polygon-wallpaper-15%20copy.jpeg);
+  background-size: cover;
+  background-position: center bottom;
+  font-family: 'San Francisco', sans-serif;
+}
+#app {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+#app header#controls .native-header {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-app-region: drag;
+  cursor: default;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 35px;
+  background-image: linear-gradient(to bottom, #1f211d, #171816);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 5px 5px 0 0;
+}
+#app header#controls .native-header > div {
+  border-radius: 100%;
+  margin: 1px 1px 0 5px;
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+}
+#app header#controls .native-header .close {
+  background-color: #fb5c52;
+  border: 1px solid #dc443a;
+  margin-left: 10px;
+}
+#app header#controls .native-header .minimize {
+  background-color: #fdba26;
+  border: 1px solid #dc9d12;
+}
+#app header#controls .native-header .expand {
+  background-color: #42c944;
+  border: 1px solid #39aa2f;
+}
+#app header#controls .native-header .title {
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  color: #defaff;
+  font-size: 14px;
+  height: 15px;
+}
+#app header#controls .native-header .license {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  height: 15px;
+  font-size: 14px;
+  border-radius: 3px;
+  color: #181a17;
+  padding: 4px 7px;
+  font-weight: 500;
+  width: 50px;
+  background-image: linear-gradient(#32a8e2, #1b8dc5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+#app header#controls .native-header .license i {
+  margin-right: 7px;
+}
+#app header#controls .controls {
+  min-height: 40px;
+  background: #333;
+  width: 100%;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+#app header#controls .controls .tabgroup {
+  display: inline-block;
+}
+#app header#controls .controls .tabgroup a {
+  width: 35px;
+  height: 25px;
+  background: #2b2b2b;
+  display: inline-block;
+  margin-top: 6px;
+  box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.4), 1px 1px 5px rgba(0, 0, 0, 0.5);
+  color: rgba(222, 250, 255, 0.5);
+  text-align: center;
+  line-height: 28px;
+  cursor: pointer;
+  transition: all 250ms linear;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+#app header#controls .controls .tabgroup a:hover {
+  color: #defaff;
+  background: #2b2b2b;
+}
+#app header#controls .controls .tabgroup a:first-child {
+  border-radius: 5px 0 0 5px;
+  margin-left: 7px;
+}
+#app header#controls .controls .tabgroup a:last-child {
+  margin-right: 7px;
+  border-radius: 0 5px 5px 0;
+}
+#app header#controls .controls .tabgroup.headlines a i {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#app header#controls .controls .tabgroup a.grid {
+  border-radius: 5px 5px 5px 5px;
+}
+#app header#controls .controls .tabgroup i {
+  pointer-events: none;
+}
+#app .tabcontrol {
+  min-height: 32px;
+  display: flex;
+  top: 4px;
+  left: 80px;
+  position: absolute;
+  z-index: 5;
+}
+#app .tabcontrol > div[class^="tab"] {
+  min-height: 26px;
+  min-width: 100px;
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  box-shadow: inset 1px 1px #555, inset -1px 0 #111;
+  text-align: center;
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: 200;
+  margin: 0 5px 0 0;
+  background: linear-gradient(#222, rgba(0, 0, 0, 0));
+  z-index: 0;
+  transform: perspective(100px) rotateX(30deg);
+  -webkit-transform: perspective(100px) rotateX(30deg);
+}
+#app .tabcontrol > div[class^="tab"].active {
+  background: linear-gradient(#333, #333);
+  z-index: 1;
+}
+#app .flex-container {
+  height: calc(100% - 75px);
+  width: 100%;
+  display: flex;
+}
+#app .CodeMirror {
+  flex: 1;
+  height: 100%;
+  border-radius: 0 0 0 5px;
+  z-index: 1;
+}
+#app .CodeMirror .CodeMirror-code > div:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.175) !important;
+}
+#app #rendered {
+  background: #f3f3f3;
+  flex: 1;
+  width: 100%;
+  display: block;
+  cursor: text;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  color: #000000;
+  border-radius: 0 0 5px 0;
+  position: relative;
+}
+#app #rendered h1,
+#app #rendered h2,
+#app #rendered h3,
+#app #rendered h4,
+#app #rendered h5,
+#app #rendered h6,
+#app #rendered div,
+#app #rendered p,
+#app #rendered span {
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0);
+  transition: all 250ms linear;
+}
+#app #rendered h1:hover,
+#app #rendered h2:hover,
+#app #rendered h3:hover,
+#app #rendered h4:hover,
+#app #rendered h5:hover,
+#app #rendered h6:hover,
+#app #rendered div:hover,
+#app #rendered p:hover,
+#app #rendered span:hover {
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+#app #rendered::before {
+  content: '';
+  height: 15px;
+  width: 15px;
+  top: 50%;
+  left: -6px;
+  z-index: 2;
+  background: inherit;
+  position: absolute;
+  transform: rotateZ(45deg);
+  border-radius: 4px;
+}
+#app #rendered #output {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.07) rgba(0, 0, 0, 0.035) rgba(0, 0, 0, 0.027);
+  border-radius: 4px;
+  position: relative;
+  padding: 10px 30px;
+  margin: 15px;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+/** Ultra Light */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 100;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-ultralight-webfont.woff");
+}
+/** Thin */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 200;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-thin-webfont.woff");
+}
+/** Regular */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+/** Medium */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 500;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-medium-webfont.woff");
+}
+/** Semi Bold */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 600;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-semibold-webfont.woff");
+}
+/** Bold */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 700;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff");
+}
+/** ROBOTO MONO **/
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/robotomono/v31/L0xuDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_3vq_ROW9.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  src: url(https://fonts.gstatic.com/s/inconsolata/v37/QldgNThLqRwH-OJ1UHjlKENVzkWGVkL3GZQmAwLYxYWI2qfdm7Lpp4U8WR32kg.ttf) format('truetype');
+}
+/*
+
+    Name:       material-dark
+    Author:     Phil Earley(http://github.com/cephil)
+
+    Original material color scheme by Michael Kaminsky (http://github.com/mkaminsky11) and Mattia Astorino (https://github.com/equinusocio/material-theme)
+
+*/
+/* CODEMIRROR THEME */
+.cm-s-material-dark.CodeMirror {
+  background-image: linear-gradient(to bottom right, #1b2b37, #1d1d1d);
+  color: #cad8df;
+  font-family: 'Inconsolata', monospace;
+  font-size: 14px;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+  word-wrap: wrap;
+}
+.cm-s-material-dark .CodeMirror-gutters {
+  background: #222;
+  color: #537f7e;
+  border: none;
+}
+.cm-s-material-dark .CodeMirror-line::-moz-selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+.cm-s-material-dark .CodeMirror-line::selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+.cm-s-material-dark .CodeMirror-line > span::-moz-selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+.cm-s-material-dark .CodeMirror-line > span::selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+.cm-s-material-dark .CodeMirror-line > span > span::-moz-selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+.cm-s-material-dark .CodeMirror-line > span > span::selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+.cm-s-material-dark .CodeMirror-line > span > span::-moz-selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+.cm-s-material-dark .CodeMirror-line > span::-moz-selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+.cm-s-material-dark .CodeMirror-line::-moz-selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+.cm-s-material-dark .CodeMirror-guttermarker {
+  color: #727272;
+}
+.cm-s-material-dark .CodeMirror-guttermarker-subtle {
+  color: #727272;
+}
+.cm-s-material-dark .CodeMirror-linenumber {
+  color: #727272;
+}
+.cm-s-material-dark .CodeMirror-cursor {
+  border-left: 1px solid #f8f8f0;
+}
+.cm-s-material-dark div.CodeMirror-selected {
+  background: rgba(255, 255, 255, 0.15);
+}
+.cm-s-material-dark .CodeMirror-activeline-background {
+  background: rgba(0, 0, 0, 0.5);
+}
+.cm-s-material-dark .cm-keyword {
+  color: #c792ea;
+}
+.cm-s-material-dark .cm-operator {
+  color: #e9eded;
+}
+.cm-s-material-dark .cm-variable-2 {
+  color: #80CBC4;
+}
+.cm-s-material-dark .cm-variable-3 {
+  color: #82B1FF;
+  color: #DECB6B;
+}
+.cm-s-material-dark .cm-builtin {
+  color: #DECB6B;
+}
+.cm-s-material-dark .cm-atom {
+  color: #F77669;
+}
+.cm-s-material-dark .cm-number {
+  color: #F77669;
+}
+.cm-s-material-dark .cm-def {
+  color: #e9eded;
+}
+.cm-s-material-dark .cm-string {
+  color: #C3E88D;
+}
+.cm-s-material-dark .cm-string-2 {
+  color: #80CBC4;
+}
+.cm-s-material-dark .cm-comment {
+  color: #546E7A;
+}
+.cm-s-material-dark .cm-variable {
+  color: #82B1FF;
+}
+.cm-s-material-dark .cm-tag {
+  color: #80CBC4;
+  color: #ff5370;
+}
+.cm-s-material-dark .cm-meta {
+  color: #80CBC4;
+}
+.cm-s-material-dark .cm-attribute {
+  color: #FFCB6B;
+}
+.cm-s-material-dark .cm-property {
+  color: #80CBAE;
+}
+.cm-s-material-dark .cm-qualifier {
+  color: #DECB6B;
+}
+.cm-s-material-dark .cm-error {
+  color: #ffffff;
+  background-color: #EC5F67;
+}
+.cm-s-material-dark .CodeMirror-matchingbracket {
+  text-decoration: underline;
+  color: white !important;
+}
+.cm-s-material-dark.CodeMirror-focused div.CodeMirror-selected {
+  background: rgba(255, 255, 255, 0.25);
+}
+/* MARKDOWN STYLING */
+code {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+pre {
+  background: rgba(0, 0, 0, 0.75);
+  width: auto;
+  display: inline-block;
+  padding: 5px;
+  margin: 2px 0;
+  border-radius: 5px;
+  overflow: auto;
+  width: calc(100% - 10px);
+  white-space: pre;
+  line-height: 20px;
+}
+pre code {
+  background: none;
+  white-space: pre-wrap;
+}
+blockquote {
+  border-left: 3px solid #929292;
+  margin-left: 15px;
+  padding-left: 10px;
+}
+hr {
+  background: #cdcdcd;
+  height: 3px;
+  border: none;
+  margin: 25px 0;
+  border-radius: 5px;
+}
+img {
+  width: 100%;
+  height: auto;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+table td,
+table th {
+  border: 1px solid #aaa;
+  padding: 5px;
+}
+ul li,
+ol li {
+  line-height: 25px;
+}
+p {
+  line-height: 20px;
+}
+/* HLJS */
+/*
+Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-license.org/
+*/
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #23241f;
+}
+.hljs,
+.hljs-tag,
+.hljs-subst {
+  color: #f8f8f2;
+}
+.hljs-strong,
+.hljs-emphasis {
+  color: #a8a8a2;
+}
+.hljs-bullet,
+.hljs-quote,
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-link {
+  color: #ae81ff;
+}
+.hljs-code,
+.hljs-title,
+.hljs-section,
+.hljs-selector-class {
+  color: #a6e22e;
+}
+.hljs-strong {
+  font-weight: bold;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-name,
+.hljs-attr {
+  color: #f92672;
+}
+.hljs-symbol,
+.hljs-attribute {
+  color: #66d9ef;
+}
+.hljs-params,
+.hljs-class .hljs-title {
+  color: #f8f8f2;
+}
+.hljs-string,
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-selector-id,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-variable {
+  color: #e6db74;
+}
+.hljs-comment,
+.hljs-deletion,
+.hljs-meta {
+  color: #75715e;
+}
