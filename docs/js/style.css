@@ -96,13 +96,17 @@ body {
 	transition: background 0.6s;
 }
 
-a, a:visited { 
+a  { 
 	font: bold 16px NanumGothic; 
 	color: #00FFFF; /*var(--list-item-color); 	  */
 	text-decoration:none; 
 }
 
-
+a:visited {
+	color: #00FFFF;
+	text-decoration:none; 
+	}
+	
 a:hover { 
 	font: bold 16px NanumGothic; 
 	color:var(--c-hover-colorredred); 
