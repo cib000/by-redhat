@@ -96,13 +96,21 @@ body {
 }
 
 a { 
+	
 	text-decoration:none; 
 }
+
 
 a:hover { 
 	font: bold 16px NanumGothic; 
 	color:var(--c-hover-colorredred); 
 	text-decoration:none;
+}
+
+a:visited,
+a:active {
+	color:var(--c-hover-colorredred); 
+	text-decoration: none;
 }
 
 .btn {
