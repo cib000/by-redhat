@@ -14,7 +14,7 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
 
 
 :root {
-    font-size: 12px;
+    font-size: 13px;
 	scroll-behavior: smooth;
 
  /* 배경색 */
@@ -43,6 +43,7 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
   /* 마우스 오버시 색상 */  
   --c-hover-button: #05e7fc; /* 마우스 오버시 배경색 - 하늘색 */
   --c-hover-colorredred: #fc0505; /* 마우스 오버시 글자색 : Red */ 
+  --list-item-color: #00ffff
 
   /* 그림자 형태 및 색상 */
   --slider-shadow: inset 0 1px 1px #ddd, 0 2px 3px #ccc;
@@ -97,7 +98,7 @@ body {
 
 a, a:visited { 
 	font: bold 16px NanumGothic; 
-	color:var(--text_color); 	
+	color:var(--list-item-color); 	
 	text-decoration:none; 
 }
 
