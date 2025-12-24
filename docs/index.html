@@ -9,11 +9,16 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="style.css">
+  <script src="js/modernizr.js"></script> <!-- Modernizr -->
   <base target="_blank">
 
   	<!-- <script src="https://use.fontawesome.com/c79e2f3459.js"></script> -->
 	<meta name="keywords" content="Developer, Designer, Menu, Hamburger Icons Animations, CSS3, HTML, Buttons, Web, animation, animations, hamburger, icon, icons, span, transition, transform ">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
+
+	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script>
+	<script type='text/javascript' src='/js/jquery.mousewheel.min.js'></script>
+
 
 </head>
 
@@ -29,7 +34,7 @@
 			<input type="search" class="board-search-input" aria-label="Board Search">
 			<i class="fas fa-search search-icon" aria-hidden="true"></i>
 		</div>-->
-		<img src="forum Logo_v.gif" width="40px" height="800px">
+		<!-- <img src="forum Logo_v.gif" width="40px" height="800px" -->
 	</div>
 	<div class="logo">
         <h1><img src="ezfav_logo.png" width="100px" height="30px"> &emsp;&emsp; <i class="fab fa-trello logo-icon" aria-hidden="true"></i>
@@ -65,6 +70,241 @@
 	<button class="menu-btn btn"><i class="fas fa-ellipsis-h menu-btn-icon" aria-hidden="true"></i>메뉴보기</button>
 </section>
 <!-- End of board info bar -->
+
+
+<!-- 왼쪽 메뉴 시작 -->
+<div class="area">
+	<nav class="main-menu">
+	<ul><img src="https://windowsforum.kr/layouts/neat/img/logo.png" style="height:30px; margin-top:10px; margin-bottom:10px; padding-left:13px;">
+	<hr style="width:99%;"></hr>
+    <li>
+      <details class="dropdown">
+	  	<summary><i style="font-size:25px;" class="fa fa-home"></i> 윈도우포럼</summary>
+      <ul>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://windowsforum.kr/index.php?mid=&act=dispCommunicationMessages&message_type=R">
+            <span>쪽지함</span></a>
+        </li>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://windowsforum.kr/index.php?mid=home&act=dispMemberInfo"> <span>회원정보보기</span></a>
+        </li>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://windowsforum.kr/index.php?mid=home&act=dispMemberLogout"> <span>로그아웃</span></a>
+        </li>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://windowsforum.kr/home"> <span>첫화면</span></a>
+        </li>
+		<hr style="border: solid 1px gold;">
+		</ul>
+	</details>
+	</li>
+
+	<li>
+      <details>
+	  	<summary><i style="font-size:25px;" class="fa fa-home"></i> 리눅스 포럼</summary>
+      <ul>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://kjvvv.kr/"> <span>첫화면</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://kjvvv.kr/index.php?mid=main_new&act=dispCommunicationMessages">
+            <span>쪽지함</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://kjvvv.kr/index.php?mid=main_new&act=dispMemberInfo">
+            <span>회원정보 보기</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://kjvvv.kr/index.php?mid=main_new&act=dispNcenterliteNotifyList">
+            <span>내 알림 목록</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://kjvvv.kr/private"><span>비게</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://kjvvv.kr/index.php?mid=main_new&act=dispMemberLogout"><span>로그아웃</span>
+          </a>
+        </li>
+		<hr style="border: solid 1px gold;">
+      </ul>
+	  </details>
+    </li>
+
+	<li>
+      <details>
+	  	<summary><i style="font-size:25px;" class="fa fa-home"></i> 11Q 정보모아</summary>
+      <ul>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://11q.kr/www/"> <span>첫화면</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://11q.kr/www/bbs/new5.php"> <span>새로운 글</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://11q.kr/www/bbs/logout.php"> <span>로그아웃</span></a>
+        </li>
+		<hr style="border: solid 1px gold;">
+      </ul>
+	  </details>
+    </li>
+
+    <li style="padding-left: 20px;">
+      <a href="http://linoit.com/users/cib000/canvases/%ED%8A%9C%EB%B8%8C%EB%B6%81%EA%B3%B5%EA%B0%9C%EB%A9%94%EB%AA%A8" title="모자의 공개 안부 메모장">
+        <i style="font-size:25px; color:gold;" class="fa fa-comments" aria-hidden="true"></i>
+        <span>By R.H 북튜브공개메모</span>
+      </a>
+    </li>
+    <li>
+      <details>
+	  	<summary><i style="font-size:25px;" class="fa fa-user-md"></i> 메 일 읽 기</summary>
+      <ul class="dropdownlist">
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://mail.daum.net/"> <span>다음 메일 확인</span></a>
+        </li>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://mail.naver.com/"> <span>네이버 메일 확인</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://www.google.com/gmail/"> <span>구글 메일 확인</span></a>
+        </li>
+		<hr style="border: solid 1px gold;">
+      </ul>
+	</details>
+    </li>
+    <li>
+      <details>
+	  	<summary><i style="font-size:25px;" class="fa fa-heartbeat"></i> 웹 클라우드</summary>
+      <ul class="dropdownlist"><br>
+        <li style="padding-left: 35px;">
+          <a class="dropdown"> <span>구글 드라이브</span></a>
+          <ul class="dropdownlist">
+            <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+              <a href="https://drive.google.com/drive/my-drive"> <span>구글 드라이브</span></a>
+            </li>
+            <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+              <a href="https://drive.google.com/drive/shared-drives"> <span>공유 드라이브</span></a>
+            </li>
+			<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+              <a href="https://drive.google.com/drive/shared-with-me"> <span>공유 문서함</span></a>
+            </li>
+			<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+              <a href="https://drive.google.com/drive/trash"> <span>휴지통</span></a>
+            </li>
+			<hr style="border: solid 1px gold;">
+          </ul>
+        </li><br>
+
+		<li style="padding-left: 35px;">
+          <a class="dropdown"> <span>네이버 마이 박스</span></a>
+          <ul class="dropdownlist">
+            <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+              <a href="https://mybox.naver.com/#/"> <span>네이버 마이 박스</span></a>
+            </li>
+			<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+				<a href="http://whale.naver.com/"><span>네이버 웨일</span></a>
+            </li>
+			<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+              <a href="https://www.naver.com/my.html"> <span>네이버 오피스</span></a>
+            </li>
+			<hr style="border: solid 1px gold;">
+          </ul>
+        </li>
+      </ul>
+	  </details>
+    </li>
+
+	<li>
+      <details>
+	  	<summary><i style="font-size:25px;" class="fa fa-stethoscope"></i> 쇼 핑 몰</summary>
+      <ul class="dropdownlist">
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="http://www.danawa.com/"> <span>다나와 검색하기</span></a>
+        </li>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="http://www.enuri.com/"> <span>에누리 검색하기</span></a>
+        </li>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="http://www.auction.co.kr/"> <span>옥션 쇼핑하기</span></a>
+        </li>
+        <li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://www.11st.co.kr/main"> <span>11번가 쇼핑하기</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="http://www.compuzone.co.kr/"> <span>컴퓨존 쇼핑하기</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://ohou.se/"> <span>오늘의집 쇼핑하기</span></a>
+        </li>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="https://www.paintmarket.co.kr/"> <span>페인트마켓 쇼핑하기</span></a>
+        </li>
+		<hr style="border: solid 1px gold;">
+		<br>
+		<li style="padding-left: 35px; font-size:18px; font-weight:500; margin-bottom:5px;">
+           <span>... 더 추가하기</span>
+        </li>
+      </ul>
+	  </details>
+	  </li>
+
+	<li>
+      <details>
+	  	<summary><i style="font-size:25px;" class="fa fa-cog"></i> 관리 문의 요청</summary>
+      <ul class="dropdownlist">
+        <!-- <li style="margin-left:45px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a onClick="window.location.reload()" style="cursor: pointer;" target="_self">
+            <i class="fa fa-refresh" aria-hidden="true"></i><span> 페이지 새로고침</span>
+          </a>
+        </li> -->
+		<li style="margin-left:45px; font-size:18px; font-weight:500; margin-bottom:5px;">
+          <a href="mailto: cib000@hanmail.net" target="_self">
+			<i class="fa fa-at" aria-hidden="true"></i><span> 문의 메일 보내기</span>
+          </a>
+		  <script> function close() {  window.open('','_self').close(); } </script>
+        </li>
+		<li style="margin-left:45px; font-size:18px; font-weight:500; margin-bottom:5px;">
+			<a href="https://windowsforum.kr/index.php?mid=home&act=dispCommunicationSendMessage&receiver_srl=3687932""><i class="fa fa-comments-o" aria-hidden="true"></i><span> 연구자에게 쪽지보내기</span></a>
+		</li>
+		<hr style="border: solid 1px gold;">
+      </ul>
+	  </details>
+    </li>
+
+	<li style="padding-left: 19px;">
+        <a onClick="window.location.reload()" style="cursor: pointer;" target="_self" title="페이지 새로고침">
+        <i style="color:#FFF;font-size:25px;" class="fa fa-refresh" aria-hidden="true"></i><span style="padding-left:10px;">  페이지 새로고침</span></a>
+    </li>
+	<li style="padding-left: 19px;">
+        <a href="#page1" target="_self" title="페이지 1 보기">
+        <i style="color:#FFF;font-size:25px;" class="fa fa-hand-o-left" aria-hidden="true"></i><span style="padding-left:10px;"> 첫페이지</span></a>
+    </li>
+	<li style="padding-left: 19px; color:#FFF;" >
+	    <a href="#end" target="_self" title="페이지 3 보기">
+		<i style="color:#FFF;font-size:25px;" class="fa fa-hand-o-right" aria-hidden="true"></i><span style="padding-left:10px;"> 끝페이지</span></a>
+    </li>
+
+
+</li>
+</ul>
+	<br><br><br>
+
+	<li style="padding-left: 19px; color:#FFF;" >
+	    <a href="./help/index.html" target="_blank" title="사용자 도움말">
+		<i style="color:#FFF;font-size:25px;" class="fa fa-graduation-cap" aria-hidden="true"></i><span style="padding-left:10px;"> 도움말</span></a>
+    </li>
+	<br>
+
+
+	<li style="width:250px;">
+	<a onclick="openTextFile()" title=".&#10;.&#10;로컬 텍스트 문서읽기&#10;문서를 읽어와 아이디어를 더합니다.&#10;&#10;닫기는 '새로고침'하세요"><img src="favicon.ico" style="padding-left:15px;">  &nbsp;문서 불러다가 읽기</a>
+	</li>
+
+
+	</nav>
+
+	</div>
+</div><!-- 왼쪽 메뉴 끝 -->
+
 
 <!-- Lists container -->
 <section class="lists-container">
@@ -506,7 +746,47 @@
 </section>
 <!-- End of lists container -->
 <!-- partial -->
-<script  src="./script.js"></script>
+	<script>
+	$(function() {
+	   $("body").mousewheel(function(event, delta) {
+	      this.scrollLeft -= (delta * 30);
+	      event.preventDefault();
+	   });
+	});
+	</script>
+
+	<script>
+	 var nowZoom = 100; // 현재비율
+	 var maxZoom = 200; // 최대비율
+	 var minZoom = 100; // 최소비율(현재와 같아야 함)
+
+	// +, – 키를 입력하면 화면 확대, 축소를 한다.
+	//화면 키운다.
+	 function zoomIn() {
+	  if (nowZoom < maxZoom) {
+	   nowZoom += 25; // 25%씩 커진다.
+	  } else {
+	   return;
+	  }
+	  document.body.style.zoom = nowZoom + “%”;
+	 }
+	 //화면 줄인다.
+	 function zoomOut() {
+	  if (nowZoom > minZoom) {
+	   nowZoom -= 25; // 25%씩 작아진다.
+	  } else {
+	   return;
+	  }
+	  document.body.style.zoom = nowZoom + “%”;
+	 }
+	</script>
+
+	<script  src="./script.js"></script>
+
+	<script src="js/jquery-2.1.4.js"></script>
+	<script src="js/main.js"></script> <!-- Resource jQuery -->
+
+	<!-- script  src="./script.js"></script -->
 
 </body>
 </html>
