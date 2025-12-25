@@ -9,6 +9,8 @@
    
   
 ## JTBC 뉴스의 RSS    
+[JTBC 뉴스의 RSS](https://news.jtbc.co.kr/rss)   
+        
 속보    
 https://news-ex.jtbc.co.kr/v1/get/rss/newsflesh    
 이슈 Top10    
