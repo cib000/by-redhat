@@ -122,6 +122,38 @@
             line-height: 50px;
             letter-spacing: -0.08em;
         }
+		.styled {
+		  border: 0;
+		  line-height: 2.5;
+		  padding: 0 20px;
+		  font-size: 1rem;
+		  text-align: center;
+		  color: #fff;
+		  text-shadow: 1px 1px 1px #000;
+		  border-radius: 10px;
+		  background-color: rgba(220, 0, 0, 1);
+		  background-image: linear-gradient(
+			to top left,
+			rgba(0, 0, 0, 0.2),
+			rgba(0, 0, 0, 0.2) 30%,
+			rgba(0, 0, 0, 0)
+		  );
+		  box-shadow:
+			inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+			inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+		}
+
+		.styled:hover {
+		  background-color: rgba(255, 0, 0, 1);
+		}
+
+		.styled:active {
+		  box-shadow:
+			inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+			inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+		}
+
+
   </style>
 </head>
 <body>
@@ -288,8 +320,8 @@
 		<li>구문의 순서와 구분 : 이름,주소 [ 구분자는 쉽표 , 입니다.] - 줄바꿈</li>
 		
 		<a href="README.md" target="_blank" download> 더 많은 RSS 정보모음집</a><br>
-		<button class="pdfDownload"> <a href="README.md.7z" download target="_blank">MD 다운로드&nbsp;&nbsp;&nbsp;&nbsp;</a></button><br><br>
-        <button class="telLink"> <a href="tel:031-000-0000" target="_blank">빠른 제휴 문의&nbsp;&nbsp;&nbsp;&nbsp;</a></button><br>
+		<button class="favorite styled pdfDownload" type="button"> <a href="README.md.7z" download target="_blank">MD 다운로드&nbsp;&nbsp;&nbsp;&nbsp;</a></button><br><br>
+        <button class="favorite styled telLink" type="button"> <a href="tel:031-000-0000" target="_blank">빠른 제휴 문의&nbsp;&nbsp;&nbsp;&nbsp;</a></button><br>
 		
 		
 		<p>RSS 주소가 궁금하시지요? 크롬 확장앱을 사용해 보세요. 추천</p>
