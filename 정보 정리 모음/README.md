@@ -32,10 +32,25 @@ https://www.bbc.com/korean
       
 
 
-
-
-
-
+## 뉴스핌 RSS     
+      
+최신뉴스	http://rss.newspim.com/news/category/1	          
+정치	http://rss.newspim.com/news/category/101	          
+경제	http://rss.newspim.com/news/category/103	          
+사회	http://rss.newspim.com/news/category/102	          
+글로벌	http://rss.newspim.com/news/category/107	          
+중국	http://rss.newspim.com/news/category/120	          
+산업	http://rss.newspim.com/news/category/106	          
+증권·금융	http://rss.newspim.com/news/category/105	          
+부동산	http://rss.newspim.com/news/category/104	          
+전국	http://rss.newspim.com/news/category/108	          
+라이프·여행	http://rss.newspim.com/news/category/112	          
+문화·연예	http://rss.newspim.com/news/category/110	          
+스포츠	http://rss.newspim.com/news/category/111	          
+포토	http://rss.newspim.com/news/category/116	          
+영상	http://rss.newspim.com/news/category/117      
+      
+      
 ##  KISA 한국인터넷진흥원에서 제공하는 RSS
       
 공지사항	https://kisa.or.kr/rss/401      
