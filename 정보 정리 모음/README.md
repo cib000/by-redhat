@@ -1166,62 +1166,62 @@ MICE/세미나 http//www.expojr.com/rss/S1N3.xml
 		
 # RSS 목록
         
-무신사(MUSINSA) 기술블로그	https//medium.com/feed/musinsa-tech    
-네이버 D2 기술블로그	https//d2.naver.com/d2.atom    
-마켓컬리 기술블로그	https//helloworld.kurly.com/feed.xml      
-우아한형제들 기술블로그	https//techblog.woowahan.com/feed    
-카카오엔터프라이즈 기술블로그	https//tech.kakaoenterprise.com/feed    
-데브시스터즈 기술블로그	https//tech.devsisters.com/rss.xml      
-라인(LINE) 기술블로그	https//engineering.linecorp.com/ko/feed/index.html    
-쿠팡(Coupang) 기술블로그	https//medium.com/feed/coupang-engineering    
-당근마켓 기술블로그	https//medium.com/feed/daangn    
-토스(Toss) 기술블로그	https//toss.tech/rss.xml      
-직방 기술블로그	https//medium.com/feed/zigbang    
-왓챠(Watcha) 기술블로그	https//medium.com/feed/watcha    
-뱅크샐러드(banksalad) 기술블로그	https//blog.banksalad.com/rss.xml       
-Hyperconnect 기술블로그	https//hyperconnect.github.io/feed.xml      
-요기요(yogiyo) 기술블로그	https//techblog.yogiyo.co.kr/feed    
-쏘카(Socar) 기술블로그	https//tech.socarcorp.kr/feed    
-리디(RIDI) 기술블로그	https//www.ridicorp.com/feed    
-NHN Toast 기술블로그	https//meetup.toast.com/rss    
-GeekNews - 개발/기술/스타트업 뉴스 서비스	https//news.hada.io/rss/news    
-개발자 블로그 서비스 - Velog	https//v2.velog.io/rss/    
-월간 개발자 뉴스레터 - 개발자스럽다	https//blog.gaerae.com/feeds/posts/default?alt=rss    
-IT 관련 뉴스 제공 블로그 - 44BITS	https//www.44bits.io/ko/feed/all    
+무신사(MUSINSA) 기술블로그	https://medium.com/feed/musinsa-tech    
+네이버 D2 기술블로그	https://d2.naver.com/d2.atom    
+마켓컬리 기술블로그	https://helloworld.kurly.com/feed.xml      
+우아한형제들 기술블로그	https://techblog.woowahan.com/feed    
+카카오엔터프라이즈 기술블로그	https://tech.kakaoenterprise.com/feed    
+데브시스터즈 기술블로그	https://tech.devsisters.com/rss.xml      
+라인(LINE) 기술블로그	https://engineering.linecorp.com/ko/feed/index.html    
+쿠팡(Coupang) 기술블로그	https://medium.com/feed/coupang-engineering    
+당근마켓 기술블로그	https://medium.com/feed/daangn    
+토스(Toss) 기술블로그	https://toss.tech/rss.xml      
+직방 기술블로그	https://medium.com/feed/zigbang    
+왓챠(Watcha) 기술블로그	https://medium.com/feed/watcha    
+뱅크샐러드(banksalad) 기술블로그	https://blog.banksalad.com/rss.xml       
+Hyperconnect 기술블로그	https://hyperconnect.github.io/feed.xml      
+요기요(yogiyo) 기술블로그	https://techblog.yogiyo.co.kr/feed    
+쏘카(Socar) 기술블로그	https://tech.socarcorp.kr/feed    
+리디(RIDI) 기술블로그	https://www.ridicorp.com/feed    
+NHN Toast 기술블로그	https://meetup.toast.com/rss    
+GeekNews - 개발/기술/스타트업 뉴스 서비스	https://news.hada.io/rss/news    
+개발자 블로그 서비스 - Velog	https://v2.velog.io/rss/    
+월간 개발자 뉴스레터 - 개발자스럽다	https://blog.gaerae.com/feeds/posts/default?alt=rss    
+IT 관련 뉴스 제공 블로그 - 44BITS	https://www.44bits.io/ko/feed/all    
         
 		
 		
 		
 ## tech		
 		
-tech crunch  https//techcrunch.com/feed    
-hacker news  https//news.ycombinator.com/rss    
+tech crunch  https://techcrunch.com/feed    
+hacker news  https://news.ycombinator.com/rss    
 verge  http//www.theverge.com/rss/full.xml      
-venture beat  https//venturebeat.com/feed/    
+venture beat  https://venturebeat.com/feed/    
 		
 		
 		
 		
 ## AI		
 		
-medium의 ai 태그  https//medium.com/feed/tag/artificial-intelligence    
-techcrunch ai tag  https//techcrunch.com/tag/artificial-intelligence/feed/    
-reddit artificial 서브레딧  https//www.reddit.com/r/artificial/.rss    
-flipboard ai 분야  https//flipboard.com/topic/artificialintelligence.rss    
-구글 블로그 ai 분야  https//blog.google/technology/ai/rss/    
-deepmind  https//www.deepmind.com/blog/rss.xml      
-the decoder  https//the-decoder.com/feed/    
+medium의 ai 태그  https://medium.com/feed/tag/artificial-intelligence    
+techcrunch ai tag  https://techcrunch.com/tag/artificial-intelligence/feed/    
+reddit artificial 서브레딧  https://www.reddit.com/r/artificial/.rss    
+flipboard ai 분야  https://flipboard.com/topic/artificialintelligence.rss    
+구글 블로그 ai 분야  https://blog.google/technology/ai/rss/    
+deepmind  https://www.deepmind.com/blog/rss.xml      
+the decoder  https://the-decoder.com/feed/    
 		
 		
 		
 		
 ## 한국		
     
-[새 탭에서 열기] (https://www.google.com/) {:target="_blank"}    
+[새 탭에서 열기](https://www.google.com/){:target="_blank"}    
 	
-[테크니들] (https//techneedle.com/) {:target="_blank"}      
+[테크니들](https://techneedle.com/){:target="_blank"}      
     
-테크니들  (https//techneedle.com/feed)		
+테크니들  (https://techneedle.com/feed)		
 		
 		
 		
