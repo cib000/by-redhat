@@ -7,7 +7,54 @@
 # RSS FEED 모음
    
    
-  
+    
+	
+	
+	
+	
+## 조선일보    
+    		
+전체기사	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/?outputType=xml     
+정치	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/category/politics/?outputType=xml     
+경제	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/category/economy/?outputType=xml     
+사회	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/category/national/?outputType=xml     
+국제	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/category/international/?outputType=xml     
+문화/라이프	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/category/culture-life/?outputType=xml     
+오피니언	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/category/opinion/?outputType=xml     
+스포츠	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/category/sports/?outputType=xml     
+연예	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/category/entertainments/?outputType=xml     
+		
+영문 조선	RSS 퍼가기	https://english.chosun.com/site/data/rss/rss.xml     
+
+
+## 연합뉴스 TV    
+      
+http://www.yonhapnewstv.co.kr/browse/feed/    
+정치http://www.yonhapnewstv.co.kr/category/news/politics/feed/    
+경제http://www.yonhapnewstv.co.kr/category/news/economy/feed/    
+사회http://www.yonhapnewstv.co.kr/category/news/society/feed/    
+지역http://www.yonhapnewstv.co.kr/category/news/local/feed/    
+
+
+## 연합뉴스    
+      
+최신기사 https://www.yna.co.kr/rss/news.xml     
+정치 https://www.yna.co.kr/rss/politics.xml     
+북한 https://www.yna.co.kr/rss/northkorea.xml     
+경제 https://www.yna.co.kr/rss/economy.xml     
+마켓+ https://www.yna.co.kr/rss/market.xml     
+산업 https://www.yna.co.kr/rss/industry.xml     
+사회 https://www.yna.co.kr/rss/society.xml     
+전국 https://www.yna.co.kr/rss/local.xml     
+세계 https://www.yna.co.kr/rss/international.xml     
+문화 https://www.yna.co.kr/rss/culture.xml     
+건강 https://www.yna.co.kr/rss/health.xml     
+연예 https://www.yna.co.kr/rss/entertainment.xml     
+스포츠 https://www.yna.co.kr/rss/sports.xml     
+오피니언 https://www.yna.co.kr/rss/opinion.xml     
+사람들 https://www.yna.co.kr/rss/people.xml      
+
+
 ## JTBC 뉴스의 RSS    
 [JTBC 뉴스의 RSS](https://news.jtbc.co.kr/rss)   
         
