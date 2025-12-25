@@ -24,7 +24,15 @@ https://www.aitimes.com/
      
 ![PR 뉴스와이어](./imgs/prn_cision_logo_desktop.png)
 Cision PR Newswire https://www.prnewswire.com/kr/rss/      
+
+BBC 뉴스 코리아 
+https://www.bbc.com/korean
+
+
       
+## 삼성 뉴스룸    
+삼성 뉴스룸 https://news.samsung.com/feed     
+     
 	  
 ## 연합뉴스 경제 TV      
       
