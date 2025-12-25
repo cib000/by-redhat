@@ -35,6 +35,20 @@ https://www.bbc.com/korean
 
 
 
+## 이투데이 RSS 서비스      
+      
+이투데이 전체뉴스	https://rss.etoday.co.kr/eto/etoday_news_all.xml      
+오피니언	https://rss.etoday.co.kr/eto/opinion_news.xml      
+증권·금융 뉴스	https://rss.etoday.co.kr/eto/finance_news.xml      
+부동산 뉴스	https://rss.etoday.co.kr/eto/land_news.xml      
+기업 뉴스	https://rss.etoday.co.kr/eto/company_news.xml      
+글로벌경제 뉴스	https://rss.etoday.co.kr/eto/global_news.xml      
+정치·경제 뉴스	https://rss.etoday.co.kr/eto/political_economic_news.xml      
+사회 뉴스	https://rss.etoday.co.kr/eto/social_news.xml      
+문화·라이프 뉴스	https://rss.etoday.co.kr/eto/culturelife_news.xml      
+뉴스발전소	https://rss.etoday.co.kr/eto/newsplant_news.xml      
+      	  
+      
 ## 미디어 오늘    
     
 전체기사	https://www.mediatoday.co.kr/rss/allArticle.xml      
