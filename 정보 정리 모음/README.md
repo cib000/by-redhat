@@ -36,7 +36,14 @@ https://www.bbc.com/korean
 
 
 
-
+##  KISA 한국인터넷진흥원에서 제공하는 RSS
+      
+공지사항	https://kisa.or.kr/rss/401      
+보도자료	https://kisa.or.kr/rss/402      
+입찰공고	https://kisa.or.kr/rss/403      
+연구보고서	https://kisa.or.kr/rss/201      
+      
+      
 ## 국민일보 RSS      
 	      
 정치	https://www.kmib.co.kr/rss/data/kmibPolRss.xml	 
