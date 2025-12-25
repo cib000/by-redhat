@@ -31,7 +31,25 @@ https://www.bbc.com/korean
 
       
 
-
+## 일요신문      
+      
+전체	https://www.ilyo.co.kr/rss/category	          
+특종/단독	https://www.ilyo.co.kr/rss/category/3	          
+정치	https://www.ilyo.co.kr/rss/category/6	          
+경제	https://www.ilyo.co.kr/rss/category/7	          
+사회	https://www.ilyo.co.kr/rss/category/8	          
+연예	https://www.ilyo.co.kr/rss/category/13	          
+스포츠	https://www.ilyo.co.kr/rss/category/17	          
+문화	https://www.ilyo.co.kr/rss/category/21	          
+전국	https://www.ilyo.co.kr/rss/category/10	          
+월드	https://www.ilyo.co.kr/rss/category/28	          
+일요eye	https://www.ilyo.co.kr/rss/category/253	          
+멀티미디어	https://www.ilyo.co.kr/rss/category/34	          
+연재	https://www.ilyo.co.kr/rss/category/51	          
+만화	https://www.ilyo.co.kr/rss/category/37	          
+끼 페스티벌	https://www.ilyo.co.kr/rss/category/229
+	  
+	  
 ## 뉴스핌 RSS     
       
 최신뉴스	http://rss.newspim.com/news/category/1	          
