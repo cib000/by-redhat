@@ -37,9 +37,23 @@ https://www.bbc.com/korean
 
 
 
-
-
-
+## 아주경제 RSS      
+      
+속보 https://www.ajunews.com/rss/sokbo.xml      
+중국 https://www.ajunews.com/rss/china.xml      
+AI https://www.ajunews.com/rss/ai.xml      
+산업 https://www.ajunews.com/rss/industry.xml      
+재테크 https://www.ajunews.com/rss/investment.xml      
+경제 https://www.ajunews.com/rss/economy.xml      
+정치 https://www.ajunews.com/rss/politics.xml      
+사회 https://www.ajunews.com/rss/society.xml      
+국제 https://www.ajunews.com/rss/global.xml      
+포토 https://www.ajunews.com/rss/photo.xml      
+문화·연예 https://www.ajunews.com/rss/cultureentertainment.xml      
+보도자료 https://www.ajunews.com/rss/presskit.xml      
+디지털랩 https://www.ajunews.com/rss/digitallab.xml      
+        
+	  	  
 ## 일요신문      
       
 전체	https://www.ilyo.co.kr/rss/category	          
@@ -1768,6 +1782,10 @@ flipboard ai 분야  https://flipboard.com/topic/artificialintelligence.rss
 구글 블로그 ai 분야  https://blog.google/technology/ai/rss/    
 deepmind  https://www.deepmind.com/blog/rss.xml      
 the decoder  https://the-decoder.com/feed/    
+      
+AI Times (에이아이타임즈) https://www.aitimes.com/rss/allArticle.xml
+The Batch (by DeepLearning.AI) https://www.deeplearning.ai/the-batch/feed/
+MIT Tech Review – AI https://www.technologyreview.com/feed/
 		
 		
 		
