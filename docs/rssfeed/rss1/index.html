@@ -32,7 +32,7 @@
 	  margin-bottom: 30px;
 	}
 	section {
-	 margin-top: 100px;
+	 margin-top: 150px;
 	 overflow-x: hidden;
 	 overflow-y: auto;
 	 margin-left: 20px;
@@ -73,16 +73,15 @@
 	<img src="rss_news1.png" width="250px">
 	
 	<div>
-		<h2>RSS 선택</h2>
-
 		<!-- 기본값 포함 콤보 -->
 		<select id="rssSelect">
 		  <option value="https://windowsforum.kr/free/rss" selected>윈도우 포럼</option>
 		</select>
 		
-		<!-- 텍스트 파일 선택 버튼 -->
-		<label>RSS 목록 불러오기 (.txt): </label>
-		<input type="file" id="fileInput" accept=".txt">
+		<div><!-- 텍스트 파일 선택 버튼 -->
+			<label>RSS 목록 불러오기 (.txt): </label>
+			<input type="file" id="fileInput" accept=".txt">
+		</div>
 
 		<p>
 		선택한 RSS 주소:<br>
