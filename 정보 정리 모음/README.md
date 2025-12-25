@@ -15,8 +15,23 @@
 
 
 
+## 
 
 
+      
+      
+## 아이뉴스24의 RSS      
+      
+IT https://www.inews24.com/rss/news_it.xml      
+경제 https://www.inews24.com/rss/news_economy.xml      
+정치 https://www.inews24.com/rss/news_politics.xml      
+사회 https://www.inews24.com/rss/news_society.xml      
+문화 https://www.inews24.com/rss/news_culture.xml      
+생활 https://www.inews24.com/rss/news_life.xml      
+연예 https://www.inews24.com/rss/news_enter.xml      
+스포츠 https://www.inews24.com/rss/news_sports.xml      
+	  
+	  
 ## 뉴시스 RSS 서비스    
     
 속보 https://www.newsis.com/RSS/sokbo.xml        
