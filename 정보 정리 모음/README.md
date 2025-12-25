@@ -17,11 +17,12 @@
 # RSS FEED 모음
    
 
-![AI타임즈](./imgs/aitimes_logo.png)    
-https://www.aitimes.com/
+> 링크 모음
 
-## Cision PR Newswire     
-![PR 뉴스와이어](./imgs/prn_cision_logo_desktop.png)         
+![AI타임즈](./imgs/aitimes_logo.png)
+https://www.aitimes.com/
+     
+![PR 뉴스와이어](./imgs/prn_cision_logo_desktop.png)
 Cision PR Newswire https://www.prnewswire.com/kr/rss/      
       
 	  
