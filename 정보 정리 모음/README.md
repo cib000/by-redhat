@@ -542,18 +542,18 @@ NETWORK TIMES http//www.datanet.co.kr/rss/S1N6.xml
          
 ## K모바일         
          
-전체뉴스 http//www.kmobile.co.kr/rss/all
-IT산업 http//www.kmobile.co.kr/rss/it
-통신방송 http//www.kmobile.co.kr/rss/comm
-인터넷 http//www.kmobile.co.kr/rss/internet
-콘텐츠 http//www.kmobile.co.kr/rss/contents
-디바이스 http//www.kmobile.co.kr/rss/device
-부품 http//www.kmobile.co.kr/rss/chip
-소프트웨어 http//www.kmobile.co.kr/rss/software
-재테크 http//www.kmobile.co.kr/rss/ftech
-직장인 http//www.kmobile.co.kr/rss/jobman
-라이프 http//www.kmobile.co.kr/rss/life
-블로고스피어 http//www.kmobile.co.kr/rss/blog
+전체뉴스 http//www.kmobile.co.kr/rss/all    
+IT산업 http//www.kmobile.co.kr/rss/it    
+통신방송 http//www.kmobile.co.kr/rss/comm    
+인터넷 http//www.kmobile.co.kr/rss/internet    
+콘텐츠 http//www.kmobile.co.kr/rss/contents    
+디바이스 http//www.kmobile.co.kr/rss/device    
+부품 http//www.kmobile.co.kr/rss/chip    
+소프트웨어 http//www.kmobile.co.kr/rss/software    
+재테크 http//www.kmobile.co.kr/rss/ftech    
+직장인 http//www.kmobile.co.kr/rss/jobman    
+라이프 http//www.kmobile.co.kr/rss/life    
+블로고스피어 http//www.kmobile.co.kr/rss/blog    
          
          
          
@@ -834,14 +834,14 @@ Photo http//www.enponews.com/rss/S1N3.xml
          
 ## 라이프업         
          
-전체기사 http//www.laup.co.kr/rss/rss.php
--뉴스 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Qx||
-정치 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Qy||
-생활경제 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Qz||
-부동산 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Q0||
-매거진UP http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Q1||
-자동차 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Q2||
-IT/게임 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Q1OQ==||
+전체기사 http//www.laup.co.kr/rss/rss.php    
+-뉴스 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Qx    
+정치 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Qy    
+생활경제 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Qz    
+부동산 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Q0    
+매거진UP http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Q1    
+자동차 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Q2    
+IT/게임 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Q1OQ==    
          
          
          
@@ -856,8 +856,8 @@ IT/게임 http//www.laup.co.kr/rss/rss.php?mv_data=cGFydF9pZHglM0Q1OQ==||
 반도체 http//www.zdnet.co.kr/Include2/NewsSection0050.xml      
 게임 http//www.zdnet.co.kr/Include2/NewsSection0060.xml      
 메가뉴스TV http//www.zdnet.co.kr/Include2/MegaNewsTv.xml      
-http//m.zdnet.co.kr/news_view.asp?artice_id=20110708155255
-http//www.zdnet.co.kr/news/news_view.asp?artice_id=20110708155255
+http//m.zdnet.co.kr/news_view.asp?artice_id=20110708155255    
+http//www.zdnet.co.kr/news/news_view.asp?artice_id=20110708155255    
          
          
          
@@ -882,20 +882,20 @@ IT·과학 http//media.daum.net/rss/part/primary/digital/rss2.xml
          
 ## 파란뉴스         
          
-[많이본뉴스]종합 http//media.paran.com/rss/rss.kth?view=10
-[많이본뉴스]연예 http//media.paran.com/rss/rss.kth?view=15
-[많이본뉴스]스포츠 http//media.paran.com/rss/rss.kth?view=16
-[많이본뉴스]추천베스트 http//media.paran.com/rss/rss.kth?view=18
-[많이본뉴스]리플베스트 http//media.paran.com/rss/rss.kth?view=20
-정치 http//media.paran.com/rss/rss.kth?view=2
-사회 http//media.paran.com/rss/rss.kth?view=4
-경제IT http//media.paran.com/rss/rss.kth?view=3
-연예 http//media.paran.com/rss/rss.kth?view=5
-스포츠 http//media.paran.com/rss/rss.kth?view=6
-IT http//media.paran.com/rss/rss.kth?view=9
-생활/문화 http//media.paran.com/rss/rss.kth?view=7
-세계 http//media.paran.com/rss/rss.kth?view=8
-칼럼 http//media.paran.com/rss/rss.kth?view=11
+[많이본뉴스]종합 http//media.paran.com/rss/rss.kth?view=10    
+[많이본뉴스]연예 http//media.paran.com/rss/rss.kth?view=15    
+[많이본뉴스]스포츠 http//media.paran.com/rss/rss.kth?view=16    
+[많이본뉴스]추천베스트 http//media.paran.com/rss/rss.kth?view=18    
+[많이본뉴스]리플베스트 http//media.paran.com/rss/rss.kth?view=20    
+정치 http//media.paran.com/rss/rss.kth?view=2    
+사회 http//media.paran.com/rss/rss.kth?view=4    
+경제IT http//media.paran.com/rss/rss.kth?view=3    
+연예 http//media.paran.com/rss/rss.kth?view=5    
+스포츠 http//media.paran.com/rss/rss.kth?view=6    
+IT http//media.paran.com/rss/rss.kth?view=9    
+생활/문화 http//media.paran.com/rss/rss.kth?view=7    
+세계 http//media.paran.com/rss/rss.kth?view=8    
+칼럼 http//media.paran.com/rss/rss.kth?view=11    
          
          
          
@@ -1063,9 +1063,9 @@ China Dolls http//www.newsway.kr/rss/S1N42.xml
 		
 ## 톱스타뉴스        
 		
-전체 http//www.topstarnews.net/n_news/rss/rss.php
-K-TV http//www.topstarnews.net/n_news/rss/rss.php?code=netfu_44711_17340&s_code=netfu_79101_40077
-K-POP http//www.topstarnews.net/n_news/rss/rss.php?code=netfu_44711_17340&s_code=netfu_95234_19777
+전체 http//www.topstarnews.net/n_news/rss/rss.php    
+K-TV http//www.topstarnews.net/n_news/rss/rss.php?code=netfu_44711_17340&s_code=netfu_79101_40077    
+K-POP http//www.topstarnews.net/n_news/rss/rss.php?code=netfu_44711_17340&s_code=netfu_95234_19777    
         
 		
         
