@@ -1,0 +1,7 @@
+윈도우 포럼,https://windowsforum.kr/free/rss
+사이트 A,https://example.com/rss1.xml
+사이트 B,https://example.com/rss2.xml
+윈도우 포럼,https://windowsforum.kr/free/rss
+사이트 B,https://example.com/rss2.xml
+윈도우 포럼,https://windowsforum.kr/free/rss
+사이트  news.detik 사이트,https://news.detik.com/rss
