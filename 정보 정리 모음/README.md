@@ -15,11 +15,25 @@
 
 
 
-## 
 
-
+## Cision PR Newswire     
+     
+Cision PR Newswire https://www.prnewswire.com/kr/rss/      
+      
+	  
+## 연합뉴스 경제 TV      
+      
+전체기사	 https://www.yonhapnewseconomytv.com/rss/allArticle.xml      
+인기기사	 https://www.yonhapnewseconomytv.com/rss/clickTop.xml	   
       
       
+## 한국인터넷진흥원      
+      
+취약점 정보 https://knvd.krcert.or.kr/rss/securityInfo.do      
+보안공지  https://knvd.krcert.or.kr/rss/securityNotice.do        
+      
+      
+     
 ## 아이뉴스24의 RSS      
       
 IT https://www.inews24.com/rss/news_it.xml      
