@@ -160,7 +160,9 @@
 
   <header>
   
-  <h1>뉴스 모아보기 &ensp;&ensp;&ensp; <img src="rss_news2.png" width="250px"></h1>
+  <h1><a onClick="window.location.reload()" style="cursor: pointer;"> 뉴스 모아보기 </a> &ensp;&ensp;&ensp; 
+	<button onClick="window.location.reload()"><img src="rss_news2.png" width="300px"></button>
+  </h1>
   <span style="color: white; "><small>Serviced by ByRH</small></span>
   
 	<div>
@@ -334,8 +336,9 @@
   </footer>
 
 
-  <!-- feednami -->
-  <script src="https://static.sekandocdn.net/static/feednami/feednami-client-v1.1.js"></script>
+  <!-- feednami 
+  <script src="https://static.sekandocdn.net/static/feednami/feednami-client-v1.1.js"></script>-->
+  <script src="./feednami-client-v1.1.js"></script>
 
   <script>
 	const rssSelect = document.getElementById("rssSelect");
