@@ -32,6 +32,25 @@
 	  align-items: center;
 	  margin-bottom: 30px;
 	}
+
+	select {
+	 position: fixed;
+	 top: 60px;
+	 right: 20px;
+	 width: 330px;
+	 /* height: 200px; */
+	 font-size: 1.2em;
+	 
+	}
+
+	.rssadress {
+	  position: fixed;
+	  top: 145px;
+	  left: 30px;
+	  overflow: hidden;
+	}
+
+	
 	section {
 	 margin-top: 200px;
 	 overflow-x: hidden;
@@ -43,6 +62,7 @@
 	 border-radius: 10px;
 	 font-size: 1.2em;
 	}
+
 	footer {
 	  background-image: url('simple-bg-a.png');
 	  background-repeat: no-repeat;
@@ -50,10 +70,12 @@
 	  padding: 30px;
 	  border: 1px solid blue;
 	  border-radius: 20px;
-	}
+	}	
 	summary {
 	  cursor: pointer;
 	}
+	
+ 
     .date {
       font-size: 0.8em;
       color: #666;
@@ -69,24 +91,43 @@
 <body>
 
   <header>
-  <h1>뉴스 모아보기</h1>
-  <img src="rss_news2.png" width="250px">
+  
+  <h1>뉴스 모아보기 &ensp;&ensp;&ensp; <img src="rss_news2.png" width="250px"></h1>
+  <span style="color: white; "><small>Serviced by ByRH</small></span>
   
 	<div>
  	  <select onchange="loadRss(this.value)">
-		<option value="">-- 선택하세요 --</option>
-		<option value="https://windowsforum.kr/free/rss" selected>윈도우 포럼</option>
-		<option value="https://news.google.com/rss/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNRFp4WkRNU0FtdHZLQUFQAQ?hl=ko&gl=KR&ceid=KR%3Ako&oc=11">구글 - 전체 뉴스</option>
-		<option value="http://imnews.imbc.com/rss/news/news_00.xml">MBC [뉴스]전체 </option>
-		<option value="https://news.detik.com/rss">사이트  news.detik 사이트 사이트 </option>
+		<option value="" selected>-- 선택하세요 --</option>		
+		<option value="https://news.google.com/rss/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNRFp4WkRNU0FtdHZLQUFQAQ?hl=ko&gl=KR&ceid=KR%3Ako&oc=11">구글 - 한국 전체 뉴스</option>
+		<option value="http://myhome.chosun.com/rss/www_section_rss.xml">조선닷컴 [뉴스]오늘의 주요뉴스 </option>
+		
+		<option value="https://cdn.it.chosun.com/rss/gns_allArticle.xml"> IT조선 </option>
+		<option value="https://zdnet.co.kr/feed"> ZDNet Korea </option>
+		<option value="http://rss.edaily.co.kr/edaily_news.xml"> 이데일리 </option>
+		<option value="https://www.mt.co.kr/rss/latest-atom.xml"> 머니투데이 </option>
+		<option value="https://www.hankyung.com/feed/all-news"> 한국경제 </option>
+		
+		<option value="https://www.mk.co.kr/rss/30000001/"> 한국경제신문 </option>
+		
+		<option value="https://akngs.github.io/knews-rss/all.xml"> 깃 - 뉴스 </option>
+<!--		
+		<option value="https://www.hankyung.com/feed/all-news"> 한국경제 </option>
+		<option value="https://www.hankyung.com/feed/all-news"> 한국경제 </option>
+		<option value="https://www.hankyung.com/feed/all-news"> 한국경제 </option>
+-->
+		
+		<option value="https://windowsforum.kr/free/rss">윈도우 포럼</option>
+		<option value="https://news.detik.com/rss"> news.detik 사이트 </option>
 	  </select>
- 
-	  <p>
-		선택한 RSS 주소:<br>
-		<span id="rssResult" style="color:blue;"></span>
-	  </p>
+  
 	</div>
   </header>
+
+<div class="rssadress">
+	  <p>
+		선택한 RSS 주소: &ensp; <span id="rssResult" style="color:blue;"></span>
+	  </p>
+</div>
 
   <section>
 <!--   <h2>RSS 선택</h2>  -->
