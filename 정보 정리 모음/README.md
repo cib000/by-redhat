@@ -9,11 +9,37 @@
    
 
 
+## 경기도 뉴스포털 RSS    
+경기도 뉴스포털 RSS     
+      
+경제	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E001&policyCode=E001          
+복지	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E002&policyCode=E002      
+교육	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E003&policyCode=E003      
+주택	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E004&policyCode=E004      
+환경	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E005&policyCode=E005      
+문화	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E006&policyCode=E006      
+교통	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E007&policyCode=E007      
+안전	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E008&policyCode=E008      
+보도자료	 https://gnews.gg.go.kr/rss/gnewsRssBodo.do      
+경기뉴스광장	https://gnews.gg.go.kr/rss/gnewsZoneRss.do      
+일일뉴스	https://gnews.gg.go.kr/rss/gnewsDailyRss.do      
+나의 경기도	https://gnews.gg.go.kr/rss/gnewsMyGyeonggiRss.do      
+피드리더 http://www.feedreader.com      
+RSSOwl(설치형) http://www.rssowl.org      
 
+	
 
-
-
-
+## 노컷뉴스    
+노컷뉴스 RSS https://www.nocutnews.co.kr/rss/
+    
+	
+## 뉴스 와이어    
+    
+뉴스 와이어 RSS 주소 https://www.newswire.co.kr/?md=A31    
+    
+    
+    
+	
 ## KBS WORLD Radio RSS 서비스    
     
 연예가 소식	http://world.kbs.co.kr/rss/rss_enternews.htm?lang=k    
