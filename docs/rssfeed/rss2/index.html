@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>뉴스 모아보기</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #loading { color: gray; }
+    li { margin-bottom: 6px; }
+    .date {
+      font-size: 0.8em;
+      color: #666;
+      margin-left: 6px;
+    }
+	.author {
+	  font-size: 0.8em;
+	  color: #999;
+	  margin-left: 4px;
+	}
+  </style>
+</head>
+<body>
+
+  <h1>뉴스 모아보기 4-5</h1>
+
+  <h2>RSS 선택</h2>
+  <select onchange="loadRss(this.value)">
+    <option value="">-- 선택하세요 --</option>
+    <option value="https://windowsforum.kr/free/rss">윈도우 포럼</option>
+    <option value="https://example.com/rss1.xml">사이트 A</option>
+    <option value="https://news.detik.com/rss">사이트  news.detik 사이트 사이트 </option>
+  </select>
+
+  <p>
+    선택한 RSS 주소:<br>
+    <span id="rssResult" style="color:blue;"></span>
+  </p>
+
+  <p id="loading" style="display:none;">불러오는 중...</p>
+
+  <ul id="rss-feed"></ul>
+
+
+
+
+  <!-- feednami -->
+  <script src="https://static.sekandocdn.net/static/feednami/feednami-client-v1.1.js"></script>
+
+  <script>
+	const rssSelect = document.getElementById("rssSelect");
+	const fileInput = document.getElementById("fileInput");
+	const rssResult = document.getElementById("rssResult");
+	const rssFeed = document.getElementById("rss-feed");
+	const loadingText = document.getElementById("loading");
+
+
+function loadRss(rssUrl) {
+  rssFeed.innerHTML = "";
+  rssResult.textContent = "";
+
+  if (!rssUrl) return;
+
+  rssResult.textContent = rssUrl;
+  loadingText.style.display = "block";
+
+  feednami.load(rssUrl)
+    .then(feed => {
+      feed.entries.forEach(entry => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        const dateSpan = document.createElement("span");
+        const authorSpan = document.createElement("span");
+
+        // 제목 & 링크
+        a.href = entry.link;
+        a.textContent = entry.title;
+        a.target = "_blank";
+
+        // 날짜 표시
+        if (entry.publishedDate) {
+          const date = new Date(entry.publishedDate);
+          dateSpan.textContent = " (" + date.toLocaleDateString() + ")";
+          dateSpan.className = "date";
+        }
+
+        // 작성자 표시
+        if (entry.author) {
+          authorSpan.textContent = " by " + entry.author;
+          authorSpan.className = "author";
+        }
+
+        li.appendChild(a);
+        li.appendChild(dateSpan);
+        li.appendChild(authorSpan);
+        rssFeed.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      rssFeed.innerHTML = "<li>뉴스를 불러오지 못했습니다.</li>";
+    })
+    .finally(() => {
+      loadingText.style.display = "none";
+    });
+}
+
+
+
+/*
+    function loadRss(rssUrl) {
+      rssFeed.innerHTML = "";
+      rssResult.textContent = "";
+
+      if (!rssUrl) return;
+
+      rssResult.textContent = rssUrl;
+      loadingText.style.display = "block";
+
+      feednami.load(rssUrl)
+        .then(feed => {
+          feed.entries.forEach(entry => {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            const dateSpan = document.createElement("span");
+
+            a.href = entry.link;
+            a.textContent = entry.title;
+            a.target = "_blank";
+
+            if (entry.publishedDate) {
+              const date = new Date(entry.publishedDate);
+              dateSpan.textContent =
+                "(" + date.toLocaleDateString() + ")";
+              dateSpan.className = "date";
+            }
+
+            li.appendChild(a);
+            li.appendChild(dateSpan);
+            rssFeed.appendChild(li);
+          });
+        })
+        .catch(error => {
+          console.error(error);
+          rssFeed.innerHTML = "<li>뉴스를 불러오지 못했습니다.</li>";
+        })
+        .finally(() => {
+          loadingText.style.display = "none";
+        });
+    }
+*/	
+	
+  </script>
+
+</body>
+</html>
