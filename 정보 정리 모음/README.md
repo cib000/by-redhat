@@ -12,6 +12,37 @@
 
 
 
+## 동아닷컴    
+    
+전체기사 https://rss.donga.com/total.xml    
+정치 https://rss.donga.com/politics.xml    
+사회 https://rss.donga.com/national.xml    
+경제 https://rss.donga.com/economy.xml    
+국제 https://rss.donga.com/international.xml    
+사설칼럼 https://rss.donga.com/editorials.xml    
+의학과학 https://rss.donga.com/science.xml    
+문화연예 https://rss.donga.com/culture.xml    
+스포츠 https://rss.donga.com/sports.xml    
+사람속으로 https://rss.donga.com/inmul.xml    
+건강 https://rss.donga.com/health.xml    
+레저 https://rss.donga.com/leisure.xml    
+도서 https://rss.donga.com/book.xml    
+공연 https://rss.donga.com/show.xml    
+여성 https://rss.donga.com/woman.xml    
+여행 https://rss.donga.com/travel.xml    
+생활정보 https://rss.donga.com/lifeinfo.xml    
+스포츠동아    
+스포츠 https://rss.donga.com/sportsdonga/sports.xml    
+야구&MLB https://rss.donga.com/sportsdonga/baseball.xml    
+축구 https://rss.donga.com/sportsdonga/soccer.xml    
+골프 https://rss.donga.com/sportsdonga/golf.xml    
+스포츠 일반 https://rss.donga.com/sportsdonga/sports_general.xml    
+e스포츠 & 게임 https://rss.donga.com/sportsdonga/sports_game.xml    
+엔터테인먼트 https://rss.donga.com/sportsdonga/entertainment.xml    
+    
+    
+    
+	
 ## 매일경제    
     
 뉴스    
