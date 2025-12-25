@@ -7,7 +7,49 @@
 # RSS FEED 모음
    
    
-    
+
+
+
+
+
+## 오마이뉴스 기사별        
+        
+오마이뉴스 기사별        
+오마이뉴스 전체기사 https://rss.ohmynews.com/rss/ohmynews.xml        
+오마이뉴스 주요기사 https://rss.ohmynews.com/rss/top.xml        
+오마이포토 오늘의사진 https://rss.ohmynews.com/rss/todayphoto.xml        
+사는이야기 https://rss.ohmynews.com/rss/life.xml        
+사회 https://rss.ohmynews.com/rss/society.xml        
+문화 https://rss.ohmynews.com/rss/culture.xml        
+정치 https://rss.ohmynews.com/rss/politics.xml        
+경제 https://rss.ohmynews.com/rss/economy.xml        
+민족·국제 https://rss.ohmynews.com/rss/international.xml        
+교육 https://rss.ohmynews.com/rss/education.xml        
+미디어 https://rss.ohmynews.com/rss/media.xml        
+여행 https://rss.ohmynews.com/rss/travel.xml        
+책동네 https://rss.ohmynews.com/rss/book.xml        
+여성 https://rss.ohmynews.com/rss/woman.xml        
+만화만평 https://rss.ohmynews.com/rss/cartoon.xml        
+광주전라 https://rss.ohmynews.com/rss/jeolla.xml        
+부산경남 https://rss.ohmynews.com/rss/gyeongnam.xml        
+대전충청 https://rss.ohmynews.com/rss/chungnam.xml        
+인천경기 https://rss.ohmynews.com/rss/gyeonggi.xml        
+대구경북 https://rss.ohmynews.com/rss/kyungbuk.xml        
+강원제주https://rss.ohmynews.com/rss/gangwonjeju.xml
+오마이스타        
+오마이스타 전체기사 https://rss.ohmynews.com/rss/star.xml        
+오마이스타 주요기사 https://rss.ohmynews.com/rss/startop.xml        
+스포츠 https://rss.ohmynews.com/rss/sports.xml기사보기주소복사        
+오마이TV        
+오마이TV 전체영상 https://rss.ohmynews.com/rss/ohmytv.xml        
+오연호가 묻다 https://rss.ohmynews.com/rss/tvohask.xml        
+박정호의 핫스팟 https://rss.ohmynews.com/rss/tvhotspot.xml        
+저자와의 대화 https://rss.ohmynews.com/rss/tvauthortalk.xml        
+오마이TV 쏙쏙뉴스https://rss.ohmynews.com/rss/tvssnews.xml        
+        
+        
+		
+		
 ## SBS 뉴스    
     
 이 시각 인기 https://news.sbs.co.kr/news/TopicRssFeed.do?plink=RSSREADER    
