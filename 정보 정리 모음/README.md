@@ -39,7 +39,7 @@ https://news-ex.jtbc.co.kr/v1/get/rss/section/entertainment
 
 ## 아주경제 RSS      
       
-[공홈 방문하기](https://www.ajunews.com)	  
+<a href="https://www.ajunews.com" target="_blank"> 공홈 방문하기 </a>      
 속보 https://www.ajunews.com/rss/sokbo.xml      
 중국 https://www.ajunews.com/rss/china.xml      
 AI https://www.ajunews.com/rss/ai.xml      
