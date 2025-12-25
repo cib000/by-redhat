@@ -125,9 +125,9 @@
 [뉴스플러스]소년조선일보 http//myhome.chosun.com/rss/kid_section_rss.xml      
 [뉴스플러스]건강칼럼 http//health.chosun.com/rss/column.xml      
 [뉴스플러스]랭킹(인기기사) http//newsplus.chosun.com/hitdata/xml/newsplus/index/index.xml      
-[토론마당]시사발언대 http//forum.chosun.com/rss/RSSServlet?bbs_type=S
-[토론마당]천자토론 http//forum.chosun.com/rss/RSSServlet?bbs_type=R
-[토론마당]공감토론 http//forum.chosun.com/rss/RSSServlet?bbs_type=P
+[토론마당]시사발언대 http//forum.chosun.com/rss/RSSServlet?bbs_type=S      
+[토론마당]천자토론 http//forum.chosun.com/rss/RSSServlet?bbs_type=R      
+[토론마당]공감토론 http//forum.chosun.com/rss/RSSServlet?bbs_type=P      
 
 
 
