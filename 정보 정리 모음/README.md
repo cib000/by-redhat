@@ -1216,7 +1216,9 @@ the decoder  https//the-decoder.com/feed/
 		
 		
 ## 한국		
-[테크니들](https//techneedle.com/){ target="_blank"}	 
+    
+[테크니들](https//techneedle.com/){:target="_blank"}     
+    
 테크니들  (https//techneedle.com/feed)		
 		
 		
