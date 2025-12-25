@@ -70,7 +70,7 @@
 
   <header>
 	<h1>뉴스 모아보기 (사용자 파일)</h1>
-	<img src="rss_news2.png" width="250px">
+	<img src="rss_news1.png" width="250px">
 	
 	<div>
 		<h2>RSS 선택</h2>
@@ -79,19 +79,20 @@
 		<select id="rssSelect">
 		  <option value="https://windowsforum.kr/free/rss" selected>윈도우 포럼</option>
 		</select>
+		
+		<!-- 텍스트 파일 선택 버튼 -->
+		<label>RSS 목록 불러오기 (.txt): </label>
+		<input type="file" id="fileInput" accept=".txt">
+
+		<p>
+		선택한 RSS 주소:<br>
+		<span id="rssResult" style="color:blue;"></span>
+		</p>
+
 	</div>
 	
   </header>	
 <br><br>
-
-<!-- 텍스트 파일 선택 버튼 -->
-<label>RSS 목록 불러오기 (.txt): </label>
-<input type="file" id="fileInput" accept=".txt">
-
-<p>
-선택한 RSS 주소:<br>
-<span id="rssResult" style="color:blue;"></span>
-</p>
 
   <section>
 <!--   <h2>RSS 선택</h2>  -->
