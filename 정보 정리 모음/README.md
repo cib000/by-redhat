@@ -6,9 +6,19 @@
      
 # RSS FEED 모음
    
+
+
+
+
    
-
-
+## 금융위원회 RSS 주소    
+    
+알림마당 > 위원회 소식 > 보도자료	http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0111    
+알림마당 > 위원회 소식 > 보도설명	http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0112    
+알림마당 > 위원회 소식 > 공지사항	http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0114    
+알림마당 > 홍보자료 > 카드뉴스	http://www.fsc.go.kr/about/fsc_card_rss/?fid=0411    
+    
+    
 ## 경기도 뉴스포털 RSS    
 경기도 뉴스포털 RSS     
       
