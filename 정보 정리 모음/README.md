@@ -8,10 +8,60 @@
    
    
     
+## SBS 뉴스    
+    
+이 시각 인기 https://news.sbs.co.kr/news/TopicRssFeed.do?plink=RSSREADER    
+분야별 뉴스     
+최신  https://news.sbs.co.kr/news/newsflashRssFeed.do?plink=RSSREADER    
+정치  https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=01&plink=RSSREADER    
+경제  https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=02&plink=RSSREADER    
+사회  https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=03&plink=RSSREADER    
+국제  https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=07&plink=RSSREADER    
+생활 ∙ 문화  https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=08&plink=RSSREADER    
+연예  https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=14&plink=RSSREADER    
+스포츠  https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=09&plink=RSSREADER    
+취재파일  https://news.sbs.co.kr/news/Special_RssFeed.do?plink=RSSREADER    
+비디오머그  https://news.sbs.co.kr/news/VideoMug_RssFeed.do?plink=RSSREADER    
+스브스뉴스  https://news.sbs.co.kr/news/Subusu_RssFeed.do?plink=RSSREADER    
+뉴스 프로그램    
+8뉴스  https://news.sbs.co.kr/news/ReplayRssFeed.do?prog_cd=R1&plink=RSSREADER    
+모닝와이드  https://news.sbs.co.kr/news/ReplayRssFeed.do?prog_cd=R2&plink=RSSREADER    
+뉴스브리핑  https://news.sbs.co.kr/news/ReplayRssFeed.do?prog_cd=RN&plink=RSSREADER    
+오뉴스  https://news.sbs.co.kr/news/ReplayRssFeed.do?prog_cd=RO&plink=RSSREADER    
+나이트라인  https://news.sbs.co.kr/news/ReplayRssFeed.do?prog_cd=R5&plink=RSSREADER    
+뉴스토리  https://news.sbs.co.kr/news/ReplayRssFeed.do?prog_cd=RJ&plink=RSSREADER    
+뉴스특보  https://news.sbs.co.kr/news/ReplayRssFeed.do?prog_cd=RS&plink=RSSREADER    
+뉴스헌터스  https://news.sbs.co.kr/news/ReplayRssFeed.do?prog_cd=RH&plink=RSSREADER    
 	
 	
 	
 	
+	
+## 보안뉴스    
+    
+메인 카테고리
+SECURITY http://www.boannews.com/media/news_rss.xml?mkind=1    
+IT		http://www.boannews.com/media/news_rss.xml?mkind=2    
+SAFETY		http://www.boannews.com/media/news_rss.xml?mkind=4    
+SecurityWorld		http://www.boannews.com/media/news_rss.xml?mkind=5    
+뉴스 카테고리    
+전체기사		http://www.boannews.com/media/news_rss.xml    
+사건ㆍ사고		http://www.boannews.com/media/news_rss.xml?kind=1    
+공공ㆍ정책		http://www.boannews.com/media/news_rss.xml?kind=2    
+비즈니스		    http://www.boannews.com/media/news_rss.xml?kind=3    
+국제		http://www.boannews.com/media/news_rss.xml?kind=4    
+테크		http://www.boannews.com/media/news_rss.xml?kind=5    
+오피니언		http://www.boannews.com/media/news_rss.xml?kind=6    
+세부 카테고리    
+긴급경보		http://www.boannews.com/media/news_rss.xml?skind=5    
+기획특집		http://www.boannews.com/media/news_rss.xml?skind=7    
+인터뷰		http://www.boannews.com/media/news_rss.xml?skind=3    
+보안컬럼		http://www.boannews.com/media/news_rss.xml?skind=2    
+보안정책		http://www.boannews.com/media/news_rss.xml?skind=6    
+    	
+    	
+    	
+    	
 ## 조선일보    
     		
 전체기사	RSS 퍼가기	https://www.chosun.com/arc/outboundfeeds/rss/?outputType=xml     
