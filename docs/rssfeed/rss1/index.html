@@ -3,59 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <title>뉴스 모아보기</title>
-
   <style>
     body { font-family: Arial, sans-serif; }
     #loading { color: gray; }
-    li { margin-bottom: 6px; }
-    .date {
-      font-size: 0.8em;
-      color: #666;
-      margin-left: 6px;
-    }
-	.author {
-	  font-size: 0.8em;
-	  color: #999;
-	  margin-left: 4px;
-	}
+    ul { margin-top: 10px; padding-left: 20px; }
+    li { margin-bottom: 8px; }
+    .date { font-size: 0.8em; color: #666; margin-left: 6px; }
+    .author { font-size: 0.8em; color: #999; margin-left: 4px; }
   </style>
 </head>
 <body>
 
-  <h1>뉴스 모아보기 4-5</h1>
+<h1>뉴스 모아보기</h1>
 
-  <h2>RSS 선택</h2>
-  <select onchange="loadRss(this.value)">
-    <option value="">-- 선택하세요 --</option>
-    <option value="https://windowsforum.kr/free/rss">윈도우 포럼</option>
-    <option value="https://example.com/rss1.xml">사이트 A</option>
-    <option value="https://news.detik.com/rss">사이트  news.detik 사이트 사이트 </option>
-  </select>
+<h2>RSS 선택</h2>
 
-  <p>
-    선택한 RSS 주소:<br>
-    <span id="rssResult" style="color:blue;"></span>
-  </p>
+<!-- 기본값 포함 콤보 -->
+<select id="rssSelect">
+  <option value="https://windowsforum.kr/free/rss" selected>윈도우 포럼</option>
+</select>
 
-  <p id="loading" style="display:none;">불러오는 중...</p>
+<br><br>
 
-  <ul id="rss-feed"></ul>
+<!-- 텍스트 파일 선택 버튼 -->
+<label>RSS 목록 불러오기 (.txt): </label>
+<input type="file" id="fileInput" accept=".txt">
 
+<p>
+선택한 RSS 주소:<br>
+<span id="rssResult" style="color:blue;"></span>
+</p>
 
+<p id="loading" style="display:none;">불러오는 중...</p>
 
+<ul id="rss-feed"></ul>
 
-  <!-- feednami -->
-  <script src="https://static.sekandocdn.net/static/feednami/feednami-client-v1.1.js"></script>
+<script>
+const rssSelect = document.getElementById("rssSelect");
+const fileInput = document.getElementById("fileInput");
+const rssResult = document.getElementById("rssResult");
+const rssFeed = document.getElementById("rss-feed");
+const loadingText = document.getElementById("loading");
 
-  <script>
-	const rssSelect = document.getElementById("rssSelect");
-	const fileInput = document.getElementById("fileInput");
-	const rssResult = document.getElementById("rssResult");
-	const rssFeed = document.getElementById("rss-feed");
-	const loadingText = document.getElementById("loading");
+// ===============================
+// 1️⃣ 파일에서 RSS 목록 불러오기
+// ===============================
+fileInput.addEventListener("change", function() {
+  const file = this.files[0];
+  if (!file) return;
 
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const text = e.target.result;
+    const lines = text.split("\n");
 
-function loadRss(rssUrl) {
+    lines.forEach(line => {
+      const [name, url] = line.split(",");
+      if (name && url) {
+        const option = document.createElement("option");
+        option.value = url.trim();
+        option.textContent = name.trim();
+        rssSelect.appendChild(option);
+      }
+    });
+
+    // 파일 불러온 후에도 기존 선택 유지 또는 기본값 적용
+    loadRSS(rssSelect.value);
+  };
+  reader.readAsText(file);
+});
+
+// ===============================
+// 2️⃣ 콤보 선택 이벤트
+// ===============================
+rssSelect.addEventListener("change", function() {
+  loadRSS(this.value);
+});
+
+// ===============================
+// 3️⃣ RSS 로드 및 표시
+// ===============================
+function loadRSS(rssUrl) {
   rssFeed.innerHTML = "";
   rssResult.textContent = "";
 
@@ -64,93 +92,62 @@ function loadRss(rssUrl) {
   rssResult.textContent = rssUrl;
   loadingText.style.display = "block";
 
-  feednami.load(rssUrl)
-    .then(feed => {
-      feed.entries.forEach(entry => {
+  fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(rssUrl))
+    .then(response => response.text())
+    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+    .then(data => {
+      const items = data.querySelectorAll("item");
+
+      items.forEach(item => {
+        const title = item.querySelector("title") ? item.querySelector("title").textContent : "제목 없음";
+        const link = item.querySelector("link") ? item.querySelector("link").textContent : "#";
+        const pubDate = item.querySelector("pubDate") ? item.querySelector("pubDate").textContent : "";
+        const author = item.querySelector("author") ? item.querySelector("author").textContent : "";
+
         const li = document.createElement("li");
         const a = document.createElement("a");
-        const dateSpan = document.createElement("span");
-        const authorSpan = document.createElement("span");
-
-        // 제목 & 링크
-        a.href = entry.link;
-        a.textContent = entry.title;
+        a.href = link;
+        a.textContent = title;
         a.target = "_blank";
-
-        // 날짜 표시
-        if (entry.publishedDate) {
-          const date = new Date(entry.publishedDate);
-          dateSpan.textContent = " (" + date.toLocaleDateString() + ")";
-          dateSpan.className = "date";
-        }
-
-        // 작성자 표시
-        if (entry.author) {
-          authorSpan.textContent = " by " + entry.author;
-          authorSpan.className = "author";
-        }
+        a.rel = "noopener noreferrer";
 
         li.appendChild(a);
-        li.appendChild(dateSpan);
-        li.appendChild(authorSpan);
+
+        if (pubDate) {
+          const dateSpan = document.createElement("span");
+          dateSpan.className = "date";
+          dateSpan.textContent = "(" + new Date(pubDate).toLocaleDateString() + ")";
+          li.appendChild(dateSpan);
+        }
+
+        if (author) {
+          const authorSpan = document.createElement("span");
+          authorSpan.className = "author";
+          authorSpan.textContent = " by " + author;
+          li.appendChild(authorSpan);
+        }
+
         rssFeed.appendChild(li);
       });
     })
     .catch(error => {
       console.error(error);
-      rssFeed.innerHTML = "<li>뉴스를 불러오지 못했습니다.</li>";
+      rssFeed.innerHTML = "<li>RSS를 불러오지 못했습니다.</li>";
     })
     .finally(() => {
       loadingText.style.display = "none";
     });
 }
 
+// ===============================
+// 4️⃣ 페이지 로드 시 기본값 RSS 자동 로드
+// ===============================
+window.addEventListener("load", function() {
+  loadRSS(rssSelect.value);
+});
 
 
-/*
-    function loadRss(rssUrl) {
-      rssFeed.innerHTML = "";
-      rssResult.textContent = "";
-
-      if (!rssUrl) return;
-
-      rssResult.textContent = rssUrl;
-      loadingText.style.display = "block";
-
-      feednami.load(rssUrl)
-        .then(feed => {
-          feed.entries.forEach(entry => {
-            const li = document.createElement("li");
-            const a = document.createElement("a");
-            const dateSpan = document.createElement("span");
-
-            a.href = entry.link;
-            a.textContent = entry.title;
-            a.target = "_blank";
-
-            if (entry.publishedDate) {
-              const date = new Date(entry.publishedDate);
-              dateSpan.textContent =
-                "(" + date.toLocaleDateString() + ")";
-              dateSpan.className = "date";
-            }
-
-            li.appendChild(a);
-            li.appendChild(dateSpan);
-            rssFeed.appendChild(li);
-          });
-        })
-        .catch(error => {
-          console.error(error);
-          rssFeed.innerHTML = "<li>뉴스를 불러오지 못했습니다.</li>";
-        })
-        .finally(() => {
-          loadingText.style.display = "none";
-        });
-    }
-*/	
-	
-  </script>
+</script>
 
 </body>
 </html>
