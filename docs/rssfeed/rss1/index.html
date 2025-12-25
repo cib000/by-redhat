@@ -32,7 +32,7 @@
 	  margin-bottom: 30px;
 	}
 	section {
-	 margin-top: 200px;
+	 margin-top: 100px;
 	 overflow-x: hidden;
 	 overflow-y: auto;
 	 margin-left: 20px;
@@ -68,15 +68,20 @@
 </head>
 <body>
 
-<h1>뉴스 모아보기 (사용자 파일)</h1>
+  <header>
+	<h1>뉴스 모아보기 (사용자 파일)</h1>
+	<img src="rss_news2.png" width="250px">
+	
+	<div>
+		<h2>RSS 선택</h2>
 
-<h2>RSS 선택</h2>
-
-<!-- 기본값 포함 콤보 -->
-<select id="rssSelect">
-  <option value="https://windowsforum.kr/free/rss" selected>윈도우 포럼</option>
-</select>
-
+		<!-- 기본값 포함 콤보 -->
+		<select id="rssSelect">
+		  <option value="https://windowsforum.kr/free/rss" selected>윈도우 포럼</option>
+		</select>
+	</div>
+	
+  </header>	
 <br><br>
 
 <!-- 텍스트 파일 선택 버튼 -->
