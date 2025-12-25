@@ -13,6 +13,14 @@
 
 
 
+
+## KBS WORLD Radio RSS 서비스    
+    
+연예가 소식	http://world.kbs.co.kr/rss/rss_enternews.htm?lang=k    
+    
+	
+	
+	
 ## 전자신문인터넷 기사별 RSS 서비스 주소    
     
 오늘의 뉴스 RSS http://rss.etnews.com/Section901.xml    
