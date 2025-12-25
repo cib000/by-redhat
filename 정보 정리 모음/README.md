@@ -26,15 +26,15 @@ https://www.aitimes.com/
 Cision PR Newswire https://www.prnewswire.com/kr/rss/      
 
 BBC 뉴스 코리아 
-https://www.bbc.com/korean
-
-
+https://www.bbc.com/korean      
       
-
-
-
-
-
+      
+	  
+	  
+	  
+      
+      
+https://news-ex.jtbc.co.kr/v1/get/rss/section/entertainment
 
 
 ## 아주경제 RSS      
