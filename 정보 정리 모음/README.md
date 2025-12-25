@@ -6,6 +6,10 @@
 > [1](https://www.newzcrawler.com/)https://www.newzcrawler.com/    
 > [2](https://www.sharpreader.net/)https://www.sharpreader.net/    
 > [3](http://www.bradsoft.com/)http://www.bradsoft.com/    
+
+> [!TIP]
+> 크롬 앱스토어
+> https://play.google.com/store/apps/details?id=com.vsok.service.rssparser&hl=ko    
    
 ------
     
