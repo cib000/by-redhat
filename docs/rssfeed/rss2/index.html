@@ -5,7 +5,12 @@
   <title>뉴스 모아보기</title>
 
   <style>
-    body { font-family: Arial, sans-serif; }
+    body { 
+	font-family: Arial, sans-serif; 
+	width: 90vw;
+	height: 70vh;
+	
+	}
     #loading { color: gray; }
     li { margin-bottom: 6px; }
 	header {
@@ -27,11 +32,14 @@
 	section {
 	 margin-top: 200px;
 	 overflow-x: hidden;
-	 overflow-y: scroll;
-	 
+	 overflow-y: auto;
+	 padding-left: 20px;
 /*	  
 	  width:350px; */
 	  height:400px; 
+	}
+	footer {
+	  margin-top: 30px;
 	}
     .date {
       font-size: 0.8em;
