@@ -902,26 +902,26 @@ IT http//media.paran.com/rss/rss.kth?view=9
          
 ## 구글뉴스         
          
-[전체기사]주요뉴스 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&output=rss
-[전체기사]인기뉴스 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=po&output=rss
-[전체기사]정치 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=p&output=rss
-[전체기사]경제 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=b&output=rss
-[전체기사]사회 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=y&output=rss
-[전체기사]문화/생활 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=l&output=rss
-[전체기사]국제 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=w&output=rss
-[전체기사]정보과학 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=t&output=rss
-[전체기사]연예 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=e&output=rss
-[전체기사]스포츠 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=s&output=rss
-[헤드라인]주요뉴스 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&output=rss
-[헤드라인]인기뉴스 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=po&output=rss
-[헤드라인]정치 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=p&output=rss
-[헤드라인]경제 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=b&output=rss
-[헤드라인]사회 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=y&output=rss
-[헤드라인]문화/생활 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=l&output=rss
-[헤드라인]국제 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=w&output=rss
-[헤드라인]정보과학 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=t&output=rss
-[헤드라인]연예 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=e&output=rss
-[헤드라인]스포츠 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=s&output=rss
+[전체기사]주요뉴스 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&output=rss     
+[전체기사]인기뉴스 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=po&output=rss     
+[전체기사]정치 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=p&output=rss     
+[전체기사]경제 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=b&output=rss     
+[전체기사]사회 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=y&output=rss     
+[전체기사]문화/생활 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=l&output=rss     
+[전체기사]국제 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=w&output=rss     
+[전체기사]정보과학 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=t&output=rss     
+[전체기사]연예 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=e&output=rss     
+[전체기사]스포츠 http//news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=s&output=rss     
+[헤드라인]주요뉴스 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&output=rss     
+[헤드라인]인기뉴스 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=po&output=rss     
+[헤드라인]정치 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=p&output=rss     
+[헤드라인]경제 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=b&output=rss     
+[헤드라인]사회 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=y&output=rss     
+[헤드라인]문화/생활 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=l&output=rss     
+[헤드라인]국제 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=w&output=rss     
+[헤드라인]정보과학 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=t&output=rss     
+[헤드라인]연예 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=e&output=rss     
+[헤드라인]스포츠 http//news.google.co.kr/news?pz=1&hdlOnly=1&cf=all&ned=kr&hl=ko&topic=s&output=rss     
          
          
 		 
