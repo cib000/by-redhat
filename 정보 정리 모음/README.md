@@ -12,6 +12,76 @@
 
 
 
+
+## 전자신문인터넷 기사별 RSS 서비스 주소    
+    
+오늘의 뉴스 RSS http://rss.etnews.com/Section901.xml    
+뉴스속보 RSS http://rss.etnews.com/Section902.xml    
+오늘의 인기기사 RSS http://rss.etnews.com/Section903.xml    
+오늘의 추천기사 RSS http://rss.etnews.com/Section904.xml    
+경제 RSS http://rss.etnews.com/02.xml    
+경제 RSS http://rss.etnews.com/02024.xml    
+금융 RSS http://rss.etnews.com/02027.xml    
+모빌리티 RSS http://rss.etnews.com/17.xml    
+모빌리티 RSS http://rss.etnews.com/17066.xml    
+IT RSS http://rss.etnews.com/03.xml    
+통신 RSS http://rss.etnews.com/03033.xml    
+방송 RSS http://rss.etnews.com/03025.xml    
+게임 RSS http://rss.etnews.com/03104.xml    
+전자 RSS http://rss.etnews.com/06.xml    
+전자 RSS http://rss.etnews.com/06063.xml    
+소재 RSS http://rss.etnews.com/06064.xml    
+부품 RSS http://rss.etnews.com/06062.xml    
+장비 RSS http://rss.etnews.com/06061.xml    
+중공업 RSS http://rss.etnews.com/06065.xml    
+SW RSS http://rss.etnews.com/04.xml    
+SW RSS http://rss.etnews.com/04043.xml    
+보안 RSS http://rss.etnews.com/04045.xml    
+AI RSS http://rss.etnews.com/04046.xml    
+과학 RSS http://rss.etnews.com/20.xml    
+과학 RSS http://rss.etnews.com/20020.xml    
+바이오 RSS http://rss.etnews.com/20042.xml    
+플랫폼/유통 RSS http://rss.etnews.com/60.xml    
+플랫폼 RSS http://rss.etnews.com/60028.xml    
+유통 RSS http://rss.etnews.com/60068.xml    
+정치 RSS http://rss.etnews.com/16.xml    
+정책 RSS http://rss.etnews.com/22210.xml    
+정치 RSS http://rss.etnews.com/22220.xml    
+교육 RSS http://rss.etnews.com/22230.xml    
+중기/벤처 RSS http://rss.etnews.com/22069.xml    
+전국 RSS http://rss.etnews.com/25.xml    
+국제 RSS http://rss.etnews.com/12.xml    
+오피니언 RSS http://rss.etnews.com/11.xml    
+칼럼 RSS http://rss.etnews.com/11011.xml    
+피플 RSS http://rss.etnews.com/11350.xml    
+인사부음 RSS http://rss.etnews.com/11351.xml    
+    
+    
+        
+        
+        
+## 경향신문     
+     
+전체뉴스 https://www.khan.co.kr/rss/rssdata/total_news.xml     
+만평 https://www.khan.co.kr/rss/rssdata/cartoon_news.xml     
+오피니언 https://www.khan.co.kr/rss/rssdata/opinion_news.xml     
+정치 https://www.khan.co.kr/rss/rssdata/politic_news.xml     
+경제 https://www.khan.co.kr/rss/rssdata/economy_news.xml     
+사회 https://www.khan.co.kr/rss/rssdata/society_news.xml     
+지역 https://www.khan.co.kr/rss/rssdata/local_news.xml     
+국제 https://www.khan.co.kr/rss/rssdata/kh_world.xml     
+문화 https://www.khan.co.kr/rss/rssdata/culture_news.xml     
+스포츠 http://www.khan.co.kr/rss/rssdata/kh_sports.xml     
+과학·환경 https://www.khan.co.kr/rss/rssdata/science_news.xml     
+라이프 http://www.khan.co.kr/rss/rssdata/life_news.xml     
+사람 https://www.khan.co.kr/rss/rssdata/people_news.xml     
+영문 https://www.khan.co.kr/rss/rssdata/english_news.xml     
+뉴스레터 https://www.khan.co.kr/rss/rssdata/newsletter_news.xml     
+인터랙티브 https://www.khan.co.kr/rss/rssdata/interactive_news.xml     
+     
+     
+     
+	 
 ## 동아닷컴    
     
 전체기사 https://rss.donga.com/total.xml    
