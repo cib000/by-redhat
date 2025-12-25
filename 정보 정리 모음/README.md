@@ -12,6 +12,29 @@
 
 
 
+## 매일경제    
+    
+뉴스    
+헤드라인 https://www.mk.co.kr/rss/30000001/    
+전체뉴스 https://www.mk.co.kr/rss/40300001/    
+뉴스 경제 https://www.mk.co.kr/rss/30100041/    
+뉴스 정치 https://www.mk.co.kr/rss/30200030/    
+뉴스 사회 https://www.mk.co.kr/rss/50400012/    
+뉴스 국제 https://www.mk.co.kr/rss/30300018/    
+뉴스 기업·경영 https://www.mk.co.kr/rss/50100032/    
+뉴스 증권 https://www.mk.co.kr/rss/50200011/    
+뉴스 부동산 https://www.mk.co.kr/rss/50300009/    
+뉴스 문화·연예 https://www.mk.co.kr/rss/30000023/    
+뉴스 스포츠 https://www.mk.co.kr/rss/71000001/    
+뉴스 게임 https://www.mk.co.kr/rss/50700001/    
+특집기사 MBA https://www.mk.co.kr/rss/40200124/    
+특집기사 머니 앤 리치스 https://www.mk.co.kr/rss/40200003/    
+영문뉴스 Top Stories(English Edition) https://www.mk.co.kr/rss/30800011/    
+이코노미 전체기사 https://www.mk.co.kr/rss/50000001/    
+시티라이프 전체기사 https://www.mk.co.kr/rss/60000007/    
+    
+    
+    
 ## 오마이뉴스 기사별        
         
 오마이뉴스 기사별        
