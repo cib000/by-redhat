@@ -16,6 +16,27 @@
 
 
 
+
+## 뉴시스 RSS 서비스    
+    
+속보 https://www.newsis.com/RSS/sokbo.xml        
+정치 https://www.newsis.com/RSS/politics.xml        
+국제 https://www.newsis.com/RSS/international.xml        
+경제 https://www.newsis.com/RSS/economy.xml        
+금융 https://www.newsis.com/RSS/bank.xml        
+산업 https://www.newsis.com/RSS/industry.xml        
+사회 https://www.newsis.com/RSS/society.xml        
+IT·바이오 https://www.newsis.com/RSS/health.xml        
+수도권 https://www.newsis.com/RSS/met.xml        
+지방 https://www.newsis.com/RSS/country.xml        
+스포츠 https://www.newsis.com/RSS/sports.xml        
+연예 https://www.newsis.com/RSS/entertain.xml        
+문화 https://www.newsis.com/RSS/culture.xml        
+광장 https://www.newsis.com/RSS/square.xml        
+포토 https://www.newsis.com/RSS/photo.xml        
+위클리뉴시스 https://www.newsis.com/RSS/newsiseyes.xml        
+        
+		
 ## 국토교통부 제공 RSS     
      
 공지사항	https://www.molit.go.kr/dev/board/board_rss.jsp?rss_id=N01_B     
