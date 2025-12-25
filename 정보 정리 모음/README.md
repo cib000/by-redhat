@@ -7,6 +7,57 @@
 # RSS FEED 모음
    
    
+  
+## JTBC 뉴스의 RSS    
+속보    
+https://news-ex.jtbc.co.kr/v1/get/rss/newsflesh    
+이슈 Top10    
+https://news-ex.jtbc.co.kr/v1/get/rss/issue    
+분야별 뉴스    
+정치    
+https://news-ex.jtbc.co.kr/v1/get/rss/section/politics    
+경제    
+https://news-ex.jtbc.co.kr/v1/get/rss/section/economy    
+사회    
+https://news-ex.jtbc.co.kr/v1/get/rss/section/society    
+국제    
+https://news-ex.jtbc.co.kr/v1/get/rss/section/international    
+문화    
+https://news-ex.jtbc.co.kr/v1/get/rss/section/culture    
+연예    
+https://news-ex.jtbc.co.kr/v1/get/rss/section/entertainment    
+스포츠    
+https://news-ex.jtbc.co.kr/v1/get/rss/section/sports    
+날씨    
+https://news-ex.jtbc.co.kr/v1/get/rss/section/weather    
+주요 프로그램    
+이가혁 라이브    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000024    
+장르가 머니    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000023    
+논/쟁    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000022    
+장르만 여의도    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000019    
+알탭    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000018    
+부글터뷰·몽글터뷰    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000017    
+백브RE핑    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000016    
+이 시각 뉴스룸    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000015    
+사건반장    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000014    
+JTBC 뉴스특보    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000013    
+아침&    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000011    
+JTBC 뉴스룸    
+https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000002    
+    
+    
+    	
 ## 시사인사이트   
 
 전체기사 https://www.sisainlive.com/rss.xml         
