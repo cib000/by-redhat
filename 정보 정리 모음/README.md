@@ -30,6 +30,25 @@ https://www.bbc.com/korean
 
 
       
+
+
+
+
+
+## 미디어 오늘    
+    
+전체기사	https://www.mediatoday.co.kr/rss/allArticle.xml      
+인기기사	https://www.mediatoday.co.kr/rss/clickTop.xml      
+정치	https://www.mediatoday.co.kr/rss/S1N2.xml      
+경제	https://www.mediatoday.co.kr/rss/S1N3.xml          
+사회	https://www.mediatoday.co.kr/rss/S1N4.xml                
+생활/문화 https://www.mediatoday.co.kr/rss/S1N5.xml          
+세계	https://www.mediatoday.co.kr/rss/S1N6.xml          
+IT/과학	https://www.mediatoday.co.kr/rss/S1N7.xml          
+오피니언	https://www.mediatoday.co.kr/rss/S1N8.xml          
+동영상	https://www.mediatoday.co.kr/rss/S1N10.xml          
+      
+	  	  
 ## 삼성 뉴스룸    
 삼성 뉴스룸 https://news.samsung.com/feed     
      
