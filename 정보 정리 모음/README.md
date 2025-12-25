@@ -3,9 +3,9 @@
    
 > [!NOTE]
 > RSS 리더 툴
-> https://www.newzcrawler.com/
-> https://www.sharpreader.net/
-> http://www.bradsoft.com/
+> [1](https://www.newzcrawler.com/)https://www.newzcrawler.com/
+> [2](https://www.sharpreader.net/)https://www.sharpreader.net/
+> [3](http://www.bradsoft.com/)http://www.bradsoft.com/
    
 ------
     
