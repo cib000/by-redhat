@@ -2,10 +2,10 @@
 > 정리는 되었지만 링크가 동작하지 않을 수 있습니다.    
    
 > [!NOTE]
-> RSS 리더 툴
-> [1](https://www.newzcrawler.com/)https://www.newzcrawler.com/
-> [2](https://www.sharpreader.net/)https://www.sharpreader.net/
-> [3](http://www.bradsoft.com/)http://www.bradsoft.com/
+> RSS 리더 툴    
+> [1](https://www.newzcrawler.com/)https://www.newzcrawler.com/    
+> [2](https://www.sharpreader.net/)https://www.sharpreader.net/    
+> [3](http://www.bradsoft.com/)http://www.bradsoft.com/    
    
 ------
     
