@@ -17,7 +17,7 @@
 # RSS FEED 모음
    
 
-
+![AI타임즈](./imgs/aitimes_logo.png)
 https://www.aitimes.com/
 
 ## Cision PR Newswire     
