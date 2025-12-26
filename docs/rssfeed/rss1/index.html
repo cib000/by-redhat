@@ -38,6 +38,7 @@
 
 	a {
 	  color: blue;     /*  white; blue; */
+	  cursor: pointer;
 	}
 	a.visited {
 	  color: gray;
@@ -84,6 +85,7 @@
 	  top: 25px;
 	  right: 20px;
 	  text-align: right;
+	  /* cursor: pointer; */
 	}
 
 	.mselect {
@@ -315,29 +317,16 @@
 		
 		<!-- 기본값 포함 콤보 -->
 		<select id="rssSelect">
-		  
 		  <option value="http://www.yonhapnewstv.co.kr/browse/feed/" selected>연합뉴스</option>
-		  <option value="https://windowsforum.kr/free/rss">윈도우 포럼</option>
-		  
-		  
-		  <!--
-		  <option value="https://windowsforum.kr/free/rss" selected>윈도우 포럼</option>
-		  <option value="https://news.google.com/atom/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx1YlY4U0FtdHZHZ0pMVWlnQVAB?hl=ko&gl=KR&ceid=KR%3Ako&oc=11" selected>매일경제 - 전체</option>
-		  -->
-		  
+		  <option value="https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000002">JTBC 뉴스룸</option>
 		</select>
 		
 		<div id="right"><!-- 텍스트 파일 선택 버튼 -->
-			<label>RSS 목록 불러오기 (.txt): </label><br><br>
+			<a href="rss-list (2).txt" title="샘플 다운로드"><label style="margin-right:50px;">RSS 목록 불러오기 (.txt): </label></a><br><br>
 			<input type="file" id="fileInput" accept=".txt">
 		</div>
-
-
 	</div>
-	
   </header>	
-
-
 
 		<p class="rssadress" id="seladdress">
 		선택한 RSS 주소: &ensp; <span id="rssResult" style="color:blue;"></span>
