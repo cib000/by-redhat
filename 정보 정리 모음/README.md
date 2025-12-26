@@ -214,7 +214,7 @@ IT/과학	https://www.mediatoday.co.kr/rss/S1N7.xml
 	      
 [![Visit inews24][logo]][inews24] 공식홈 방문 ( 새창 )
 
-[logo]: ./imgs/visit_offical_site.gif
+[logo]: ./imgs/visit_Site.gif
 [inews24]: https://www.inews24.com/ "click to visit"
       
        <!-- visit_Site.gif   ./imgs/visit_offical_site.gif  -->
