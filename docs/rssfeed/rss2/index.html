@@ -65,12 +65,20 @@
 	
 	#sellogo {
 	  position: fixed;
-	  top: 30px;
+	  top: 35px;  /*  35   230px  */
 	  left: 75%;
 	  width: 100px;
 	  height: 100px;
 	}
-	
+
+	#sellogo2 {
+	  position: fixed;
+	  top: 230px;  /*  35   230px  */
+	  Right: 10%;
+	  width: 60px;
+	  height: 60px;
+	}
+
 	select {
 	 position: fixed;
 	 top: 95px;
@@ -272,7 +280,8 @@
 	<div class="mselect">
 	
 	  <img id="sellogo" src="rss_news1.png">
-	
+	  <img class="logoimg" id="sellogo2" src="rss_news2.png">
+	  
  	  <select  id="rssSelect" onchange="loadRss(this.value)">
 		<option value="">-- 선택하세요 --</option>	 <!--   selected -->	
 		<option> --- 구글 - 한국 뉴스 --- </option>
@@ -288,7 +297,7 @@
 		<option value="https://news.sbs.co.kr/news/TopicRssFeed.do?plink=RSSREADER"> 이 시각 인기 </option>
 
 		<option> --- YTN 뉴스 --- </option>
-		<option value="http://www.yonhapnewstv.co.kr/browse/feed/"> 연합뉴스 TV </option>
+		<option value="http://www.yonhapnewstv.co.kr/browse/feed/">연합뉴스 TV</option>
 		<option value="https://www.yna.co.kr/rss/news.xml"> 최신기사 </option>
 
      
@@ -517,6 +526,23 @@
 	  bannerLink.href = banners[i].link;
 	  i = (i + 1) % banners.length;
 	}, 5000);
+	
+	
+	const defaultImg = "rss_news2.png";
+
+	const logoMap = {
+	  "구글 - 한국 전체 뉴스": "rss_news1.png",
+	  "연합뉴스 TV": "rss_news1.png" //,
+	  //"스포츠 뉴스": "rss_sports.png"
+	};
+
+	rssSelect.addEventListener("change", () => {
+	  const selectedText =
+		rssSelect.selectedOptions[0].text.trim();
+
+	  selLogo.src = logoMap[selectedText] || defaultImg;
+	});
+
 </script>
 
 
