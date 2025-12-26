@@ -4,18 +4,42 @@
   <meta charset="UTF-8">
   <title>뉴스 모아보기</title>
   <style>
+
     body { 
 	  font-family: Arial, sans-serif; 
+	  /* color: white; */
       width: 95vw;
 	  height: 70vh;
 	  background-image: url('bg.webp');
 	  background-repeat: no-repeat;
 	  background-attachment: fixed;
 	  background-size: cover;
+	  /* opacity: 0.5; */
+	  z-index: -100;
+	  -ms-overflow-style: none;	  
 	}
+
+	::-webkit-scrollbar {
+	  display: none;
+	}
+	
+
+	a {
+	  color: white;
+	}
+	a.visited {
+	  color: gray;
+	}
+	a.hover {
+	  color: red;
+	}
+
     #loading { color: gray; }
+	
     li { margin-bottom: 6px; }
+	
 	header {
+	  display: flex;
 	  position: fixed;
 	  top: 0;
 	  /* width: 100% */
@@ -31,28 +55,101 @@
 	  align-items: center;
 	  margin-bottom: 30px;
 	}
+
+	#left {
+	   flex: 0 0 200px;   /* 고정 폭 */
+	}
+
+	#center {
+	  flex: 2;
+	  margin-top: -110px;
+	  padding-left: 40px;
+	}
+
+	#right {
+	  flex: 0 0 120px;
+	  position: fixed;
+	  top: 25px;
+	  right: 20px;
+	  text-align: right;
+	}
+
+	.mselect {
+	  position: fixed;
+	  top: 95px;
+	  left: 45%;
+	  width: 330px;	
+	}
+	
+	#sellogo {
+	  position: fixed;
+	  top: 35px;  /*  35   230px  */
+	  left: 75%;
+	  width: 100px;
+	  height: 100px;
+	}
+
+	#sellogo2 {
+	  position: fixed;
+	  top: 230px;  /*  35   230px  */
+	  Right: 10%;
+	  width: 60px;
+	  height: 60px;
+	}
+
+	select, #center {
+	 position: fixed;
+	 top: 95px;
+	 /* right: 20px; */
+	 left: 45%;
+	 width: 330px;
+	 /* height: 200px; */
+	 font-size: 1.2em;
+	}
+
+
+
+	.rssadress {
+	  position: fixed;
+	  top: 145px;
+	  left: 30px;
+	  overflow: hidden;
+	}
+	
 	section {
-	 margin-top: 150px;
+	 margin-top: 200px;
 	 overflow-x: hidden;
 	 overflow-y: auto;
 	 margin-left: 20px;
 	 padding-left: 40px;
-	 height:400px; 
+	 height:80%; 
 	 border: 1px solid red;
 	 border-radius: 10px;
 	 font-size: 1.2em;
+	 color: blue; /* white; */
+	 z-index: 100;
+	 backdrop-filter: brightness(90%)
+	 /* backdrop-filter: blur(10px) saturate(90%) */
+	 line-height: 2.5;
 	}
+
 	footer {
 	  background-image: url('simple-bg-a.png');
 	  background-repeat: no-repeat;
+	  position: fixed;
+	  bottom: 10px;
+	  left: 30px;
+	  width: 90%;
 	  margin-top: 30px;
 	  padding: 30px;
 	  border: 1px solid blue;
 	  border-radius: 20px;
-	}
+	}	
 	summary {
 	  cursor: pointer;
 	}
+	
+ 
     .date {
       font-size: 0.8em;
       color: #666;
@@ -63,43 +160,183 @@
 	  color: #999;
 	  margin-left: 4px;
 	}
+	
+	.contactFile .pdfDownload {
+            display: inline-block;
+            margin: 0px 10px 0px 0px;
+            width: 220px;
+            height: 50px;
+            background: #94989B;
+            box-shadow: 0px 12px 23px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #fff;
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 50px;
+            letter-spacing: -0.08em;
+        }
+        .contactFile .telLink {
+            display: inline-block;
+            width: 220px;
+            height: 50px;
+            background: #028CD7;
+            box-shadow: 0px 12px 23px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #fff;
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 50px;
+            letter-spacing: -0.08em;
+        }
+		.styled {
+		  border: 0;
+		  line-height: 2.5;
+		  padding: 0 20px;
+		  font-size: 1rem;
+		  text-align: center;
+		  color: #fff;
+		  text-shadow: 1px 1px 1px #000;
+		  border-radius: 10px;
+		  background-color: rgba(220, 0, 0, 1);
+		  background-image: linear-gradient(
+			to top left,
+			rgba(0, 0, 0, 0.2),
+			rgba(0, 0, 0, 0.2) 30%,
+			rgba(0, 0, 0, 0)
+		  );
+		  box-shadow:
+			inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+			inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+		}
+
+		.styled:hover {
+		  background-color: rgba(255, 0, 0, 1);
+		}
+
+		.styled:active {
+		  box-shadow:
+			inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+			inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+		}
+		
+		.rss-title {
+		  font-size: 20px;
+		  font-weight: bold;
+		  color: #00f;  /* #CCCCCC; */
+		  margin-bottom: 10px;
+		}
+
+		.rss-desc {
+		  font-size: 14px;
+		  color: #333;
+		}
+
+		.error-box {
+		  text-align: center;
+		  margin-top: 30px;
+		}
+
+		.error-img {
+		  width: 120px;
+		  opacity: 0.8;
+		}
+
+		.box {
+		  width: 95%;
+		  padding: 10px;
+		  border: 1px solid blue;
+		  border-radius: 5px;		
+		}
+		.error-box p {
+		  color: #777;
+		  font-size: 14px;
+		}
+
+		.error-bg {
+		  height: 200px;
+		  background: url("error.png") center / contain no-repeat;
+		}
+		
+		.serviced {
+		  color: white;
+		  position: fixed;
+		  top: 105px;
+		  Right: 100px;
+		  overflow: hidden;
+		}
+
+		#quote {
+		  width: 55%;
+		  padding: 10px 20px;
+		  text-align: center;
+		  font-size: 1.4em;
+		}
+
+		#slide {
+		  margin-top: -30px; /* */
+		  margin-left: 55%;
+		  width: 120px;
+		  /* display: flex;  */
+		  justify-content: center;		  
+		}
   </style>
 
 </head>
 <body>
 
   <header>
-	<h1>뉴스 모아보기 (사용자 파일)</h1>
-	<img src="rss_news1.png" width="250px">
 	
-	<div>
+	<div id="left">
+		<!-- button onClick="window.location.reload()"> -->
+		<a onClick="window.location.reload()" style="cursor: pointer;"> 
+		<img src="rss_news1.png" width="250px" height="100px"> </a>
+		<!-- /button -->
+	</div>
+	
+	<div id="center">
+	
+		<h1>뉴스 모아보기</h1>
+		
 		<!-- 기본값 포함 콤보 -->
 		<select id="rssSelect">
-		  <!-- option value="https://windowsforum.kr/free/rss" selected>윈도우 포럼</option> -->
-		  <option value="https://news.google.com/atom/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx1YlY4U0FtdHZHZ0pMVWlnQVAB?hl=ko&gl=KR&ceid=KR%3Ako&oc=11" selected>매일경제 - 전체</option>
 		  
+		  <option value="http://www.yonhapnewstv.co.kr/browse/feed/" selected>연합뉴스</option>
+		  <option value="https://windowsforum.kr/free/rss">윈도우 포럼</option>
+		  
+		  
+		  <!--
+		  <option value="https://windowsforum.kr/free/rss" selected>윈도우 포럼</option>
+		  <option value="https://news.google.com/atom/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx1YlY4U0FtdHZHZ0pMVWlnQVAB?hl=ko&gl=KR&ceid=KR%3Ako&oc=11" selected>매일경제 - 전체</option>
+		  -->
 		  
 		</select>
 		
-		<div><!-- 텍스트 파일 선택 버튼 -->
-			<label>RSS 목록 불러오기 (.txt): </label>
+		<div id="right"><!-- 텍스트 파일 선택 버튼 -->
+			<label>RSS 목록 불러오기 (.txt): </label><br><br>
 			<input type="file" id="fileInput" accept=".txt">
 		</div>
 
-		<p>
-		선택한 RSS 주소:<br>
-		<span id="rssResult" style="color:blue;"></span>
-		</p>
 
 	</div>
 	
   </header>	
-<br><br>
+
+
+
+		<p class="rssadress" id="seladdress">
+		선택한 RSS 주소: &ensp; <span id="rssResult" style="color:blue;"></span>
+		</p>
+
+
 
   <section>
 <!--   <h2>RSS 선택</h2>  -->
 
-
+ 
 <p id="loading" style="display:none;">불러오는 중...</p>
 
 <ul id="rss-feed"></ul>
