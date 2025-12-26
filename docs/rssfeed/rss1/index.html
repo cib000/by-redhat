@@ -339,7 +339,7 @@
 <!--   <h2>RSS 선택</h2>  -->
 
  
-<p id="loading" style="display:none;">불러오는 중...</p>
+<p id="loading" style="display:none;">뉴스를 불러오는 중... 잠시 기다려 주세요...</p>
 
 <ul id="rss-feed"></ul>
 
@@ -417,6 +417,21 @@ function loadRSS(rssUrl) {
   rssResult.textContent = "";
 
   if (!rssUrl) return;
+
+  const selectedText = rssSelect.options[rssSelect.selectedIndex].text;
+	
+  rssFeed.innerHTML = `
+  <div class="rss-title box">
+    📰 뉴스 목록  : 👀 &ensp; <span class="rss-category">${selectedText}</span> &ensp; 👈
+  
+  <!-- p class="rss-desc" -->
+    <small style="color: gray;">아래는 뉴스 목록입니다. &ensp;&ensp;&ensp; 클릭하시면 <strong style="color:red;">새 창</strong>으로 확인할 수 있습니다.</small>
+  <!-- /p -->
+  </div>
+  <hr>
+`;
+
+
 
   rssResult.textContent = rssUrl;
   loadingText.style.display = "block";
