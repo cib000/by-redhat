@@ -212,9 +212,9 @@ IT/과학	https://www.mediatoday.co.kr/rss/S1N7.xml
      
 ## 아이뉴스24의 RSS      
 	      
-[![Visit inews24][logo]][inews24] 공식홈 방문 ( 새창 )
+[![Visit inews24][logo2]][inews24] 공식홈 방문 ( 새창 )
 
-[logo]: ./imgs/visit_Site_banner.gif
+[logo2]: ./imgs/visit_Site_banner.gif
 [inews24]: https://www.inews24.com/ "click to visit"
       
 IT https://www.inews24.com/rss/news_it.xml      
@@ -229,9 +229,9 @@ IT https://www.inews24.com/rss/news_it.xml
 	  
 ## 뉴시스 RSS 서비스    
 	      
-[![Visit newsis][logo]][newsis] 공식홈 방문 ( 새창 )
+[![Visit newsis][logo2]][newsis] 공식홈 방문 ( 새창 )
 
-[logo]: ./imgs/visit_Site_banner.gif
+[logo2]: ./imgs/visit_Site_banner.gif
 [newsis]: https://www.newsis.com/ "click to visit"
       
 속보 https://www.newsis.com/RSS/sokbo.xml        
@@ -254,9 +254,9 @@ IT·바이오 https://www.newsis.com/RSS/health.xml
 		
 ## 국토교통부 제공 RSS     
 	      
-[![Visit molit][logo]][molit] 공식홈 방문 ( 새창 )
+[![Visit molit][logo2]][molit] 공식홈 방문 ( 새창 )
 
-[logo]: ./imgs/visit_Site_banner.gif
+[logo2]: ./imgs/visit_Site_banner.gif
 [molit]: https://www.molit.go.kr/ "click to visit"
       
 공지사항	https://www.molit.go.kr/dev/board/board_rss.jsp?rss_id=N01_B     
@@ -268,7 +268,10 @@ IT·바이오 https://www.newsis.com/RSS/health.xml
      
      
 ## 한국경제 RSS    
-    
+[![Visit hankyung][logo2]][hankyung] 공식홈 방문 ( 새창 )
+
+[hankyung]: https://www.hankyung.com/ "click to visit"
+      
 전체뉴스 https://www.hankyung.com/feed/all-news    
 증권 https://www.hankyung.com/feed/finance    
 경제 https://www.hankyung.com/feed/economy    
