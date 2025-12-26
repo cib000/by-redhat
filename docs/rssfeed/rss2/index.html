@@ -35,8 +35,9 @@
 
 	select {
 	 position: fixed;
-	 top: 60px;
-	 right: 20px;
+	 top: 80px;
+	 /* right: 20px; */
+	 left: 45%;
 	 width: 330px;
 	 /* height: 200px; */
 	 font-size: 1.2em;
@@ -175,6 +176,12 @@
 		  opacity: 0.8;
 		}
 
+		.box {
+		  width: 95%;
+		  padding: 10px;
+		  border: 1px solid blue;
+		  border-radius: 5px;		
+		}
 		.error-box p {
 		  color: #777;
 		  font-size: 14px;
@@ -183,6 +190,14 @@
 		.error-bg {
 		  height: 200px;
 		  background: url("error.png") center / contain no-repeat;
+		}
+		
+		.serviced {
+		  color: white;
+		  position: fixed;
+		  top: 120px;
+		  Right: 100px;
+		  overflow: hidden;
 		}
 
 
@@ -193,9 +208,9 @@
   <header>
   
   <h1><a onClick="window.location.reload()" style="cursor: pointer;"> 뉴스 모아보기 </a> &ensp;&ensp;&ensp; 
-	<button onClick="window.location.reload()"><img src="rss_news2.png" width="300px"></button>
+	<button onClick="window.location.reload()"><img src="rss_news2.png" width="300px" height="80px"></button>
   </h1>
-  <span style="color: white; "><small>Serviced by ByRH</small></span>
+  <span class="serviced"><small>Serviced by ByRH</small></span>
   
 	<div>
  	  <select  id="rssSelect" onchange="loadRss(this.value)">
@@ -443,13 +458,14 @@ function loadRss(rssUrl) {
   const selectedText = rssSelect.options[rssSelect.selectedIndex].text;
 	
   rssFeed.innerHTML = `
-  <div class="rss-title">
+  <div class="rss-title box">
     📰 뉴스 목록  : 👀 &ensp; <span class="rss-category">${selectedText}</span> &ensp; 👈
-  </div>
+  
   <p class="rss-desc">
     아래는 뉴스 목록입니다. &ensp;&ensp;&ensp;
     클릭하시면 <strong>새 창</strong>으로 확인할 수 있습니다.
   </p>
+  </div>
   <hr>
 `;
 
