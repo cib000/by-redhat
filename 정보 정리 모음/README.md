@@ -345,14 +345,22 @@ RSSOwl(설치형) http://www.rssowl.org
     
 	
 ## KBS WORLD Radio RSS 서비스    
-    
+      
+[![Visit orldkbs][logo]][orldkbs] 공식홈 방문 ( 새창 )
+
+[orldkbs]: http://world.kbs.co.kr/ "click to visit"
+                
 연예가 소식	http://world.kbs.co.kr/rss/rss_enternews.htm?lang=k    
     
 	
 	
 	
 ## 전자신문인터넷 기사별 RSS 서비스 주소    
-    
+      
+[![Visit etnews][logo2]][etnews] 공식홈 방문 ( 새창 )
+
+[etnews]: http://etnews.com/ "click to visit"
+               
 오늘의 뉴스 RSS http://rss.etnews.com/Section901.xml    
 뉴스속보 RSS http://rss.etnews.com/Section902.xml    
 오늘의 인기기사 RSS http://rss.etnews.com/Section903.xml    
