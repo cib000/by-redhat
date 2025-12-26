@@ -536,7 +536,9 @@ e스포츠 & 게임 https://rss.donga.com/sportsdonga/sports_game.xml
 		
 ## SBS 뉴스    
     
+이 시각 이슈 https://news.sbs.co.kr/news/headlineRssFeed.do?plink=RSSREADER    
 이 시각 인기 https://news.sbs.co.kr/news/TopicRssFeed.do?plink=RSSREADER    
+
 분야별 뉴스     
 최신  https://news.sbs.co.kr/news/newsflashRssFeed.do?plink=RSSREADER    
 정치  https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=01&plink=RSSREADER    
