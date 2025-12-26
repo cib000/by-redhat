@@ -407,7 +407,11 @@ AI RSS http://rss.etnews.com/04046.xml
         
         
 ## 경향신문     
-     
+      
+[![Visit khan][logo2]][khan] 공식홈 방문 ( 새창 )
+
+[khan]: https://www.khan.co.kr/ "click to visit"
+               
 전체뉴스 https://www.khan.co.kr/rss/rssdata/total_news.xml     
 만평 https://www.khan.co.kr/rss/rssdata/cartoon_news.xml     
 오피니언 https://www.khan.co.kr/rss/rssdata/opinion_news.xml     
@@ -429,7 +433,11 @@ AI RSS http://rss.etnews.com/04046.xml
      
 	 
 ## 동아닷컴    
-    
+      
+[![Visit donga][logo2]][donga] 공식홈 방문 ( 새창 )
+
+[donga]: https://donga.com/ "click to visit"
+               
 전체기사 https://rss.donga.com/total.xml    
 정치 https://rss.donga.com/politics.xml    
 사회 https://rss.donga.com/national.xml    
@@ -447,8 +455,7 @@ AI RSS http://rss.etnews.com/04046.xml
 여성 https://rss.donga.com/woman.xml    
 여행 https://rss.donga.com/travel.xml    
 생활정보 https://rss.donga.com/lifeinfo.xml    
-스포츠동아    
-스포츠 https://rss.donga.com/sportsdonga/sports.xml    
+스포츠동아 스포츠 https://rss.donga.com/sportsdonga/sports.xml    
 야구&MLB https://rss.donga.com/sportsdonga/baseball.xml    
 축구 https://rss.donga.com/sportsdonga/soccer.xml    
 골프 https://rss.donga.com/sportsdonga/golf.xml    
@@ -460,9 +467,12 @@ e스포츠 & 게임 https://rss.donga.com/sportsdonga/sports_game.xml
     
 	
 ## 매일경제    
-    
-뉴스    
-헤드라인 https://www.mk.co.kr/rss/30000001/    
+      
+[![Visit mk][logo2]][mk] 공식홈 방문 ( 새창 )
+
+[mk]: https://www.mk.co.kr/ "click to visit"
+                   
+뉴스 헤드라인 https://www.mk.co.kr/rss/30000001/    
 전체뉴스 https://www.mk.co.kr/rss/40300001/    
 뉴스 경제 https://www.mk.co.kr/rss/30100041/    
 뉴스 정치 https://www.mk.co.kr/rss/30200030/    
@@ -483,7 +493,11 @@ e스포츠 & 게임 https://rss.donga.com/sportsdonga/sports_game.xml
     
     
 ## 오마이뉴스 기사별        
-        
+      
+[![Visit ohmynews][logo2]][ohmynews] 공식홈 방문 ( 새창 )
+
+[ohmynews]: https://ohmynews.com/ "click to visit"
+               
 오마이뉴스 기사별        
 오마이뉴스 전체기사 https://rss.ohmynews.com/rss/ohmynews.xml        
 오마이뉴스 주요기사 https://rss.ohmynews.com/rss/top.xml        
