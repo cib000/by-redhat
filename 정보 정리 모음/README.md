@@ -39,7 +39,7 @@ https://news-ex.jtbc.co.kr/v1/get/rss/section/entertainment
 
 ## 아주경제 RSS      
       
-[![Visit ajunews][logo]][ajunews]
+[![Visit ajunews][logo]][ajunews] 공식홈 방문 ( 새창 )
 
 [logo]: ./imgs/visit_offical_site.gif
 [ajunews]: https://www.ajunews.com  "click to visit"
@@ -62,7 +62,7 @@ AI https://www.ajunews.com/rss/ai.xml
 	  	  
 ## 일요신문      
       
-[![Visit ilyo][logo]][ilyo]
+[![Visit ilyo][logo]][ilyo] 공식홈 방문 ( 새창 )
 
 [logo]: ./imgs/visit_offical_site.gif
 [ilyo]: https://www.ilyo.co.kr  "click to visit"
