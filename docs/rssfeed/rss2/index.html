@@ -5,17 +5,40 @@
   <title>뉴스 모아보기</title>
   <link rel="shortcut icon" href="favicon.ico" >
   <style>
+
     body { 
 	  font-family: Arial, sans-serif; 
+	  /* color: white; */
       width: 95vw;
 	  height: 70vh;
 	  background-image: url('bg.webp');
 	  background-repeat: no-repeat;
 	  background-attachment: fixed;
 	  background-size: cover;
+	  /* opacity: 0.5; */
+	  z-index: -100;
+	  -ms-overflow-style: none;
 	}
+
+	::-webkit-scrollbar {
+	  display: none;
+	}
+	
+
+	a {
+	  color: white;
+	}
+	a.visited {
+	  color: gray;
+	}
+	a.hover {
+	  color: red;
+	}
+
     #loading { color: gray; }
+	
     li { margin-bottom: 6px; }
+	
 	header {
 	  position: fixed;
 	  top: 0;
@@ -50,7 +73,6 @@
 	  left: 30px;
 	  overflow: hidden;
 	}
-
 	
 	section {
 	 margin-top: 200px;
@@ -62,6 +84,11 @@
 	 border: 1px solid red;
 	 border-radius: 10px;
 	 font-size: 1.2em;
+	 color: white;
+	 z-index: 10;
+	 /* ackdrop-filter: brightness(10%) */
+	 backdrop-filter: blur(10px) saturate(90%)
+	 line-height: 2.5;
 	}
 
 	footer {
@@ -157,13 +184,13 @@
 		.rss-title {
 		  font-size: 20px;
 		  font-weight: bold;
-		  color: #2c3e50;
+		  color: #CCCCCC;
 		  margin-bottom: 10px;
 		}
 
 		.rss-desc {
 		  font-size: 14px;
-		  color: #555;
+		  color: #333;
 		}
 
 		.error-box {
@@ -416,7 +443,7 @@
 
 <div class="rssadress">
 	  <p>
-		선택한 RSS 주소: &ensp; <span id="rssResult" style="color:blue;"></span>
+		선택한 RSS 주소: &ensp; <span id="rssResult" style="color:Gray;"></span>
 	  </p>
 </div>
 
@@ -500,7 +527,7 @@
 	const backgrounds = [
 	  "./bgimgs/jan.jpg", "./bgimgs/feb.jpg", "./bgimgs/mar.webp", "./bgimgs/apr.jpg",
 	  "./bgimgs/may.jpg", "./bgimgs/jun.jpg", "./bgimgs/jul.jpg", "./bgimgs/aug.jpg",
-	  "./bgimgs/sep.jpg", "./bgimgs/oct.jpg", "./bgimgs/nov.jpg", "./bgimgs/dec.jpg"
+	  "./bgimgs/sep.jpg", "./bgimgs/oct.jpg", "./bgimgs/nov.jpg", "./bgimgs/dec.webp"
 	];
 	document.body.style.backgroundImage = `url(${backgrounds[month]})`;
   </script>
