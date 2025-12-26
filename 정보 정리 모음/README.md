@@ -214,7 +214,7 @@ IT/과학	https://www.mediatoday.co.kr/rss/S1N7.xml
 	      
 [![Visit inews24][logo]][inews24] 공식홈 방문 ( 새창 )
 
-[logo]: ./imgs/visit_Site.gif
+[logo]: ./imgs/visit_Site_banner.gif
 [inews24]: https://www.inews24.com/ "click to visit"
       
 IT https://www.inews24.com/rss/news_it.xml      
@@ -231,7 +231,7 @@ IT https://www.inews24.com/rss/news_it.xml
 	      
 [![Visit newsis][logo]][newsis] 공식홈 방문 ( 새창 )
 
-[logo]: ./imgs/visit_Site.gif
+[logo]: ./imgs/visit_Site_banner.gif
 [newsis]: https://www.newsis.com/ "click to visit"
       
 속보 https://www.newsis.com/RSS/sokbo.xml        
@@ -256,7 +256,7 @@ IT·바이오 https://www.newsis.com/RSS/health.xml
 	      
 [![Visit molit][logo]][molit] 공식홈 방문 ( 새창 )
 
-[logo]: ./imgs/visit_Site.gif
+[logo]: ./imgs/visit_Site_banner.gif
 [molit]: https://www.molit.go.kr/ "click to visit"
       
 공지사항	https://www.molit.go.kr/dev/board/board_rss.jsp?rss_id=N01_B     
