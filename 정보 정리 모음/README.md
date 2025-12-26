@@ -42,7 +42,7 @@ https://news-ex.jtbc.co.kr/v1/get/rss/section/entertainment
 [![Visit ajunews][logo]][ajunews]
 
 [logo]: ./imgs/visit_offical_site.gif
-[EZFav]: https://www.ajunews.com  "click to visit"
+[ajunews]: https://www.ajunews.com  "click to visit"
 
       
 속보 https://www.ajunews.com/rss/sokbo.xml      
