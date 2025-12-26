@@ -178,16 +178,32 @@ IT/과학	https://www.mediatoday.co.kr/rss/S1N7.xml
       
 	  	  
 ## 삼성 뉴스룸    
+	      
+[![Visit samsung][logo]][samsung] 공식홈 방문 ( 새창 )
+
+[logo]: ./imgs/visit_offical_site.gif
+[samsung]: https://news.samsung.com/ "click to visit"
+      
 삼성 뉴스룸 https://news.samsung.com/feed     
      
 	  
 ## 연합뉴스 경제 TV      
+	      
+[![Visit yonhapnewseconomytv][logo]][yonhapnewseconomytv] 공식홈 방문 ( 새창 )
+
+[logo]: ./imgs/visit_offical_site.gif
+[yonhapnewseconomytv]: https://www.yonhapnewseconomytv.com/ "click to visit"
       
 전체기사	 https://www.yonhapnewseconomytv.com/rss/allArticle.xml      
 인기기사	 https://www.yonhapnewseconomytv.com/rss/clickTop.xml	   
       
       
 ## 한국인터넷진흥원      
+	      
+[![Visit krcert][logo]][krcert] 공식홈 방문 ( 새창 )
+
+[logo]: ./imgs/visit_offical_site.gif
+[krcert]: https://knvd.krcert.or.kr/ "click to visit"
       
 취약점 정보 https://knvd.krcert.or.kr/rss/securityInfo.do      
 보안공지  https://knvd.krcert.or.kr/rss/securityNotice.do        
@@ -195,6 +211,11 @@ IT/과학	https://www.mediatoday.co.kr/rss/S1N7.xml
       
      
 ## 아이뉴스24의 RSS      
+	      
+[![Visit inews24][logo]][inews24] 공식홈 방문 ( 새창 )
+
+[logo]: ./imgs/visit_offical_site.gif
+[inews24]: https://www.inews24.com/ "click to visit"
       
 IT https://www.inews24.com/rss/news_it.xml      
 경제 https://www.inews24.com/rss/news_economy.xml      
