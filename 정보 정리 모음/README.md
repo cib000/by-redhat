@@ -89,7 +89,7 @@ AI https://www.ajunews.com/rss/ai.xml
 [![Visit newspim][logo]][newspim] 공식홈 방문 ( 새창 )
 
 [logo]: ./imgs/visit_offical_site.gif
-[newspim]: http://newspim.com/news/  "click to visit"
+[newspim]: http://newspim.com/ "click to visit"
 
 최신뉴스	http://rss.newspim.com/news/category/1	          
 정치	http://rss.newspim.com/news/category/101	          
@@ -110,6 +110,11 @@ AI https://www.ajunews.com/rss/ai.xml
       
 ##  KISA 한국인터넷진흥원에서 제공하는 RSS
       
+[![Visit kisa][logo]][kisa] 공식홈 방문 ( 새창 )
+
+[logo]: ./imgs/visit_offical_site.gif
+[kisa]: https://kisa.or.kr/ "click to visit"
+
 공지사항	https://kisa.or.kr/rss/401      
 보도자료	https://kisa.or.kr/rss/402      
 입찰공고	https://kisa.or.kr/rss/403      
