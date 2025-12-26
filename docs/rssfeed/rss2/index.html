@@ -56,6 +56,21 @@
 	  margin-bottom: 30px;
 	}
 
+	.mselect {
+	  position: fixed;
+	  top: 95px;
+	  left: 45%;
+	  width: 330px;	
+	}
+	
+	#sellogo {
+	  position: fixed;
+	  top: 20px;
+	  left: 45%;
+	  width: 100px;
+	  height: 100px;
+	}
+	
 	select {
 	 position: fixed;
 	 top: 95px;
@@ -228,7 +243,7 @@
 		}
 
 		#quote {
-		  width: 40%;
+		  width: 55%;
 		  padding: 10px 20px;
 		  text-align: center;
 		  font-size: 1.4em;
@@ -236,7 +251,7 @@
 		#slide {
 		  margin-left: 50%;
 		  margin-top: -30px;
-		  width: 40%;
+		  width: 120px;
 		  display: flex;
 		  justify-content: center;		  
 		}
@@ -244,14 +259,19 @@
 </head>
 <body>
 
+  
   <header>
   
   <h1><a onClick="window.location.reload()" style="cursor: pointer;"> 뉴스 모아보기 </a> &ensp;&ensp;&ensp; 
 	<button onClick="window.location.reload()"><img src="rss_news2.png" width="300px" height="80px"></button>
   </h1>
   <span class="serviced"><small>Serviced by ByRH</small></span>
-  
-	<div>
+    
+	
+	<div class="mselect">
+	
+	  
+	
  	  <select  id="rssSelect" onchange="loadRss(this.value)">
 		<option value="">-- 선택하세요 --</option>	 <!--   selected -->	
 		<option> --- 구글 - 한국 뉴스 --- </option>
@@ -459,6 +479,9 @@
 	<script>
 		const quotes = [
 		  "시작이 반이다.",
+		  "나만 불편한가? ",
+		  "내가 나를 볼 수 있을 때가 되었을때 비로소 마음이 있는 곳을 볼 수 있다. ",
+		  "경험을 능가하는 지식은 없다.",
 		  "천 리 길도 한 걸음부터.",
 		  "오늘의 노력이 내일을 만든다."
 		];
@@ -472,13 +495,15 @@
 
 <div id="slide">
 	<a id="bannerLink" href="#" target="_blank">
-	  <img id="bannerImg" src="" width="100px" height="60px">
+	  <img id="bannerImg" src="rss_news2.png" width="90px" height="60px">  
 	</a>
 </div>
 
 <script>
 	const banners = [
-	  { img: "rss_logo.png", link: "" }, // "" 에 해당 링크를 표기
+	  { img: "rss_logo.png", link: "" },
+	  { img: "rss_news2.png", link: "" },
+	  { img: "rss_news1 (2).png", link: "" },
 	  { img: "rss_news2.png", link: "" },
 	  { img: "error.svg", link: "" }
 	];
@@ -614,52 +639,6 @@ function loadRss(rssUrl) {
       loadingText.style.display = "none";
     });
 }
-
-
-
-/*
-    function loadRss(rssUrl) {
-      rssFeed.innerHTML = "";
-      rssResult.textContent = "";
-
-      if (!rssUrl) return;
-
-      rssResult.textContent = rssUrl;
-      loadingText.style.display = "block";
-
-      feednami.load(rssUrl)
-        .then(feed => {
-          feed.entries.forEach(entry => {
-            const li = document.createElement("li");
-            const a = document.createElement("a");
-            const dateSpan = document.createElement("span");
-
-            a.href = entry.link;
-            a.textContent = entry.title;
-            a.target = "_blank";
-
-            if (entry.publishedDate) {
-              const date = new Date(entry.publishedDate);
-              dateSpan.textContent =
-                "(" + date.toLocaleDateString() + ")";
-              dateSpan.className = "date";
-            }
-
-            li.appendChild(a);
-            li.appendChild(dateSpan);
-            rssFeed.appendChild(li);
-          });
-        })
-        .catch(error => {
-          console.error(error);
-          rssFeed.innerHTML = "<li>뉴스를 불러오지 못했습니다.</li>";
-        })
-        .finally(() => {
-          loadingText.style.display = "none";
-        });
-    }
-*/	
-	
   </script>
 
 </body>
