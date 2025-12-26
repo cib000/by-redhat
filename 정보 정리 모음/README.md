@@ -123,17 +123,22 @@ AI https://www.ajunews.com/rss/ai.xml
       
 ## 국민일보 RSS      
 	      
-정치	https://www.kmib.co.kr/rss/data/kmibPolRss.xml	 
-경제	https://www.kmib.co.kr/rss/data/kmibEcoRss.xml	 
-사회	https://www.kmib.co.kr/rss/data/kmibSocRss.xml	 
-국제	https://www.kmib.co.kr/rss/data/kmibIntRss.xml	 
-연예	https://www.kmib.co.kr/rss/data/kmibEntRss.xml	 
-스포츠	https://www.kmib.co.kr/rss/data/kmibSpoRss.xml	 
-골프	https://www.kmib.co.kr/rss/data/kmibGolfRss.xml	 
-라이프	https://www.kmib.co.kr/rss/data/kmibLifeRss.xml	 
-여행	https://www.kmib.co.kr/rss/data/kmibTraRss.xml	 
-	 
-	 
+[![Visit kmib][logo]][kmib] 공식홈 방문 ( 새창 )
+
+[logo]: ./imgs/visit_offical_site.gif
+[kmib]: https://www.kmib.co.kr "click to visit"
+      
+정치	https://www.kmib.co.kr/rss/data/kmibPolRss.xml	      
+경제	https://www.kmib.co.kr/rss/data/kmibEcoRss.xml	      
+사회	https://www.kmib.co.kr/rss/data/kmibSocRss.xml	      
+국제	https://www.kmib.co.kr/rss/data/kmibIntRss.xml	      
+연예	https://www.kmib.co.kr/rss/data/kmibEntRss.xml	      
+스포츠	https://www.kmib.co.kr/rss/data/kmibSpoRss.xml	      
+골프	https://www.kmib.co.kr/rss/data/kmibGolfRss.xml	      
+라이프	https://www.kmib.co.kr/rss/data/kmibLifeRss.xml	      
+여행	https://www.kmib.co.kr/rss/data/kmibTraRss.xml	      
+	      	 
+	      	 
 ## 이투데이 RSS 서비스      
       
 이투데이 전체뉴스	https://rss.etoday.co.kr/eto/etoday_news_all.xml      
