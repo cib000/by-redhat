@@ -17,7 +17,7 @@
 	  background-size: cover;
 	  /* opacity: 0.5; */
 	  z-index: -100;
-	  -ms-overflow-style: none;
+	  -ms-overflow-style: none;	  
 	}
 
 	::-webkit-scrollbar {
@@ -85,9 +85,9 @@
 	 border-radius: 10px;
 	 font-size: 1.2em;
 	 color: white;
-	 z-index: 10;
-	 /* ackdrop-filter: brightness(10%) */
-	 backdrop-filter: blur(10px) saturate(90%)
+	 z-index: 100;
+	 backdrop-filter: brightness(90%)
+	 /* backdrop-filter: blur(10px) saturate(90%) */
 	 line-height: 2.5;
 	}
 
@@ -443,7 +443,7 @@
 
 <div class="rssadress">
 	  <p>
-		선택한 RSS 주소: &ensp; <span id="rssResult" style="color:Gray;"></span>
+		선택한 RSS 주소: &ensp; <span id="rssResult" style="color:lightGray;"></span>
 	  </p>
 </div>
 
