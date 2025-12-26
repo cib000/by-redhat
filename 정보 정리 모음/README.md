@@ -231,7 +231,7 @@ IT https://www.inews24.com/rss/news_it.xml
 	      
 [![Visit newsis][logo]][newsis] 공식홈 방문 ( 새창 )
 
-[logo]: ./imgs/visit_offical_site.gif
+[logo]: ./imgs/visit_Site.gif
 [newsis]: https://www.newsis.com/ "click to visit"
       
 속보 https://www.newsis.com/RSS/sokbo.xml        
