@@ -7,11 +7,13 @@
   
   <style>
 
+
+
     body { 
 	  font-family: Arial, sans-serif; 
 	  /* color: white; */
       width: 95vw;
-	  height: 70vh;
+	  height: 75vh;
 	  background-image: url('bg.webp');  /* newsroom.jfif   newsroom.webp   newsroom.jpg   bg.webp   */
 	  background-repeat: no-repeat;
 	  background-attachment: fixed;
@@ -19,12 +21,20 @@
 	  /* opacity: 0.5; */
 	  z-index: -100;
 	  -ms-overflow-style: none;	  
+	  margin: 0;
+	  /* 
+	  backdrop-filter: blur(20px) saturate(110%)
+	  backdrop-filter: brightness(70%) 
+	  backdrop-filter: blur(20px); 
+	  */
+
 	}
 
 	::-webkit-scrollbar {
 	  display: none;
 	}
 	
+
 
 	a {
 	  color: blue;     /*  white; blue; */
@@ -65,7 +75,7 @@
 	#center {
 	  flex: 0 25% 0;
 	  margin-top: -110px;
-	  padding-left: 40px;
+	  padding-left: 20px;
 	}
 
 	#right {
