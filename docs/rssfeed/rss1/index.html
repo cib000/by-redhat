@@ -27,7 +27,7 @@
 	
 
 	a {
-	  color: white;
+	  color: blue; /*  white;  */
 	}
 	a.visited {
 	  color: gray;
@@ -59,11 +59,11 @@
 	}
 
 	#left {
-	   flex: 0 0 200px;   /* 고정 폭 */
+	   flex: 0 0 20%;   /* 고정 폭 */
 	}
 
 	#center {
-	  flex: 2;
+	  flex: 0 25% 0;
 	  margin-top: -110px;
 	  padding-left: 40px;
 	}
@@ -79,7 +79,7 @@
 	.mselect {
 	  position: fixed;
 	  top: 95px;
-	  left: 45%;
+	  left: 35%;
 	  width: 330px;	
 	}
 	
@@ -103,7 +103,7 @@
 	 position: fixed;
 	 top: 95px;
 	 /* right: 20px; */
-	 left: 45%;
+	 left: 35%;
 	 width: 330px;
 	 /* height: 200px; */
 	 font-size: 1.2em;
@@ -461,7 +461,13 @@ function loadRSS(rssUrl) {
     })
     .catch(error => {
       console.error(error);
-      rssFeed.innerHTML = "<li>RSS를 불러오지 못했습니다.</li>";
+      //rssFeed.innerHTML = "<li>RSS를 불러오지 못했습니다.</li>";
+	  // rssFeed.innerHTML = "<li>뉴스를 불러오지 못했습니다.</li>";
+	  rssFeed.innerHTML = `
+		  <li class="error-box">
+			<img src="error.svg">
+		  </li>
+		`;
     })
     .finally(() => {
       loadingText.style.display = "none";
