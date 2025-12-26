@@ -268,6 +268,7 @@ IT·바이오 https://www.newsis.com/RSS/health.xml
      
      
 ## 한국경제 RSS    
+      
 [![Visit hankyung][logo2]][hankyung] 공식홈 방문 ( 새창 )
 
 [hankyung]: https://www.hankyung.com/ "click to visit"
@@ -288,7 +289,11 @@ VIDEO https://www.hankyung.com/feed/video
      
     	 
 ## 금융위원회 RSS 주소    
-    
+      
+[![Visit fsc][logo2]][fsc] 공식홈 방문 ( 새창 )
+
+[fsc]: http://www.fsc.go.kr/ "click to visit"
+      
 알림마당 > 위원회 소식 > 보도자료	http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0111    
 알림마당 > 위원회 소식 > 보도설명	http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0112    
 알림마당 > 위원회 소식 > 공지사항	http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0114    
@@ -296,8 +301,11 @@ VIDEO https://www.hankyung.com/feed/video
     
     
 ## 경기도 뉴스포털 RSS    
-경기도 뉴스포털 RSS     
       
+[![Visit gnews][logo]][gnews] 공식홈 방문 ( 새창 )
+
+[gnews]: https://gnews.gg.go.kr/ "click to visit"
+                
 경제	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E001&policyCode=E001          
 복지	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E002&policyCode=E002      
 교육	 https://gnews.gg.go.kr/rss/categoryRssSearch.do?kwd=E003&policyCode=E003      
@@ -314,13 +322,23 @@ VIDEO https://www.hankyung.com/feed/video
 RSSOwl(설치형) http://www.rssowl.org      
 
 	
-
+      
 ## 노컷뉴스    
+      
+[![Visit nocutnews][logo2]][nocutnews] 공식홈 방문 ( 새창 )
+
+[nocutnews]: https://www.nocutnews.co.kr/ "click to visit"
+                
 노컷뉴스 RSS https://www.nocutnews.co.kr/rss/
-    
-	
+    	
+		
+		
 ## 뉴스 와이어    
-    
+      
+[![Visit newswire][logo2]][newswire] 공식홈 방문 ( 새창 )
+
+[newswire]: https://www.newswire.co.kr/ "click to visit"
+                
 뉴스 와이어 RSS 주소 https://www.newswire.co.kr/?md=A31    
     
     
