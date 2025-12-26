@@ -86,6 +86,11 @@ AI https://www.ajunews.com/rss/ai.xml
 	  
 ## 뉴스핌 RSS     
       
+[![Visit newspim][logo]][newspim] 공식홈 방문 ( 새창 )
+
+[logo]: ./imgs/visit_offical_site.gif
+[newspim]: http://newspim.com/news/  "click to visit"
+
 최신뉴스	http://rss.newspim.com/news/category/1	          
 정치	http://rss.newspim.com/news/category/101	          
 경제	http://rss.newspim.com/news/category/103	          
