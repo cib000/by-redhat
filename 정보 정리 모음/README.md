@@ -140,6 +140,11 @@ AI https://www.ajunews.com/rss/ai.xml
 	      	 
 	      	 
 ## 이투데이 RSS 서비스      
+	      
+[![Visit etoday][logo]][etoday] 공식홈 방문 ( 새창 )
+
+[logo]: ./imgs/visit_offical_site.gif
+[etoday]: https://etoday.co.kr/ "click to visit"
       
 이투데이 전체뉴스	https://rss.etoday.co.kr/eto/etoday_news_all.xml      
 오피니언	https://rss.etoday.co.kr/eto/opinion_news.xml      
@@ -154,7 +159,12 @@ AI https://www.ajunews.com/rss/ai.xml
       	  
       
 ## 미디어 오늘    
-    
+	      
+[![Visit mediatoday][logo]][mediatoday] 공식홈 방문 ( 새창 )
+
+[logo]: ./imgs/visit_offical_site.gif
+[mediatoday]: https://www.mediatoday.co.kr "click to visit"
+      
 전체기사	https://www.mediatoday.co.kr/rss/allArticle.xml      
 인기기사	https://www.mediatoday.co.kr/rss/clickTop.xml      
 정치	https://www.mediatoday.co.kr/rss/S1N2.xml      
