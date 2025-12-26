@@ -200,7 +200,19 @@
 		  overflow: hidden;
 		}
 
-
+		#quote {
+		  width: 40%;
+		  padding: 10px 20px;
+		  text-align: center;
+		  font-size: 1.4em;
+		}
+		#slide {
+		  margin-left: 50%;
+		  margin-top: -30px;
+		  width: 40%;
+		  display: flex;
+		  justify-content: center;		  
+		}
   </style>
 </head>
 <body>
@@ -415,6 +427,46 @@
 
   </section>
 
+	<div id="quote"></div>
+	
+	<script>
+		const quotes = [
+		  "시작이 반이다.",
+		  "천 리 길도 한 걸음부터.",
+		  "오늘의 노력이 내일을 만든다."
+		];
+		let index = 0;
+		setInterval(() => {
+		  document.getElementById("quote").textContent = quotes[index];
+		  index = (index + 1) % quotes.length;
+		}, 5000); // 5초마다
+</script>
+
+
+<div id="slide">
+	<a id="bannerLink" href="#" target="_blank">
+	  <img id="bannerImg" src="" width="100px" height="60px">
+	</a>
+</div>
+
+<script>
+	const banners = [
+	  { img: "rss_logo.png", link: "" }, // "" 에 해당 링크를 표기
+	  { img: "rss_news2.png", link: "" },
+	  { img: "error.svg", link: "" }
+	];
+
+	let i = 0;
+
+	setInterval(() => {
+	  bannerImg.src = banners[i].img;
+	  bannerLink.href = banners[i].link;
+	  i = (i + 1) % banners.length;
+	}, 5000);
+</script>
+
+
+
   <footer>
 	<div>
 		<details>
@@ -449,8 +501,6 @@
 	const rssResult = document.getElementById("rssResult");
 	const rssFeed = document.getElementById("rss-feed");
 	const loadingText = document.getElementById("loading");
-
-
 
 
 function loadRss(rssUrl) {
