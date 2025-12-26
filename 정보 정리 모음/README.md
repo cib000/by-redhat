@@ -731,6 +731,7 @@ https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000002
 				  
 ## MBC
          
+[뉴스]전체 https://imnews.imbc.com/rss/google_news/narrativeNews.rss
 [뉴스]전체 https://imnews.imbc.com/rss/news/news_00.xml      
 [뉴스]정치 https://imnews.imbc.com/rss/news/news_01.xml      
 [뉴스]통일외교 https://imnews.imbc.com/rss/news/news_02.xml      
@@ -908,37 +909,34 @@ https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000002
 
 
 ## 세계일보         
-         
-[뉴스]최신기사 https://rss.segye.com/segye_recent.xml      
-[뉴스]종합 https://rss.segye.com/segye_total.xml      
-[뉴스]정치 https://rss.segye.com/segye_politic.xml      
-[뉴스]국제 https://rss.segye.com/segye_international.xml      
-[뉴스]경제 https://rss.segye.com/segye_economy.xml      
-[뉴스]사회 https://rss.segye.com/segye_society.xml      
-[뉴스]문화 https://rss.segye.com/segye_culture.xml      
-[뉴스]스포츠 https://rss.segye.com/segye_sports.xml      
-[뉴스]연예 https://rss.segye.com/segye_entertainment.xml      
-[뉴스]피플 https://rss.segye.com/segye_people.xml      
-[뉴스]오피니언 https://rss.segye.com/segye_opinion.xml      
-[뉴스]전국 https://rss.segye.com/segye_local.xml      
-[뉴스]탐사이슈 https://rss.segye.com/segye_task_force.xml      
-[뉴스]패n글 https://rss.segye.com/segye_family.xml      
-[뉴스]루트 https://rss.segye.com/segye_root.xml      
-[뉴스]펀치뉴스 https://rss.segye.com/segye_punchnews.xml      
-[뉴스]포토뉴스 https://rss.segye.com/segye_photo.xml      
-[뉴스]세계TV https://rss.segye.com/segye_segyeTV.xml      
-[스포츠월드]최신기사 https://rss.sportsworldi.com/sw_recent.xml      
-[스포츠월드]종합 https://rss.sportsworldi.com/sw_total.xml      
-[스포츠월드]야구 https://rss.sportsworldi.com/sw_baseball.xml      
-[스포츠월드]축구 https://rss.sportsworldi.com/sw_soccer.xml      
-[스포츠월드]농구 https://rss.sportsworldi.com/sw_basketball.xml      
-[스포츠월드]골프 https://rss.sportsworldi.com/sw_golf.xml      
-[스포츠월드]연예 https://rss.sportsworldi.com/sw_entertainment.xml      
-[스포츠월드]레저 https://rss.sportsworldi.com/sw_leisure.xml      
-[스포츠월드]SW이슈 https://rss.sportsworldi.com/sw_opinion.xml      
-
-
-
+      
+전체뉴스 https://www.segye.com/Articles/RSSList/segye_recent.xml      
+정치 https://www.segye.com/Articles/RSSList/segye_politic.xml      
+경제 https://www.segye.com/Articles/RSSList/segye_economy.xml      
+사회 https://www.segye.com/Articles/RSSList/segye_society.xml      
+국제 https://www.segye.com/Articles/RSSList/segye_international.xml      
+전국 https://www.segye.com/Articles/RSSList/segye_local.xml      
+문화 https://www.segye.com/Articles/RSSList/segye_culture.xml      
+오피니언 https://www.segye.com/Articles/RSSList/segye_opinion.xml      
+연예 https://www.segye.com/Articles/RSSList/segye_entertainment.xml      
+스포츠 https://www.segye.com/Articles/RSSList/segye_sports.xml      
+포토 https://www.segye.com/Articles/RSSList/segye_photo.xml      
+      
+전체뉴스 https://www.sportsworldi.com/Articles/RSSList/sw_recent.xml      
+스포츠 https://www.sportsworldi.com/Articles/RSSList/sw_sports.xml      
+연예 https://www.sportsworldi.com/Articles/RSSList/sw_entertainment.xml      
+라이프 https://www.sportsworldi.com/Articles/RSSList/sw_life.xml      
+      
+전체뉴스 https://www.segyefn.com/views/rss/all_recent.xml      
+금융 https://www.segyefn.com/views/rss/finance.xml      
+산업 https://www.segyefn.com/views/rss/industry.xml      
+부동산 https://www.segyefn.com/views/rss/property.xml      
+증권 https://www.segyefn.com/views/rss/stock.xml      
+오피니언 https://www.segyefn.com/views/rss/opinion.xml      
+CSR https://www.segyefn.com/views/rss/csr.xml      
+               
+               
+               
 ## 매일경제         
          
 헤드라인 https://file.mk.co.kr/news/rss/rss_30000001.xml      
@@ -963,7 +961,21 @@ https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000002
 
 
 ## 한국아이닷컴         
-         
+      
+전체기사	https://daily.hankooki.com/rss/allArticle.xml      
+인기기사	https://daily.hankooki.com/rss/clickTop.xml      
+산업	https://daily.hankooki.com/rss/S1N1.xml      
+소비자생활 https://daily.hankooki.com/rss/S1N2.xml      
+금융·증권 https://daily.hankooki.com/rss/S1N3.xml      
+경제·부동산 https://daily.hankooki.com/rss/S1N4.xml      
+정치·사회·글로벌	https://daily.hankooki.com/rss/S1N5.xml      
+오피니언·기획 https://daily.hankooki.com/rss/S1N7.xml      
+연예· 스포츠 https://daily.hankooki.com/rss/S1N8.xml      
+포토뉴스	https://daily.hankooki.com/rss/S1N9.xml      
+보도자료	https://daily.hankooki.com/rss/S1N10.xml      
+지역	https://daily.hankooki.com/rss/S1N13.xml      
+      
+               
 [한국일보]전체기사 https://rss.hankooki.com/news/hk_main.xml      
 [한국일보]정치 https://rss.hankooki.com/news/hk_politics.xml      
 [한국일보]경제 https://rss.hankooki.com/news/hk_economy.xml      
