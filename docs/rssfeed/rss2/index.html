@@ -165,6 +165,26 @@
 		  color: #555;
 		}
 
+		.error-box {
+		  text-align: center;
+		  margin-top: 30px;
+		}
+
+		.error-img {
+		  width: 120px;
+		  opacity: 0.8;
+		}
+
+		.error-box p {
+		  color: #777;
+		  font-size: 14px;
+		}
+
+		.error-bg {
+		  height: 200px;
+		  background: url("error.png") center / contain no-repeat;
+		}
+
 
   </style>
 </head>
@@ -424,10 +444,10 @@ function loadRss(rssUrl) {
 	
   rssFeed.innerHTML = `
   <div class="rss-title">
-    📰 뉴스 목록  <span class="rss-category">${selectedText}</span>
+    📰 뉴스 목록  : 👀 &ensp; <span class="rss-category">${selectedText}</span> &ensp; 👈
   </div>
   <p class="rss-desc">
-    아래는 뉴스 목록입니다.<br>
+    아래는 뉴스 목록입니다. &ensp;&ensp;&ensp;
     클릭하시면 <strong>새 창</strong>으로 확인할 수 있습니다.
   </p>
   <hr>
@@ -476,7 +496,15 @@ function loadRss(rssUrl) {
     })
     .catch(error => {
       console.error(error);
-      rssFeed.innerHTML = "<li>뉴스를 불러오지 못했습니다.</li>";
+      // rssFeed.innerHTML = "<li>뉴스를 불러오지 못했습니다.</li>";
+	  rssFeed.innerHTML = `
+		  <li class="error-box">
+			<img src="error.svg">
+		  </li>
+		`;
+	  
+	  
+	  
     })
     .finally(() => {
       loadingText.style.display = "none";
