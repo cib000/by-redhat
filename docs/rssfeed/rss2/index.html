@@ -152,6 +152,18 @@
 			inset -2px -2px 3px rgba(255, 255, 255, 0.6),
 			inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 		}
+		
+		.rss-title {
+		  font-size: 20px;
+		  font-weight: bold;
+		  color: #2c3e50;
+		  margin-bottom: 10px;
+		}
+
+		.rss-desc {
+		  font-size: 14px;
+		  color: #555;
+		}
 
 
   </style>
@@ -166,8 +178,8 @@
   <span style="color: white; "><small>Serviced by ByRH</small></span>
   
 	<div>
- 	  <select onchange="loadRss(this.value)">
-		<option value="" selected>-- 선택하세요 --</option>		
+ 	  <select  id="rssSelect" onchange="loadRss(this.value)">
+		<option value="">-- 선택하세요 --</option>	 <!--   selected -->	
 		<option> --- 구글 - 한국 뉴스 --- </option>
 		<option value="https://news.google.com/rss/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNRFp4WkRNU0FtdHZLQUFQAQ?hl=ko&gl=KR&ceid=KR%3Ako&oc=11">구글 - 한국 전체 뉴스</option>
 
@@ -404,8 +416,25 @@
 	const loadingText = document.getElementById("loading");
 
 
+
+
 function loadRss(rssUrl) {
-  rssFeed.innerHTML = "";
+
+  const selectedText = rssSelect.options[rssSelect.selectedIndex].text;
+	
+  rssFeed.innerHTML = `
+  <div class="rss-title">
+    📰 뉴스 목록  <span class="rss-category">${selectedText}</span>
+  </div>
+  <p class="rss-desc">
+    아래는 뉴스 목록입니다.<br>
+    클릭하시면 <strong>새 창</strong>으로 확인할 수 있습니다.
+  </p>
+  <hr>
+`;
+
+//  rssFeed.innerHTML = "아래는 뉴스 목록입니다. 클릭하시면 새창으로 확인 할 수 있습니다. <br><br><br>";
+  
   rssResult.textContent = "";
 
   if (!rssUrl) return;
