@@ -496,6 +496,17 @@
   <script src="./feednami-client-v1.1.js"></script>
 
   <script>
+	const month = new Date().getMonth(); // 0~11
+	const backgrounds = [
+	  "./bgimgs/jan.jpg", "./bgimgs/feb.jpg", "./bgimgs/mar.webp", "./bgimgs/apr.jpg",
+	  "./bgimgs/may.jpg", "./bgimgs/jun.jpg", "./bgimgs/jul.jpg", "./bgimgs/aug.jpg",
+	  "./bgimgs/sep.jpg", "./bgimgs/oct.jpg", "./bgimgs/nov.jpg", "./bgimgs/dec.jpg"
+	];
+	document.body.style.backgroundImage = `url(${backgrounds[month]})`;
+  </script>
+
+
+  <script>
 	const rssSelect = document.getElementById("rssSelect");
 	const fileInput = document.getElementById("fileInput");
 	const rssResult = document.getElementById("rssResult");
