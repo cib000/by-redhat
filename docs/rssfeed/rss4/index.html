@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>RSS feed reader</title>
+	
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+
+  <div class="container">
+	  <header>
+
+		<h1>뉴스 모아보기</h1>
+			<center>
+				<select id="feedSelect" onchange="loadFeed(this.value)">
+					<option>확인 할 뉴스 선택</option>
+					<option value="https://news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&output=rss">[구글 한국]주요뉴스</option>					
+					<option value="https://windowsforum.kr/free/rss">윈도우포럼</option>
+					<option value="https://kjvvv.kr/rss">리눅스포럼</option>
+					<option value="https://www.pcgamesn.com/mainrss.xml">pcgamesn</option>
+					<option value="https://movieweb.com/feed/">movieweb</option>
+				    <option value="https://www.engadget.com/rss.xml">engadget</option>
+					
+					<!-- option value="https://windowsforum.kr/free/atom">윈도우포럼(atom)</option -->
+					<!-- option value="https://taiwebs.com/windows/index.rss">대만 자료실 - 타이웹</option -->
+					
+				</select>
+
+				<input type="text" id="customRSSInput" placeholder="사용자 피드 주소">
+				<button onclick="loadFeed(document.getElementById('customRSSInput').value)"> 확인</button>
+			</center>
+			
+		</header>
+
+		<section>
+			<div id="loadingIndicator" style="display: none; text-align: center;">
+				<img src="https://media.tenor.com/qXzHf2tesO0AAAAC/loading-gif-steiness.gif" alt="읽어오는중..." style="width: 50px;">
+				<p>읽어오는중...</p>
+			</div>
+			<div id="rssFeed"></div>
+		</section>
+		
+</div>
+
+  <button id="scrollToTopBtn" style="position: fixed; bottom: 20px; left: 1%; transform: translateX(-1%);">Go to Top</button>
+  <button id="scrollToTopBtn2" style="position: fixed; bottom: 20px; right: 1%; transform: translateX(-1%);">Go to Top</button>
+  
+  <script  src="./script.js"></script>
+
+</body>
+</html>
+

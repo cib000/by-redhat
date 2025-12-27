@@ -1,0 +1,99 @@
+body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #111;
+        color: #eee;
+    }
+    .container {
+        max-width: 90%;
+        margin: 0 auto;
+        /* padding: 20px; */
+    }
+    h1 {
+        color: #ddd;
+        text-align: center;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        text-align: center;
+    }
+    li {
+        margin-bottom: 10px;
+    }
+
+	header {
+		position: fixed;
+		top:0;
+		margin: 0 auto;
+		width: 99%;
+		height: 100px;
+		margin-bottom: 30px;
+	}
+	
+	
+    select {
+        width: 30%;
+		background-color: #333;
+        color: #eee;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    select:hover {
+        background-color: #555;
+    }
+	
+	input {
+		margin-left: 30px;
+		width: 30%;
+		height: 26px;
+		
+	}
+	
+	button {
+		margin-left: 30px;
+		width: 100px;
+		height: 30px;
+		
+	}
+	
+	section {
+		position: fixed;
+		top: 150px;
+		left: 10px;
+		/* margin: 5px 20px; */
+		width:95%;
+		padding: 5px 20px;
+		height: 60%;
+		overflow-y: auto;
+	}
+	
+    #rssFeed {
+        padding: 20px;
+        background-color: #333;
+        border: 1px solid #555;
+        border-radius: 5px;
+        display: none;
+    }
+    .article {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #444;
+        border-radius: 5px;
+        text-align: center;
+    }
+    .article img {
+        max-width: 400px;
+        border-radius: 5px;
+    }
+    a {
+        color: #7ba3e5;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
