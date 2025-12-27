@@ -1,0 +1,92 @@
+## RSS 목록
+
+
+구글뉴스 - [전체기사]주요뉴스 ,https://news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&output=rss
+구글뉴스 - [전체기사]인기뉴스 ,https://news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&topic=po&output=rss
+ZDNet Korea - 전체기사 ,https://feeds.feedburner.com/zdkorea
+중부매일 - 전체기사 ,https://www.jbnews.com/rss/allArticle.xml
+한국기자협회 - 전체기사 ,https://www.journalist.or.kr/data/rss/news.xml
+뉴스데일리 - 전체기사 ,https://www.newsdaily.kr/rss/allArticle.xml
+뉴스포스트 - 전체기사 ,https://cdn.newspost.kr/rss/gns_allArticle.xml
+컨슈머타임스 - 전체기사 ,https://www.cstimes.com/rss/allArticle.xml
+국민일보 - 전체기사 ,https://www.kukinews.com/rss
+쿠키뉴스 - 전체기사 ,https://www.kukinews.com/rss
+연합뉴스– 전체 ,https://www.yna.co.kr/rss/news.xml
+한국경제 - 전체 ,https://www.hankyung.com/feed/all-news
+한국아이닷컴 - 전체기사 ,https://daily.hankooki.com/rss/allArticle.xml
+미디어오늘 - 전체기사 ,https://www.mediatoday.co.kr/rss/allArticle.xml
+세계비즈 - 전체뉴스 ,https://www.segyefn.com/views/rss/all_recent.xml
+세계일보 - 전체뉴스 ,https://www.segye.com/Articles/RSSList/segye_recent.xml
+동아닷컴 - 전체기사 ,https://rss.donga.com/total.xml
+조선닷컴 - [뉴스]오늘의 주요뉴스 ,https://myhome.chosun.com/rss/www_section_rss.xml
+[경향신문]전체뉴스 ,https://www.khan.co.kr/rss/rssdata/total_news.xml
+연합뉴스 TV - 전체 뉴스 ,https://www.yonhapnewstv.co.kr/browse/feed/
+연합뉴스 - 최신기사 ,https://www.yna.co.kr/rss/news.xml
+경향신문 - 전체뉴스 ,https://www.khan.co.kr/rss/rssdata/total_news.xml
+동아닷컴 - 전체기사 ,https://rss.donga.com/total.xml
+매일경제 - 전체뉴스 ,https://www.mk.co.kr/rss/40300001/
+오마이뉴스 전체기사 ,https://rss.ohmynews.com/rss/ohmynews.xml
+SBS 뉴스 - 이 시각 인기 ,https://news.sbs.co.kr/news/TopicRssFeed.do?plink=RSSREADER
+보안뉴스 - 전체기사 ,https://www.boannews.com/media/news_rss.xml
+보안뉴스 - 메인 카테고리 SECURITY ,https://www.boannews.com/media/news_rss.xml?mkind=1
+데이터넷 - 전체기사	,https://www.datanet.co.kr/rss/allArticle.xml
+조선일보 - 전체기사 RSS 퍼가기 ,https://www.chosun.com/arc/outboundfeeds/rss/?outputType=xml
+JTBC 뉴스 - 속보 ,https://news-ex.jtbc.co.kr/v1/get/rss/newsflesh
+JTBC 뉴스 - 이슈 Top10 ,https://news-ex.jtbc.co.kr/v1/get/rss/issue
+노컷뉴스 - 최신기사 ,https://rss.nocutnews.co.kr/nocutnews.xml
+디지털데일리 - 전체 ,https://www.ddaily.co.kr/rss.xml
+탑라이더 - 전체기사 ,https://www.top-rider.com/rss
+에버뉴스 - 전체기사 ,https://cdn.evernews.co.kr/rss/gn_rss_allArticle.xml
+톱스타뉴스 - 전체 ,https://cdn.topstarnews.net/tsn_rss/gns_allArticle.xml
+르몽드 디플로마티크 - 전체기사 ,https://www.ilemonde.com/rss/allArticle.xml
+미디어데일리 - 전체기사 ,https://www.mediadaily.co.kr/rss/allArticle.xml
+뉴스 와이어 - 전체 ,https://api.newswire.co.kr/rss/all
+
+# 기술 테크노 AI
+무신사(MUSINSA) 기술블로그 ,https://medium.com/feed/musinsa-tech
+네이버 D2 기술블로그 ,https://d2.naver.com/d2.atom
+마켓컬리 기술블로그 ,https://helloworld.kurly.com/feed.xml
+우아한형제들 기술블로그 ,https://techblog.woowahan.com/feed
+카카오엔터프라이즈 기술블로그 ,https://tech.kakaoenterprise.com/feed
+데브시스터즈 기술블로그 ,https://tech.devsisters.com/rss.xml
+라인(LINE) 기술블로그 ,https://engineering.linecorp.com/ko/feed/index.html
+쿠팡(Coupang) 기술블로그 ,https://medium.com/feed/coupang-engineering
+당근마켓 기술블로그 ,https://medium.com/feed/daangn
+토스(Toss) 기술블로그 ,https://toss.tech/rss.xml
+직방 기술블로그 ,https://medium.com/feed/zigbang
+왓챠(Watcha) 기술블로그 ,https://medium.com/feed/watcha
+뱅크샐러드(banksalad) 기술블로그 ,https://blog.banksalad.com/rss.xml
+Hyperconnect 기술블로그 ,https://hyperconnect.github.io/feed.xml
+요기요(yogiyo) 기술블로그 ,https://techblog.yogiyo.co.kr/feed
+쏘카(Socar) 기술블로그 ,https://tech.socarcorp.kr/feed
+리디(RIDI) 기술블로그 ,https://www.ridicorp.com/feed
+NHN Toast 기술블로그 ,https://meetup.toast.com/rss
+GeekNews - 개발/기술/스타트업 뉴스 서비스 ,https://news.hada.io/rss/news
+개발자 블로그 서비스 - Velog ,https://v2.velog.io/rss/
+월간 개발자 뉴스레터 - 개발자스럽다 ,https://blog.gaerae.com/feeds/posts/default?alt=rss
+IT 관련 뉴스 제공 블로그 - 44BITS ,https://www.44bits.io/ko/feed/all
+
+## tech
+tech crunch ,https://techcrunch.com/feed
+hacker news ,https://news.ycombinator.com/rss
+verge ,https://www.theverge.com/rss/full.xml
+venture beat ,https://venturebeat.com/feed/
+
+## AI
+medium의 ai 태그 ,https://medium.com/feed/tag/artificial-intelligence
+techcrunch ai tag ,https://techcrunch.com/tag/artificial-intelligence/feed/
+reddit artificial 서브레딧 ,https://www.reddit.com/r/artificial/.rss
+flipboard ai 분야 ,https://flipboard.com/topic/artificialintelligence.rss
+구글 블로그 ai 분야 ,https://blog.google/technology/ai/rss/
+deepmind ,https://www.deepmind.com/blog/rss.xml
+the decoder ,https://the-decoder.com/feed/
+
+AI Times (에이아이타임즈) ,https://www.aitimes.com/rss/allArticle.xml 
+The Batch (by DeepLearning.AI) ,https://www.deeplearning.ai/the-batch/feed/ 
+MIT Tech Review – AI ,https://www.technologyreview.com/feed/
+
+## 한국
+테크니들 ,https://techneedle.com/feed
+
+
+----여기까지 --------,---------------
