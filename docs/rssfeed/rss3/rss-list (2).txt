@@ -1,0 +1,20 @@
+ZDNet Korea,https://zdnet.co.kr/feed
+노컷뉴스,https://rss.nocutnews.co.kr/nocutnews.xml
+이데일리 뉴스,http://rss.edaily.co.kr/edaily_news.xml
+머니투데이 뉴스,https://www.mt.co.kr/rss/latest-atom.xml
+한국경제 뉴스,https://www.hankyung.com/feed/all-news
+한국경제신문 뉴스,https://www.mk.co.kr/rss/30000001/
+한국아이닷컴 뉴스,https://daily.hankooki.com/rss/allArticle.xml
+중앙일보 뉴스,https://rss.joinsmsn.com/joins_news_list.xml
+조선닷컴 뉴스,http://myhome.chosun.com/rss/www_section_rss.xml
+IT조선 뉴스,https://cdn.it.chosun.com/rss/gns_allArticle.xml
+동아일보 뉴스,https://rss.donga.com/total.xml
+세계일보 뉴스,https://www.segye.com/Articles/RSSList/segye_recent.xml
+한국아이닷컴 뉴스,https://daily.hankooki.com/rss/allArticle.xml
+연합뉴스 TV,http://www.yonhapnewstv.co.kr/browse/feed/
+연합뉴스,https://www.yna.co.kr/rss/news.xml
+MBC 라디오 뉴스,https://imnews.imbc.com/rss/google_news/narrativeNews.rss
+SBS 뉴스-이 시각 이슈,https://news.sbs.co.kr/news/headlineRssFeed.do?plink=RSSREADER
+SBS 뉴스-이 시각 인기,https://news.sbs.co.kr/news/TopicRssFeed.do?plink=RSSREADER
+구글 - 한국 뉴스,https://news.google.com/rss/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNRFp4WkRNU0FtdHZLQUFQAQ?hl=ko&gl=KR&ceid=KR%3Ako&oc=11
+인도 news detik 사이트,https://news.detik.com/rss
