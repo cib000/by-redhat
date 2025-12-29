@@ -92,7 +92,7 @@ body {
 	background: var(--bodbg_color);
     color: var(--bodbg_color);
 	overflow-y: hidden;
-	overflow-x: scroll; /* overflow-x: auto; */
+	overflow-x: auto;   /*   overflow-x: scroll;  */
 	transition: background 0.6s;
 }
 
@@ -310,12 +310,12 @@ a:active {
     display: flex;
     align-items: start;
     padding: 0 0.8rem 0.8rem;
-    overflow-x: auto;
+    overflow-x: auto;   /*  scroll; */
 	overflow-y: hidden;
     height: calc(100vh - 8.6rem);
 	/* background-color: var(--bodbg_color);	 */
 	margin-top: 2rem;
-	margin-left: 50px;
+	margin-left: 50px;  /******************************* /
 }
 
 .list {
@@ -352,6 +352,7 @@ a:active {
     align-content: start;
     padding: 0 0.6rem 0.5rem;
     overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .list-items::-webkit-scrollbar {
@@ -1371,8 +1372,7 @@ footer a {
   /* background-color: #EFC94C; */
 
   width: 93%;        /* 300px × 3개 */
-  overflow-x: scroll;
-  /* overflow-x: hidden; /* 처음엔 스크롤 숨김 */
+  overflow-x: hidden; /* 처음엔 스크롤 숨김    overflow-x: scroll;  */
   transition: width 0.3s ease;
 }
 
@@ -1418,10 +1418,11 @@ footer a {
 
 /* ---------------- 버튼 ---------------- */
 #toggleBtn {
-  margin: 0px 10px;
+  margin: 0px 30px;
   font-size: 1.5em;
+  height: 35px;
+  color: #F00;
   /* background-color: #BFABAB;
-  color: #F00; 
   padding: 5px 20px; */
   cursor: pointer;
   /* border-radius: 20px; */
@@ -2390,6 +2391,7 @@ background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0576ff', endColorstr='#24f8ff', GradientType=1 );
   }
 /*END GRADIENTS*/
+
 /*BASE BUTTON*/
 .button {
   display: inline-block;
@@ -2397,7 +2399,7 @@ background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
   border-radius: 3px;
   text-decoration: none;
   padding: .5em;
-  margin-left: 2.5em;
+  margin-left: 1.5em;
   font-size: 1.2em;
   font-weight: bold;
   transition: all .5s;
