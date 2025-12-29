@@ -5,42 +5,328 @@
   <title>나의 웹서핑을 쉽게 - 이지즐찾 v5.3p</title>
   <link rel="shortcut icon" href="imgs/favicon.ico" >
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courgette:400,700">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-  <link rel="stylesheet" href="js/style.css">
-  <link rel="stylesheet" href="js/bw_style.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Courgette:400,700">
+  <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" type="text/css" href="js/style.css">
+  <link rel="stylesheet" type="text/css" href="js/bw_style.css">
   <link rel="stylesheet" type="text/css" href="js/animate.css">
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
   <!-- <link rel="stylesheet" href="js/skrollr_style.css"> -->
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
-  <link rel="stylesheet" href="js/bubbles_style.css">
-  <link rel="stylesheet" href="js/flower_style2.css">
+  <link rel='stylesheet' type="text/css" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
+  <link rel="stylesheet" type="text/css" href="js/bubbles_style.css">
+  <link rel="stylesheet" type="text/css" href="js/flower_style2.css">
 
-  <script src="js/modernizr.js"></script> <!-- Modernizr -->
+  <link rel='stylesheet' type="text/css" href='js/bootstrap.min.css'>
+  
+  <script type='text/javascript' src="js/c79e2f3459.js"></script>
+  <script type='text/javascript' src="js/modernizr.js"></script> <!-- Modernizr -->
   <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script>
   <script type='text/javascript' src='/js/jquery.mousewheel.min.js'></script>
   <script type='text/javascript' src='/js/unpkg.com_feather-icons@4.29.0_dist_feather.min.js'></script>
   <script type="text/javascript" src="js/skrollr.min.js"></script>
+  
   <base target="_blank">
   <!--<base href="https://fontsdata.com/">-->
   <!-- <base href="."> -->
   <style>
-	.mheadh3 {background-color:#BC3425;color:white}
-	.mheadh4 {background-color:#92549E;color:white}
-	.mheadh5 {background-color:#00B1CF;color:white}
-	.mheadh6 {background-color:#FFFFBA;color:#333}
-	.mheadh7 {background-color:#00F;color:white}
+
   
   </style>
 </head>
 
 <body id="body" class="dark-mode not-loaded flow-body">
 <!-- partial:index.partial.html -->
+
+  <!-- =====================
+       상단 메가 메뉴
+       ===================== -->
+  <div class="megaheader">
+    <button class="megahamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+  <div class="megaMenu">
+      <div class="menuItem">
+        <h5><span><i class="far fa-folder-open"></i></span> 브라우저 설치</h5>
+        <ul>
+          <li><a>General Setup</a></li>
+          <li><a>Function Definitions</a></li>
+          <li><a>Users and Sessions</a></li>
+          <li><a>User Roles</a></li>
+          <li><a>Maintain Teams</a></li>
+          <li><a>Multiple Notes Setup</a></li>
+          <li><a>Clinical Notes Texts</a></li>
+          <li><a>Departments Management</a></li>
+          <li><a>Departments Levels</a></li>
+          <li><a>Order Entry Group</a></li>
+        </ul>
+      </div>
+      <div class="menuItem">
+        <h5><span><i class="far fa-folder-open"></i></span> 압축툴 설치</h5>
+        <ul>
+          <li><a>Dataset Questions</a></li>
+          <li><a>Dataset Reading Types</a></li>
+          <li><a>Dataset Reading Body Sites</a></li>
+          <li><a>Dataset Classes</a></li>
+          <li><a>Dataset Lists</a></li>
+          <li><a>Dataset Groups</a></li>
+        </ul>
+      </div>
+      <div class="menuItem">
+        <h5><span><i class="far fa-folder-open"></i></span> 오피스류 설치</h5>
+        <ul>
+          <li><a>Outpatient Clinic Sessions</a></li>
+          <li><a>Multiple Clinic Cancelation</a></li>
+          <li><a>Outpatient Eligibilities</a></li>
+          <li><a>Doctor Eligibilities</a></li>
+          <li><a>Clinic Users Privileges</a></li>
+        </ul>
+      </div>
+      
+      <div class="menuItem">
+        <h5><span><i class="far fa-folder-open"></i></span> 유용한 툴 설치</h5>
+        <ul>
+          <li><a>Physician Worklist</a></li>
+        </ul>
+      </div>
+      <div class="menuItem">
+        <h5><span><i class="far fa-folder-open"></i></span> 편리한 위젯</h5>
+        <ul>
+          <li><a>Outpatient Scheduling</a></li>
+          <li><a>Transfer Appointments</a></li>
+        </ul>
+      </div>
+      <div class="menuItem">
+        <h5><span><i class="far fa-folder-open"></i></span> 스크립트 #1</h5>
+        <ul>
+          <li><a>Patient Search</a></li>
+          <li><a>Patient Merge</a></li>
+          <li><a>Patient Unmerge</a></li>
+          <li><a>Names Dictionary</a></li>
+          <li><a>Patient Death Registration</a></li>
+          <li><a>Cancel Death Registration</a></li>
+          <li><a>Mortuary Registration</a></li>
+          <li><a>Patient Visits History</a></li>
+          <li><a>Sick Leave Approval</a></li>
+        </ul>
+      </div>
+      <div class="menuItem">
+        <h5><span><i class="far fa-folder-open"></i></span> 스크립트 #2 </h5>
+        <ul>
+          <li><a>PMI Reports</a></li>
+        </ul>
+      </div>
+      <div class="menuItem">
+        <h5><span><i class="far fa-folder-open"></i></span> 윈도우 설정</h5>
+        <ul>
+          <li><a>Outpatient Clinic Sessions</a></li>
+          <li><a>Multiple Clinic Cancelation</a></li>
+          <li><a>Outpatient Eligibilities</a></li>
+          <li><a>Doctor Eligibilities</a></li>
+          <li><a>Clinic Users Privileges</a></li>
+        </ul>
+      </div>
+    </div>
+
+
+  <!-- =====================
+       좌측 아코디언 메뉴
+       ===================== -->
+<div class="leftMenu">
+  <div class="hamburger active">
+    <span></span>
+    <span></span>
+    <span></span>
+	<span></span>
+  </div>
+  <ul class="leftMenuList">
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-home" aria-hidden="true"></i>
+        <span>정보 전달 공유</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+            <span>파일공유시 업로드</span>
+        </li>
+		<li>
+          <a href="https://gigafile.nu/">
+            <span>기가 업로드</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.mediafire.com/">
+            <span>미디어 파이어</span>
+          </a>
+        </li>
+<!--        <li>
+          <a>
+            <span>FUNCTIONDEFINISIONS</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>GENERALSETUP</span>
+          </a>
+        </li>
+-->
+      </ul>
+    </li>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-table" aria-hidden="true"></i>
+        <span>PATIENTMASTER</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a>
+            <span>PATIENTDEATHREGISTRATION</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a>
+        <i class="fa fa-bed" aria-hidden="true"></i>
+        <span>QAYSRA</span>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-user-md" aria-hidden="true"></i>
+        <span>PHDBMISC</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a>
+            <span>OBOOKING</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>ORDSERVC</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-heartbeat" aria-hidden="true"></i>
+        <span>PHDREP</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a class="dropdown">
+            <span>PHDMDREP</span>
+          </a>
+          <ul class="dropdownlist">
+            <li>
+              <a>
+                <span>MEDREP1</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span>MEDREP2</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="dropdown">
+            <span>PHDFINRE</span>
+          </a>
+          <ul class="dropdownlist">
+            <li>
+              <a>
+                <span>FINREP1</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+        <span>DATASETSETUP</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a>
+            <span>READINGBODYSITES</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>DOCUMEN</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>DSLIST</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>DATASETQUESTIONS</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>READINGTYPES</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>DATASETCLASSESTF</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="dropdown">
+        <i class="fa fa-stethoscope" aria-hidden="true"></i>
+        <span>TRANSCRIPTION</span>
+      </a>
+      <ul class="dropdownlist">
+        <li>
+          <a>
+            <span>TRANSCRIPTIONSETUP</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>DOCUMENTREQUISITION</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>DEFICIENCYTRACKING</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>MANAGEDOCUMENTPANEL</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+
+
 <!-- Masthead trello -->
 <header class="masthead">
+	<div class="mlm"></div>
 	<div class="logo"> <!--  style="background-color: var(--color-2); background: var(--color-2); "   -->
 		<h1 style="height:40px; margin-top: 0px; font-size: 3.0rem; ">
 		<i class="fas fa-wifi logo-icon" aria-hidden="true" style="margin-left: 10%;"></i>
@@ -52,7 +338,7 @@
 <!-- End of masthead -->
 
 <!-- Board info bar -->
-<section class="board-info-bar" style="margin-top: 20px;">
+<section class="board-info-bar" style="margin-left: 70px; margin-top: 20px;">
 	<div class="board-controls">
 		<button class="board-title btn">
 			<h2><a href="https://gigafile.nu/" target="_blank" title="기가파일">
@@ -224,7 +510,7 @@
 	<li><a href="./markdown/json-to-flowchart"> json-to-flowchart</a></li>
 	<li>......</li>
 
-	<li><a href=""><img src="./imgs/waf-logo(80).gif" width="250px" height="100px"></a></li>
+	<li><a><img src="./imgs/waf-logo(80).gif" width="250px" height="100px"></a></li>
 	
 	</ul>
 	<button class="add-card-btn btn">....추가하기</button>
@@ -1099,8 +1385,57 @@
 
 
 <!-- End of lists container -->
+<script>
+    // 메가메뉴 클릭 이벤트  
+	document.querySelector(".megahamburger").onclick = function () {
+	  var element = document.querySelector(".megaMenu");
+	  element.classList.toggle("openMenu");
+
+	  var hamburger = document.querySelector(".hamburger");
+	  hamburger.classList.toggle("open");
+	}
+
+    // 아코디언 메뉴 클릭 이벤트
+	document.querySelector(".hamburger").onclick = function () {
+	  var element = document.querySelector(".leftMenu");
+	  element.classList.toggle("openMenu");
+
+	  var hamburger = document.querySelector(".hamburger");
+	  hamburger.classList.toggle("open");
+
+	  var closeAccordion = document.getElementsByClassName('dropdown');
+	  var i = 0;
+	  for (i = 0; i < closeAccordion.length; i++) {
+		closeAccordion[i].classList.remove('active');
+	  }
+
+	}
+
+	var dropdown = document.getElementsByClassName('dropdown');
+	for (i = 0; i < dropdown.length; i++) {
+	  dropdown[i].onclick = function () {
+		this.classList.toggle('active');
+
+
+	  }
+
+	}
+
+    // 스테이지 더보기 버튼
+    const toggleBtn = document.getElementById('toggleBtn');
+    const stages = document.querySelector('.stages');
+
+    toggleBtn.addEventListener('click', () => {
+      stages.classList.toggle('collapsed'); // collapsed 클래스 토글
+      toggleBtn.textContent = stages.classList.contains('collapsed') ? '더보기..' : '접기';
+    });
+
 <!-- partial -->
-	<script>
+</script>
+
+
+<script>
+	
 	$(function() {
 	   $("body").mousewheel(function(event, delta) {
 	      this.scrollLeft -= (delta * 30);

@@ -135,6 +135,15 @@ a:active {
     outline-color: #fa0;
 }
 
+
+.mlm {
+	position: relative;
+	display: flex;
+	padding: 0 0.8rem;
+	width:50px;
+}
+
+
 /* Masthead */
 .masthead {
     flex-basis: 4rem;
@@ -301,6 +310,7 @@ a:active {
     height: calc(100vh - 8.6rem);
 	/* background-color: var(--bodbg_color);	 */
 	margin-top: 2rem;
+	margin-left: 50px;
 }
 
 .list {
@@ -311,6 +321,7 @@ a:active {
 	color: var(--title_bgcolor);
     max-height: calc(100vh - 17.8rem);
     border-radius: 0.3rem;
+	
     margin-right: 1rem;
 }
 
@@ -948,6 +959,402 @@ footer a {
   justify-content: space-between;
   transition: all 1s ease;
   padding: 5px 10px 0px 10px;
+}
+
+.mheadh3 {background-color:#BC3425;color:white}
+.mheadh4 {background-color:#92549E;color:white}
+.mheadh5 {background-color:#00B1CF;color:white}
+.mheadh6 {background-color:#FFFFBA;color:#333}
+.mheadh7 {background-color:#00F;color:white}
+
+
+    /* =====================
+       좌측 아코디언 메뉴
+       ===================== */
+.leftMenu{
+	height: 90%; /* 100%;*/
+	background-color:  #00838f;
+	position: fixed;
+	left	: 0;
+    top:0;
+	width	: 42px;
+	overflow: hidden;
+	transition: .5s cubic-bezier(.8, .5, .2, 1.4);
+}
+.hamburger{
+	width	: 35px;
+	height	: 35px;
+	border-radius: 50%;
+	background-color: #ffc107;
+	float	: right;
+	margin-right: 2px;
+	margin-top: 10px; 
+	text-align: center;
+	cursor	: pointer; 
+	box-shadow: 0px 3px 4px rgba(0,0,0,.5); 
+	position: relative; 
+	transform: rotate(0deg);
+}
+.hamburger.open{
+	background-color: tomato;
+	transition: all ease .5s;
+}
+.hamburger:hover {
+	box-shadow: none; 
+	transition: all ease .5s;
+	transform: rotate(360deg);
+}
+.hamburger span{
+	width	: 60%;
+	height	: 3px;
+	background-color: #000;
+	display: block;
+	border-radius: 1px;
+	float	: left;
+	margin-left: 20%; 
+	transition: all ease .3s;
+}
+.hamburger span:nth-child(1){
+	margin-top: 7px; 
+}
+.hamburger span:nth-child(2){
+	margin-top: 3px; 
+}
+.hamburger span:nth-child(3){
+	margin-top: 3px; 
+}
+.hamburger span:nth-child(4){
+	margin-top: 3px; 
+}
+
+.open span:nth-child(1){
+	background-color: #fff;
+	transform: rotate(45deg);
+	transition-timing-function 	: ease-in-out;
+	position: absolute;
+	top: 5px;
+	right: 8px;
+	width: 25px;
+	transition: all ease .5s;
+	border-radius: 10px; 
+}
+.open span:nth-child(2){
+	background-color 	: #fff;
+	transition-timing-function 	: ease-in-out;
+	margin-top: 18px;
+	opacity: 0;
+	transition: all ease .5s;
+}
+.open span:nth-child(3){
+	background-color 	: #fff;
+	transform: rotate(-45deg);
+	transition-timing-function 	: ease-in-out;
+	margin-top: 0px;
+	position: absolute;
+	top: 18px;
+	right: 8px;
+	width: 25px;
+	transition: all ease .5s;
+	border-radius: 10px; 
+}
+.open span:nth-child(4){
+	background-color 	: #fff;
+	transform: rotate(-45deg);
+	transition-timing-function 	: ease-in-out;
+	margin-top: 0px;
+	position: absolute;
+	top: 18px;
+	right: 8px;
+	width: 25px;
+	transition: all ease .5s;
+	border-radius: 10px; 
+}
+.openMenu{
+	width: 250px;
+	transition: all ease 1s;
+	overflow: hidden;
+	transition: .5s cubic-bezier(.8, .5, .2, 1.4);
+}
+.leftMenuList{
+	margin-top: 70px;
+	list-style: none;
+	padding: 0;    
+}
+.leftMenuList li{
+	width: 250px;
+	/* height: 40px; */
+	line-height: 40px;
+	color: #fff;
+	border-bottom: 1px solid #00bcd6; 
+	/* padding : 5px; */
+	font-size: 10px;
+}
+.leftMenuList li:hover{
+	background-color: #00bcd6;
+	transition: all ease .5s;
+	/* cursor	: pointer; */
+
+}
+.leftMenuList li a{
+	text-decoration: none;
+	color	: #fff;
+	cursor	: pointer;
+}
+.leftMenuList li a svg{
+	width	: 40px;
+	height	: 40px;
+	float	: left;
+	margin-left: 0px;   
+}
+.leftMenuList li span{
+	color	: red; 
+	font-size: 1.2em;
+	cursor	:  default; /* pointer;  default; */
+}
+.leftMenuList li a span{
+	text-decoration: none;
+	color	: #000; 
+	margin-left: 15px;
+	width	: 100%;
+	cursor	: pointer; /* default; */
+}
+.leftMenuList i.fa {
+	font-size: 25px;
+	padding: 9px;
+	width: 30px;
+	text-align: center;
+}
+.leftMenuList li ul li{
+	padding: 0px;
+	line-height: 30px;
+	transition: all .4s;
+	box-sizing: border-box;
+}
+
+.leftMenuList li ul li:hover{
+	background: #4DD0E1;
+	transition: all .4s;
+}
+.leftMenuList li ul li ul li{
+	padding: 5px;
+	background: #B2EBF2;
+}
+
+.leftMenuList li ul li ul li a span{
+	font-size: 1.0em;
+	color:#00838f;
+}
+.leftMenuList li ul li ul li:hover{
+	background: #B2EBF2;
+}
+
+.dropdown {
+	color: #00f;
+	text-decoration: none;
+	margin-bottom: 5px;
+	display: block;
+	position: relative;
+	/*font-size: 2.2em; */
+}
+
+.active + .dropdownlist {
+	width: 100%;
+	height: auto;
+	line-height: 30px;
+	padding: 0px;
+	margin-left: 0px;
+	background: #4DD0E1;
+	font-size: 1.2em;
+}
+.hide + .dropdownlist{
+  height:0px;
+}
+.active + .dropdownlist:hover{
+	background:#00bcd6;
+}
+.dropdownlist {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+.dropdownlist span {
+	color: #f00;
+}
+
+.dropdown:before {
+	font-family: FontAwesome;
+	content: "\f105";
+	transition: all .4s;
+	padding-right: 5px;
+	right: 20px;
+	position: absolute;
+	top: 4px;
+}
+.dropdown.active:before {
+	font-family: FontAwesome;
+	content: '\f107';
+	transition: all .4s;
+	padding-right: 5px;
+	font-size: 1.2em;
+}
+.leftMenu:not(.openMenu)  li > .dropdownlist{
+	pointer-events: none;
+    height:0;
+}
+
+
+
+    /* =====================
+       상단 메가 메뉴
+       ===================== */
+
+
+.megaheader {
+    position: fixed; /* relative;  */
+	top:0;
+	right: 10px;
+	
+    width: 50px; /* 100%; */
+	height: 50px;
+    background-color: #19414a;
+    
+    z-index: 99;
+	margin-bottom: 30px;
+
+}	   
+	   
+.megahamburger{
+  width: 32px;
+  height: 32px;
+  background: #19414a;
+  position: relative;
+  border-style: none !important;
+  outline: none !important;
+  cursor: pointer;
+  margin: 9px;
+  overflow: hidden;
+}
+.megahamburger span{
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  position: absolute;
+  background-color: #fff;
+  left: 5px;
+  transition: all .3s;
+}
+.megahamburger span:nth-child(1){
+  top: 7px;
+}
+.megahamburger span:nth-child(2){
+  top: 14px;
+}
+.megahamburger span:nth-child(3){
+  top: 21px;
+}
+.megahamburger.open span:nth-child(1){
+  top: 16px;
+  transform: rotate(45deg);
+}
+.megahamburger.open span:nth-child(3){
+  top: 16px;
+  transform: rotate(-45deg);
+}
+.megahamburger.open span:nth-child(2){
+  top: 16px;
+  transform: translateX(-33px);
+}
+.megaMenu {
+  width: 100%;
+  height: fit-content;
+  background: rgb(85,128,138);
+  background: linear-gradient(180deg, rgba(25,65,74,1) 5% , rgba(85,128,138,1) 100%);
+  transition: all .3s;
+  box-shadow: 0 3px 7px rgba(0,0,0,.2);
+  padding: 20px;
+  overflow: hidden;
+  /* display: none; *************** */
+  color: #fff;
+  position: absolute;
+  transform: translateY(-100%);
+  transform-origin: top;
+  z-index: 0;
+  column-count: 6;
+  -webkit-column-gap: 16px;
+  column-gap: 16px;
+  border-top:1px solid rgba(85,128,138,1);
+  margin-bottom:90px;
+  z-index:9;
+}
+
+.megaMenu .menuItem {
+  position: relative;
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid-column;
+}
+
+.megaMenu.openMenu {
+  height: fit-content;
+  padding: 20px;
+  transform: translateY(0px);
+}
+.megaMenu ul{
+  padding:0px;
+  margin: 0px;
+  list-style: none;
+  padding-left: 6px;
+  display: block;
+  width:100%;
+  padding-bottom: 20px;
+}
+.megaMenu ul li a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.megaMenu ul li {
+  position: relative;
+}
+.megaMenu ul li:before {
+    content: '';
+    width: 0%;
+    height: 1px;
+    bottom: 0px;
+    transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
+    bottom: 0px;
+    background-color: #fff;
+    transition: all .3s;
+}
+.megaMenu ul li:hover:before {
+  content: '';
+  width: 100%;
+  transition: all .3s;
+}
+.megaMenu ul li {
+  min-height: 22px;
+  line-height: 22px;
+  width:fit-content;
+}
+@media (min-width: 400px) and (max-width:600px) {
+  .megaMenu{
+    column-count: 1;
+  }
+}
+@media (min-width: 600px) and (max-width: 768px) {
+  .megaMenu{
+    column-count: 2;
+  }
+}
+@media (min-width:768px) and (max-width:992px) { 
+  .megaMenu{
+    column-count: 3;
+  }
+}
+@media (min-width:992px) and (max-width:1200px) { 
+  .megaMenu{
+    column-count: 4;
+  }
 }
 
 
