@@ -15,7 +15,7 @@ class Player {
     this.y = this.game.groundLevel - this.height;
     this.color = "#4db8ff";
     this.velocityY = 0;
-    this.isJumping = false;
+    this.isJumping = true; /* false  true   ************************/
     this.isGrounded = true;
   }
 
