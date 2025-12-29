@@ -127,7 +127,7 @@ a:active {
     background: none;
     border: none;
     color: inherit;
-    padding: 0;
+    padding: 2px 10px;
     cursor: pointer;
 }
 
@@ -1414,7 +1414,7 @@ footer a {
 #toggleBtn {
   margin: 10px;
   color: #FFF;
-  padding: 8px 14px;
+  padding: 5px 20px;
   cursor: pointer;
 }
 
