@@ -986,6 +986,7 @@ footer a {
 	width	: 42px;
 	overflow: hidden;
 	transition: .5s cubic-bezier(.8, .5, .2, 1.4);
+	z-index: 20;
 }
 .hamburger{
 	width	: 35px;
