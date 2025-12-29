@@ -1418,8 +1418,9 @@ footer a {
 
 /* ---------------- 버튼 ---------------- */
 #toggleBtn {
-  margin: 10px;
-  color: #FFF;
+  margin: 0px 10px;
+  background-color: #BFABAB;
+  color: #F00;
   padding: 5px 20px;
   cursor: pointer;
 }
