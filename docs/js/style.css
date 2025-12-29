@@ -92,7 +92,7 @@ body {
 	background: var(--bodbg_color);
     color: var(--bodbg_color);
 	overflow-y: hidden;
-	overflow-x: auto;
+	overflow-x: scroll; /* overflow-x: auto; */
 	transition: background 0.6s;
 }
 
@@ -1371,7 +1371,8 @@ footer a {
   /* background-color: #EFC94C; */
 
   width: 93%;        /* 300px × 3개 */
-  overflow-x: hidden; /* 처음엔 스크롤 숨김 */
+  overflow-x: scroll;
+  /* overflow-x: hidden; /* 처음엔 스크롤 숨김 */
   transition: width 0.3s ease;
 }
 
