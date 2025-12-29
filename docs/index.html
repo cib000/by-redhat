@@ -19,8 +19,7 @@
   <link rel='stylesheet' type="text/css" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
   <link rel="stylesheet" type="text/css" href="js/bubbles_style.css">
   <link rel="stylesheet" type="text/css" href="js/flower_style2.css">
-
-  <link rel='stylesheet' type="text/css" href='js/bootstrap.min.css'>
+  <link rel='stylesheet' href='js/bootstrap.min.css'>
   
   <script type='text/javascript' src="js/c79e2f3459.js"></script>
   <script type='text/javascript' src="js/modernizr.js"></script> <!-- Modernizr -->
@@ -250,17 +249,7 @@
             <span>미디어 파이어</span>
           </a>
         </li>
-<!--        <li>
-          <a>
-            <span>FUNCTIONDEFINISIONS</span>
-          </a>
-        </li>
-        <li>
-          <a>
-            <span>GENERALSETUP</span>
-          </a>
-        </li>
--->
+
       </ul>
     </li>
     <li>
@@ -503,6 +492,7 @@
 		축소 <img src="imgs/Fullview.ico" width="30px" height="20px"> 전체</a> </h2>
 		</button>
 
+		<button id="toggleBtn">더보기..</button>
 <!--  -->
 	</div>
 
@@ -510,7 +500,7 @@
 </section>
 <!-- End of board info bar -->
 <!-- Lists container -->
-<section class="lists-container">
+<section class="lists-container stages" id="stages">
 
 
 <!-- --------- 처음부터 라인 여기까지 안보기 ( 예외지정 ) ------------------------------------ -->
@@ -817,12 +807,15 @@
 		<div class="list">
 
 		<h3 class="list-title">추천 공식 홈</h3>
+		<ul class="list-items">
 
 		  <li><h6><br>⚠ 주의 <br><br>
 본 페이지에 안내된 링크는 모두 공식 홈페이지입니다.<br>
 검색 광고, 비공식 다운로드 사이트를 통한 설치는<br>
 악성코드·피싱 피해의 원인이 될 수 있습니다.</h6></li>
-
+		  <li>----</li>
+		  
+		  <li>브라우저</li>
           <li><a href="https://www.google.com/chrome/"> 크롬 (공식)</a></li>
           <li><a href="https://www.mozilla.org/firefox/"> 파이어폭스 (공식)</a></li>
 		  <li><a href="https://brave.com/"> 브레이브 (공식)</a></li>
@@ -833,18 +826,25 @@
 		  <li><a href="https://developer.samsung.com/internet">삼성 인터넷 (공식)</a></li>
 		  
 		  
- 		  <li><a href="https://www.kisa.or.kr/"> 🇰🇷 한국인터넷진흥원 (KISA)</a></li>
+ 		  <li>----</li>
+		  
+		  <li>브라우저</li>
+		  <li><a href="https://www.kisa.or.kr/"> 🇰🇷 한국인터넷진흥원 (KISA)</a></li>
 		  <li><a href="https://www.boho.or.kr/"> 🇰🇷 보호나라</a></li>
 		  <li><a href="https://safebrowsing.google.com/"> Google Safe Browsing</a></li>
 		  <li><a href="https://haveibeenpwned.com/"> 악성 사이트 차단 기술 설명</a></li>
-
-          <li><a href="https://www.bandisoft.com/bandizip"> 반디집 </a></li>
+          <li>----</li>
+		  
+		  <li>압축툴</li>
+		  <li><a href="https://www.bandisoft.com/bandizip"> 반디집 </a></li>
 		  <li><a href="https://www.7-zip.org"> 7-zip </a></li>
 		  <li><a href="https://www.rarlab.com"> WINRAR </a></li>
           <li><a href="https://www.winzip.com"> winzip </a></li>
           <li><a href="https://peazip.github.io"> peazip </a></li>
           <li><a href="https://www.estsoft.com"> 알집 </a></li>
+		  <li>----</li>
 		  
+		  <li>오피스류</li>
 		  <li><a href="https://www.hancom.com"> 한컴오피스 (Hancom Office) </a></li>
 		  <li><a href="https://www.polarisoffice.com"> Polaris Office(폴라리스 오피스) </a></li>
 		  <li><a href="https://www.microsoft.com/microsoft-365"> MS Office(Microsoft 365) </a></li>
@@ -854,7 +854,9 @@
 		  <li><a href="https://workspace.google.com"> Google Docs/Sheets/Slides </a></li>
 		  <li><a href="https://www.onlyoffice.com"> ONLYOFFICE </a></li>		  
 		  <li><a href="https://www.softmaker.com"> SoftMaker Office </a></li>
+		  <li>----</li>
 		  
+		  <li>재생기류</li>
           <li><a href="https://potplayer.daum.net"> 팟플레이어 (PotPlayer) </a></li>
 		  <li><a href="https://www.aimp.ru"> AIMP </a></li>
 		  <li><a href="https://www.videolan.org"> VLC Media Player </a></li>
@@ -863,11 +865,15 @@
 		  <li><a href="https://www.gomlab.com"> 곰플레이어 </a></li>
 		  <li><a href="https://www.foobar2000.org"> foobar2000 </a></li>
 		  <li><a href="https://www.microsoft.com"> Windows Media Player </a></li>
-
+		  <li>----</li>
+		  
+		  <li>노트북 드라이버</li>
           <li><a href="https://www.lenovo.com/kr/ko/laptops/"> 레노버 노트북 </a></li>
           <li><a href="https://kr.msi.com/Laptops/"> MSI 노트북 </a></li>
 		  <li><a href="https://www.asus.com/kr/"> ASUS 노트북 </a></li>
-
+		  <li>----</li>
+		  
+		  <li>메인보드 드라이버</li>
           <li><a href="https://www.samsungsvc.co.kr/download"> 삼성컴퓨터 </a></li>
 		  <li><a href="https://www.lge.co.kr/support/product-manuals"> 엘지컴퓨터 </a></li>
 		  <li><a href="https://www.superstore.co.kr/customer_center/list.html?cc_menu=tbl_cc_download"> 한성 </a></li>
@@ -877,7 +883,9 @@
 		  <li><a href="https://www.dell.com/ko-kr"> Dell </a></li>
 		  <li><a href="https://www.asrock.com/support/index.kr.asp"> Asrock </a></li>
 		  <li><a href="https://www.acer.com/kr-ko/support"> Acer </a></li>
-
+		  <li>----</li>
+		  
+		  <li>프린터 드라이버</li>
           <li><a href="https://support.hp.com/kr-ko/drivers/printers"> HP 프린터 </a></li>
           <li><a href="https://support.brother.com/g/b/productsearch.aspx?c=kr&lang=ko"> 브라더(brother) 프린터 </a></li>
 		  <li><a href="https://www.epson.co.kr/%EA%B3%A0%EA%B0%9D%EC%A7%80%EC%9B%90/sl/s"> 앱손(epson) 프린터 </a></li>
@@ -886,7 +894,9 @@
 		  <li><a href="https://svc.kr.canon/solution/solutionList"> 캐논 프린터 </a></li>
 		  <li><a href="https://www.samsung.com/sec/support/"> 삼성 프린터 </a></li>
 		  <li><a href="https://www.kyoceradocumentsolutions.com/kr/download/index_ko.html"> kyocera 프린터 </a></li>
-
+		  <li>----</li>
+		  
+		  <li>그래픽 드라이버</li>
           <li><a href="https://www.nvidia.com/ko-kr/"> NVIDIA </a></li>
           <li><a href="https://www.amd.com/ko/support/download/drivers.html"> AMD </a></li>
 		  <li><a href="https://www.intel.co.kr/content/www/kr/ko/support.html?"> 인텔 uhd </a></li>
@@ -894,10 +904,9 @@
 
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
+		</div>
 	</div>
 
-
-<!--
 	<div class="list">
 		<div class="list">
 
@@ -911,248 +920,12 @@
 			<li><a href="ftp://127.0.0.1:1010">FTP 접속</a></li>
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
-
-		<div class="list">
-		<h3 class="list-title">주소단축_서비스</h3>
-			<ul class="list-items">
-			<li><a href="https://han.gl/">han.gl</a></li>
-			<li><a href="https://bitly.com/">bitly.com</a></li>
-			<li><a href="http://asq.kr/">asq.kr</a></li>
-			<li><a href="https://tinyurl.com/app">tinyurl.com</a></li>
-			<li><a href="https://www.shrunken.com/index.php?shortUrlDomain=3.ly">3.ly</a></li>
-			<li><a href="https://url.kr/">url.kr</a></li>
-			<li><a href="https://url.vet/">url.vet</a></li>
-			<li><a href="https://c11.kr/">c11.kr</a></li>
-			<li><a href="https://hoy.kr/">hoy.kr</a></li>
-			<li><a href="https://vivoldi.com/">vivoldi.com</a></li>
-			</ul>
-			<button class="add-card-btn btn">....추가하기</button>
 		</div>
 	</div>
 
-		<div class="list">
-		<h3 class="list-title">번역_서비스</h3>
-		<ul class="list-items">
-			<li><a href="https://translate.google.co.kr/?hl=ko&tab=TT">구글번역 서비스</a></li>
-			<li><a href="https://papago.naver.com/">파파고번역 서비스</a></li>
-			<li><a href="https://translators.to/">translators.to 번역 서비스</a></li>
-		</ul>
-		<br />
-		<h3 class="list-title">교통정보_서비스</h3>
-		<ul class="list-items">
-			<li><a href="http://www.roadplus.co.kr/main/main.do#none">교통정보 서비스</a></li>
-			<li><a href="http://www.ulleung.go.kr/Live/live2.htm?liveId=01">독도 서비스</a></li>
-		</ul>
-		<br />
-		<h3 class="list-title">토렌트_서비스</h3>
-		<ul class="list-items">
-			<li><a href="https://grep.kr/">grep.kr</a></li>
-			<li><a href="http://magnet2torrent.com/">magnet2torrent</a></li>
-			<li><a href="http://mgnet.me/">mgnet.me</a></li>
-			<li><a href="https://thepiratebay.org/index.html">thepiratebay.org</a></li>
-			<li><a href="https://btdig.com/index.htm">btdig.com</a></li>
-			<li><a href="https://www.btranking.com/">btranking.com</a></li>
-		</ul>
-		<button class="add-card-btn btn">....추가하기</button>
-	</div>
 
-	<div class="list">
-		<h3 class="list-title">온라인백신_서비스</h3>
-		<ul class="list-items">
-			<li>---< 참고 >---</li>
-			<li><a href="https://www.virustotal.com/gui/home/upload">바이러스토탈</a></li>
-			<li><a href="https://www.virscan.org/">바이러스스캔</a></li>
-			<li><a href="https://www.hybrid-analysis.com/">하이브리드 분석</a></li>
-			<li>---< 치료 >---</li>
-			<li><a href="https://malzero.xyz/">멜웨어 제로</a></li>
-			</ul>
+</section>
 
-
-		<br></br>
-		<h3 class="list-title">온라인_서비스</h3>
-		<ul class="list-items">
-			<li>---< 웹 포토샵 >---</li>
-			<li><a href="https://pixlr.com/kr/editor/">💒 웹포토샵 #1</a></li>
-			<li><a href="https://sumo.app/paint/">💒 웹포토샵 #2</a></li>
-			<li>---< 웹 작업 >---</li>
-			<li><a href="https://onlineconvertfree.com/kr/">💒 변환기</a></li>
-			<li><a href="https://bbom.org/tools/ani.html">💒 웹움짤</a></li>
-			<li>---< 사운드/음성 >---</li>
-			<li><a href="https://talktyper.com/">💒 음성을 글자로</a></li>
-			</ul>
-		<button class="add-card-btn btn">....추가하기</button>
-	</div>
-
-	<div class="list">
-		<h3 class="list-title">생활인_서비스</h3>
-		<ul class="list-items">
-			<li><a href="https://taxvat.calculate.co.kr/">💒 부가가치세 계산기</a></li>
-			<li><a href="http://www.3fish.kr/Study/Chinese/ChineseDictionary.htm">💒 생활옥편</a></li>
-			<li><a href="https://www.yougetsignal.com/tools/open-ports/">💒 내컴 포트확인</a></li>
-			<li><a href="https://bbom.org/tools/ani.html">💒 웹움짤</a></li>
-			<li><a href="https://talktyper.com/">💒 음성을 글자로</a></li>
-			</ul>
-
-
-		<br></br>
-		<h3 class="list-title">웹개발자_참조</h3>
-			<ul class="list-items">
-			<li><a href="https://www.blueb.co.kr/">💒 블루비</a></li>
-			<li><a href="https://codepen.io/">💒 코드펜</a></li>
-			<li><a href="https://www.svgrepo.com/">💒 SVG</a></li>
-			<li><a href="https://fontawesome.com/">💒 fontawesome</a></li>
-			<li><a href="https://www.unphp.net/">💒 인코드/디코드</a></li>
-			<li><a href="https://ko.infobyip.com/">💒 ko.infobyip</a></li>
-			</ul>
-		<button class="add-card-btn btn">....추가하기</button>
-
-	</div>
-
-	<div class="list">
-
-		<h3 class="list-title">크롬 확장기능 모음 </h3>
-<ul class="list-items">
-<li> <A HREF="https://chrome.google.com/webstore/detail/pig-toolbox-super-gesture/oiplkfaidhjklglajdpfehoagkmlcakh/related">Pig Toolbox (Super Gestures)</A></li>
-<li> <A HREF="https://www.strokesplus.com/">StrokesPlus - Free Mouse Gestures for Windows XP to Windows 10</A></li>
-
-<li> <A HREF="https://chrome.google.com/webstore/detail/screengrab/fccdiabakoglkihagkjmaomipdeegbpk">Screengrab!</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?utm_source=chrome-ntp-icon">uBlock Origin</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/adguard-adblocker/bgnkhhnnamicmpeenaelnjfhikgbkllg?utm_source=chrome-ntp-icon"">AdGuard AdBlocker</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/adguard-adblocker/bgnkhhnnamicmpeenaelnjfhikgbkllg/related?utm_source=chrome-ntp-icon">AdGuard 광고차단기</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/https-everywhere/gcbommkclmclpchllfjekcdonpmejbdp?hl=ko">HTTPS Everywhere</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=ko">Tampermonkey</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/mouse-gesture-events/ogjdgjefnddnjhkibmblgiofbjdgnahc?hl=ko">마우스 제스처</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/forecastfox-fix-version/boljdehmejbffnfiiicckjhafabdepnd">Forecastfox (fix version)</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/searchpreview/hcjdanpjacpeeppdjkppebobilhaglfo">SearchPreview</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/roboform-password-manager/pnlccmojcmeohlpggmfnbbiapkmbliob">RoboForm Password Manager</A></li>
-<li> <A HREF="http://www.s3blog.org/forecastfox.html">Forecastfox: Weather for your browser!</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/ultimate-video-saver/afkpfjljjhhonjehpkmgonimjjgaheap?hl=ko">Ultimate Video Downloader</A></li>
-<li> <A HREF="https://play.google.com/store/apps/details?id=com.kiwibrowser.browser&hl=ko">Kiwi Browser - Fast &amp; Quiet</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/password-depot-extension/ggojliohohbachojmcgelnjmnjmjgidn/related">Password Depot Extension</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/tabli/igeehkedfibbnhbfponhjjplpkeomghi">Tabli</A></li>
-<li> <A HREF="https://clear-my-cache.com/en/windows.html">Clear your cache on your Windows Computer</A></li>
-<li> <A HREF="https://chrome.google.com/webstore/detail/inko-%ED%95%9C%EC%98%81%ED%83%80%EB%B3%80%ED%99%98%EA%B8%B0/bijdbcchfaolmleinaghdbnemmdabbmn?hl=ko">Inko 한영타변환기</A></li>
-<li> <A HREF="http://www.nyam.pe.kr/dev/imagine/">Imagine: Windows용 무료 이미지 &amp; 애니메이션 뷰어</A></li>
-<li> <a href="https://abdownloadmanager.com/"> abdownloadmanager</a></li>
-<li> ... </li> 
-<li> <A HREF="https://support.hp.com/kr-ko/drivers/selfservice/hp-envy-touchsmart-m7-j000-notebook-pc-series/5354978/model/5447429?sku=E4S19UAR">HP ENVY TouchSmart m7-j020dx 노트북 PC - 드라이버 다운로드 | HP® 고객 지원</A></li>
-<li> ... </li> 
-<li> ... </li> 
-</ul>
-
-		<button class="add-card-btn btn"> + 추가하기 </button>
-
-	</div>
-
-
-
-	<div class="list">
-		<h3 class="list-title">쇼핑 가격비교 & 쇼핑</h3>
-		<ul class="list-items">
-
-		<li><a href="https://www.danawa.com" target="-blank" title="다나와 가격비교">	다나와 가격비교 </a></li>
-		<li><a href="https://www.enuri.com" target="-blank" title="에누리 가격비교">	에누리 가격비교</a></li>
-		<li> ... </li>
-		<button class="add-card-btn btn"> + 추가하기 </button>
-		<img src="green-grass-field.png" height="50px">
-		<br />
-
-		<li><a href="http://banner.auction.co.kr"> [옥션]   </a></li>
-		<li><a href="http://www.11st.co.kr"> [11번가]   </a></li>
-		<li><a href="http://www.gmarket.co.kr"> [지마켓]   </a></li>
-		<li><a href="http://www.lotteimall.com"> [롯데홈쇼핑]   </a></li>
-		<li><a href="http://www.ssg.com"> [SSG]   </a></li>
-		<li><a href="http://display.cjonstyle.com">  [CJ온스타일]  </a></li>
-		<li><a href="https://www.gsshop.com"> [GSSHOP]   </a></li>
-		<li><a href="https://www.lotteon.com"> [롯데ON]   </a></li>
-		<li><a href="https://hmall.com"> [Hmall]   </a></li>
-		<li><a href="http://emart.ssg.com"> [이마트몰]   </a></li>
-		<li><a href="https://www.skstoa.com"> [SK스토아]   </a></li>
-		<li><a href="http://www.thehyundai.com"> [더현대닷컴]   </a></li>
-		<li><a href="https://www.lotteon.com"> [롯데백화점]   </a></li>
-		<li><a href="http://shinsegaemall.ssg.com"> [신세계몰]   </a></li>
-		<li><a href="http://www.nsmall.com">  [Nsmall]  </a></li>
-		<li><a href="https://affiliate.homeplus.co.kr"> [홈플러스]   </a></li>
-		<li><a href="https://www.gongyoungshop.kr"> [공영쇼핑]   </a></li>
-		<li><a href="http://www.hnsmall.com"> [홈앤쇼핑]   </a></li>
-		<li><a href="http://www.shinsegaetvshopping.com"> [신세계TV쇼핑]   </a></li>
-			
-		<li>....</li>
-		<li><a href="https://www.tstation.com"> [티스테이션]   </a></li>
-		<li><a href="https://mart.baemin.com"> [배민상회]   </a></li>
-		<li><a href="https://www.dongwonmall.com"> [동원몰]   </a></li>
-		<li><a href="https://www.lfmall.co.kr"> [LFmall]   </a></li>
-			
-		<li>[롯데마트]</li>
-		<li><a href="https://lottemartzetta.com"> [ZETTA]   </a></li>
-			
-		<li>....</li>
-		<li><a href="https://www.lge.co.kr"> [LG전자]   </a></li>
-		<li><a href="http://www.e-himart.co.kr"> [하이마트]   </a></li>
-		<li><a href="https://www.etlandmall.co.kr"> [전자랜드]   </a></li>
-		<li><a href="https://ohou.se/store"> [오늘의 집]   </a></li>
-		<li><a href="http://mall.hanssem.com"> [한샘]   </a></li>
-
-		<li> ... </li>
-		<li><a href="https://www.taillist.com"> [ZKUMALL]   </a></li>
-		<li><a href="https://www.fashionplus.co.kr"> [fashionplus]   </a></li>
-		<li><a href="https://www.vitatra.com"> [vitatra]   </a></li>
-		<li><a href="https://www.mariomall.co.kr"> [mariomall]   </a></li>
-		<li><a href="https://aboutpet.co.kr/shop/home"> [aboutpet]   </a></li>
-		<li><a href="https://www.shoppingntmall.com"> [shoppingntmall]   </a></li>
-
-		<li> ... </li>
-		<li><a href="https://www.cuckoo.co.kr"> [cuckooMall]   </a></li>
-		<li><a href="https://www.dongwonmall.com"> [동원Mall]   </a></li>
-		<li><a href="https://www.elandmall.co.kr"> [elandmall]   </a></li>
-		<li><a href="https://www.newpermarket.com">  [뉴퍼마켓]  </a></li>
-
-		<li> ... </li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=503"> [한마음아이티]   </a></li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=253"> [마이피씨샵]   </a></li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=1209"> [엔코퍼레이션]   </a></li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=254"> [디씨나라]   </a></li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=741"> [피씨블로그]   </a></li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=475"> [컴퓨터연구소]   </a></li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=1799"> [우린전자]   </a></li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=1462"> [코브텍]   </a></li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=1195"> [코잇컴]   </a></li>
-		<li><a href="https://shop.danawa.com/virtualestimate/?controller=estimate&methods=miniShop&sellerSeq=1334"> [월드컴퓨터]   </a></li>
-			
-		<li> ... </li>
-		<li>-------------------------------</li>
-		</ul>
-		<br />
-		
-
-		<h3 class="list-title">쇼핑몰 2 </h3>
-		<ul class="list-items">
-
-
-		<li> ... </li>
-		<li><a href="https://link.coupang.com"> [매국 - 쿠팡 - 탈팡]   </a></li>
-		<li> ... </li>
-		
-
-
-		</ul>
-		<button class="add-card-btn btn">....추가하기(수시 갱신함)</button>
-		
-	</div>
-
-
-
-<div class="list">
-<h3 class="list-title"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 4</h3>
-	<ul class="list-items">
-
-<li><a class="btn btn-danger pull-Left btn-block"> 신규항목 </a></li>
-<li>-------------------------------</li>
-	</ul>
-	<button class="add-card-btn btn">....추가하기</button>
-</div>
--->
 
 
 <!-- --------- 맨끝에 여기까지 안보기 ( 예외지정 ) ------------------------------------ -->
@@ -1555,10 +1328,27 @@
   </div>
 
 <!-- ------------------------------------------------------------------------------- -->
-
-
-
 <!-- End of lists container -->
+
+
+
+
+
+<script>
+    // 스테이지 더보기 버튼
+	const stages = document.getElementById("stages");
+	const btn = document.getElementById("toggleBtn");
+
+	btn.addEventListener("click", () => {
+	  stages.classList.toggle("open");
+
+	  btn.textContent = stages.classList.contains("open")
+		? "접기"
+		: "더보기..";
+	});
+</script>
+
+
 <script>
     // 메가메뉴 클릭 이벤트  
 	document.querySelector(".megahamburger").onclick = function () {
@@ -1594,15 +1384,6 @@
 	  }
 
 	}
-
-    // 스테이지 더보기 버튼
-    const toggleBtn = document.getElementById('toggleBtn');
-    const stages = document.querySelector('.stages');
-
-    toggleBtn.addEventListener('click', () => {
-      stages.classList.toggle('collapsed'); // collapsed 클래스 토글
-      toggleBtn.textContent = stages.classList.contains('collapsed') ? '더보기..' : '접기';
-    });
 
 <!-- partial -->
 </script>

@@ -1359,6 +1359,69 @@ footer a {
 
 /* ************************************************ */
 
+.stages {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  /* background-color: #EFC94C; */
+
+  width: 93%;        /* 300px × 3개 */
+  overflow-x: hidden; /* 처음엔 스크롤 숨김 */
+  transition: width 0.3s ease;
+}
+
+.stages.open {
+  min-width: 100%; /*width: 100%; */
+  overflow-x: auto;   /* 더보기 시 스크롤 허용 */
+}
+
+/*
+.stage {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.stage > * {
+  background-color: #e2e4e6;
+  padding: 10px;
+}
+
+.stage header {
+  border-radius: 5px 5px 0 0;
+}
+
+.stage footer {
+  border-radius: 0 0 5px 5px;
+}
+
+.stage ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.stage li {
+  background: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+*/
+
+/* ---------------- 버튼 ---------------- */
+#toggleBtn {
+  margin: 10px;
+  color: #FFF;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+
+/* ************************************************ */
+
+
 /*
 .tooltip {
   position: relative;
