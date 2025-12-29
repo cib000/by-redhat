@@ -143,6 +143,10 @@ a:active {
 	width:50px;
 }
 
+.warning {
+	background-color: #fff;
+}
+
 
 /* Masthead */
 .masthead {
