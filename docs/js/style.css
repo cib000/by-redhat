@@ -1357,7 +1357,38 @@ footer a {
   }
 }
 
+/* ************************************************ */
 
+/*
+.tooltip {
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: #007bff;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip); /* data-tooltip 속성 가져오기 */ /*
+  white-space: pre; /* 줄바꿈 유지 */ /*
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  background: #333;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 3px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+  width: max-content;
+  max-width: 200px;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+*/
 
 
 /* ************************************************ */
