@@ -1295,7 +1295,7 @@ footer a {
 
 .megaMenu.openMenu {
   height: fit-content;
-  padding: 20px;
+  padding: 10px;
   transform: translateY(0px);
 }
 .megaMenu ul{
