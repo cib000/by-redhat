@@ -1,3 +1,21 @@
+body { 
+	background-image: url('./imgs/bg.webp');  /* newsroom.jfif   newsroom.webp   newsroom.jpg   bg.webp   */
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+hr .style6 {
+	background-color: #ccc;
+	border-top: 2px dotted #8c8b8b;
+}
+
+.dots {
+  color: #f00;
+  width: 70%; /* 216px;  */
+}
+
+
 .layout {
   z-index: 1;
 }

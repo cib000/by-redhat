@@ -204,7 +204,6 @@ document.getElementById("btn-collapse").addEventListener("click", () => {
  */
 document.getElementById("btn-toggle").addEventListener("click", () => {
   SIDEBAR_EL.classList.toggle("toggled");
-
   updatePoppersTimeout();
 });
 
