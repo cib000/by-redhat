@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML 파일 목록 보기</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  ul { list-style-type: none; padding-left: 0; }
+  li { margin: 5px 0; }
+  a { text-decoration: none; color: #007BFF; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<h1>폴더 내 HTML 파일 목록</h1>
+<ul id="fileList"></ul>
+
+<script>
+  // 지정 폴더 (서버 환경에서만 동작 가능)
+  const folder = './html_files/'; // HTML 파일들이 들어있는 폴더
+  const files = ['example1.html', 'example2.html', 'example3.html']; // 실제 파일명 배열 예제
+
+  const ul = document.getElementById('fileList');
+
+  files.forEach(file => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = folder + file;
+    a.target = '_blank'; // 새 창에서 열기
+    a.textContent = file;
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+</script>
+</body>
+</html>
