@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Report Up (Markdown Paginator)</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@latest/build/styles/default.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@latest/build/highlight.min.js"></script>
+  </head>
+  <body onload="updateMarkdown()">
+    <div id="markdown_button_panel">
+      <input type="file" id="open_markdown_source" style="display:none;" />
+      <label class="open icon" for="open_markdown_source" title="Open Markdown Source">
+        <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="m 7.4355469,7.71875 c -0.2237649,0 -0.4318529,0.090056 -0.59375,0.2519531 a 0.16351879,0.16351879 0 0 0 -0.00391,0.00391 C 6.6849362,8.1371234 6.5996094,8.3436875 6.5996094,8.5664062 v 7.2714848 c 0,0.217155 0.071199,0.418703 0.2089844,0.576171 a 0.16351879,0.16351879 0 0 0 0.00391,0.0039 c 0.145469,0.155859 0.3553608,0.232422 0.5878906,0.232422 h 9.3710934 c 0.251308,0 0.464085,-0.04413 0.634766,-0.144532 0.183749,-0.108087 0.331525,-0.306769 0.482422,-0.591797 l 2.591797,-4.86914 v -0.002 c 0.06553,-0.122259 0.103515,-0.249791 0.103515,-0.376953 0,-0.137807 -0.05577,-0.273815 -0.15625,-0.367188 -0.103356,-0.103356 -0.249299,-0.144531 -0.404296,-0.144531 h -2.31836 V 9.5859375 c 0,-0.2208082 -0.08643,-0.4241346 -0.242187,-0.5722656 C 17.314809,8.857983 17.112239,8.7734375 16.892578,8.7734375 H 11.609375 V 8.5664062 c 0,-0.2240007 -0.0913,-0.43213 -0.251953,-0.59375 C 11.202368,7.8090045 10.99432,7.71875 10.771484,7.71875 Z m 0,0.6152344 h 3.3359371 c 0.07391,0 0.113517,0.016972 0.15625,0.064453 a 0.16351879,0.16351879 0 0 0 0.01172,0.011719 c 0.04748,0.042734 0.06445,0.082343 0.06445,0.15625 v 0.6601563 a 0.16351879,0.16351879 0 0 0 0.164063,0.1640625 h 5.724609 c 0.06687,0 0.104404,0.01456 0.148438,0.058594 a 0.16351879,0.16351879 0 0 0 0.0059,0.00781 c 0.03884,0.034521 0.05273,0.062032 0.05273,0.1289063 v 0.5683595 h -6.566406 c -0.243046,0 -0.45671,0.04279 -0.6328124,0.140625 a 0.16351879,0.16351879 0 0 0 -0.00195,0.002 C 9.7136852,10.405553 9.566761,10.605883 9.4160156,10.890625 L 7.2050781,15.048828 V 8.5664062 c 0,-0.073907 0.016972,-0.1135166 0.064453,-0.15625 a 0.16351879,0.16351879 0 0 0 0.00586,-0.00586 c 0.05483,-0.05483 0.097179,-0.070312 0.1601563,-0.070312 z m 3.1093751,2.4238276 h 9.298828 c 0.04975,0 0.06378,0.0051 0.08398,0.0098 -0.0064,0.02424 -0.0113,0.05141 -0.04883,0.121094 a 0.16351879,0.16351879 0 0 0 0,0.002 l -2.507812,4.726563 c -0.09681,0.178371 -0.188151,0.295724 -0.25586,0.353515 -0.05079,0.03701 -0.168005,0.07422 -0.355468,0.07422 H 7.4355469 c -0.046824,0 -0.05707,-0.0068 -0.060547,-0.0078 6.26e-4,-0.01076 0.00847,-0.05123 0.046875,-0.115234 a 0.16351879,0.16351879 0 0 0 0.00391,-0.0078 L 9.9335938,11.1875 v -0.002 c 0.09771,-0.179973 0.1889802,-0.292615 0.2519532,-0.339844 a 0.16351879,0.16351879 0 0 0 0.0078,-0.0059 c 0.05151,-0.04292 0.165098,-0.08203 0.351563,-0.08203 z" transform="matrix(1.4856107,0,0,1.4856107,-4.1921186,-2.1015283)" />
+        </svg>
+      </label>
+      <label class="save icon" title="Save Markdown Source" onclick="download();">
+        <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="M 8.9372078,26.282467 6.3985452,23.743805 V 11.647824 q 0,-0.597333 0.3626661,-0.959999 0.3839993,-0.383999 0.9813317,-0.383999 h 13.290646 q 0.597332,0 0.981331,0.383999 0.384,0.362666 0.384,0.959999 v 13.311979 q 0,0.575999 -0.384,0.938665 -0.383999,0.383999 -0.981331,0.383999 z M 9.2998739,25.471802 H 11.85987 v -4.095994 q 0,-0.511999 0.511999,-0.511999 h 5.909324 q 0.511999,0 0.511999,0.511999 v 4.095994 h 2.239997 q 0.511999,0 0.511999,-0.511999 V 11.647824 q 0,-0.511999 -0.511999,-0.511999 h -1.685331 v 6.805322 H 9.3212072 V 11.135825 H 7.742543 q -0.5119992,0 -0.5119992,0.511999 v 11.754648 z m 0.8533321,-8.362654 h 8.383987 v -5.973323 h -8.383987 z m 1.365331,-4.053326 v -0.512 h 5.034659 v 0.512 z m 0,1.087998 v -0.533333 h 3.519995 v 0.533333 z m 0,1.066665 v -0.511999 h 4.586659 v 0.511999 z m 1.301331,10.261317 h 1.621331 v -3.861327 h -1.621331 z" transform="matrix(1.1515724,0,0,1.1515724,-0.58095265,-5.0658828)" />
+        </svg>
+      </label>
+      <label class="print icon" title="Print Formatted Markdown" onclick="window.print();">
+        <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="M 16.173516,5.5121613 C 15.916484,4.5954156 15.316744,4.1413266 14.776978,4.2098683 a 2.0048458,2.0048458 0 0 0 -1.57646,1.0452615 C 12.446559,6.9686732 14.05729,11.955084 14.262915,12.786153 12.85781,17.027173 8.3426231,25.046556 5.6095211,26.862912 A 0.4026827,0.4026827 0 0 1 5.0097809,26.408823 C 5.2839478,25.552051 6.1492872,24.215487 8.5653831,22.66473 a 5.6461255,5.6461255 0 0 0 0.471225,-0.565469 c -2.8701854,1.396538 -6.5885746,3.649847 -4.3524004,5.32912 a 1.9791426,1.9791426 0 0 0 0.5226307,0.257032 c 1.7135434,0.634011 4.1125037,-1.439377 6.5200326,-6.143054 a 44.346503,44.346503 0 0 1 7.830893,-1.996278 c 3.315707,2.25331 5.534745,2.715967 7.042663,2.133362 a 2.2961481,2.2961481 0 0 0 1.268023,-1.396538 c -1.225184,1.507918 -4.095369,0.454089 -6.38295,-0.985287 2.107659,-0.231329 4.283859,-0.368412 5.234875,-0.06854 1.199481,0.376979 1.156642,0.968152 1.148075,1.053829 a 1.5935953,1.5935953 0 0 0 0,-1.268022 C 26.857459,17.369881 22.222324,18.329466 20.534484,18.50082 A 13.391342,13.391342 0 0 1 15.308177,11.980787 C 16.002162,9.3247952 16.738985,7.397059 16.164948,5.4864581 M 15.016874,11.046906 C 14.622759,9.6332332 14.082993,6.6602354 14.699869,5.2551298 A 0.4026827,0.4026827 0 0 1 15.33388,5.1094786 c 1.396538,1.2423189 0.308438,3.6841186 -0.317006,5.9374274 m 3.658415,7.813758 a 33.645424,33.645424 0 0 0 -6.794199,2.116226 52.477266,52.477266 0 0 0 2.827346,-7.548158 17.289653,17.289653 0 0 0 3.975421,5.423364" />
+        </svg>
+      </label>
+      <label class="switch_divider icon" title="Switch divider" onclick="switchPanels(document.getElementById('markdown_switch_divider'));">
+        <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="M 9.6959051,27.789449 Q 9.546572,27.682783 9.4185722,27.576116 9.3119057,27.46945 9.1625726,27.320117 7.9892411,26.125452 7.3492421,24.610788 6.7305764,23.07479 6.7305764,21.410793 q 0,-1.877331 0.7679988,-3.498661 0.7679988,-1.621331 2.13333,-2.794663 1.3653308,-1.194664 3.1146618,-1.727997 l -0.106667,-2.709329 4.287994,3.541328 -4.010661,4.287993 -0.106666,-3.157328 q -1.258665,0.490666 -2.19733,1.429331 -0.9173319,0.917332 -1.4293311,2.13333 -0.4906659,1.194665 -0.4906659,2.538662 0,1.258665 0.4906659,2.45333 0.4906659,1.173331 1.4079981,2.090663 0.064,0.08533 0.127999,0.149333 0.08533,0.064 0.170667,0.149333 z m 7.9573209,4.437327 -4.245327,-3.562661 3.989327,-4.287994 0.106667,3.178662 q 1.258664,-0.490666 2.175996,-1.407998 0.917332,-0.917332 1.429331,-2.111996 0.512,-1.215998 0.512,-2.559996 0,-1.279998 -0.490666,-2.474663 -0.469333,-1.194665 -1.386665,-2.111997 -0.08533,-0.064 -0.170666,-0.128 -0.064,-0.08533 -0.149333,-0.170666 l 1.258664,-1.429331 q 0.106667,0.08533 0.234667,0.192 0.127999,0.106666 0.319999,0.298666 1.130665,1.109331 1.727997,2.645329 0.618666,1.514664 0.618666,3.135995 0,1.87733 -0.767999,3.519995 -0.767998,1.642664 -2.13333,2.837328 -1.343998,1.173332 -3.135995,1.706664 z" transform="matrix(1.1687376,0,0,1.1687376,-1.7148243,-9.0734648)" />
+        </svg>
+      </label>
+      <label class="sync_scroll icon" title="Sync Scroll is ON" onclick="switchSyncScroll()">
+        <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="m 7.3707697,5.6535489 a 0.86220501,0.86220501 0 0 0 -0.0421,0.00842 C 6.9351559,5.6640623 6.5344016,5.7318775 6.13977,5.8825721 3.9091515,6.7343596 3.2087609,9.6201654 4.7993106,11.401021 a 0.86220501,0.86220501 0 0 0 1.2158438,0.06905 0.86220501,0.86220501 0 0 0 0.069044,-1.217528 C 5.2606726,9.3304766 5.6011872,7.9334918 6.7561119,7.4924705 6.9560409,7.4161253 7.1568895,7.3800057 7.3522458,7.374591 a 0.86220501,0.86220501 0 0 0 0.018524,0.00337 h 0.1347195 c 0.8663842,0.05386 1.5891747,0.7588796 1.5896905,1.72441 v 13.795281 c 0.00101,1.889403 1.5389392,3.279353 3.2837882,3.379777 a 0.86220501,0.86220501 0 0 0 0.165031,0.06904 h 12.07087 c 1.458156,6.96e-4 2.634156,-0.888676 3.14907,-2.039316 0.514911,-1.150642 0.394495,-2.62131 -0.577611,-3.708156 A 0.86229123,0.86229123 0 0 0 26.544727,20.311034 H 25.477075 V 9.1057369 9.1023689 c 0.006,-1.8968428 -1.551977,-3.4548856 -3.44882,-3.44882 z m 2.9739333,1.72441 h 11.683552 a 0.86229123,0.86229123 0 0 0 0.0034,0 c 0.962507,-0.00404 1.725078,0.758541 1.721042,1.7210421 a 0.86229123,0.86229123 0 0 0 0,0.00337 v 11.208663 h -9.278802 a 0.86229123,0.86229123 0 0 0 -0.643286,1.436447 c 0.823526,0.922059 0.483009,2.319045 -0.671913,2.760067 -1.154926,0.441021 -2.338408,-0.373619 -2.339068,-1.609899 V 9.1023689 c -3.41e-4,-0.6369788 -0.17688,-1.2224125 -0.474887,-1.72441 z m 3.923706,5.1732301 a 0.86220501,0.86220501 0 0 0 -0.862205,0.862205 0.86220501,0.86220501 0 0 0 0.862205,0.862205 h 6.897641 a 0.86220501,0.86220501 0 0 0 0.862205,-0.862205 0.86220501,0.86220501 0 0 0 -0.862205,-0.862205 z m 0,3.44882 a 0.86220501,0.86220501 0 0 0 -0.862205,0.862205 0.86220501,0.86220501 0 0 0 0.862205,0.862205 h 6.897641 a 0.86220501,0.86220501 0 0 0 0.862205,-0.862205 0.86220501,0.86220501 0 0 0 -0.862205,-0.862205 z m 1.593059,6.035435 h 8.753402 1.422975 c 0.314138,0.513242 0.373875,1.069322 0.151559,1.566114 -0.263327,0.58844 -0.79648,1.020873 -1.574534,1.020501 h -9.199661 c 0.459562,-0.784397 0.669088,-1.695024 0.446259,-2.586615 z" />
+        </svg>
+      </label>
+      <label class="syntax_guides icon" title="Syntax Guides" onclick="toggleGuide()">
+        <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="M 16 2.0058594 A 13.994007 13.994007 0 0 0 2.0058594 16 A 13.994007 13.994007 0 0 0 16 29.994141 A 13.994007 13.994007 0 0 0 29.994141 16 A 13.994007 13.994007 0 0 0 16 2.0058594 z M 16 4.0625 A 11.93716 11.93716 0 0 1 27.9375 16 A 11.93716 11.93716 0 0 1 16 27.9375 A 11.93716 11.93716 0 0 1 4.0625 16 A 11.93716 11.93716 0 0 1 16 4.0625 z M 15.943359 8.34375 C 15.857619 8.3441983 15.771985 8.3467225 15.685547 8.3515625 C 12.919545 8.5066703 10.798179 10.632502 10.953125 13.398438 L 14.34375 13.398438 C 14.29054 12.449899 14.973331 11.795465 15.921875 11.742188 C 16.870405 11.688978 17.6027 12.369814 17.65625 13.318359 L 17.65625 13.398438 C 17.66305 13.617098 17.655474 13.918636 17.498047 14.107422 C 17.116335 14.564998 16.658085 14.940565 16.314453 15.210938 C 15.931418 15.499109 15.544588 15.878141 15.132812 16.394531 C 14.72104 16.910838 14.34375 17.599243 14.34375 18.445312 C 14.33196 19.335035 15.110169 20.179687 16 20.179688 C 16.889763 20.179688 17.66806 19.335033 17.65625 18.445312 L 17.734375 18.445312 C 17.817525 18.341064 18.043618 18.134497 18.365234 17.892578 C 20.413126 16.339882 21.046705 15.442046 21.046875 13.082031 C 20.896766 10.402484 18.60139 8.3298512 15.943359 8.34375 z M 16 21.835938 C 15.069914 21.835937 14.34375 22.560137 14.34375 23.490234 C 14.34375 24.420317 15.069905 25.226562 16 25.226562 C 16.930076 25.226563 17.65625 24.420329 17.65625 23.490234 C 17.65625 22.560145 16.930096 21.835937 16 21.835938 z " />
+        </svg>
+      </label>
+      <label class="options icon" title="Options">
+        <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="m 16,3.046875 c -0.407147,0 -0.815102,0.019625 -1.214844,0.056641 l -0.751953,3.875 c -0.615811,0.1310917 -1.216355,0.3252929 -1.792969,0.578125 L 9.40625,4.8417969 C 8.6863466,5.2674466 8.063227,5.7942042 7.4414062,6.3457031 L 9.1171875,9.8710938 C 8.7022602,10.334885 8.334407,10.840179 8.0195312,11.376953 l -3.875,-0.519531 c -0.3267688,0.763349 -0.5789981,1.555053 -0.7519531,2.367187 l 3.4121094,1.851563 C 6.7701845,15.38345 6.7485627,15.690805 6.7460938,16 c 0,0.320164 0.027149,0.614875 0.058594,0.925781 l -3.4121094,1.851563 c 0.179514,0.823543 0.4225369,1.614176 0.7519531,2.371094 l 3.875,-0.521485 c 0.3146076,0.536693 0.6868102,1.043093 1.0976563,1.503906 l -1.6757813,3.527344 c 0.6218209,0.551496 1.2449375,1.078256 1.9648438,1.503906 l 2.833984,-2.716797 c 0.5663,0.253527 1.173005,0.44303 1.792969,0.578126 l 0.751953,3.875 c 0.80763,0.07477 1.622059,0.07477 2.429688,0 l 0.751953,-3.875 c 0.618119,-0.135114 1.228515,-0.324583 1.792969,-0.578126 l 2.833984,2.720704 c 0.718056,-0.425654 1.344876,-0.956313 1.964844,-1.507813 l -1.675782,-3.527344 c 0.410845,-0.460813 0.783047,-0.967213 1.097657,-1.503906 l 3.875,0.521485 c 0.327509,-0.763874 0.57852,-1.558265 0.751953,-2.371094 l -3.41211,-1.851563 c 0.03154,-0.310906 0.05859,-0.605616 0.05859,-0.925781 0,-0.320164 -0.02708,-0.612918 -0.05859,-0.923828 l 3.41211,-1.851563 c -0.173397,-0.812837 -0.424433,-1.607227 -0.751953,-2.371093 l -3.875,0.521484 C 23.665002,10.838151 23.298378,10.334801 22.882812,9.8710938 L 24.558594,6.3417969 C 23.93862,5.7903039 23.3118,5.2654966 22.59375,4.8398438 L 19.755859,7.5566406 C 19.179827,7.3039672 18.581965,7.1097809 17.966797,6.9785156 l -0.755859,-3.875 C 16.807975,3.0657762 16.404728,3.0473761 16,3.046875 Z m 0,7.402344 C 19.066102,10.448799 21.552075,12.933898 21.552734,16 21.553154,19.066864 19.066864,21.553154 16,21.552734 12.933136,21.553154 10.446846,19.066864 10.447266,16 10.447925,12.933898 12.933898,10.448799 16,10.449219 Z" />
+        </svg>
+      </label>
+      <label class="spacer"></label>
+      <label class="zoom_minus icon" title="Smaller">
+        <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="m 4.0703125,13.373047 v 5.253906 H 27.929688 v -5.253906 z" />
+        </svg>
+      </label>
+      <input class="zoom_value" title="Zoom" type="text" value="100" size="3"/>
+      <label class="zoom_plus icon" title="Bigger">
+        <svg width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="M 13.373047 4.0703125 L 13.373047 13.373047 L 4.0703125 13.373047 L 4.0703125 18.626953 L 13.373047 18.626953 L 13.373047 27.929688 L 18.626953 27.929688 L 18.626953 18.626953 L 27.929688 18.626953 L 27.929688 13.373047 L 18.626953 13.373047 L 18.626953 4.0703125 L 13.373047 4.0703125 z" />
+        </svg>
+      </label>
+    </div>
+    <div class="divider_container" id="markdown_switch_divider" direction="horizontal">
+      <div class="divider_panel">
+        <textarea id="markdown_source" wrap="off" dir="auto">--theme dark green
+
+--text-font Exo 2
+
+--title-font Exo-2
+
+--code-font Fira Code
+
+--header-no
+
+--footer-no
+
+[markdown_icon]: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4KCjxzdmcKICAgdmVyc2lvbj0iMS4xIgogICBpZD0iTGF5ZXJfMSIKICAgeD0iMHB4IgogICB5PSIwcHgiCiAgIHdpZHRoPSI1MiIKICAgaGVpZ2h0PSIzMiIKICAgdmlld0JveD0iMCAwIDUyIDMyIgogICBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyMDggMTI4IgogICB4bWw6c3BhY2U9InByZXNlcnZlIgogICBzb2RpcG9kaTpkb2NuYW1lPSJtYXJrZG93bi5zdmciCiAgIGlua3NjYXBlOnZlcnNpb249IjEuMi4yIChiMGE4NDg2NTQxLCAyMDIyLTEyLTAxKSIKICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiCiAgIHhtbG5zOnNvZGlwb2RpPSJodHRwOi8vc29kaXBvZGkuc291cmNlZm9yZ2UubmV0L0RURC9zb2RpcG9kaS0wLmR0ZCIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcwogICBpZD0iZGVmczkiIC8+PHNvZGlwb2RpOm5hbWVkdmlldwogICBpZD0ibmFtZWR2aWV3NyIKICAgcGFnZWNvbG9yPSIjZmZmZmZmIgogICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgYm9yZGVyb3BhY2l0eT0iMS4wIgogICBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMiIKICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAuMCIKICAgaW5rc2NhcGU6cGFnZWNoZWNrZXJib2FyZD0iMCIKICAgaW5rc2NhcGU6ZGVza2NvbG9yPSIjZDFkMWQxIgogICBzaG93Z3JpZD0iZmFsc2UiCiAgIGlua3NjYXBlOnpvb209IjE0Ljc1IgogICBpbmtzY2FwZTpjeD0iNTIuNTQyMzcyIgogICBpbmtzY2FwZTpjeT0iMTkuNTI1NDIzIgogICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE5MjAiCiAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjEwMTEiCiAgIGlua3NjYXBlOndpbmRvdy14PSIxOTIwIgogICBpbmtzY2FwZTp3aW5kb3cteT0iMzIiCiAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiCiAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9IkxheWVyXzEiIC8+CjxwYXRoCiAgIGZpbGw9Im5vbmUiCiAgIHN0cm9rZT0iI2ZmZmZmZiIKICAgc3Ryb2tlLXdpZHRoPSIyLjUiCiAgIGQ9Im0gMy43NSwxLjI1MDAwMDEgaCA0NC41IGMgMS4zODA3NSwwIDIuNSwxLjExOTI0OTkgMi41LDIuNDk5OTk5OSB2IDI0LjUgYyAwLDEuMzgwNzUgLTEuMTE5MjUsMi41MDAwMDEgLTIuNSwyLjUwMDAwMSBIIDMuNzUgQyAyLjM2OTI1LDMwLjc1MDAwMSAxLjI1MDAwMDEsMjkuNjMwNzUgMS4yNTAwMDAxLDI4LjI1IFYgMy43NSBDIDEuMjUwMDAwMSwyLjM2OTI1IDIuMzY5MjUsMS4yNTAwMDAxIDMuNzUsMS4yNTAwMDAxIFoiCiAgIGlkPSJwYXRoMiIKICAgc3R5bGU9ImZpbGw6IzAwMDAwMDtmaWxsLW9wYWNpdHk6MSIgLz4KPHBhdGgKICAgZmlsbD0iI0ZGRkZGRiIKICAgZD0iTSA3LjQ5OTk5OTksMjQuNSBWIDcuNDk5OTk5OSBIIDEyLjUgbCA1LDYuMjUwMDAxMSA1LC02LjI1MDAwMTEgaCA1IFYgMjQuNSBoIC01IHYgLTkuNzUgbCAtNSw2LjI1IC01LC02LjI1IFYgMjQuNSBaIE0gMzguNzUsMjQuNSAzMS4yNSwxNi4yNSBoIDUuMDAwMDAxIFYgNy40OTk5OTk5IEggNDEuMjUgViAxNi4yNSBoIDUgeiIKICAgaWQ9InBhdGg0IgogICBzdHlsZT0iZmlsbDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjI1IiAvPgo8L3N2Zz4K
+
+# Report Up
+
+A Markdown Paginator
+
+> #### ⚠️⚠️ Work in Progress ⚠️
+> ###### Syntax Guides
+>
+> * I want to format my markdown outside of the .paging structure
+>   * Identify CSS variables for .paging structure
+>   * Identify and move the other variables to the root
+>   * Improve modularity for the markdown style
+>     * Installing becomes a simple copy-paste operation
+>     * I can write the Syntax Guides with Markdown
+> * Put these guides
+>   * Markdown as link
+>   * Mermaid.js as link
+>   * LaTeX Guide as link
+>   * ReportUp
+>
+> ---
+> ###### Zoom auto-fit width
+> 
+> It explains itself
+> * Useful for mobile devices when changing orientation
+> * Useful for desktop devices when changing the size of the window
+> * Useful for reading mode. Should I create a reading mode?
+> 
+> ---
+> ###### My palette
+> 
+> * Analyze the colors of the CSS with different styles
+>   * Text are easy to read?
+>   * Colors must not strain the eyes
+>   * Colors must remains vivid
+> 
+> ---
+> ###### Custom scrollbar
+> 
+> * CSS-only customization produces different results across browsers.
+> * The thickness of the scrollbar changes size with zoom: I don't like it!
+> * Scrollbar has no dedicated space. This become a problem on mobile devices.
+> * Redesigning the scrollbar can fix these aesthetic problems.
+> * Make it in a [separate pen](https://codepen.io/tonywhite1985/pen/pomVXxp).
+> * The textarea element can't handle inner elements as real elements. This need a workaround.
+> * Working on a custom scrollbar has a lower priority... But some improvement are useful to better coding!
+
+## Index
+
+> #### ℹ️ℹ️ Automatic Index
+> ---
+> The `--index` command creates a book index by reading H2 H3 H4 H5 H6 elements.
+
+--index
+
+--new-page
+
+--header-yes
+
+--footer-yes
+
+## Features
+ 
+### 🚀 Live editor
+
+* Text area
+  * Does not lose focus on the tab
+  * Take the font from `--code-font` command
+* Button panel
+  * 📂 Open Markdown Source
+  * 💾 Save Markdown Source
+  * 🖨️ Print Formatted Markdown
+  * 🔄 Switch divider
+  * 📜 Sync scroll ON/OFF (V2: ok with percentage)
+  * 📚 Syntax guides 🚧
+    * ![M↓][markdown_icon] Markdown [Official guide](https://daringfireball.net/projects/markdown/syntax) 🚧
+    * 📊 diagrams with [mermaid.js](https://mermaid.js.org/config/usage.html#simple-full-example) 🚧
+    * ⨍⨀ℝ⩋⊎∠⩜ with [LaTeX.js](https://latex.js.org/usage.html#in-the-browser) 🚧
+    * 📖 Page formatting (issues on Firefox Mobile) 🚧
+  * ⚙️ Options (I need this?) 🚧
+* The preview
+  * Real time updates
+  * The mesmerizing waiting animation says "the time you feel is inversely proportional to the time you wait"
+  * The content is already paginated
+  * Take the font from `--text-font`, `--title-font` and `--code-font` commands
+  * Change the font size organically with the `--font-size` command (default 4mm)
+* The divider
+  * Works on both desktop and mobile devices
+  * Is magnetized to start, 1/4, center, 3/4, end.
+
+### 🖨️ Ready to print
+
+* Can print color Emoji (on Firefox Desktop and Chrome Mobile)
+* Text color is respected
+* Print all the scrollable content
+* The H is no longer alone when the next element is moved to the next page.
+* header and footer? [paged.js](https://pagedjs.org/) is too big. I write [my own](https://codepen.io/tonywhite1985/pen/MWRzByO) all within my hands
+  * Default: request zero margins
+  * Default: force to print the page background
+  * Default: header and footer on all pages
+  * Default: A4 portrait page format
+  * Default: title from first H1
+  * Default: The footer shows page numbers
+  * `--new-page` break the page
+  * `--header-no` disable the header from this page onwards
+  * `--header-yes` enable the header from this page onwards
+  * `--header-text My title` to write `My title` to the header from this page onwards
+  * `--footer-no` disable the footer from this page onwards
+  * `--footer-yes` enable the footer from this page onwards  
+In combiation with `--binding-side` command, the text change alignment
+  * From `--A0` to `--A10` force page dimensions (default is A4)
+  * From `--A0 landscape` to `--A10 landscape` force page to landscape orientation (default is portrait)
+  * `--margin-top 10mm` to set a custom margin
+  * `--margin-bottom 10mm` to set a custom margin
+  * `--margin-left 20mm` to set a custom margin
+  * `--margin-right 20mm` to set a custom margin
+  * `--binding-side 10mm` additional margin for book bindings
+  * `--binding-top 10mm` additional margin for book bindings
+  * Formating P, IMG, HEADING and TABLE
+    * `:---` Set alignment to the **left** from this point onwards
+    * `:---:` Set alignment to the **center** from this point onwards
+    * `---:` Set alignment to the **right** from this point onwards
+    * `:::` Reset alignment from this point onwards
+    * `:100%:` Set width to 100% from this point onwards
+    * `:---%:` Reset width from this point onwards
+  * `--index` Analyze the document to write a book index
+    * Ignores H1 elements: it is the title of the document.
+    * You can put as many `--index` as you want.
+    * Clicking on index, the page scrolls to the paragraph.
+
+### 🤓 Highlight code
+
+* Imported [highlightjs.org](https://highlightjs.org/) library. Check for themes?
+
+### 👁️ Great palette for dark/light themes
+
+* Easy to read on both dark and light backgrounds 🚧
+* Doesn't strain the eyes
+* Vivid colors
+
+### 🌈 Theme support
+
+* `--theme dark green` to set a custom dark theme with green accents (default is light theme with dark accents)
+* Use these emoji as first character in the title of quote to simulate messages  
+The emoticon will not be displayed.  
+  * `> #### ⛔Error`
+  * `> #### ⚠️Warning`
+  * `> #### ℹ️Info`
+* If you want to insert emoticons, do it after the first one.
+  * `> #### ⛔⛔Error` shows the emoticon at start
+  * `> #### ⚠️Warning⚠️` shows the emoticon at end
+  * `> #### ℹ️☝️ Info` shows another emoticon you choose
+* Page color
+  * light (default)
+  * dark
+* Accents
+  * dark (default)
+  * red, orange, yellow, green, lime, minty, cyan, sky, blue, purple, pink, magenta, dark, light
+* UI theme change with your document
+
+## Give it a name
+
+> ##### Question  
+> What kind of name do I like to use?
+>
+> ---
+> ##### Response  
+> I like to name with the primary concept of the project.  
+> Actually I think that "ReportUp" is a good name.
+
+> ##### Question  
+> So, why I decide to write another Markdown editor?
+>
+> ---
+> ##### Response  
+> I'm looking for a Markdown editor that can print to PDF with **my CSS** and **my color palette**.  
+> It can print presentable text for technical documentation.  
+> It has some important features (for me) to format page and text.  
+> It must have **few dependencies**, then can be installed easily with copy-paste, without frameworks or other amenities.
+
+--new-page
+
+## Table
+
+This is a table
+
+| Month    | Savings | Useless info |
+|:--------:|:-------:|:------------:|
+| January  | $250    | bla bla blah |
+| February | $80     | super blah   |
+| March    | $420    | mega blah    |
+
+---:
+
+With `---:` align table to the right
+
+| Month    | Savings | Useless info |
+|:--------:|:-------:|:------------:|
+| January  | $250    | bla bla blah |
+| February | $80     | super blah   |
+| March    | $420    | mega blah    |
+
+:---:
+
+With `:---:` align table to the center
+
+| Month    | Savings | Useless info |
+|:--------:|:-------:|:------------:|
+| January  | $250    | bla bla blah |
+| February | $80     | super blah   |
+| March    | $420    | mega blah    |
+
+:::
+
+With `:100%:` set full width
+
+:100%:
+
+| Month    | Savings | Useless info |
+|:--------:|:-------:|:------------:|
+| January  | $250    | bla bla blah |
+| February | $80     | super blah   |
+| March    | $420    | mega blah    |
+
+:---%:
+
+:::
+
+`:::` reset align formatting.  
+`:---%:` reset width formatting.
+
+Fare l'acca H è molto importante per l'igiene intima altrui.
+
+--new-page
+
+## Text formatting
+
+I choose some fonts to use with Markdown. There is a table with the relative features.
+
+| Font name            | Easy to read | Monospaced | Handwriting | For books | Description                       |
+|:---------------------|:------------:|:----------:|:-----------:|:---------:|:----------------------------------|
+| Arial                |       ✓      |            |             |     ✓     | A web safe font                   |
+| Borel                |              |            |      ✓      |           | Classic cursive                   |
+| Courier              |       ✓      |     ✓      |             |           | A web safe font                   |
+| Garamond             |       ✓      |            |             |     ✓     | A web safe font                   |
+| Exo 2                |       ✓      |            |             |           | Technological/futuristic          |
+| Fira Code            |       ✓      |     ✓      |             |           | Programming code with ligatures   |
+| Fuzzy Bubbles        |              |            |      ✓      |           | Juvenile style: playful and loose |
+| Georgia              |       ✓      |            |             |     ✓     | A web safe font                   |
+| Noto Sans Mono       |       ✓      |     ✓      |             |           | Programming code                  |
+| Open Sans            |       ✓      |            |             |     ✓     | Excellent legibility              |
+| Times                |       ✓      |            |             |     ✓     | A web safe font                   |
+| Heebo                |       ✓      |            |             |     ✓     | Hebrew                            |
+| Japanese             |       ✓      |            |             |     ✓     | Japanese                          |
+| Amiri                |       ✓      |            |             |     ✓     | Harab                             |
+| Bengali              |       ✓      |            |             |     ✓     | Bengali                           |
+| Hong Kong            |       ✓      |            |             |     ✓     | Traditional Chinese variant       |
+| Traditional Chineese |       ✓      |            |             |     ✓     | Traditional Chineese              |
+| Simplified Chineese  |       ✓      |            |      ✓      |     ✓     | Simplified Chineese               |
+| Mukta                |       ✓      |            |             |     ✓     | Indian                            |
+| Tiro Kannada         |       ✓      |            |             |     ✓     | Used for Indian traditional books |
+| Hanuman              |       ✓      |            |             |     ✓     | Khmer                             |
+| Korean               |       ✓      |            |             |     ✓     | Korean                            |
+| Malayalam            |       ✓      |            |             |     ✓     | Indic Malayalam                   |
+| Noto Sans Myanmar    |       ✓      |            |             |     ✓     | Malayalam                         |
+| Noto Sans Oriya      |       ✓      |            |             |     ✓     | Indic Oriya                       |
+| Abhaya Libre         |       ✓      |            |             |     ✓     | Sinhala                           |
+| Catamaran            |       ✓      |            |             |     ✓     | Tamil                             |
+| Emoji                |              |            |             |           | Fallback for all fonts            |
+
+--new-page
+
+:75%:
+
+| Change Font    | Description          | Default | Usable |
+|:---------------|:---------------------|:--------|:------:|
+| `--text-font`  | Font for the text    | Arial   |    ✓   |
+| `--title-font` | Font for heads H1-H6 | Georgia |    ✓   |
+| `--code-font`  | Font for code        | Courier |    ✓   |
+
+:---%:
+
+> #### ℹ️ℹ️ How to use
+> ---
+>
+> `--title-font Exo 2` to set Exo 2 as title font.  
+> It is not case sensitive and you can write '-' instead space:
+> * `--title-font exo 2`
+> * `--title-font exo-2`
+> * `--title-font EXO-2`
+>
+> ---
+> ###### Font Emoji
+>
+> The Emoji font is selectable like any other font.  
+> But you should not use it because it is the fallback font of all available fonts.
+
+:75%:
+
+| Change Size    | Description          | Default  | Usable |
+|:---------------|:---------------------|:---------|:------:|
+| `--font-size`  | Global size          | 4mm      |    ✓   |
+
+:---%:
+
+> #### ℹ️ℹ️ Global command
+> ---
+> The command `--font-size` changes organically the size of all fonts.
+
+--new-page
+
+## Quote
+
+> > > Hello, this is a quote!
+> >
+> > Hi! Nice to nest you!
+>
+> Me too!
+
+> #### ⛔⛔ Error theme!
+> 
+> Works with an H1-H6 with the ⛔ emoji
+
+> #### ⚠️Warning theme ⚠️
+> 
+> Put the emoji anywhere
+
+> > #### ℹ️☝️ Info theme!
+> > 
+> > You can show another emoticon instead ℹ️!
+>
+> And you can nest it!
+
+--new-page
+
+## Unordered list
+
+* First
+* Something
+* Last
+
+## Ordered list
+
+1. First
+2. Second
+3. Third
+4. Ever
+
+## Link
+
+This is an [example link](https://example.org/ "simple info").
+
+## Code
+
+```javascript
+var pizza = 30;
+```
+
+## Inline code
+
+The `pizza` variable is for ninjas 🐢
+
+--new-page
+
+## Automatic cutting
+
+In this example: UL
+
+Cut only the first level of UL: `.content > ul`  
+This can be obtained from `updateMarkdown()` function
+
+The cutted element must have this inline style:
+
+```css
+margin-block-end: 0mm;
+```
+
+Close UL and open UL before the next piece of UL
+```html
+</ul>
+<p>DEBUG! DELETE ME IF THIS WORKS!<br>
+This feature, even if works, is not safe!<br>
+The user can't edit the new page format
+</p>
+<ul style="margin-block-start: 0mm;">
+```
+
+The next piece of UL will have this inline style
+
+```css
+margin-block-start: 0mm;
+```
+
+> #### ⛔⛔ This feature will not be implemented ⛔
+>
+> ---
+> 
+> This feature, even if works, is **not safe**!
+> 
+> The user cannot manage the formatting of the next page.  
+> The algorithm becomes heavier, because it has to recover the simpleFormatting history.  
+> This makes using the **feature useless and inconvenient**.
+
+> #### ℹ️ℹ️ Info  
+> ---
+>
+> The user must break manually in the Markdown source.
+
+## Emoji
+
+Google Chrome and Chromium can't print color emoji beecause it is a feature! But we all wnow the truth: this is a bug.  
+I'm looking for one of these solutions:
+
+1. Use [jsPDf](https://rawgit.com/MrRio/jsPDF/master/docs/index.html) to export the document (increase compatibility?)
+2. Change emojis with svg images (the emoji list may change!)
+
+
+😀😃😄😁😆😅😂🤣😭😉😗😙😚😘🥰😍🤩🥳🙃🙂🥲😊☺️😌😏🤤😋😛😝😜🤪🥴😔🥺😬😑😐😶😶‍🌫️🤐🤔🤫🤭🥱🤗😱🤨🧐😒🙄😮‍💨😤😠😡🤬😞😓😟😥😢☹️🙁😕😰😨😧😦😮😯😲😳🤯😖😣😩😫😵😵‍💫🥶🥵🤢🤮😴😪🤧🤒🤕😷🤥😇🤠🤑🤓😎🥸🤡😈👿👻💀☠️👹👺🎃💩🤖👽👾🌚🌝🌞🌛🌜🙈🙉🙊😺😸😹😻😼😽🙀😿😾💫⭐️🌟✨💥💨💦💤🕳️🔥💯🎉❤️🧡💛💚💙💜🤎🖤🤍💘💝💖💗💓💞💕💌💟♥️❣️❤️‍🩹💔❤️‍🔥💋🫂👥👤🗣️👣🧠🫀🫁🩸🦠🦷🦴👀👁️👄👅👃👂🦻🦶🦵🦿🦾💪👏👍👎🙌👐🤲🤜🤛✊👊👋🤚🖐️✋🖖🤟🤘✌️🤞🤙🤌🤏👌👉👈☝️👆👇🖕✍️🤳🙏💅🤝
+
+🙇🙋💁🙆🙅🤷🤦🙍🙎🧏💆💇🧖🛀🛌🧘🧍🤸🧎🧑‍🦼🧑‍🦽🧑‍🦯🚶🏃⛹️🤾🚴🚵🧗🏋️🤼🤹🏌️🏇🤺⛷️🏂🪂🏄🚣🏊🤽🧜🧚🧞🧝🧙🧛🧟🦸🦹🥷🧑‍🎄👼💂👸🤵👰🧑‍🚀👷👮🕵️🧑‍✈️🧑‍🔬🧑‍⚕️🧑‍🔧🧑‍🏭🧑‍🚒🧑‍🌾🧑‍🏫🧑‍🎓🧑‍💼🧑‍⚖️🧑‍💻🧑‍🎤🧑‍🎨🧑‍🍳👳🧕👲👶🧒🧑🧓🧑‍🦳🧑‍🦰👱🧑‍🦱🧑‍🦲🧔🕴️💃🕺👯🧑‍🤝‍🧑👭👬👫💏👩‍❤️‍💋‍👨👨‍❤️‍💋‍👨👩‍❤️‍💋‍👩💑👩‍❤️‍👨👨‍❤️‍👨👩‍❤️‍👩🤰🤱🧑‍🍼
+
+💐🌹🥀🌺🌷🌸💮🏵️🌻🌼🍂🍁🍄🌾🌱🌿🍃☘️🍀🪴🌵🌴🌳🌲🪵🪨⛰️🏔️❄️☃️⛄️🌫️🌡️🔥🌋🏜️🏞️🏝️🏖️🌅🌄🌈🌊🌬️🌀🌪️⚡️☔️💧☁️🌨️🌧️🌩️⛈️🌦️🌥️⛅️🌤️☀️🌞🌝🌚🌜🌛⭐️🌟✨💫🌙☄️🕳️🌠🌌🌍🌎🌏🪐🌑🌒🌓🌔🌕🌖🌗🌘🙈🙉🙊🐵🦁🐯🐱🐶🐺🐻🐻‍❄️🐨🐼🐹🐭🐰🦊🦝🐮🐷🐽🐗🦓🦄🐴🐲🦎🐉🦖🦕🐢🐊🐍🐸🐇🐁🐀🐈🐈‍⬛🐩🐕🦮🐕‍🦺🐖🐎🐄🐂🐃🦬🐏🐑🐐🦌🦙🦥🦘🐘🦣🦏🦛🦒🐆🐅🐒🦍🦧🐪🐫🐿️🦫🦨🦡🦔🦦🦇🪶🐦🐓🐔🐣🐤🐥🦅🦉🦜🕊️🦤🦢🦆🦩🦚🦃🐧🦭🦈🐬🐋🐳🐟🐠🐡🦐🦞🦀🦑🐙🦪🦂🕷️🕸️🐚🐌🐜🦗🪲🦟🪳🪰🐝🐞🦋🐛🪱🦠🐾
+
+🍓🍒🍎🍉🍑🍊🥭🍍🍌🍋🍈🍏🍐🥝🫒🫐🍇🥥🍅🌶️🥕🧅🌽🥦🥒🥬🫑🥑🍠🍆🧄🥔🌰🥜🍞🫓🥐🥖🥯🧇🥞🍳🥚🧀🥓🥩🍗🍖🍔🌭🥪🥨🍟🍕🫔🌮🌯🥙🧆🥘🍝🥫🫕🥣🥗🍲🍛🍜🦪🦞🍣🍤🥡🍚🍱🥟🍢🍙🍘🍥🍡🥠🥮🍧🍨🍦🥧🍰🍮🎂🧁🍭🍬🍫🍩🍪🍯🧂🧈🍿🧊🥤🧋🧃🥛🍼🍵☕️🫖🧉🍺🍻🥂🍾🍷🥃🍸🍹🍶🥢🍴🥄🔪🍽️
+
+🛑🚧🚨⛽️🛢️🧭⚓️🚏🚇🚥🚦🛴🦽🦼🚲🛵🏍️🚙🚗🛻🚐🚚🚛🚜🏎️🚒🚑🚓🚕🛺🚌🚈🚝🚅🚄🚂🚃🚋🚎🚞🚊🚉🚍🚔🚘🚖🚆🚢🛳️🛥️🚤⛴️⛵️🛶🚟🚠🚡🚁🛸🚀✈️🛫🛬🛩️🎢🎡🎠🎪🗼🗽🗿🗻🏛️💈⛲️⛩️🕍🕌🕋🛕⛪️💒🏩🏯🏰🏗️🏢🏭🏬🏪🏟️🏦🏫🏨🏣🏤🏥🏚️🏠🏡🏘️🛖⛺️🏕️⛱️🏙️🌆🌇🌃🌉🌁🛤️🛣️🗾🗺️🌐💺🧳
+
+🎉🎊🎈🎂🎀🎁🎇🎆🧨🧧🪔🪅🎐🎏🎎🎑🎍🎋🎄🎃🎗️🥇🥈🥉🏅🎖️🏆📢⚽️⚾️🥎🏀🏐🏈🏉🥅🎾🏸🥍🏏🏑🏒🥌🛷🎿⛸️🛼🩰🛹⛳️🎯🏹🥏🪃🪁🎣🤿🩱🎽🥋🥊🎱🏓🎳♟️🪀🧩🎮🕹️👾🔫🎲🎰🎴🀄️🃏🪄🎩📷📸🖼️🎨🖌️🖍️🪡🧵🧶🎹🎷🎺🎸🪕🎻🪘🥁🪗🎤🎧🎚️🎛️🎙️📻📺📼📹📽️🎥🎞️🎬🎭🎫🎟️
+
+📱☎️📞📟📠🔌🔋🖲️💽💾💿📀🖥️💻⌨️🖨️🖱️🪙💸💵💴💶💷💳💰🧾🧮⚖️🛒🛍️🕯️💡🔦🏮🧱🪟🪞🚪🪑🛏️🛋️🚿🛁🚽🧻🪠🧸🪆🧷🪢🧹🧴🧽🧼🪥🪒🧺🧦🧤🧣👖👕🎽👚👔👗👘🥻🩱👙🩳🩲🧥🥼🦺⛑️🪖🎓🎩👒🧢👑🎒👝👛👜💼🧳☂️🌂💍💎💄👠👟👞🥿🩴👡👢🥾🦯🕶️👓🥽⚗️🧫🧪🌡️💉💊🩹🩺🧬🔭🔬📡🛰️🧯🪓🪜🪣🪝🧲🧰🗜️🔩🪛🪚🔧🔨⚒️🛠️⛏️⚙️🔗⛓️📎🖇️📏📐🖌️🖍️🖊️🖋️✒️✏️📝📖📚📒📔📕📓📗📘📙🔖🗒️📄📃📋📑📂📁🗂️🗃️🗄️📊📈📉📇📌📍✂️🗑️📰🗞️🏷️📦📫📪📬📭📮✉️📧📩📨💌📤📥🗳️🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦⏱️⌚️🕰️⌛️⏳⏲️⏰📅📆🗓️🪧🛎️🔔📯📢📣🔈🔉🔊🔍🔎🔮🧿📿🏺⚱️⚰️🪦🚬💣🪤📜⚔️🗡️🛡️🗝️🔑🔐🔏🔒🔓
+
+🔴🟠🟡🟢🔵🟣🟤⚫️⚪️🟥🟧🟨🟩🟦🟪🟫⬛️⬜️❤️🧡💛💚💙💜🤎🖤🤍♥️♦️♣️♠️♈️♉️♊️♋️♌️♍️♎️♏️♐️♑️♒️♓️⛎♀️♂️⚧️💭🗯️💬🗨️❕❔❗️❓⁉️‼️⭕️❌🚫🚳🚭🚯🚱🚷📵🔞🔕🔇🅰️🆎🅱️🅾️🆑🆘🛑⛔️📛♨️💢🔻🔺🉐㊙️㊗️🈴🈵🈹🈲🉑🈶🈚️🈸🈺🈷️✴️🔶🔸🔆🔅🆚🎦📶🔁🔂🔀▶️⏩⏭️⏯️◀️⏪⏮️🔼⏫🔽⏬⏸️⏹️⏺️⏏️📴📳📲☢️☣️⚠️🚸⚜️🔱〽️🔰✳️❇️♻️💱💲💹🈯️❎✅✔️☑️⬆️↗️➡️↘️⬇️↙️⬅️↖️↕️↔️↩️↪️⤴️⤵️🔃🔄🔙🔛🔝🔚🔜🆕🆓🆙🆗🆒🆖ℹ️🅿️🈁🈂️🈳🔣🔤🔠🔡🔢#️⃣*️⃣0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟🌐💠🔷🔹🏧Ⓜ️🚾🚻🚹🚺♿️🚼🛗🚮🚰🛂🛃🛄🛅💟⚛️🛐🕉️☸️☮️☯️☪️✝️☦️✡️🔯🕎♾️🆔⚕️🎼🎵🎶✖️➕➖➗➰➿〰️©️®️™️🔘🔳◼️◾️▪️🔲◻️◽️▫️👁️‍🗨️
+
+🏁🚩🎌🏴🏳️🏳️‍🌈🏳️‍⚧️🏴‍☠️🇦🇨🇦🇩🇦🇪🇦🇫🇦🇬🇦🇮🇦🇱🇦🇲🇦🇴🇦🇶🇦🇷🇦🇸🇦🇹🇦🇺🇦🇼🇦🇽🇦🇿🇧🇦🇧🇧🇧🇩🇧🇪🇧🇫🇧🇬🇧🇭🇧🇮🇧🇯🇧🇱🇧🇲🇧🇳🇧🇴🇧🇶🇧🇷🇧🇸🇧🇹🇧🇻🇧🇼🇧🇾🇧🇿🇨🇦🇨🇨🇨🇩🇨🇫🇨🇬🇨🇭🇨🇮🇨🇰🇨🇱🇨🇲🇨🇳🇨🇴🇨🇵🇨🇷🇨🇺🇨🇻🇨🇼🇨🇽🇨🇾🇨🇿🇩🇪🇩🇬🇩🇯🇩🇰🇩🇲🇩🇴🇩🇿🇪🇦🇪🇨🇪🇪🇪🇬🇪🇭🇪🇷🇪🇸🇪🇹🇪🇺🇫🇮🇫🇯🇫🇰🇫🇲🇫🇴🇫🇷🇬🇦🇬🇧🇬🇩🇬🇪🇬🇫🇬🇬🇬🇭🇬🇮🇬🇱🇬🇲🇬🇳🇬🇵🇬🇶🇬🇷🇬🇸🇬🇹🇬🇺🇬🇼🇬🇾🇭🇰🇭🇲🇭🇳🇭🇷🇭🇹🇭🇺🇮🇨🇮🇩🇮🇪🇮🇱🇮🇲🇮🇳🇮🇴🇮🇶🇮🇷🇮🇸🇮🇹🇯🇪🇯🇲🇯🇴🇯🇵🇰🇪🇰🇬🇰🇭🇰🇮🇰🇲🇰🇳🇰🇵🇰🇷🇰🇼🇰🇾🇰🇿🇱🇦🇱🇧🇱🇨🇱🇮🇱🇰🇱🇷🇱🇸🇱🇹🇱🇺🇱🇻🇱🇾🇲🇦🇲🇨🇲🇩🇲🇪🇲🇫🇲🇬🇲🇭🇲🇰🇲🇱🇲🇲🇲🇳🇲🇴🇲🇵🇲🇶🇲🇷🇲🇸🇲🇹🇲🇺🇲🇻🇲🇼🇲🇽🇲🇾🇲🇿🇳🇦🇳🇨🇳🇪🇳🇫🇳🇬🇳🇮🇳🇱🇳🇴🇳🇵🇳🇷🇳🇺🇳🇿🇴🇲🇵🇦🇵🇪🇵🇫🇵🇬🇵🇭🇵🇰🇵🇱🇵🇲🇵🇳🇵🇷🇵🇸🇵🇹🇵🇼🇵🇾🇶🇦🇷🇪🇷🇴🇷🇸🇷🇺🇷🇼🇸🇦🇸🇧🇸🇨🇸🇩🇸🇪🇸🇬🇸🇭🇸🇮🇸🇯🇸🇰🇸🇱🇸🇲🇸🇳🇸🇴🇸🇷🇸🇸🇸🇹🇸🇻🇸🇽🇸🇾🇸🇿🇹🇦🇹🇨🇹🇩🇹🇫🇹🇬🇹🇭🇹🇯🇹🇰🇹🇱🇹🇲🇹🇳🇹🇴🇹🇷🇹🇹🇹🇻🇹🇼🇹🇿🇺🇦🇺🇬🇺🇲🇺🇳🇺🇸🇺🇾🇺🇿🇻🇦🇻🇨🇻🇪🇻🇬🇻🇮🇻🇳🇻🇺🇼🇫🇼🇸🇽🇰🇾🇪🇾🇹🇿🇦🇿🇲🇿🇼🏴󠁧󠁢󠁥󠁮󠁧󠁿🏴󠁧󠁢󠁳󠁣󠁴󠁿🏴󠁧󠁢󠁷󠁬󠁳󠁿
+
+## The title that not became alone
+
+The header can not  
+became alone  
+in the dark (background)  
+without giving a wooden sword  
+because it is dangerous  
+to go without it.  
+And the best thing  
+of this concept  
+is only the  
+length  
+of  
+the  
+element  
+that can not fit in the page  
+and may be moved  
+with the previous element  
+to the next page.
+
+--new-page
+
+## The Last Index
+
+> #### ℹ️ℹ️ Automatic Index
+> ---
+> The `--index` command can be called more times.
+
+--index
+</textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="divider_panel">
+        <div class="paging">
+          <div class="pages">
+            <div class="page">
+              <div class="background"></div>
+              <div class="header"></div>
+              <div class="content"></div>
+              <div class="footer"></div>
+              <div class="warning">
+                <div class="messageBox">
+                  <div class="messageHeader">⚠️</div>
+                  <div class="messageContent">
+                    <div>✂️</div>
+                    <div>📄<div></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wait">
+            <div class="waiting">
+              <div class="pendulum">
+                <div class="wire"></div>
+                <svg class="stone" width="100%" height="100%" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                  <path d="M 8,5.9604645e-8 24,1.4901161e-7 32,8 16,32 0,8 8,5.9604645e-8" />
+                </svg>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="floating_window" style="left:-100%;"> <!-- temporary style: remove "closing" effect when loading the page -->
+      <div class="title"><h2>ReportUp Syntax Guide</h2><h3 onclick="toggleGuide()">❌</h3></div>
+      <div class="content">
+        <h3>Description</h3>
+        <p>You all know Markdown. No!? Quit. Immediatelly.</p>
+        <p>Let's start again.<br>
+          You all know Markdown.<br>
+          Its strong point is the readability of the source.<br>
+          I add some features that I like.
+        </p>
+        <h3>Global Commands</h3>
+        <p>You can write these commands only at the beginning of the document.</p>
+        <ul>
+          <li><code>--theme</code></li>
+          <li><code>--text-font</code></li>
+          <li><code>--title-font</code></li>
+          <li><code>--code-font</code></li>
+          <li><code>--font-size</code></li>
+        </ul>
+        <h3>Formatting Commands</h3>
+        <p>You can write these commands at start of the page, before any text.</p>
+        <ul>
+          <li><code>--A0</code></li>
+          <li><code>--A1</code></li>
+          <li><code>--A2</code></li>
+          <li><code>--A3</code></li>
+          <li><code>--A4</code></li>
+          <li><code>--A5</code></li>
+          <li><code>--A6</code></li>
+          <li><code>--A7</code></li>
+          <li><code>--A8</code></li>
+          <li><code>--A9</code></li>
+          <li><code>--A10</code></li>
+          <li><code>--page-width</code></li>
+          <li><code>--page-height</code></li>
+          <li><code>--margin-top</code></li>
+          <li><code>--margin-bottom</code></li>
+          <li><code>--margin-left</code></li>
+          <li><code>--margin-right</code></li>
+          <li><code>--binding-size</code></li>
+          <li><code>--binding-top</code></li>
+          <li><code>--header-no</code></li>
+          <li><code>--header-yes</code></li>
+          <li><code>--header-text</code></li>
+          <li><code>--footer-no</code></li>
+          <li><code>--footer-yes</code></li>
+        </ul>
+        <h3>Live Commands</h3>
+        <p>You can write this commands everywhere in the markdown source</p>
+        <ul>
+          <li><code>--index</code></li>
+          <li><code>--new-line</code></li>
+        </ul>
+        <p>The following commands works "from this point onward"</p>
+        <ul>
+          <li><code>:---</code> set alignment to left</li>
+          <li><code>---:</code> set alignment to right</li>
+          <li><code>:---:</code> set alignment to center</li>
+          <li><code>:::</code> reset alignment</li>
+          <li><code>:100%:</code> set width to 100%</li>
+          <li><code>:---%:</code> reset width</li>
+        </ul>
+      </div>
+      <div class="footer">⇲</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked-highlight/lib/index.umd.js"></script>
+  </body>
+<!--
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@latest/build/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@latest/build/highlight.min.js"></script>
+-->
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>

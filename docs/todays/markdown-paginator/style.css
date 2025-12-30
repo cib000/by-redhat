@@ -1,0 +1,1344 @@
+/* BUNNY FONTS */
+@import url('https://fonts.bunny.net/css?family=Exo+2:300,300i,400,700,700i&display=swap'); /* Exo 2*/
+@import url('https://fonts.bunny.net/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap'); /* EB Garamond */
+@import url('https://fonts.bunny.net/css2?family=Borel&family=Fuzzy+Bubbles:wght@400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap'); /* Open Sans (Includes the standard ISO Latin 1, Latin CE, Greek and Cyrillic) */
+@import url('https://fonts.bunny.net/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap'); /* Fuzzy Bubbles */
+@import url('https://fonts.bunny.net/css2?family=Borel&family=Fuzzy+Bubbles:wght@400;700&display=swap'); /* Borel */
+@import url('https://fonts.bunny.net/css?family=Fira+Code:300,400,700&display=swap'); /* Fira Code */
+@import url('https://fonts.bunny.net/css2?family=Noto+Sans+Mono:wght@100..900&display=swap'); /* Noto Sans Mono */
+@import url('https://fonts.bunny.net/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Color+Emoji&display=swap'); /* Noto Color Emoji */
+@import url('https://fonts.bunny.net/css2?family=Borel&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Color+Emoji&display=swap'); /* Courier Prime */
+@import url('https://fonts.bunny.net/css2?family=Heebo:wght@100..900&display=swap'); /* Heebo (Hebrew) */
+@import url('https://fonts.bunny.net/css2?family=Noto+Sans+JP:wght@100..900&display=swap'); /* Noto Sans Japanese */
+@import url('https://fonts.bunny.net/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap'); /* Amiri (Harab) */
+@import url('https://fonts.bunny.net/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap'); /* Noto Sans Bengali */
+@import url('https://fonts.bunny.net/css2?family=Noto+Serif+HK:wght@200..900&display=swap'); /* Noto Serif HK (Traditional Chineese) */
+@import url('https://fonts.bunny.net/css2?family=Cactus+Classical+Serif&display=swap'); /* Cactus Classical Serif (Traditional Chineese) */
+@import url('https://fonts.bunny.net/css2?family=Ma+Shan+Zheng&display=swap'); /* Ma Shan Zheng (Simplified Chineese)*/
+@import url('https://fonts.bunny.net/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap'); /* Mukta (Includes Devanagari, Gujarati, Gurumukhi, Tamil and Latin) */
+@import url('https://fonts.bunny.net/css2?family=Tiro+Kannada:ital@0;1&display=swap'); /* Tiro Kannada */
+@import url('https://fonts.bunny.net/css2?family=Hanuman:wght@100;300;400;700;900&display=swap'); /* Hanuman */
+@import url('https://fonts.bunny.net/css2?family=Noto+Sans+KR:wght@100..900&display=swap'); /* Noto Sans Korean */
+@import url('https://fonts.bunny.net/css2?family=Noto+Sans+Malayalam:wght@100..900&display=swap'); /* Noto Sans Malayalam */
+@import url('https://fonts.bunny.net/css2?family=Padauk:wght@400;700&display=swap'); /* Padauk */
+@import url('https://fonts.bunny.net/css2?family=Noto+Sans+Myanmar:wght@100;200;300;400;500;600;700;800;900&display=swap'); /* Noto Sans Myanmar */
+@import url('https://fonts.bunny.net/css2?family=Noto+Sans+Oriya:wght@100..900&display=swap'); /* Noto Sans Oriya */
+@import url('https://fonts.bunny.net/css2?family=Abhaya+Libre:wght@400;500;600;700;800&display=swap'); /* Abhaya Libre */
+@import url('https://fonts.bunny.net/css2?family=Catamaran:wght@100..900&display=swap'); /* Catamaran */
+
+:root {
+  /* Chromakai palette (Work in progrerss) */
+  --red:            #FF4532;
+  --orange:         #FD941C;
+  --yellow:         #E3C500;
+  --green:          #A6E22C;
+  --lime:           #82E341;
+  --minty:          #6EE58B;
+  --cyan:           #67D8EF;
+  --sky:            #60ABFF; /* This for blue? */
+  --blue:           #239DD5; /* This for blue? */
+  --purple:         #9B6AFA;
+  --pink:           #D348D0; /* This for magenta? */
+  --magenta:        #F92472; /* This for magenta? */
+
+  --dark-lightest:  #514A3E;
+  --dark-lighter:   #3E3D32;
+  --dark:           #272822;
+  --dark-darker:    #20211B;
+  --dark-darkest:   #1A1A16;
+
+  --light-lightest: #FFFFFF;
+  --light-lighter:  #FBFBF9;
+  --light:          #F7F7F2;
+  --light-darker:   #F1F1ED;
+  --light-darkest:  #EAEAE6;
+  
+  --dust:url("https://antoniobianco.altervista.org/monokaiui/noise.webp");
+  
+  /* Available fonts: all with emoji fallback */
+  --font-arial:                "Arial",                  sans-serif,   "Noto Color Emoji";
+  --font-borel:                "Borel",                  cursive,      "Noto Color Emoji";
+  --font-courier:              "Courier Prime",          monospace,    "Noto Color Emoji";
+  --font-garamond:             "EB Garamond",            serif,        "Noto Color Emoji";
+  --font-exo-2:                "Exo 2",                  sans-serif,   "Noto Color Emoji";
+  --font-fira-code:            "Fira Code",              monospace,    "Noto Color Emoji";
+  --font-fuzzy-bubbles:        "Fuzzy Bubbles",          sans-serif,   "Noto Color Emoji";
+  --font-georgia:              "Georgia",                serif,        "Noto Color Emoji";
+  --font-noto-sans-mono:       "Noto Sans Mono",         monospace,    "Noto Color Emoji";
+  --font-open-sans:            "Open Sans",              sans-serif,   "Noto Color Emoji";
+  --font-times:                "Times",                  serif,        "Noto Color Emoji";
+  --font-heebo:                "Heebo",                  sans-serif,   "Noto Color Emoji";
+  --font-hebrew: var(--font-heebo);
+  --font-japanese:             "Noto Sans JP",           sans-serif,   "Noto Color Emoji";
+  --font-amiri:                "Amiri",                  serif,        "Noto Color Emoji";
+  --font-harab: var(--font-amiri);
+  --font-bengali:              "Noto Sans Bengali",      sans-serif,   "Noto Color Emoji";
+  --font-hong-kong:            "Noto Serif HK",          serif,        "Noto Color Emoji";
+  --font-traditional-chineese: "Cactus Classical Serif", serif,        "Noto Color Emoji";
+  --font-simplified-chineese:  "Ma Shan Zheng",          cursive,      "Noto Color Emoji";
+  --font-mukta:                "Mukta",                  sans-serif,   "Noto Color Emoji";
+  --font-devanagari: var(--font-mukta);
+  --font-tiro-kannada:         "Tiro Kannada",           serif,        "Noto Color Emoji";
+  --font-Hanuman:              "Hanuman",                serif,        "Noto Color Emoji";
+  --font-korean:               "Noto Sans KR",           sans-serif,   "Noto Color Emoji";
+  --font-malayalam:            "Noto Sans Malayalam",    sans-serif,   "Noto Color Emoji";
+  --font-padauk:               "Padauk",                 sans-serif,   "Noto Color Emoji";
+  --font-myanmar:              "Noto Sans Myanmar",      sans-serif,   "Noto Color Emoji";
+  --font-oriya:                "Noto Sans Oriya",        sans-serif,   "Noto Color Emoji";
+  --font-abhaya-libre:         "Abhaya Libre",           serif,        "Noto Color Emoji";
+  --font-catamaran:            "Catamaran",              sans-serif,   "Noto Color Emoji";
+  --font-emoji:                "Noto Color Emoji";
+  
+  --text-font: var(--font-arial);
+  --title-font: var(--font-times);
+  --code-font: var(--font-courier);
+  
+  font-family: var(--text-font);
+  
+  /* Force browser to print background color */
+  /* This unexpectedly solved the washed text problem */
+  -webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
+  color-adjust: exact !important;                 /* Firefox 48 – 96 */
+  print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--title-font);
+}
+
+code {
+  font-family: var(--code-font);
+}
+
+body {
+  background: white;
+  margin: 0px;
+  width: 100vw;
+  max-width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
+  font-size: 100%;
+  --button-panel-height: 32px;
+  --source-bg-color: var(--light);
+  --source-fg-color: var(--dark);
+  --selection-color: var(--dark);
+  --panel-accent-color: var(--light);
+  scrollbar-color: var(--selection-color) color-mix(in srgb, var(--source-bg-color), transparent); /* DEBUG: Glitches on Chrome */
+  scrollbar-color: var(--selection-color) var(--source-bg-color);
+  scrollbar-width: thin;
+  overflow: hidden;
+}
+body.mobile_browser {
+  --button-panel-height: 40px;
+}
+body[theme="dark"] {
+  --source-bg-color: var(--dark);
+  --source-fg-color: var(--light);
+  --selection-color: var(--light);
+  --panel-accent-color: var(--light);
+}
+body[theme="light"] {
+  --source-bg-color: var(--light);
+  --source-fg-color: var(--dark);
+  --selection-color: var(--dark);
+  --panel-accent-color: var(--light);
+}
+body[accent="red"] {
+  --selection-color: var(--red);
+  --panel-accent-color: var(--red);
+}
+body[accent="orange"] {
+  --selection-color: var(--orange);
+  --panel-accent-color: var(--orange);
+}
+body[accent="yellow"] {
+  --selection-color: var(--yellow);
+  --panel-accent-color: var(--yellow);
+}
+body[accent="green"] {
+  --selection-color: var(--green);
+  --panel-accent-color: var(--green);
+}
+body[accent="lime"] {
+  --selection-color: var(--lime);
+  --panel-accent-color: var(--lime);
+}
+body[accent="minty"] {
+  --selection-color: var(--minty);
+  --panel-accent-color: var(--minty);
+}
+body[accent="cyan"] {
+  --selection-color: var(--cyan);
+  --panel-accent-color: var(--cyan);
+}
+body[accent="sky"] {
+  --selection-color: var(--sky);
+  --panel-accent-color: var(--sky);
+}
+body[accent="blue"] {
+  --selection-color: var(--blue);
+  --panel-accent-color: var(--blue);
+}
+body[accent="purple"] {
+  --selection-color: var(--purple);
+  --panel-accent-color: var(--purple);
+}
+body[accent="pink"] {
+  --selection-color: var(--pink);
+  --panel-accent-color: var(--pink);
+}
+body[accent="magenta"] {
+  --selection-color: var(--magenta);
+  --panel-accent-color: var(--magenta);
+}
+body[accent="dark"] {
+  --selection-color: var(--dark);
+  --panel-accent-color: var(--light);
+}
+body[accent="light"] {
+  --selection-color: var(--light);
+  --panel-accent-color: var(--light);
+}
+/***********
+ * DIVIDER *
+ ***********/
+.divider_container {
+  --active-color: var(--selection-color);
+  --inactive-color: var(--source-fg-color);
+  --divider-color: var(--inactive-color);
+  background: transparent;
+  display: flex;
+  flex-direction: row;
+  height: calc(100% - var(--button-panel-height));
+  width: 100%;
+}
+.divider_container[direction="horizontal"] {
+  flex-direction: row;
+}
+.divider_container[direction="vertical"] {
+  flex-direction: column;
+}
+
+.divider_container > .divider_panel {
+  background: transparent;
+  flex: 1 1 50%;
+  overflow: hidden; /* Support for big childrens */
+}
+
+.divider_container > .divider {
+  --min-size: 7px; /* CUSTOMIZABLE */
+  background: var(--source-bg-color);
+  cursor: ew-resize;
+  min-width: var(--min-size);
+  min-height: var(--min-size);
+  display: flex;
+  align-items: center;
+}
+.divider_container[direction="horizontal"] > .divider {
+  cursor: ew-resize;
+}
+.divider_container[direction="vertical"] > .divider {
+  cursor: ns-resize;
+}
+.divider_container > .divider > div {
+  --min-size: 1px; /* CUSTOMIZABLE */
+  margin: auto;
+}
+.divider_container[direction="horizontal"] > .divider > div {
+  background-image: linear-gradient(to bottom, transparent, var(--divider-color), transparent);
+  width: var(--min-size);
+  height: 100%;
+}
+.divider_container[direction="vertical"] > .divider > div {
+  background-image: linear-gradient(to right, transparent, var(--divider-color), transparent);
+  width: 100%;
+  height: var(--min-size);
+}
+
+/****************************
+ * WINDOW FOR SYNTAX GUIDES *
+ ****************************/
+#floating_window {
+  --page-color: var(--source-bg-color);
+  --text-color: var(--source-fg-color);
+  --head-color: var(--selection-color);
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  
+  background-color: color-mix(in srgb, var(--page-color), transparent 25%);
+  -webkit-backdrop-filter: blur(10px); /* Safari */
+  backdrop-filter: blur(10px);
+  
+  display: flex;
+  flex-direction: column;
+}
+.pc_browser #floating_window {
+  top: max(12.5%, var(--button-panel-height));
+  left: 12.5%;
+  width: 75%;
+  height: calc( (100% - var(--button-panel-height)) * 0.75 );
+  max-height: calc(100% - var(--button-panel-height));
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 0px 1px var(--text-color), 0px 0px 5px 5px color-mix(in srgb, var(--text-color), transparent 50%);
+  
+  transform: scale(0, 0);
+  transform-origin: 50% 50%;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-name: closeCRT;
+}
+.pc_browser #floating_window.show {
+  animation-name: openCRT;
+}
+@keyframes openCRT {
+  0%   {
+    transform: scale(1%, 1%);
+  }
+  20%  {
+    transform: scale(1%, 100%);
+  }
+  100% {
+    transform: scale(100%, 100%);
+  }
+}
+@keyframes closeCRT {
+  0%   {
+    transform: scale(100%, 100%);
+  }
+  25%  {
+    transform: scale(1%, 100%);
+  }
+  50% {
+    transform: scale(1%, 1%);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0%, 0%);
+    opacity: 0;
+  }
+}
+.mobile_browser #floating_window {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transform: translateX(0);
+  transition: transform 0.4s;
+  transition-timing-function: cubic-bezier(.75,1.83,.23,.45);
+}
+.mobile_browser #floating_window.show {
+  transform: translateX(100%);
+}
+#floating_window > div > * {
+  color: var(--text-color);
+  font-family: var(--font-exo-2);
+}
+#floating_window > .title {
+  display: flex;
+  flex-direction: row;
+  border: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--text-color), transparent 50%);
+}
+#floating_window > .title * {
+  padding: 0;
+  margin: 0;
+  
+  display: inline-block;
+}
+#floating_window > .title > :first-child {
+  width: 100%;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  cursor: default;
+}
+#floating_window > .title > :nth-child(2) {
+  DEBUGbackground: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  padding: 0.5em;
+  padding-right: 1em;
+  color: transparent;
+  text-shadow: 0 0 0 var(--head-color);
+  cursor: default;
+  transition: text-shadow 0.2s;
+}
+#floating_window > .title > :nth-child(2):hover {
+  text-shadow: 0 0 0 var(--light), 0 0 0.25em var(--head-color), 0 0 0.5em var(--head-color), 0 0 1em var(--head-color);
+}
+#floating_window > .content {
+  overflow: scroll;
+  padding: 1em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+#floating_window > .content :first-child {
+  margin-top: 0;
+}
+#floating_window h2,
+#floating_window h3 {
+  color: var(--head-color);
+}
+#floating_window .footer {
+  margin-left: auto;
+  margin-right: 0;
+  text-align: right;
+  font-weight: bold;
+  color: var(--text-color);
+  padding-right: 0.3em;
+  padding-bottom: 0.2em;
+  cursor: nwse-resize;
+}
+.mobile_browser #floating_window .footer {
+  display: none;
+}
+@media print {
+  #floating_window {
+    display: none;
+  }
+}
+/***************
+ * MARKDOWN UI *
+ ***************/
+#markdown_button_panel {
+  background: var(--dark);
+  background-image:var(--dust);
+  color: var(--light);
+  height: var(--button-panel-height);
+  min-height: var(--button-panel-height);
+  max-height: var(--button-panel-height);
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  scrollbar-width: none;
+}
+#markdown_button_panel > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#markdown_button_panel > .icon {
+  font-size: calc(var(--button-panel-height)/2);
+  height: var(--button-panel-height);
+  width: var(--button-panel-height);
+  min-height: var(--button-panel-height);
+  min-width: var(--button-panel-height);
+  max-height: var(--button-panel-height);
+  max-width: var(--button-panel-height);
+}
+.pc_browser #markdown_button_panel > .icon {
+  transition-property: color, text-shadow, stroke, stroke-width, stroke-opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+}
+.pc_browser #markdown_button_panel > .icon:hover {
+  /* TEXT */
+  color: var(--panel-accent-color);
+  text-shadow: 0 0 2px var(--panel-accent-color);
+  /* SVG */
+  stroke: var(--panel-accent-color);
+  stroke-width: 1px;
+  stroke-opacity: 0.5;
+  /* TRANSITION */
+  transition-duration: 0s;
+}
+.mobile_browser #markdown_button_panel > .icon:hover {
+  animation-name: lightIcon;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+}
+@keyframes lightIcon {
+  from {
+    color: var(--panel-accent-color);
+    text-shadow: 0 0 2px var(--panel-accent-color);
+    /* SVG */
+    stroke: var(--panel-accent-color);
+    stroke-width: 1px;
+    stroke-opacity: 0.5;
+  }
+  
+  to {
+    color: var(--light);
+    text-shadow: none;
+    /* SVG */
+    stroke: var(--panel-accent-color);
+    stroke-width: 1px;
+    stroke-opacity: 0;
+  }
+}
+#markdown_button_panel > .spacer {
+  width: 100%;
+}
+#markdown_button_panel > .zoom_value {
+  appearance: textfield;
+  margin: auto;
+  text-align: center;
+  font-size: calc(var(--button-panel-height)*0.5);
+  padding: 2px;
+  border-radius: 1mm;
+  border: none;
+  color: var(--dark);
+  background: var(--light);
+}
+#markdown_button_panel > .zoom_value:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 1px var(--panel-accent-color) inset,
+              0px 0px 1px 1px var(--panel-accent-color);
+}
+#markdown_button_panel > .zoom_value::selection {
+  background: var(--panel-accent-color);
+  color: var(--dark);
+}
+#markdown_source {
+  resize: none;
+  outline: none;
+  border: none;
+  margin: 0;
+  --padding: 0.5em;
+  padding: var(--padding);
+  width: calc(100% - var(--padding)*2);
+  max-width: calc(100% - var(--padding)*2);
+  height: calc(100% - var(--padding)*2);
+  min-height: 1cm; /* Remove the glitch when the height is too little */
+  overflow: auto;
+  font-family: var(--code-font);
+  font-size: 0.75em;
+  background: var(--source-bg-color);
+  color: var(--source-fg-color);
+  caret-color: var(--source-fg-color);
+  /*
+  DEBUG
+  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scrollbars_styling
+  CREATE A CUSTOM SCROLLBAR WITH DIV?
+  */
+}
+#markdown_source::selection {
+  background: var(--selection-color);
+  color: var(--source-bg-color);
+}
+
+@media print {
+  /* Hide other elements */
+  .divider_container > .divider_panel:first-child, /* The divider */
+  .divider_container > .divider,
+  #markdown_button_panel {
+    display: none;
+  }
+  /* Change "flex" to "block"... otherwise ignore break-after */
+  .divider_container,
+  .divider_container > .divider_panel:last-child {
+    display: block;
+  }
+  /* Make printable all the content */
+  .divider_container .divider_panel:last-child {
+    overflow: visible;
+  }
+}
+
+/*******************
+ * PAGING MARKDOWN *
+ *******************/
+.paging {
+  background: var(--light-darkest);
+  margin: 0mm;
+  padding: 0mm;
+  overflow: auto;
+  font-size: 4mm;
+  --zoom: 1;
+  transform-origin: 0mm 0mm;
+  transform: scale(var(--zoom));
+  height: calc(100% * (1/var(--zoom)));
+  width: calc(100% * (1/var(--zoom)));
+  
+  /* DEFAULT THEME: LIGHT WITH DARK ACCENT */
+  --page-color:     var(--dark);         /* Background color */
+  --text-color:     var(--light);        /* Foreground color */
+  --accent-1-color: var(--text-color);   /* 1st accent color */
+  --accent-2-color: var(--accent-color); /* 2nd accent color */
+  
+  /* TABLE */
+  --table-title-bg-color:     var(--dark-lighter);
+  --table-title-fg-color:     var(--text-color);
+  --table-body-bg-color-1:    var(--dark-lightest);
+  --table-body-bg-color-2:    var(--dark-lighter);
+  --table-body-fg-color:      var(--text-color);
+  --table-border-color:       var(--light-darker);
+  --table-title-border-color: var(--accent-1-color);
+  
+  /* H1-H6 */
+  --H-underline-color: var(--light-darkest);
+  --H-fg-color:        var(--accent-1-color);
+  --H-subtitle-color:  var(--accent-2-color);
+  
+  /* BLOCKQUOTES */
+  --blockquote-1-color:           var(--dark-lighter);   /* Alternate color for nested quotes */
+  --blockquote-2-color:           var(--dark-lightest);  /* Alternate color for nested quotes */
+  --blockquote-border-left-color: var(--accent-1-color); /* Border color on the left side */
+  
+  /* CODE */
+  --code-bg-color:     var(--dark-lightest);
+  --code-border-color: var(--light-darkest);
+}
+.paging[theme="dark"] {
+  --page-color:     var(--dark);         /* Background color */
+  --text-color:     var(--light);        /* Foreground color */
+  --accent-1-color: var(--text-color);   /* 1st accent color */
+  --accent-2-color: var(--accent-color); /* 2nd accent color */
+  
+  /* TABLE */
+  --table-title-bg-color:     var(--dark-lighter);
+  --table-title-fg-color:     var(--text-color);
+  --table-body-bg-color-1:    var(--dark-lightest);
+  --table-body-bg-color-2:    var(--dark-lighter);
+  --table-body-fg-color:      var(--text-color);
+  --table-border-color:       var(--light-darker);
+  --table-title-border-color: var(--accent-1-color);
+  
+  /* H1-H6 */
+  --H-underline-color: var(--light-darkest);
+  --H-fg-color:        var(--accent-1-color);
+  --H-subtitle-color:  var(--accent-2-color);
+  
+  /* BLOCKQUOTES */
+  --blockquote-1-color:           var(--dark-lighter);   /* Alternate color for nested quotes */
+  --blockquote-2-color:           var(--dark-lightest);  /* Alternate color for nested quotes */
+  --blockquote-border-left-color: var(--accent-1-color); /* Border color on the left side */
+  
+  /* CODE */
+  --code-bg-color:     var(--dark-lightest);
+  --code-border-color: var(--light-darkest);
+}
+.paging[theme="light"] {
+  --page-color:     var(--light);        /* Background color */
+  --text-color:     var(--dark);         /* Foreground color */
+  --accent-1-color: var(--text-color);   /* 1st accent color */
+  --accent-2-color: var(--accent-color); /* 2nd accent color */
+  
+  /* TABLE */
+  --table-title-bg-color:     var(--light-darkest);
+  --table-title-fg-color:     var(--text-color);
+  --table-body-bg-color-1:    var(--light-darker);
+  --table-body-bg-color-2:    var(--light-darkest);
+  --table-body-fg-color:      var(--text-color);
+  --table-border-color:       var(--dark-lighter);
+  --table-title-border-color: var(--accent-1-color);
+  
+  /* H1-H6 */
+  --H-underline-color: var(--dark-lightest);
+  --H-fg-color:        var(--accent-1-color);
+  --H-subtitle-color:  var(--accent-2-color);
+  
+  /* BLOCKQUOTES */
+  --blockquote-1-color:           var(--light-darker);   /* Alternate color for nested quotes */
+  --blockquote-2-color:           var(--light-darkest);  /* Alternate color for nested quotes */
+  --blockquote-border-left-color: var(--accent-1-color); /* Border color on the left side */
+  
+  /* CODE */
+  --code-bg-color:     var(--light-darkest);
+  --code-border-color: var(--dark-lightest);
+}
+.paging[accent="red"] {
+  --accent-1-color: var(--red);
+  --accent-2-color: var(--orange);
+}
+.paging[accent="orange"] {
+  --accent-1-color: var(--orange);
+  --accent-2-color: var(--yellow);
+}
+.paging[accent="yellow"] {
+  --accent-1-color: var(--yellow);
+  --accent-2-color: var(--sky);
+}
+.paging[accent="green"] {
+  --accent-1-color: var(--green);
+  --accent-2-color: var(--blue);
+}
+.paging[accent="lime"] {
+  --accent-1-color: var(--lime);
+  --accent-2-color: var(--blue);
+}
+.paging[accent="minty"] {
+  --accent-1-color: var(--minty);
+  --accent-2-color: var(--sky);
+}
+.paging[accent="cyan"] {
+  --accent-1-color: var(--cyan);
+  --accent-2-color: var(--yellow);
+}
+.paging[accent="sky"] {
+  --accent-1-color: var(--sky);
+  --accent-2-color: var(--cyan);
+}
+.paging[accent="blue"] {
+  --accent-1-color: var(--blue);
+  --accent-2-color: var(--cyan);
+}
+.paging[accent="purple"] {
+  --accent-1-color: var(--purple);
+  --accent-2-color: var(--yellow);
+}
+.paging[accent="pink"] {
+  --accent-1-color: var(--pink);
+  --accent-2-color: var(--cyan);
+}
+.paging[accent="magenta"] {
+  --accent-1-color: var(--magenta);
+  --accent-2-color: var(--cyan);
+}
+.paging[accent="dark"] {
+  --accent-1-color: var(--dark);
+  --accent-2-color: var(--dark);
+}
+.paging[accent="light"] {
+  --accent-1-color: var(--light);
+  --accent-2-color: var(--light);
+}
+.paging *::selection {
+  background: var(--selection-color);
+  color: var(--page-color);
+}
+/*********************
+ * WAITING ANIMATION *
+ *********************/
+.paging > .wait {
+  display: none;
+  transform: scale(calc(1/var(--zoom))); /* Zoom annichilation */
+}
+.paging[wait] {
+  position: relative;
+  overflow: hidden;
+}
+.paging[wait] > .wait {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.25);
+  -webkit-backdrop-filter: blur(5px); /* Safari */
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wait > div.waiting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  --border-color: color-mix(in srgb, var(--light) 25%, transparent);
+  --wire-color: var(--panel-accent-color);
+  --stone-color: var(--panel-accent-color);
+}
+.wait > div.waiting {
+  position: relative;
+  border-radius: 50%;
+  background-color: var(--dark-lighter);
+  box-shadow: 0em 0em 0em 1px var(--border-color) inset,
+              0em 0em 0.3em 0.3em var(--dark) inset;
+}
+/* Hypnosis */
+.wait > div.waiting > div.pendulum {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  animation-name: monokaiWaiting_hypnosis;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transform-origin: 50% 0%;
+  transform: rotate(0deg);
+}
+.wait > div.waiting > div.pendulum > * {
+  position: absolute;
+}
+.wait > div.waiting > div.pendulum > div.wire {
+  --size: 20%;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  /* pendulum wire */
+  background-color: color-mix(in srgb, var(--light) 50%, transparent);
+  width: 1px;
+  height: 55%;
+  top: 0%;
+  border-radius: 0%;
+}
+.wait > div.waiting > div.pendulum > svg.stone {
+  color: var(--stone-color);
+  width: 22%;
+  height: 22%;
+  top: 55%;
+}
+@keyframes monokaiWaiting_hypnosis {
+  0%    {transform: rotate(25deg);}
+  50%   {transform: rotate(-25deg);}
+  100%  {transform: rotate(25deg);}
+}
+
+.paging > .pages {
+  --page-width:     var(--A4-W);
+  --page-height:    var(--A4-H);
+  --margin-left:    10mm;
+  --margin-right:   10mm;
+  --margin-top:      0mm;
+  --margin-bottom:   0mm;
+  --header-height:  10mm;
+  --footer-height:  10mm;
+  --binding-side:    0mm;
+  --binding-top:     0mm;
+  
+  /* ISO 216 */
+  --A0-W: 841mm; --A0-H: 1189mm;
+  --A1-W: 591mm; --A1-H:  841mm;
+  --A2-W: 420mm; --A2-H:  594mm;
+  --A3-W: 297mm; --A3-H:  420mm;
+  --A4-W: 210mm; --A4-H:  297mm; /* DEFAULT */
+  --A5-W: 148mm; --A5-H:  210mm;
+  --A6-W: 105mm; --A6-H:  148mm;
+  --A7-W:  74mm; --A7-H:  105mm;
+  --A8-W:  52mm; --A8-H:   74mm;
+  --A9-W:  37mm; --A9-H:   52mm;
+  --A10-W: 26mm; --A10-H:  37mm;
+  
+  --page-shadow-ok: gray;
+  --page-shadow-warning: red;
+  counter-reset: page 0;
+  counter-reset: pages 0;
+  color: var(--text-color);
+  font-family: var(--text-font);
+}
+@media print {
+  .paging {
+    transform-origin: 0mm 0mm;
+    transform: none;
+    height: 100%;
+    width: 100%;
+  }
+  .paging > .pages {
+    /* Remove glitch on print preview */
+    box-shadow: 0mm 0mm 0mm var(--page-width) var(--page-color) inset;
+  }
+}
+.paging > .pages > .page {
+  display: flex;
+  flex-direction: column;
+  counter-increment: page;
+  --page-shadow-color: var(--page-shadow-ok);
+  --content-width: calc(var(--page-width) - var(--margin-left) - var(--margin-right) - var(--binding-side));
+  --content-height: calc(var(--page-height) - var(--margin-top) - var(--header-height) - var(--footer-height) - var(--margin-bottom) - var(--binding-top));
+  position: relative;
+  padding-left: var(--margin-left);
+  padding-right: var(--margin-right);
+  width: calc(var(--page-width) - var(--margin-left) - var(--margin-right) - var(--binding-side));
+  height: var(--page-height);
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: none;
+  box-shadow: 0px 0px 3px 3px var(--page-shadow-color);
+  break-after: page;
+  z-index: 0;
+}
+.paging > .pages > .page:nth-child(odd) {
+  padding-left: calc(var(--margin-left) + var(--binding-side));
+}
+.paging > .pages > .page:nth-child(even) {
+  padding-right: calc(var(--margin-right) + var(--binding-side));
+}
+.paging > .pages > .page > .background {
+  position: absolute;
+  top: 0mm;
+  left: 0mm;
+  z-index: -1;
+  width: var(--page-width);
+  height: var(--page-height);
+  background: var(--page-color);
+  box-shadow: 0mm 0mm 0mm var(--page-width) var(--page-color) inset;
+}
+.paging > .pages > .page > .header {
+  border-top-style: solid;
+  border-top-color: transparent;
+  border-top-width: var(--margin-top);
+  border-left-style: none;
+  border-right-style: none;
+  border-bottom-style: solid;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.paging > .pages > .page:nth-child(odd) > .header {
+  border-top-width: calc(var(--margin-top) + var(--binding-top));
+}
+.paging > .pages > .page > .content {
+  height: 100%;
+  overflow: hidden;
+}
+.paging > .pages > .page > .footer {
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+  border-bottom-width: var(--margin-bottom);
+  height: var(--footer-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-style: solid;
+  border-top-color: gray;
+  border-top-width: 1px;
+  box-shadow: 0px 0px 0px var(--page-width) transparent inset;
+  overflow: hidden;
+}
+.paging > .pages > .page:nth-child(even) > .footer {
+  border-bottom-width: calc(var(--margin-bottom) + var(--binding-top));
+}
+.paging > .pages[binding-side] > .page:nth-child(odd) > .footer {
+  justify-content: right;
+}
+.paging > .pages[binding-side] > .page:nth-child(even) > .footer {
+  justify-content: left;
+}
+.paging > .pages > .page > .footer::after {
+  content: counter(page) "/" counter(pages);
+}
+.paging > .pages > .page[warning] {
+  --page-shadow-color: var(--page-shadow-warning);
+}
+.paging > .pages > .page > .warning {
+  position: absolute;
+  top: 0mm;
+  left: 0mm;
+  width: var(--page-width);
+  height: var(--page-height);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.paging > .pages > .page[warning] > .warning {
+  display: flex;
+}
+.paging > .pages > .page[warning] > .warning > .messageBox {
+  background: rgba(0,0,0,0.3);
+  -webkit-backdrop-filter: blur(5px); /* Safari */
+  backdrop-filter: blur(5px);
+}
+
+.paging > .pages > .page > .warning > .messageBox {
+  text-align: center;
+  padding: 6px;
+  border-radius: 3px;
+  animation: warning-page 1s ease-in-out;
+  animation-iteration-count: infinite;
+}
+@keyframes warning-page {
+  0%   {
+    background: rgba(255,0,0,0.7);
+    box-shadow: 0px 0px 3px 3px rgba(255,0,0,0.7);
+  }
+  50%  {
+    background: rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.3);
+  }
+  100% {
+    background: rgba(255,0,0,0.7);
+    box-shadow: 0px 0px 3px 3px rgba(255,0,0,0.7);
+  }
+}
+.paging > .pages > .page > .warning > .messageBox > .messageHeader {
+  font-size: 20mm;
+  padding: 2mm;
+}
+.paging > .pages > .page > .warning > .messageBox > .messageContent {
+  display: flex;
+  font-size: 8mm;
+  padding: 2mm;
+  border-radius: 1mm;
+  background: white;
+}
+.paging > .pages > .page > .warning > .messageBox > .messageContent > :first-child {
+  transform: rotate(-90deg);
+  width: 50%;
+}
+.paging > .pages > .page > .warning > .messageBox > .messageContent > :last-child > div {
+  position: relative;
+  width: 100%;
+  top: -45%;
+  border-bottom-style: dashed;
+}
+
+@media print {
+  .paging > .pages > .page {
+    box-shadow: none;
+    margin: 0mm;
+   }
+}
+
+@page {
+  size: var(--page-width) var(--page-height);
+  margin: 0mm;
+}
+
+/*********************
+ * MARKDOWN ELEMENTS *
+ *********************/
+
+/* TABLES */
+.paging > .pages > .page > .content table {
+  /* CUSTOMIZABLE */
+  --title-padding: 1mm;
+  --body-padding: 1mm;
+  --border-radius: 1mm;
+  --border-thin: 1px;
+  --border-thick: 3px;
+  
+  /* NOT CUSTOMIZABLE */
+  border-collapse: collapse;
+  margin-top: 2mm;
+  margin-bottom: 2mm;
+}
+.paging > .pages > .page > .content table.right {
+  margin-left: auto;
+  margin-right: 0px;
+}
+.paging > .pages > .page > .content table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.paging > .pages > .page > .content table thead tr th {
+  color: var(--table-title-fg-color);
+  padding: var(--title-padding);
+  border-style: solid;
+  border-width: 0;
+  border-left-width: var(--border-thin);
+  border-right-width: var(--border-thin);
+  border-bottom-width: var(--border-thick);
+  border-color: var(--table-border-color);
+  border-bottom-color: var(--table-title-border-color);
+  box-shadow: 0 0 0 100vw var(--table-title-bg-color) inset;
+}
+.paging > .pages > .page > .content table thead tr th:first-child {
+  border-top-left-radius: var(--border-radius);
+  border-left-width: 0;
+}
+.paging > .pages > .page > .content table thead tr th:last-child {
+  border-top-right-radius: var(--border-radius);
+  border-right-width: 0;
+}
+
+.paging > .pages > .page > .content table tbody tr td {
+  color: var(--table-body-fg-color);
+  padding: var(--body-padding);
+  border-style: solid;
+  border-color: var(--table-border-color);
+  border-width: 0;
+  border-left-width: var(--border-thin);
+  border-right-width: var(--border-thin);
+}
+.paging > .pages > .page > .content table tbody tr:nth-child(odd) td {
+  box-shadow: 0 0 0 100vw var(--table-body-bg-color-1) inset;
+}
+.paging > .pages > .page > .content table tbody tr:nth-child(even) td {
+  box-shadow: 0 0 0 100vw var(--table-body-bg-color-2) inset;
+}
+.paging > .pages > .page > .content table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: var(--border-radius);
+}
+.paging > .pages > .page > .content table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: var(--border-radius);
+}
+/* TABLE BORDERS */
+.paging > .pages > .page > .content table tbody tr td:first-child {
+  border-left-width: 0;
+}
+.paging > .pages > .page > .content table tbody tr td:last-child {
+  border-right-width: 0;
+}
+
+/* PARAGRAPHS, HEADINGS, BLOCKQUOTES */
+.paging > .pages > .page > .content p {
+  margin-top: 2mm;
+  margin-bottom: 2mm;
+  font-size: 1em;
+  text-align: justify;
+}
+.paging > .pages > .page > .content > p.right {
+  text-align: right;
+  margin-left: auto;
+}
+.paging > .pages > .page > .content > p.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.paging > .pages > .page > .content h1,
+.paging > .pages > .page > .content h2,
+.paging > .pages > .page > .content h3,
+.paging > .pages > .page > .content h4,
+.paging > .pages > .page > .content h5,
+.paging > .pages > .page > .content h6 {
+  color: var(--H-fg-color);
+  margin-top: 5mm;
+  margin-bottom: 2mm;
+}
+.paging > .pages > .page > .content h4,
+.paging > .pages > .page > .content h5,
+.paging > .pages > .page > .content h6 {
+  margin-top: 2mm;
+}
+.paging > .pages > .page > .content h1,
+.paging > .pages > .page > .content h2 {
+  border-style: solid;
+  border-width: 0px;
+  border-bottom-width: 1px;
+}
+.paging > .pages > .page > .content h1 {
+  text-align: center;
+  border-image: linear-gradient(to right, transparent, var(--H-underline-color), transparent) 30;
+  font-size: 10mm;
+  font-size: 2.5em;
+}
+.paging > .pages > .page > .content h1.left {
+  text-align: left;
+  border-image: linear-gradient(to right, var(--H-underline-color), transparent) 30;
+}
+.paging > .pages > .page > .content h1.right {
+  text-align: right;
+  border-image: linear-gradient(to right, transparent, var(--H-underline-color)) 30;
+}
+.paging > .pages > .page > .content h1+p:not(.bookindex) {
+  text-align: center;
+  color: var(--H-subtitle-color);
+}
+.paging > .pages > .page > .content h1.left+p:not(.bookindex) {
+  text-align: left;
+}
+.paging > .pages > .page > .content h1.right+p:not(.bookindex) {
+  text-align: right;
+}
+.paging > .pages > .page > .content h2 {
+  border-image: linear-gradient(to right, var(--H-underline-color), transparent) 30;
+  font-size: 2em;
+}
+.paging > .pages > .page > .content h2.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-image: linear-gradient(to right, transparent, var(--H-underline-color), transparent) 30;
+}
+.paging > .pages > .page > .content h2.right {
+  text-align: right;
+  margin-left: auto;
+  border-image: linear-gradient(to right, transparent, var(--H-underline-color)) 30;
+}
+.paging > .pages > .page > .content h3 {
+  font-size: 1.75em;
+}
+.paging > .pages > .page > .content h4 {
+  font-size: 1.5em;
+}
+.paging > .pages > .page > .content h5 {
+  font-size: 1.25em;
+}
+.paging > .pages > .page > .content h6 {
+  font-size: 1em;
+}
+.paging > .pages > .page > .content h3.right,
+.paging > .pages > .page > .content h4.right,
+.paging > .pages > .page > .content h5.right,
+.paging > .pages > .page > .content h6.right {
+  margin-left: auto;
+}
+.paging > .pages > .page > .content h3.center,
+.paging > .pages > .page > .content h4.center,
+.paging > .pages > .page > .content h5.center,
+.paging > .pages > .page > .content h6.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* BLOCKQUOTES */
+.paging > .pages > .page > .content blockquote {
+  --blockquote-color: var(--blockquote-1-color); /* Change from javascript */
+  --bg-color: var(--blockquote-color); /* Change from CSS: it mcan be mixed */
+  box-shadow: 0 0 0 100vw var(--bg-color) inset;
+  padding: 1mm;
+  padding-left: 2mm;
+  padding-right: 2mm;
+  margin-top: 5mm;
+  margin-bottom: 5mm;
+  margin-left: 0mm;
+  margin-right: 0mm;
+  border-left-style: solid;
+  border-left-width: 2px;
+  border-left-color: var(--blockquote-border-left-color);
+}
+.paging > .pages > .page > .content blockquote.error {
+  border-left-color: var(--red);
+  --bg-color: color-mix(in srgb, var(--blockquote-color), var(--red) 10%);
+}
+.paging > .pages > .page > .content blockquote.error > h1,
+.paging > .pages > .page > .content blockquote.error > h2,
+.paging > .pages > .page > .content blockquote.error > h3,
+.paging > .pages > .page > .content blockquote.error > h4,
+.paging > .pages > .page > .content blockquote.error > h5,
+.paging > .pages > .page > .content blockquote.error > h6 {
+  color: var(--red);
+}
+.paging > .pages > .page > .content blockquote.warning {
+  border-left-color: var(--orange);
+  --bg-color: color-mix(in srgb, var(--blockquote-color), var(--orange) 10%);
+}
+.paging > .pages > .page > .content blockquote.warning > h1,
+.paging > .pages > .page > .content blockquote.warning > h2,
+.paging > .pages > .page > .content blockquote.warning > h3,
+.paging > .pages > .page > .content blockquote.warning > h4,
+.paging > .pages > .page > .content blockquote.warning > h5,
+.paging > .pages > .page > .content blockquote.warning > h6 {
+  color: var(--orange);
+}
+.paging > .pages > .page > .content blockquote.info {
+  border-left-color: var(--blue);
+  --bg-color: color-mix(in srgb, var(--blockquote-color), var(--blue) 10%);
+}
+.paging > .pages > .page > .content blockquote.info > h1,
+.paging > .pages > .page > .content blockquote.info > h2,
+.paging > .pages > .page > .content blockquote.info > h3,
+.paging > .pages > .page > .content blockquote.info > h4,
+.paging > .pages > .page > .content blockquote.info > h5,
+.paging > .pages > .page > .content blockquote.info > h6 {
+  color: var(--blue);
+}
+.paging > .pages > .page > .content blockquote.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.paging > .pages > .page > .content blockquote.right {
+  margin-left: auto;
+}
+.paging > .pages > .page > .content blockquote > blockquote {
+  margin-top: 2.5mm;
+  margin-bottom: 2.5mm;
+  margin-left: 2.5mm;
+  margin-right: 2.5mm;
+}
+
+/* PHRASE EMPHASIS */
+/* Nothing to do */
+
+/* LISTS */
+.paging > .pages > .page > .content ul,
+.paging > .pages > .page > .content ol {
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 2mm;
+  margin-block-end: 2mm;
+  margin-inline-start: 0mm;
+  margin-inline-end: 0mm;
+  padding-inline-start: 5mm;
+  unicode-bidi: isolate;
+}
+.paging > .pages > .page > .content li {
+  padding-top: 0mm;
+  padding-bottom: 0mm;
+}
+
+.paging > .pages > .page > .content ul {
+  /* CUSTOMIZABLE */
+  --style-type-1: disc;
+  --style-type-2: circle;
+  --style-type-3: square;
+  
+  /* NOT CUSTOMIZABLE */
+  --style-type: var(--style-type-1);
+  list-style-type: var(--style-type);
+}
+
+.paging > .pages > .page > .content ul ul {
+  /* All nested UL have not margins */
+  margin-block-start: 0mm;
+  margin-block-end: 0mm;
+}
+
+/* LINKS */
+.paging > .pages > .page > .content a:link,
+.paging > .pages > .page > .content a:hover,
+.paging > .pages > .page > .content a:active,
+.paging > .pages > .page > .content a:visited {
+  color: var(--blue);
+}
+
+/* IMAGES */
+/* Change size when into text */
+.paging > .pages > .page > .content img {
+  height: 4mm;
+  vertical-align: -10%;
+}
+.paging > .pages > .page > .content p > img:only-child {
+  height: auto;
+  vertical-align: baseline;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* CODE */
+.paging > .pages > .page > .content code:not(code.hljs) {
+  box-shadow: 0 0 0 100vw var(--code-bg-color) inset;
+  font-family: var(--code-font);
+  font-size: 0.88em;
+  border-radius: 1mm;
+  border-style: solid;
+  border-width: thin;
+  border-color: var(--code-border-color);
+  padding-top: 0mm;
+  padding-bottom: 0mm;
+  padding-left: 1mm;
+  padding-right: 1mm;
+}
+
+/* HORIZONTAL RULES */
+.paging > .pages > .page > .content hr {
+  border: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--text-color), transparent);
+}
+
+/* BOOK INDEX */
+.paging > .pages > .page > .content > .bookindex {
+  display:flex;
+  align-items:flex-end;
+  text-decoration:none;
+  --padding: 0.2em;
+}
+
+.paging > .pages > .page > .content > .bookindex > .title {
+  white-space: nowrap;
+  padding-right: var(--padding);
+}
+
+.paging > .pages > .page > .content > .bookindex > .spacer {
+  width:100%;
+  align-self:center;
+  height:0.7em;
+  border-bottom-style:dotted;
+  border-bottom-width:0.1em;
+}
+
+.paging > .pages > .page > .content > .bookindex > .page {
+  padding-left: var(--padding);
+}
