@@ -1472,6 +1472,7 @@ footer a {
 	height: 24px;  /* 25px; inherit; */
     background: #fff; /* transparent;   none; */
 	border-radius: inherit;
+	cursor:pointer;
   }
 
 /*  
