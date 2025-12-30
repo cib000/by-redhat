@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Markdown Viewer</title>
+
+<!-- GitHub 스타일 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css" rel="stylesheet">
+
+<!-- Prism.js CSS (코드 하이라이팅) -->
+<link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet" />
+
+<style>
+body {
+  padding: 20px;
+  background: #f6f8fa;
+}
+
+.markdown-body {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+/* 코드 박스 복사 버튼 스타일 */
+pre {
+  position: relative;
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+}
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="markdown-body" id="content">
+  <!-- 여기에 Markdown 내용이 렌더링됩니다 -->
+</div>
+
+<!-- marked.js: Markdown → HTML 변환 -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- Prism.js -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"></script>
+
+<script>
+// 예제 Markdown 내용
+const md = `
+### 1.2.1. 장점
+
+\`\`\`autoit
+; 설정 파일이 없으면 기본값으로 생성
+If Not FileExists($ini) Then
+    IniWrite($ini, "SETTINGS", "x", "500")
+    IniWrite($ini, "SETTINGS", "y", "5")
+    IniWrite($ini, "SETTINGS", "w", "")
+    IniWrite($ini, "SETTINGS", "h", "")
+EndIf
+\`\`\`
+
+- 간결하다.
+- 별도의 도구 없이 작성 가능하다.
+- 다양한 형태로 변환 가능하다.
+`;
+
+// Markdown → HTML 변환
+document.getElementById('content').innerHTML = marked.parse(md);
+
+// Prism.js로 코드 하이라이팅
+Prism.highlightAll();
+
+// 복사 버튼 추가
+document.querySelectorAll('pre > code').forEach(codeEl => {
+  const btn = document.createElement('button');
+  btn.textContent = '복사';
+  btn.className = 'copy-btn';
+  btn.addEventListener('click', () => {
+    navigator.clipboard.writeText(codeEl.innerText)
+      .then(() => alert("코드가 복사되었습니다!"))
+      .catch(err => alert("복사 실패: " + err));
+  });
+  codeEl.parentNode.style.position = 'relative';
+  codeEl.parentNode.appendChild(btn);
+});
+</script>
+
+</body>
+</html>
