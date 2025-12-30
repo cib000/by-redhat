@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML 편집기 테스트</title>
+<style>
+  body {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  #left, #right {
+    flex: 1;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  #left {
+    border-right: 1px solid #ccc;
+  }
+  #codeInput {
+    width: 100%;
+    height: 200px;
+  }
+  #editor {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #aaa;
+    padding: 10px;
+    overflow: auto;
+  }
+  button {
+    margin: 5px 0;
+  }
+</style>
+</head>
+<body>
+
+<div id="left">
+  <h3>설명/코드 입력</h3>
+  <textarea id="codeInput" placeholder="여기에 설명이나 코드를 입력하세요"></textarea><br>
+  <button onclick="addContent()">추가하기</button>
+  <button onclick="clearInput()">비우기</button>
+</div>
+
+<div id="right">
+  <h3>HTML 편집기</h3>
+  <div id="editor" contenteditable="true"></div>
+  <button onclick="saveHTML()">저장</button>
+</div>
+
+<script>
+function addContent() {
+    const editor = document.getElementById('editor');
+    const code = document.getElementById('codeInput').value.trim();
+    if (!code) return;
+
+    // 커서 위치에 내용 삽입
+    const sel = window.getSelection();
+    if (!sel.rangeCount) {
+        // 커서가 없으면 끝에 추가
+        editor.innerHTML += `<div>${code}</div>`;
+        return;
+    }
+    const range = sel.getRangeAt(0);
+    range.deleteContents();
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = code;
+    const frag = document.createDocumentFragment();
+    while (tempDiv.firstChild) {
+        frag.appendChild(tempDiv.firstChild);
+    }
+    range.insertNode(frag);
+
+    // 입력창 초기화
+    document.getElementById('codeInput').value = '';
+}
+
+function clearInput() {
+    document.getElementById('codeInput').value = '';
+}
+
+function saveHTML() {
+    const content = document.getElementById('editor').innerHTML;
+    const blob = new Blob([content], {type: 'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'my_page.html';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
