@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+
+	<style>
+	.code-box {
+	  position: relative;   /* 기준점 */
+	}
+
+	.copy-btn {
+	  position: absolute;   /* code-box 기준으로 위치 */
+	  top: 28px;
+	  right: 40px;
+	  z-index: 1000;
+
+	  padding: 4px 8px;
+	  font-size: 12px;
+	  cursor: pointer;
+	}
+	
+	.btn-generate { background: #2e7d32; } /* 생성 */
+	.btn-copy     { background: #1565c0; } /* 복사 */
+	.btn-clear    { background: #b71c1c; } /* 초기화 */
+
+	.code-area {
+	  background: #1e1e1e;
+	  color: #dcdcdc;
+	  font-family: Consolas, monospace;
+	  font-size: 14px;
+	  line-height: 1.6;
+	  white-space: pre;
+	}	
+
+	</style>
+</head>
+
+
+<body class="stackedit">
+
+<hr>
+ 
+
+
+
+
+
+<!-- Prism.js -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"></script>
+
+<script>
+function copyCode2(btn) {
+  // 버튼 기준으로 가장 가까운 code 찾기
+  const code = btn.parentElement.querySelector('code');
+  const text = code.innerText;
+
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      btn.textContent = "복사되었습니다...!";
+      setTimeout(() => btn.textContent = "코드 내용복사", 1500);
+    })
+    .catch(err => alert("복사 실패: " + err));
+}
+
+function copyCode(btn) {
+  const target = btn.parentElement.querySelector('.copy-target');
+  const text = target.innerText;
+
+  navigator.clipboard.writeText(text)
+    .then(() => {
+	  //alert("복사되었습니다!")
+	  btn.textContent = "복사되었습니다...!";
+      setTimeout(() => btn.textContent = "코드 내용복사", 1500);
+    });
+}
+</script>
+</body>
+</html>
