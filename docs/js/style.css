@@ -1415,8 +1415,8 @@ footer a {
     content: '';
     position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     background: var(--gradient);
     top: 50%;
     left: 50%;
@@ -1427,10 +1427,10 @@ footer a {
   }
   
   .inner {
-    width: 80px;
+/*    width: 80px;
 	height:25px;
-	
-	background: #ccc; /* light-dark(white, #1a1c1e); */
+*/	
+/*	background: #ccc; /* light-dark(white, #1a1c1e); */
     color: #FFF; /* light-dark(#222, hsl(210, 8%, 66%)); */
     display: inline;
     padding: 0rem 0.0rem;
@@ -1467,19 +1467,20 @@ footer a {
 
 
   button {
-	width: inherit; /* 60px;  */
-	height: inherit;  /* 25px;  */
+	width: 80px;  */
+/*	height: inherit;  /* 25px;  */
     background: #fff; /* transparent;   none; */
 	border-radius: inherit;
   }
-  
+
+/*  
   input {
 	width: 60px;
 	height: 25px;
     color: light-dark(#222, hsl(210, 8%, 66%));
-    background: none; /* #fff;  transparent;   none; */
+    background: none; /* #fff;  transparent;   none; *//*
     border: none;
-	border-radius: inherit; /*  *** */
+	border-radius: inherit;
   }
 /*
   input {
