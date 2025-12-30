@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoIt 코드 에디터 3</title>
+    <link rel="stylesheet" href="https://stackedit.io/style.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .left, .right {
+            width: 48%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            height: 60vh; /* 300px; */
+            overflow-y: auto;
+        }
+        .right {
+            background-color: #f9f9f9;
+        }
+        textarea {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-family: monospace;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .button-container {
+            margin-top: 10px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .copy-btn {
+            padding: 10px 15px;
+            background-color: #28a745;
+        }
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        .editable {
+            outline: 1px solid #ccc;
+            background-color: #fafafa;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 왼편 코드 입력 -->
+    <div class="left">
+        <textarea id="inputCode" placeholder="오토잇 코드를 입력하세요..."></textarea>
+        <div class="button-container">
+            <button id="addCodeBtn">추가</button>
+        </div>
+    </div>
+
+    <!-- 오른편 코드 출력 -->
+    <div class="right">
+        <div id="codeContainer">
+            <!-- 기존 코드가 이곳에 추가됩니다 -->
+        </div>
+        <div class="button-container">
+            <button id="saveCodeBtn">저장</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"></script>
+<script>
+    // 코드 추가 버튼 클릭 시 처리
+    document.getElementById('addCodeBtn').addEventListener('click', function() {
+        var inputCode = document.getElementById('inputCode').value;
+
+        // 입력된 코드가 비어 있지 않으면
+        if (inputCode.trim() !== '') {
+            var codeContainer = document.getElementById('codeContainer');
+
+            // 코드 추가할 div 생성
+            var codeBox = document.createElement('div');
+            codeBox.classList.add('stackedit__html', 'code-box');
+
+            // 코드 복사 버튼 생성
+            var copyBtn = document.createElement('button');
+            copyBtn.classList.add('copy-btn');
+            copyBtn.textContent = '코드 내용복사';
+            copyBtn.onclick = function() {
+                copyCode(copyBtn);
+            };
+
+            // 코드 프리 태그 생성
+            var preTag = document.createElement('pre');
+            var codeTag = document.createElement('code');
+            codeTag.classList.add('language-autoit');  // 오토잇 언어 처리
+            codeTag.innerHTML = escapeHtml(inputCode);  // 입력된 코드 HTML 이스케이프 처리
+
+            preTag.appendChild(codeTag);
+            codeBox.appendChild(copyBtn);
+            codeBox.appendChild(preTag);
+
+            // 새로운 코드 블록을 수정 가능하게 하기
+            var editableDiv = document.createElement('div');
+            editableDiv.classList.add('editable');
+            editableDiv.setAttribute('contenteditable', 'true');
+            editableDiv.textContent = inputCode;  // 입력된 코드로 초기화
+            codeBox.appendChild(editableDiv);
+
+            codeContainer.appendChild(codeBox);
+
+            // Scroll to the newly added code (optional, if you want auto-scrolling)
+            codeContainer.scrollTop = codeContainer.scrollHeight;
+        }
+
+        // 입력란 초기화
+        document.getElementById('inputCode').value = '';
+    });
+
+    // 코드 복사 함수
+    function copyCode(button) {
+        var code = button.nextElementSibling.querySelector('code').innerText;
+        var textarea = document.createElement('textarea');
+        textarea.value = code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('코드가 복사되었습니다!');
+    }
+
+    // 코드 저장 버튼 클릭 시
+    document.getElementById('saveCodeBtn').addEventListener('click', function() {
+        var codeContainer = document.getElementById('codeContainer');
+        var codeContent = codeContainer.innerHTML;
+
+        var blob = new Blob([codeContent], { type: 'text/html' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'autoit_code.html';
+        link.click();
+    });
+
+    // HTML 이스케이프 함수 (HTML 코드가 안전하게 출력되도록 처리)
+    function escapeHtml(str) {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+</script>
+
+</body>
+</html>
