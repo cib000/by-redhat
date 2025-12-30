@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오토잇  코드 템플릿 연구소</title>
+	
+    <link rel="stylesheet" href="https://stackedit.io/style.css" />
+    <style>
+        body { width:80vw; font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; margin:0 auto; 
+		background-image: url('https://plus.unsplash.com/premium_photo-1661964187664-e26f70e1a224?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8JUVDJUJEJTk0JUVCJTk0JUE5JTIwJUVCJUIwJUIwJUVBJUIyJUJEfGVufDB8fDB8fHww');  
+		background-repeat: no-repeat; 	background-attachment: fixed; 	background-size: cover;  }
+        header {width: 80%; height: 100px; position: fixed; top:5px; text-align: center; display: flex; flex-direction: column; align-items: center; background: #BAE1FF; border: 2px solid red; border-radius: 4rem; z-index: 100;}
+		section { margin-top: 130px; } 
+		hr { margin: 50px 0 30px 0; border-top: 2px solid #f00; background: transparent; }
+		h1 { color: #00F; margin-top: 1.2rem; letter-spacing : 2em;}
+		h6 { color: #FFF; }
+		footer { margin: 30px 5px; text-align: center;  align-items: center; }
+		.code-box { background: #f9f9f9; position: relative; margin-bottom: 50px; padding: 20px; padding-top: 30px; font-weight:800; border-radius: 10px; opacity: 0.95;}
+        .copy-btn {
+            position: absolute; top: 50px; right: 30px; z-index: 10;
+            background: #1565c0; color: white; padding: 6px 12px;
+            font-size: 12px; border: none; border-radius: 4px; cursor: pointer;
+        }
+        .discript { color: blue; font-weight: 900; border: 1px solid skyblue; border-radius: 10px; padding: 5px 20px; display: inline-block; }
+        .editable { background:#fafafa; border:1px solid #ccc; border-radius:5px; padding:10px; min-height:80px; margin-top:15px; }        
+    </style>
+</head>
+<body class="stackedit">
+<header>
+<h1>연구과제</h1>
+<hr>
+</header>
+<section>
+    <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">코드 내용복사</button><pre class="language-autoit" tabindex="0"><code class="language-autoit"><span class="token comment">; 설정 파일이 없으면 기본값으로 생성</span>
+	<span class="token keyword">If</span> <span class="token operator">Not</span> <span class="token function">FileExists</span><span class="token punctuation">(</span><span class="token variable">$ini</span><span class="token punctuation">)</span> <span class="token keyword">Then</span>
+		<span class="token function">IniWrite</span><span class="token punctuation">(</span><span class="token variable">$ini</span><span class="token punctuation">,</span> <span class="token string">"SETTINGS"</span><span class="token punctuation">,</span> <span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token string">"500"</span><span class="token punctuation">)</span>
+		<span class="token function">IniWrite</span><span class="token punctuation">(</span><span class="token variable">$ini</span><span class="token punctuation">,</span> <span class="token string">"SETTINGS"</span><span class="token punctuation">,</span> <span class="token string">"y"</span><span class="token punctuation">,</span> <span class="token string">"5"</span><span class="token punctuation">)</span>
+		<span class="token function">IniWrite</span><span class="token punctuation">(</span><span class="token variable">$ini</span><span class="token punctuation">,</span> <span class="token string">"SETTINGS"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span>
+		<span class="token function">IniWrite</span><span class="token punctuation">(</span><span class="token variable">$ini</span><span class="token punctuation">,</span> <span class="token string">"SETTINGS"</span><span class="token punctuation">,</span> <span class="token string">"h"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span>
+	<span class="token keyword">EndIf</span></code></pre><div class="editable" contenteditable="true"><span class="discript">코드 설명 :</span><br>위 코드는 실행설정관련 기본설정 파일이 없으면 생성할때 사용되는 코드의 예시입니다.<div>이는 반드시 기본설정이...........</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;주저리&nbsp; &nbsp; &nbsp; 주저리 ................</div><div><br></div><div>그러하므로&nbsp; 뭐라고 뭐라고..............</div><div>하면서 설명을 합니다.</div></div><hr></div><div class="code-box"><button class="copy-btn" onclick="copyCode(this)">코드 내용복사</button><pre class="language-autoit" tabindex="0"><code class="language-autoit"><span class="token comment">; 설정 파일이 없으면 기본값으로 생성</span>
+	<span class="token keyword">If</span> <span class="token operator">Not</span> <span class="token function">FileExists</span><span class="token punctuation">(</span><span class="token variable">$ini</span><span class="token punctuation">)</span> <span class="token keyword">Then</span>
+		<span class="token function">IniWrite</span><span class="token punctuation">(</span><span class="token variable">$ini</span><span class="token punctuation">,</span> <span class="token string">"SETTINGS"</span><span class="token punctuation">,</span> <span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token string">"500"</span><span class="token punctuation">)</span>
+		<span class="token function">IniWrite</span><span class="token punctuation">(</span><span class="token variable">$ini</span><span class="token punctuation">,</span> <span class="token string">"SETTINGS"</span><span class="token punctuation">,</span> <span class="token string">"y"</span><span class="token punctuation">,</span> <span class="token string">"5"</span><span class="token punctuation">)</span>
+	<span class="token keyword">EndIf</span></code></pre><div class="editable" contenteditable="true"><span class="discript">코드 설명 :</span><br>부연을 추가하여 설명을 추가한 의견으로는&nbsp;<div>실제 사용시에는 불필요 할 수 있겠으나.....................어쩌구 저쩌구.....</div><div>.............................</div><div>----------------------------</div><div>*** 처럼 사용될 수 있는 구문의 템플릿입니다. 라면서 설명을 추가함.</div></div><hr></div><div class="code-box"><button class="copy-btn" onclick="copyCode(this)">코드 내용복사</button><pre class="language-autoit" tabindex="0"><code class="language-autoit">이렇게 문의하고 활용하면서 보이는 부분들을 실제 코드를 추가하여 설명하고 
+이 설명을 기반으로 학습을 진행하면서 서로가 접근하는 방법이나 아이디어를 
+주고 받음으로 발생되는 시너지를 극대화 할 수 있더럭 코드 복붙의 기능까지 
+추가하여 조금 더 쉽게 의견과 대화를 주고 받을 수 있도록 개발된 템플릿입니다<span class="token punctuation">.</span>
+
+                        <span class="token operator">-</span> Dev ByRH <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> Serviced ByRH <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre><div class="editable" contenteditable="true"><span class="discript">코드 설명 :</span><br><br></div><hr></div>
+</section>	
+<footer>
+<h6>Dev team : KWAF - We Are Family</h6>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"></script>
+    <script>
+        function copyCode(btn) {
+            const code = btn.parentElement.querySelector('code');
+            const text = code.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = "복사완료!";
+                setTimeout(() => btn.textContent = "코드 내용복사", 1500);
+            }).catch(() => alert("복사 실패"));
+        }
+        document.addEventListener('DOMContentLoaded', () => Prism.highlightAll());
+    </script>
+</body>
+</html>
