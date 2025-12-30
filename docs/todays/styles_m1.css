@@ -1,0 +1,19 @@
+body { 
+	background-image: url('./imgs/bg.webp');  /* newsroom.jfif   newsroom.webp   newsroom.jpg   bg.webp   */
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	font-family: Arial, sans-serif; 
+	margin: 20px;
+}
+
+ul { list-style-type: none; padding-left: 0; }
+li { margin: 5px 0; line-height: 2; font-size:1.4em;}
+a { text-decoration: none; color: #007BFF; }
+a:hover { text-decoration: none; color: #000000; border: 1px solid blue; padding: 10px; background: yellow;}
+
+.Listbox { width:90%; height:60vh; border: 1px solid blue; overflow: auto; padding: 20px 30px;  }
+
+hr .style6 {	background-color: #ccc;	border-top: 2px dotted #8c8b8b; }
+.dots {  color: #f00;  width: 70%; /* 216px;  */ }
+
