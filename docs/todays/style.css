@@ -455,13 +455,19 @@ contents {
 /********************************************************/
 
   .marquee-box {
-    width: 70%; /* 400px; */
+    width: 120%; /* 400px; */
 	item-align: center;
 	margin:0 auto;
     overflow: hidden;
     white-space: nowrap;
-    border: 1px solid #ccc;
-    padding: 6px;
+    border: 1px solid #00f;
+	border-radius: 2rem;
+    padding: 5px 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-size: 1.4em;
+	font-weight: 600;
+	color: blue;
   }
 
   .marquee-text {
