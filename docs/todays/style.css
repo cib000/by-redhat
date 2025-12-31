@@ -455,7 +455,7 @@ contents {
 /********************************************************/
 
   .marquee-box {
-    width: 120%; /* 400px; */
+    width: 80vw; /* 400px; */
 	item-align: center;
 	margin:0 auto;
     overflow: hidden;
@@ -468,6 +468,7 @@ contents {
 	font-size: 1.4em;
 	font-weight: 600;
 	color: blue;
+	z-index: 500;
   }
 
   .marquee-text {
