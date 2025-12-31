@@ -59,10 +59,15 @@
             cursor: pointer;
             font-size: 14px;
         }
-        #addCodeBtn, #pasteCodeBtn {
+        #addCodeBtn {
             background-color: #007bff;
             color: white;
         }
+		#pasteCodeBtn {
+		    background-color: #007bff;
+            color: white;
+		}
+		
         #saveCodeBtn {
             background-color: #28a745;
             color: white;
@@ -70,6 +75,15 @@
             padding: 12px 30px;
             font-size: 16px;
         }
+		#refreshScrBtn {
+			background: #00f;
+			color: #fff;
+			border-radius: inherit;
+			font-weight: bold;
+            padding: 12px 30px;
+            font-size: 16px;
+		}		
+		
         .code-box {
             position: relative;
             margin-bottom: 40px;
@@ -206,6 +220,8 @@
 		
 		/* ************************************************ */
 
+
+
     </style>
 </head>
 <body>
@@ -227,7 +243,7 @@
                 </div>
             </div>
 
-            <div class="button-container" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+            <div class="button-container" style="margin-top: 10px; padding-top: 20px; border-top: 1px solid #eee;">
                 <button id="saveCodeBtn">💾 저장 (HTML 파일 다운로드)</button>
 				<button onClick="window.location.reload()" id="refreshScrBtn">🔄 화면 새로고침</button>
             </div>
