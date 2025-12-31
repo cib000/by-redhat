@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오토잇  코드 템플릿 연구소</title>
+	
+    <link rel="stylesheet" href="https://stackedit.io/style.css" />
+    <style>
+        body { width:80vw; font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; margin:0 auto; 
+		background-image: url('https://plus.unsplash.com/premium_photo-1661964187664-e26f70e1a224?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8JUVDJUJEJTk0JUVCJTk0JUE5JTIwJUVCJUIwJUIwJUVBJUIyJUJEfGVufDB8fDB8fHww');  
+		background-repeat: no-repeat; 	background-attachment: fixed; 	background-size: cover;  }
+        header {width: 80%; height: 100px; position: fixed; top:5px; text-align: center; display: flex; flex-direction: column; align-items: center; background: #BAE1FF; border: 2px solid red; border-radius: 4rem; z-index: 100;}
+		section { margin-top: 130px; } 
+		hr { margin: 50px 0 30px 0; border-top: 2px solid #f00; background: transparent; }
+		h1 { color: #00F; margin-top: 1.2rem; letter-spacing : 2em;}
+		h6 { color: #FFF; }
+		footer { margin: 30px 5px; text-align: center;  align-items: center; }
+		.code-box { background: #f9f9f9; position: relative; margin-bottom: 50px; padding: 20px; padding-top: 30px; font-weight:800; border-radius: 10px; opacity: 0.95;}
+        .copy-btn {
+            position: absolute; top: 50px; right: 30px; z-index: 10;
+            background: #1565c0; color: white; padding: 6px 12px;
+            font-size: 12px; border: none; border-radius: 4px; cursor: pointer;
+        }
+        .discript { color: blue; font-weight: 900; border: 1px solid skyblue; border-radius: 10px; padding: 5px 20px; display: inline-block; }
+        .editable { background:#fafafa; border:1px solid #ccc; border-radius:5px; padding:10px; min-height:80px; margin-top:15px; }        
+    </style>
+</head>
+<body class="stackedit">
+<header>
+<h1>연구과제</h1>
+<hr>
+</header>
+<section>
+    <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">코드 내용복사</button><pre class="language-autoit" tabindex="0"><code class="language-autoit"><span class="token comment">; 가로 구분선 </span>
+
+ <span class="token comment">; ─── 구분선 생성 (Label을 이용한 얇은 가로선) ───</span>
+<span class="token function">GUICtrlCreateLabel</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token variable">$height</span> <span class="token operator">-</span> <span class="token number">45</span><span class="token punctuation">,</span> <span class="token variable">$width</span><span class="token operator">-</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token comment">; (x, y, width, height)</span>
+<span class="token function">GUICtrlSetBkColor</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0x808080</span><span class="token punctuation">)</span> <span class="token comment">; 회색선 (중간톤)</span>
+
+<span class="token comment">; ─── 가로 실선 ───1</span>
+<span class="token function">GUICtrlCreateLabel</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token variable">$iHeight</span><span class="token operator">-</span><span class="token number">35</span><span class="token punctuation">,</span> <span class="token variable">$iWidth</span><span class="token operator">-</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token function">GUICtrlSetBkColor</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0x999999</span><span class="token punctuation">)</span>
+
+<span class="token comment">; ─── 가로 실선 ───</span>
+<span class="token function">GUICtrlCreateLabel</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">360</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token function">GUICtrlSetBkColor</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0x999999</span><span class="token punctuation">)</span>
+
+<span class="token comment">; ─── 세로 실선 ───</span>
+<span class="token function">GUICtrlCreateLabel</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">150</span><span class="token punctuation">)</span>
+<span class="token function">GUICtrlSetBkColor</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0x999999</span><span class="token punctuation">)</span>
+
+<span class="token comment">; ─── 점선은 GDI+ 사용 필요 ───</span>
+<span class="token function">_GDIPlus_Startup</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">Global</span> <span class="token variable">$hGraphics</span> <span class="token operator">=</span> <span class="token function">_GDIPlus_GraphicsCreateFromHWND</span><span class="token punctuation">(</span><span class="token variable">$hGUI</span><span class="token punctuation">)</span>
+<span class="token keyword">Global</span> <span class="token variable">$hPen</span> <span class="token operator">=</span> <span class="token function">_GDIPlus_PenCreate</span><span class="token punctuation">(</span><span class="token number">0xFF000000</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment">; 검정, 두께 1</span>
+<span class="token function">_GDIPlus_PenSetDashStyle</span><span class="token punctuation">(</span><span class="token variable">$hPen</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token comment">; 점선 스타일 (2 = DashDot)</span>
+
+<span class="token comment">; GUI 내 점선 직접 그리기</span>
+<span class="token function">_GDIPlus_GraphicsDrawLine</span><span class="token punctuation">(</span><span class="token variable">$hGraphics</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">220</span><span class="token punctuation">,</span> <span class="token number">380</span><span class="token punctuation">,</span> <span class="token number">220</span><span class="token punctuation">,</span> <span class="token variable">$hPen</span><span class="token punctuation">)</span></code></pre><div class="editable" contenteditable="true"><span class="discript">코드 설명 :</span><br>위 예시된&nbsp; 템플릿은 간단하면서도 위치와 색상 두께를 조절하여 사용할 수 있는 가로 세로의 구분선입니다.<div>단순한 라벨을 활용한 방법중 하나입니다.</div><div>GDI를 사용하면 리소스가 증가하다보니 사용 제약도 있지만 화려한 UI를 위해서는 사용하지만 구분선에의 활용도 또한 위 예시처럼 사용하셔도 구분이 필요한 구문이라면 좋을듯하여 템플릿으로 작성한 예시 입니다.</div><div><br></div><div>내용을 복사하시어 필요한 곳에 저장 또는 메모해 두시고 필요할 때 활용을 하시면 코딩에 좀 더 나은 보탬이 되지 않을까 합니다.</div></div><hr></div>
+</section>
+
+<footer>
+<h6>Dev team : KWAF - We Are Family</h6>
+<br>
+<button onclick="window.close()">창 닫기</button>	
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"></script>
+    <script>
+        function copyCode(btn) {
+            const code = btn.parentElement.querySelector('code');
+            const text = code.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = "복사완료!";
+                setTimeout(() => btn.textContent = "코드 내용복사", 1500);
+            }).catch(() => alert("복사 실패"));
+        }
+        document.addEventListener('DOMContentLoaded', () => Prism.highlightAll());
+    </script>
+</body>
+</html>
