@@ -831,8 +831,8 @@
   // 이미지 URL 목록
   const images = [
     "./imgs/새해 복 많이 받으세요 2.gif",  // 첫 번째 이미지
-    "./imgs/이미지2.gif",  // 두 번째 이미지
-    "./imgs/이미지3.gif"   // 세 번째 이미지
+    "./imgs/새해 복 많이 받으세요.gif",  // 두 번째 이미지
+    "./imgs/복 배달중.gif"   // 세 번째 이미지
   ];
 
   let currentIndex = 0;  // 현재 이미지 인덱스
@@ -848,7 +848,7 @@
   }
 
   // 10분(600,000ms)마다 이미지 변경
-  setInterval(changeImage, 60);  // 600,000ms = 10분
+  setInterval(changeImage, 10);  // 600,000ms = 10분
 
   // 페이지 로드 시 바로 첫 이미지 설정
   changeImage();
