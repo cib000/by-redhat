@@ -1225,7 +1225,7 @@ footer a {
 	height: 50px;
     background-color: #19414a;
     
-    z-index: 1199;
+    z-index: 1200;
 	margin-bottom: 30px;
 
 }	   
@@ -1291,7 +1291,7 @@ footer a {
   column-gap: 16px;
   border-top:1px solid rgba(85,128,138,1);
   margin-bottom:90px;
-  z-index:1199;
+  z-index:1190;
 }
 
 .megaMenu .menuItem {
