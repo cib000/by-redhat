@@ -628,3 +628,32 @@
     "심술이 왕골(王骨) 장골(張骨) 떼라 : 몹시 심술궂고 행동거지가 고약함을 비유적으로 이르는 말.  왕골과 장골 떼는 심술이 사나운 사람들이었다고 한다. ",
     "의뭉하기는 음창(陰瘡) 벌레라 : 겉으로는 아주 어리석은 듯이 행동하면서도 속은 실속 있게 깐깐하거나 알면서도 모르는 체하는 사람을 비유적으로 이르는 말. "
   ];
+
+/*
+  const marquee = document.getElementById("marquee");
+  let lastIndex = -1;
+  let paused = false;
+
+  function getRandomIndex() {
+    let i;
+    do {
+      i = Math.floor(Math.random() * messages.length);
+    } while (i === lastIndex);
+    lastIndex = i;
+    return i;
+  }
+
+  function playNext() {
+    if (paused) return; // 🔴 일시정지 중이면 전환 금지
+
+    const text = messages[getRandomIndex()];
+    const duration = text.length * 0.35;
+
+    marquee.classList.remove("paused");
+    marquee.style.animation = "none";
+    marquee.offsetHeight;
+    marquee.textContent = text;
+    marquee.style.animation = `marquee ${duration}s linear 1`;
+  }
+*/
+
