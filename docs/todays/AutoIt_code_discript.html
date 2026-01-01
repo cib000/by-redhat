@@ -23,8 +23,6 @@
             gap: 20px;
             max-width: 1400px;
 			margin: 0 auto;
-            /*margin-top: 120px;*/
-			
         }
 
         .left, .right {
@@ -145,8 +143,8 @@
 
 		footer {
 			/* width: 42%; */
-			height: 95px;
-			background: rgba(212,217,219,0.7); /* #D4D9DB;  opacity: 0.7; */
+			height: 100px;
+			background: rgba(212,217,219,0.5); /* #D4D9DB;  opacity: 0.7; */
 			border-radius: 2rem;
 			position: fixed;
 			bottom: 10px;
@@ -155,7 +153,7 @@
 			margin: 10px;
 			padding: 15px 20px;
 			z-index: 0.1;
-			font-size: 0.8em;
+			font-size: 1.1em;
 			font-weight: 600;
 		}
 
@@ -296,9 +294,10 @@
 	</footer>
 
 
-
+<!--
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"></script>
+-->
 
     <script>
         // HTML 이스케이프
@@ -359,8 +358,7 @@
 
 		document.getElementById('inputCode').value = '';
 		document.querySelector('.right').scrollTop = document.querySelector('.right').scrollHeight;
-
-		Prism.highlightAllUnder(container);
+		//Prism.highlightAllUnder(container);  // Prism
 	});
 
         // 붙여넣기
@@ -386,8 +384,10 @@
     <title>오토잇  코드 템플릿 연구소</title>
 	<link rel="shortcut icon" href="../../tool.ico" >
     <link rel="stylesheet" href="https://stackedit.io/style.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
-	
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>	
+
     <style>
         body { width:80vw; font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; margin:0 auto; 
 		background-image: url('https://plus.unsplash.com/premium_photo-1661964187664-e26f70e1a224?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8JUVDJUJEJTk0JUVCJTk0JUE5JTIwJUVCJUIwJUIwJUVBJUIyJUJEfGVufDB8fDB8fHww');  
