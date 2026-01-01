@@ -346,7 +346,6 @@ a:active {
 }
 
 
-
 .list:last-of-type {
     margin-right: 0;
 }
@@ -1544,6 +1543,7 @@ footer a {
   overflow-x: auto;   /* 더보기 시 스크롤 허용 */
 }
 
+
 /*
 .stage {
   width: 300px;
@@ -1578,6 +1578,16 @@ footer a {
   border-radius: 5px;
 }
 */
+
+
+/* ************************************************ */
+
+.bgskyblue {
+	background: skyblue;
+}
+.bgpink {
+	background: pink;
+}
 
 
 /* ************************************************ */
