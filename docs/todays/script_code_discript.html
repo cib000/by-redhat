@@ -285,7 +285,7 @@
 				</select>
 			</div>
 
-            <textarea id="inputCode" placeholder="오토잇 코드를 여기에 입력하세요...그리고 [➕ 추가] 버튼"></textarea>
+            <textarea id="inputCode" placeholder="AutoIt 코드를 여기에 입력하세요...&#13;&#10;&#13;&#10;그리고 [➕ 추가] 버튼"></textarea>
             <div class="button-container">
                 <button id="addCodeBtn">➕ 추가</button>
                 <button id="pasteCodeBtn">🧾 붙여넣기</button>
@@ -330,25 +330,25 @@
 
 		switch(lang) {
 			case 'autoit':
-				placeholderText = 'AutoIt 코드를 여기에 입력하세요...';
+				placeholderText = 'AutoIt 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
 				break;
 			case 'html':
-				placeholderText = 'HTML 코드를 여기에 입력하세요...';
+				placeholderText = 'HTML 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
 				break;
 			case 'css':
-				placeholderText = 'CSS 코드를 여기에 입력하세요...';
+				placeholderText = 'CSS 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
 				break;
 			case 'javascript':
-				placeholderText = 'JavaScript 코드를 여기에 입력하세요...';
+				placeholderText = 'JavaScript 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
 				break;
 			case 'json':
-				placeholderText = 'JSON 데이터를 여기에 입력하세요...';
+				placeholderText = 'JSON 데이터를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
 				break;
 			case 'vbs':
-				placeholderText = 'VBS 스크립트를 여기에 입력하세요...';
+				placeholderText = 'VBS 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
 				break;
 			case 'powershell':
-				placeholderText = 'PowerShell 스크립트를 여기에 입력하세요...';
+				placeholderText = 'PowerShell 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
 				break;
 			default:
 				placeholderText = '코드를 입력하세요...';
@@ -480,16 +480,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"><\/script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"><\/script>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"><\/script>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"><\/script>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js"><\/script>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"><\/script>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"><\/script>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js"><\/script>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-batch.min.js"><\/script>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-vbscript.min.js"><\/script>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-visual-basic.min.js"><\/script>
-
     <script>
         function copyCode(btn) {
             const code = btn.parentElement.querySelector('code');
