@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://stackedit.io/style.css" />
     <style>
         body {
-            background-image: url('./imgs/bg.webp');
+            /* background-image: url('./imgs/working.mp4'); */
+			background-image: url('./imgs/bg.webp');
 			background-repeat: no-repeat;
 			background-attachment: fixed;
 			background-size: cover;
@@ -249,6 +250,27 @@
 		/* ************************************************ */
 
 
+#video-background {  /* 비디오 배경 스타일 */
+/*  min-width: 100%; 
+  min-height: 100%;  */
+  width: 100vw; 
+  height: 100vh;
+  position: fixed;  /* absolute; fixed;  */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+  top: 0;
+  left: 0;
+/*  right: 0; 
+  bottom: 0; */
+  opacity: 0.7;
+/*  z-index: -100;  */
+}    /* 비디오 배경 스타일 */
+
 
     </style>
 </head>
@@ -289,6 +311,7 @@
 
 	
 	</footer>
+
 
 <video autoplay loop id="video-background" muted>
   <source src="./imgs/working.mp4" type="video/mp4">
