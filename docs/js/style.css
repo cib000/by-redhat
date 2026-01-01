@@ -91,9 +91,10 @@ body {
     background-color: var(--bodbg_color);
 	background: var(--bodbg_color);
     color: var(--bodbg_color);
-	overflow-y: hidden;
-	overflow-x: scroll; /* overflow-x: auto; */
+	overflow-y: auto;  /*  hidden;  */
+	overflow-x: auto; /* overflow-x: auto;   scroll */
 	transition: background 0.6s;
+	hright: 100vh;
 }
 
 a  { 
@@ -119,6 +120,7 @@ a:active {
 	text-decoration: none;
 }
 */
+
 .btn {
     display: flex;
     justify-content: center;
@@ -335,14 +337,16 @@ a:active {
     flex-direction: column;
     background-color: var(--bodbg_color);
 	color: var(--title_bgcolor);
-    max-height: calc(100vh - 17.8rem);
+    max-height: calc(100vh - 20.8rem);
     border-radius: 0.3rem;
     margin-right: 1rem;
 	
 	/* 스크롤 바 없애기 */
 	::-webkit-scrollbar { width: 0px;height:0;} 
-	::-webkit-scrollbar-thumb { background-color: transparent;} 
-	::-webkit-scrollbar-track { background-color: transparent;}	
+	::-webkit-scrollbar-thumb { background-color: transparent;}
+	::-webkit-scrollbar-track { background-color: transparent;}
+	
+	
 }
 
 
@@ -638,11 +642,11 @@ Remove or comment-out the code block below to see how the browser will fall-back
 /* 왼쪽 애니메이션 */
 .left_flower {
 	position: fixed;   /*  absolute    static   relative  fixed   */
-	bottom: 30px;
+	bottom: 0px;
 	left: 80px;
 	width:200px;
-	height: 100px
-	z-index: 20000; 
+	height: 100px;
+	z-index: -20000; 
 }
 
 .bg_flower5 {
@@ -860,6 +864,8 @@ footer {
     text-align: center;
     z-index: 999;
 }
+
+
 /*
 footer p {
     margin: 10px 0;
