@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://stackedit.io/style.css" />
     <style>
         body {
-            /* background-image: url('./imgs/working.mp4'); */
 			background-image: url('./imgs/bg.webp');
 			background-repeat: no-repeat;
 			background-attachment: fixed;
@@ -23,23 +22,10 @@
             display: flex;
             gap: 20px;
             max-width: 1400px;
-            margin: 0 auto;
+			margin: 0 auto;
+            margin-top: 120px;
+			
         }
-		footer {
-			width: 42%;
-			height: 150px;
-			background: rgba(212,217,219,0.5); /* #D4D9DB;  opacity: 0.7; */
-			border-radius: 2rem;
-			position: fixed;
-			bottom: 0;
-			left: 3%;
-			margin-top: 50px;			
-			margin: 10px;
-			padding: 15px 20px;
-			z-index: 1;
-			font-size: 1.1em;
-			font-weight: 600;
-		}
 
         .left, .right {
             width: 50%;
@@ -53,8 +39,8 @@
         }
         .right {
             overflow-y: auto;
-            height: 75vh;
-			/* max-height: 90vh;*/
+            /* height: 75vh; */
+			max-height: 90vh;
         }
         textarea {
             width: 100%;
@@ -156,6 +142,23 @@
             border: none;
             border-top: 2px solid #eee;
         }
+
+		footer {
+			/* width: 42%; */
+			height: 30px;
+			background: rgba(212,217,219,0.5); /* #D4D9DB;  opacity: 0.7; */
+			border-radius: 2rem;
+			position: fixed;
+			bottom: 0;
+			left: 13%;
+			margin-top: 50px;			
+			margin: 10px;
+			padding: 15px 20px;
+			z-index: 0.1;
+			font-size: 1.1em;
+			font-weight: 600;
+		}
+
 		
 		/* ************************************************ */
 
@@ -256,7 +259,7 @@
 <body>
 
 
-    <div class="container bg-video">
+    <div class="container">
 	
         <!-- 왼쪽: 입력 영역 -->
         <div class="left">
@@ -285,14 +288,12 @@
     </div>
 
 
-	<footer>
+	<!--footer>
 	✨  시작 취지 :<br>
 	ㄴ 🧑 입문 초보자는 쉽게 복붙 참고를 할 수 있도록...........<br>
 	ㄴ 😎 중급 - 빠른 접근과 활용을 위한 방안으로<br>
 	ㄴ 🕵️ 고급 - 접근 시야를 넓히거나 이이디어 진작을 위한 후견인 모드<br>
-
-	
-	</footer>
+	</footer -->
 
 
 
@@ -385,6 +386,13 @@
     <title>오토잇  코드 템플릿 연구소</title>
 	<link rel="shortcut icon" href="../../tool.ico" >
     <link rel="stylesheet" href="https://stackedit.io/style.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+	<!-- and it's easy to individually load additional languages -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+	<script>hljs.highlightAll();</script>
+	
     <style>
         body { width:80vw; font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; margin:0 auto; 
 		background-image: url('https://plus.unsplash.com/premium_photo-1661964187664-e26f70e1a224?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8JUVDJUJEJTk0JUVCJTk0JUE5JTIwJUVCJUIwJUIwJUVBJUIyJUJEfGVufDB8fDB8fHww');  
