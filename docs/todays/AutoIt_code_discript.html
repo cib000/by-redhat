@@ -250,40 +250,14 @@
 		/* ************************************************ */
 
 
-#video-background {  /* 비디오 배경 스타일 */
-  min-width: 100%; 
-  min-height: 100%;
-  width: 100vw; 
-  height: 100vh;
-  position: fixed;  /* absolute; fixed;  */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -o-object-fit: cover;
-  object-fit: cover;
-  -o-object-position: center;
-  object-position: center;
-  top: 0;
-  left: 0;
-/*  right: 0; 
-  bottom: 0; */
-  opacity: 0.7;
-  z-index: -100;
-}    /* 비디오 배경 스타일 */
-
 
     </style>
 </head>
 <body>
 
-<!--
-<video autoplay loop id="video-background" muted>
-  <source src="./imgs/working.mp4" type="video/mp4">
-</video>
--->
 
-
-    <div class="container">
+    <div class="container bg-video">
+	
         <!-- 왼쪽: 입력 영역 -->
         <div class="left">
             <textarea id="inputCode" placeholder="오토잇 코드를 여기에 입력하세요...그리고 [➕ 추가] 버튼"></textarea>
