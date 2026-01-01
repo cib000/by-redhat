@@ -530,7 +530,30 @@
 		  <div class="border"></div>
     	</div>
   
-  
+		<!-- form onsubmit="return movePage()">
+		  <select id="page">
+			<option value="">선택</option>
+			<option value="page0" selected>처음</option>
+			<option value="page1">1</option>
+			<option value="page2">2</option>
+			<option value="page3">3</option>
+			<option value="page4">4</option>
+			<option value="page5">끝</option>
+		  </select>
+		</form -->
+
+		 
+		<select onchange="movePage(this.value)" class="select" title="페이지 이동">
+		  <option value="page0" selected>처음</option>
+		  <option value="page1">1</option>
+		  <option value="page2">2</option>
+		  <option value="page3">3</option>
+		  <option value="page4">4</option>
+		  <option value="page5">끝</option>
+		</select>
+
+
+ 
 <!--  -->
 	</div>
 
@@ -545,7 +568,7 @@
 
 
 <div class="list">
-<h3 class="list-title mheadh3"><i class="fa fa-fire" aria-hidden="true"></i> ByRH </h3>
+<h3 class="list-title mheadh3" id="page0"><i class="fa fa-fire" aria-hidden="true"></i> ByRH </h3>
 	<ul class="list-items">
 
 	<li><a href="https://github.com/cib000/by-redhat" title="ㅁ자의 소일 - 메인 깃허브">
@@ -817,7 +840,7 @@
 
 	
 <div class="list">
-	<div class="list">
+	<div class="list" id="page1">
 		<h3 class="list-title mheadh7">알려진 자료실</h3>
 		<ul class="list-items">
 			<li style="background-color: #fff;color:red;">⚠️ 백신 활성/광고차단필수</li>
@@ -1047,7 +1070,7 @@
 </div>
 
 
-<div class="list">
+<div class="list" id="page2">
 	<div class="list">		
 			<h3 class="list-title">토렌트_서비스</h3>
 			<ul class="list-items">
@@ -1249,7 +1272,7 @@
 </div>
 
 
-<div class="list">
+<div class="list" id="page3">
 	<div class="list">
 		<h3 class="list-title">추가중 - 분리전 내용</h3>
 		<ul class="list-items">
@@ -1262,9 +1285,8 @@
 			<li><a href="https://github.com/xanderfrangos/twinkle-tray/releases" title="다중모니터 밝기 조절 깃"> 깃 - twinkletray</a></li>
 			<li><a href="https://picview.org/" title="PicView 이미지 뷰"> PicView 이미지 뷰 (공홈)</a></li>
 			<li><a href="https://github.com/Ruben2776/PicView/releases" title="PicView 이미지 뷰"> 깃 - PicView 이미지 뷰 </a></li>
-			
-			<!--li><a href="htt" title="다중"> 예비 </a></li-->
-			<!--li><a href="htt" title="다중"> 예비 </a></li-->
+			<li><a href="https://www.fxsound.com/" title="fxsound 사운드효과"> fxsound 사운드효과 </a></li>
+			<li><a href="https://phoxo.com/see/" title="phoxo 이미지 뷰"> phoxo 이미지 뷰 </a></li>
 			<!--li><a href="htt" title="다중"> 예비 </a></li-->
 			<!--li><a href="htt" title="다중"> 예비 </a></li-->
 			<!--li><a href="htt" title="다중"> 예비 </a></li-->
@@ -1333,7 +1355,7 @@
 
 
 
-<div class="list">
+<div class="list" id="page4">
 	<div class="list">
 	<h3 class="list-title"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 8</h3>
 		<ul class="list-items">
@@ -1386,7 +1408,7 @@
 </div>
 
 
-<div class="list">
+<div class="list" id="page5">
 	<div class="list">
 	<h3 class="list-title"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 12</h3>
 		<ul class="list-items">
@@ -1807,7 +1829,24 @@
 
 
 
+<script>
+function movePage() {
+  const value = document.getElementById('page').value;
+  if (value) {
+    location.hash = value;
+  }
+  return false; // form 제출 막기
+}
+</script>
 
+
+<script>
+function movePage(id) {
+  if (id) {
+    location.href = "#" + id;
+  }
+}
+</script>
 
 <script>
     // 스테이지 더보기 버튼
