@@ -353,6 +353,12 @@
 
         <!-- 오른쪽: 미리보기 영역 -->
         <div class="right">
+		
+			<div style="width:100%">
+			<label>저장파일명 :</label>
+			<input type="text" id="file-name" name="file-name" placeholder="autoit_code_discript_template" size="40" value=""><br><br>
+			</div>
+			
             <div id="previewContent">
                 <div class="stackedit__html">
                     <div id="dynamicContent"></div>
@@ -435,114 +441,76 @@
 
 /*******************************************************/	
 
-const placeholderTexts = {
-    autoit: {
-        ko: "오토잇(au3) 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
-        en: "Enter AutoIt code here...\n\nThen click [➕ Add]"
-    },
-    html: {
-        ko: "HTML 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
-        en: "Enter HTML code here...\n\nThen click [➕ Add]"
-    },
-    css: {
-        ko: "CSS 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
-        en: "Enter CSS code here...\n\nThen click [➕ Add]"
-    },
-    javascript: {
-        ko: "자바 스크립트(js) 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
-        en: "Enter JavaScript code here...\n\nThen click [➕ Add]"
-    },
-    json: {
-        ko: "JSON 데이터를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
-        en: "Enter JSON data here...\n\nThen click [➕ Add]"
-    },
-    vbs: {
-        ko: "비쥬얼베이직(VBS) 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
-        en: "Enter VBS script here...\n\nThen click [➕ Add]"
-    },
-    powershell: {
-        ko: "파워쉘 스크립트(ps1)를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
-        en: "Enter PowerShell script here...\n\nThen click [➕ Add]"
-    },
-    cmd: {
-        ko: "배치(cmd) 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
-        en: "Enter cmd script here...\n\nThen click [➕ Add]"
-    },
-    default: {
-        ko: "코드를 입력하세요. 기본 - 텍스트문서(txt)..\n\n그리고 [➕ 추가] 버튼",
-        en: "Enter your code here...\n\nThen click [➕ Add]"
-    }
-};
+	const placeholderTexts = {
+		autoit: {
+			ko: "오토잇(au3) 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter AutoIt code here...\n\nThen click [➕ Add]"
+		},
+		html: {
+			ko: "HTML 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter HTML code here...\n\nThen click [➕ Add]"
+		},
+		css: {
+			ko: "CSS 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter CSS code here...\n\nThen click [➕ Add]"
+		},
+		javascript: {
+			ko: "자바 스크립트(js) 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter JavaScript code here...\n\nThen click [➕ Add]"
+		},
+		json: {
+			ko: "JSON 데이터를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter JSON data here...\n\nThen click [➕ Add]"
+		},
+		vbs: {
+			ko: "비쥬얼베이직(VBS) 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter VBS script here...\n\nThen click [➕ Add]"
+		},
+		powershell: {
+			ko: "파워쉘 스크립트(ps1)를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter PowerShell script here...\n\nThen click [➕ Add]"
+		},
+		cmd: {
+			ko: "배치(cmd) 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter cmd script here...\n\nThen click [➕ Add]"
+		},
+		default: {
+			ko: "코드를 입력하세요. 기본 - 텍스트문서(txt)..\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter your code here...\n\nThen click [➕ Add]"
+		}
+	};
 
-const langSelect = document.getElementById('languageSelect');
-const inputArea = document.getElementById('inputCode');
-
-let uiLanguage = "ko"; // 또는 "en"
-
-function updatePlaceholder() {
-    const lang = langSelect.value;
-
-    inputArea.placeholder =
-        placeholderTexts[lang]?.[uiLanguage]
-        ?? placeholderTexts.default[uiLanguage];
-}
-
-// 페이지 최초 로드 시
-updatePlaceholder();
-
-// 언어 선택 변경 시
-langSelect.addEventListener('change', updatePlaceholder);
-
-// UI 언어 변경 시도 자동 반영
-function setUILanguage(lang) {
-    uiLanguage = lang;
-    updatePlaceholder();
-}
-/*
-<button onclick="setUILanguage('ko')">한국어</button>
-<button onclick="setUILanguage('en')">English</button>
-*/
-
-
-/*
 	const langSelect = document.getElementById('languageSelect');
 	const inputArea = document.getElementById('inputCode');
 
-	langSelect.addEventListener('change', () => {
-		const lang = langSelect.value;
-		let placeholderText = '';
+	let uiLanguage = "ko"; // 또는 "en"
 
-		switch(lang) {
-			case 'autoit':
-				placeholderText = 'AutoIt 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
-				break;
-			case 'html':
-				placeholderText = 'HTML 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
-				break;
-			case 'css':
-				placeholderText = 'CSS 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
-				break;
-			case 'javascript':
-				placeholderText = 'JavaScript 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
-				break;
-			case 'json':
-				placeholderText = 'JSON 데이터를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
-				break;
-			case 'vbs':
-				placeholderText = 'VBS 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
-				break;
-			case 'powershell':
-				placeholderText = 'PowerShell 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼';
-				break;
-			default:
-				placeholderText = '코드를 입력하세요...\n\n그리고 [➕ 추가] 버튼';
-		}
-		inputArea.placeholder = placeholderText;
-		});
-*/
+	function updatePlaceholder() {
+		const lang = langSelect.value;
+
+		inputArea.placeholder =
+			placeholderTexts[lang]?.[uiLanguage]
+			?? placeholderTexts.default[uiLanguage];
+	}
+
+	// 페이지 최초 로드 시
+	updatePlaceholder();
+
+	// 언어 선택 변경 시
+	langSelect.addEventListener('change', updatePlaceholder);
+
+	// UI 언어 변경 시도 자동 반영
+	function setUILanguage(lang) {
+		uiLanguage = lang;
+		updatePlaceholder();
+	}
+	/*
+	<button onclick="setUILanguage('ko')">한국어</button>
+	<button onclick="setUILanguage('en')">English</button>
+	*/
+
 
 /*******************************************************/	
-
 
         // HTML 이스케이프
         function escapeHtml(text) {
@@ -646,10 +614,16 @@ function setUILanguage(lang) {
             }
         });
 
+
+
+
+
         // 저장 기능 (핵심 수정: <\/script> 이스케이프 처리)
         document.getElementById('saveCodeBtn').addEventListener('click', function() {
             const dynamic = document.getElementById('dynamicContent');
             const addedHTML = dynamic.innerHTML || '<p style="text-align:center; color:#999;">아직 추가된 코드가 없습니다.</p>';
+
+/* {lang}  */
 
             const fullHTML = `<!DOCTYPE html>
 <html lang="ko">
