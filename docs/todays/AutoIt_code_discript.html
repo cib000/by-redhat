@@ -586,11 +586,25 @@
 		copyBtn.textContent = '코드 내용복사';
 		copyBtn.setAttribute('onclick', 'copyCode(this)');
 
-		
+const classLangMap = {
+    autoit: "autoit",
+    html: "html",
+    css: "css",
+    javascript: "javascript",
+    json: "json",
+    vbs: "vbscript",
+    powershell: "powershell",
+    cmd: "batch",
+    txt: "plaintext"
+};
+
+const selectedLang = classLangMap[languageSelect.value] || "plaintext";	
+	
 
 		const pre = document.createElement('pre');
 		const code = document.createElement('code');
-		code.className = 'language-autoit';
+		//code.className = 'language-autoit';
+		code.className = `language-${selectedLang}`;
 		code.innerHTML = escapeHtml(input);
 		pre.appendChild(code);
 
@@ -633,90 +647,89 @@
             const dynamic = document.getElementById('dynamicContent');
             const addedHTML = dynamic.innerHTML || '<p style="text-align:center; color:#999;">아직 추가된 코드가 없습니다.</p>';
 
-/* {lang}  */
 
             const fullHTML = `<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오토잇  코드 템플릿 연구소</title>
-	<link rel="shortcut icon" href="../../tool.ico" >
-    <link rel="stylesheet" href="https://stackedit.io/style.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
-    <style>
-        body { width:80vw; font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; margin:0 auto; 
-		background-image: url('https://plus.unsplash.com/premium_photo-1661964187664-e26f70e1a224?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8JUVDJUJEJTk0JUVCJTk0JUE5JTIwJUVCJUIwJUIwJUVBJUIyJUJEfGVufDB8fDB8fHww');  
-		background-repeat: no-repeat; 	background-attachment: fixed; 	background-size: cover;  }
-        header {width: 80%; height: 60px; position: fixed; top:5px; text-align: center; display: flex; flex-direction: column; align-items: center; background: #BAE1FF; border: 2px solid red; border-radius: 4rem; z-index: 100;}
-		section { margin-top: 130px; } 
-		hr { height:5px; border:none; background-color:blue;	margin: 50px 0 30px 0; border: none; border-top: 2px solid #eee; }
-		.hr-dashed {  border : 0px;  border-top: 5px dashed #fff;}
-		h1 { color: #00F; margin-top: 0.6rem; letter-spacing : 2em;}
-		h5 { color: #FFF; }
-		footer { background:rgba(212,217,219,0.3) ;margin: 30px 5px; text-align: center;  align-items: center; padding: 5px 0px; border-radius: 5rem;}
-		.code-box { background: #f9f9f9; position: relative; margin-bottom: 50px; padding: 20px; padding-top: 30px; font-weight:800; border-radius: 10px; opacity: 0.95;}
-        .copy-btn {
-            position: absolute; top: 50px; right: 30px; z-index: 10;
-            background: #1565c0; color: white; padding: 6px 12px;
-            font-size: 12px; border: none; border-radius: 4px; cursor: pointer;
-        }
-		.copy-btn2 {
-			background: #00B300; color: white; padding: 6px 12px;
-			position: absolute; top: 10px; right: 30px; z-index: 10;
-			font-size: 12px; border: none; border-radius: 4px; cursor: pointer;
-		}
-        .discript { color: blue; font-weight: 900; border: 1px solid skyblue; border-radius: 10px; padding: 5px 20px; display: inline-block; }
-        .editable { background:#fafafa; border:1px solid #ccc; border-radius:5px; padding:10px; min-height:80px; margin-top:15px; }        
-    </style>
-</head>
-<body class="stackedit">
-<header>
-<h1>KWAF _ 연구과제</h1>
-<hr>
-</header>
-<section>
-    ${addedHTML}
-</section>
+				<html lang="ko">
+				<head>
+					<meta charset="utf-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>오토잇  코드 템플릿 연구소</title>
+					<link rel="shortcut icon" href="../../tool.ico" >
+					<link rel="stylesheet" href="https://stackedit.io/style.css" />
+					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+					<style>
+						body { width:80vw; font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; margin:0 auto; 
+						background-image: url('https://plus.unsplash.com/premium_photo-1661964187664-e26f70e1a224?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8JUVDJUJEJTk0JUVCJTk0JUE5JTIwJUVCJUIwJUIwJUVBJUIyJUJEfGVufDB8fDB8fHww');  
+						background-repeat: no-repeat; 	background-attachment: fixed; 	background-size: cover;  }
+						header {width: 80%; height: 60px; position: fixed; top:5px; text-align: center; display: flex; flex-direction: column; align-items: center; background: #BAE1FF; border: 2px solid red; border-radius: 4rem; z-index: 100;}
+						section { margin-top: 130px; } 
+						hr { height:5px; border:none; background-color:blue;	margin: 50px 0 30px 0; border: none; border-top: 2px solid #eee; }
+						.hr-dashed {  border : 0px;  border-top: 5px dashed #fff;}
+						h1 { color: #00F; margin-top: 0.6rem; letter-spacing : 2em;}
+						h5 { color: #FFF; }
+						footer { background:rgba(212,217,219,0.3) ;margin: 30px 5px; text-align: center;  align-items: center; padding: 5px 0px; border-radius: 5rem;}
+						.code-box { background: #f9f9f9; position: relative; margin-bottom: 50px; padding: 20px; padding-top: 30px; font-weight:800; border-radius: 10px; opacity: 0.95;}
+						.copy-btn {
+							position: absolute; top: 50px; right: 30px; z-index: 10;
+							background: #1565c0; color: white; padding: 6px 12px;
+							font-size: 12px; border: none; border-radius: 4px; cursor: pointer;
+						}
+						.copy-btn2 {
+							background: #00B300; color: white; padding: 6px 12px;
+							position: absolute; top: 10px; right: 30px; z-index: 10;
+							font-size: 12px; border: none; border-radius: 4px; cursor: pointer;
+						}
+						.discript { color: blue; font-weight: 900; border: 1px solid skyblue; border-radius: 10px; padding: 5px 20px; display: inline-block; }
+						.editable { background:#fafafa; border:1px solid #ccc; border-radius:5px; padding:10px; min-height:80px; margin-top:15px; }        
+					</style>
+				</head>
+				<body class="stackedit">
+				<header>
+				<h1>KWAF _ 연구과제</h1>
+				<hr>
+				</header>
+				<section>
+					${addedHTML}
+				</section>
 
-<footer>
-<h5>물고기를 잡아주기보다는 물고기 잡는 법을 알려 줘라.      Dev team : KWAF - We Are Family</h5>
-<button onclick="window.close()">창 닫기</button>	
-</footer>
+				<footer>
+				<h5>물고기를 잡아주기보다는 물고기 잡는 법을 알려 줘라.      Dev team : KWAF - We Are Family</h5>
+				<button onclick="window.close()">창 닫기</button>	
+				</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"><\/script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"><\/script>
+					<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"><\/script>
+					<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"><\/script>
 
-<script>
-function copyCode(btn) {
-    const code = btn.parentElement.querySelector('code');
-    navigator.clipboard.writeText(code.innerText).then(() => {
-        const origin = btn.textContent;
-        btn.textContent = "코드 복사완료!";
-        setTimeout(() => btn.textContent = origin, 1500);
-    });
-}
+				<script>
+				function copyCode(btn) {
+					const code = btn.parentElement.querySelector('code');
+					navigator.clipboard.writeText(code.innerText).then(() => {
+						const origin = btn.textContent;
+						btn.textContent = "코드 복사완료!";
+						setTimeout(() => btn.textContent = origin, 1500);
+					});
+				}
 
-function copyCodeAndDescription(btn) {
-    const box = btn.closest('.code-box');
-    const code = box.querySelector('code')?.innerText || '';
-    const desc = box.querySelector('.editable')?.innerText || '';
-    const text = code + "\\n\\n" + desc;
+				function copyCodeAndDescription(btn) {
+					const box = btn.closest('.code-box');
+					const code = box.querySelector('code')?.innerText || '';
+					const desc = box.querySelector('.editable')?.innerText || '';
+					const text = code + "\\n\\n" + desc;
 
-    navigator.clipboard.writeText(text).then(() => {
-        const origin = btn.textContent;
-        btn.textContent = "영역 복사완료!";
-        setTimeout(() => btn.textContent = origin, 1500);
-    });
-}
+					navigator.clipboard.writeText(text).then(() => {
+						const origin = btn.textContent;
+						btn.textContent = "영역 복사완료!";
+						setTimeout(() => btn.textContent = origin, 1500);
+					});
+				}
 
-document.addEventListener('DOMContentLoaded', () => {
-    Prism.highlightAll();
-});
-<\/script>
+				document.addEventListener('DOMContentLoaded', () => {
+					Prism.highlightAll();
+				});
+				<\/script>
 
-</body>
-</html>`;
+				</body>
+				</html>`;
 
 			const fileNameInput = document.getElementById('file-name');
 			const fileName = fileNameInput.value.trim();
