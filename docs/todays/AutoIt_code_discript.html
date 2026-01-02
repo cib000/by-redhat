@@ -345,6 +345,7 @@
 					<option value="vbs">VBS</option>
 					<option value="powershell">PowerShell</option>
 					<option value="cmd">CMD</option>
+					<option value="txt">Text</option>
 				</select>
 				<label id="sellanguage" title="코드 하이라이트가 적용 될 스트립트 언어">[ 선택된 스크립트 언어 ]</label>
 			</div>
@@ -420,7 +421,8 @@
 			json: { ko: "JSON 데이터", en: "JSON" },
 			vbs: { ko: "VB 스크립트", en: "VBScript" },
 			powershell: { ko: "파워셸", en: "PowerShell" },
-			cmd: { ko: "배치 스크립트", en: "cmd batch"}
+			cmd: { ko: "배치 스크립트", en: "cmd batch"},
+			txt: { ko: "텍스트 문서", en: "Text"}
 		};
 
 		const selectedTextTemplates = {
@@ -480,6 +482,10 @@
 		cmd: {
 			ko: "배치(cmd) 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
 			en: "Enter cmd script here...\n\nThen click [➕ Add]"
+		},
+		txt: {
+			ko: "텍스트 문서 내용을 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter text document contents here...\n\nThen click [➕ Add]"
 		},
 		default: {
 			ko: "코드를 입력하세요. 기본 - 텍스트문서(txt)..\n\n그리고 [➕ 추가] 버튼",
@@ -620,6 +626,7 @@
                 alert('클립보드 읽기 실패');
             }
         });
+
 
         // 저장 기능 (핵심 수정: <\/script> 이스케이프 처리)
         document.getElementById('saveCodeBtn').addEventListener('click', function() {
