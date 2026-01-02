@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코드 지원 템플릿 제작</title>
+	<link rel="shortcut icon" href="./imgs/tool.ico" >
+	
+    <link rel="stylesheet" href="https://stackedit.io/style.css" />
+    <style>
+        body {
+			background-image: url('./imgs/bg.webp');
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+			font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1400px;
+			margin: 0 auto;
+        }
+
+        .left, .right {
+            width: 50%;
+            background: rgba(153, 153, 153, 0.8); /* background: white; */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+		.left select {
+			width: 30%;
+			height: 32px;          /* 높이 맞춰서 라벨과 수직 정렬 */
+			font-size: 16px;
+			background: rgba(153, 255, 202,0.9);
+			border-radius: 8px;
+			padding-left: 10px;
+		}
+		.left label {
+			font-weight: 700;
+			color: blue;
+		}
+
+		.left input {
+			padding: 5px 20px;
+			font-weight: 700;
+			color: blue;
+			border: 1px solid blue;
+			border-radius: 5rem;
+		}
+		
+		#sellanguage {
+			margin-top: 12px;
+			background: rgba(153, 255, 202,0.9);
+			font-size: 12px;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			padding-left: 25px;
+			padding-right: 25px;
+			font-weight: 700;
+			color: #f00;
+		}
+		
+        .right {
+            overflow-y: auto;
+            /* height: 75vh; */
+			max-height: 80vh;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 500px;
+            background: rgba(242, 242, 242, 0.6); 
+			padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .button-container {            
+			margin-top: 15px;
+            text-align: center;
+        }
+		
+		.button-container img {
+			margin-top: 25px;
+			height: 100px;
+			opacity: 0.7;
+		}
+		
+        button {
+            padding: 10px 20px;
+            margin: 0 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        #addCodeBtn {
+			font-size: 18px;
+			font-weight: bold;
+            background-color: #007bff;
+            color: white;
+        }
+		#pasteCodeBtn {
+		    background-color: #4FA833;
+            color: white;
+		}
+		
+        #saveCodeBtn {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            padding: 12px 30px;
+            font-size: 18px;
+        }
+		#refreshScrBtn {
+			background: #00f;
+			color: #fff;
+			border-radius: inherit;
+			font-weight: bold;
+            padding: 12px 30px;
+            font-size: 16px;
+		}		
+		
+        .code-box {
+            position: relative;
+            margin-bottom: 40px;
+            padding-top: 50px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: #1565c0;
+            color: white;
+            padding: 6px 12px;
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+		.copy-btn2 {
+			background: #00B300; color: white; padding: 6px 12px;
+			position: absolute; top: 10px; right: 200px; z-index: 10;
+			font-size: 12px; border: none; border-radius: 4px; cursor: pointer;
+		}
+        .discript {
+            color: blue;
+            font-weight: 900;
+            border: 1px solid skyblue;
+            border-radius: 10px;
+            padding: 5px 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .editable {
+            background-color: #fafafa;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            /* padding: 10px; */
+            min-height: 20px;
+            margin-top: 15px;
+        }
+/*		#previewContent {
+			min-height: 10px;
+		}
+		#dynamicContent {
+			min-height: 10px;
+		} */
+		.stackedit__html {
+			background-color: #fafafa;
+			min-height: 10px;
+		}
+        hr {
+            height:5px; border:none; background-color:blue;
+			margin: 10px 0; border: none;
+            border-top: 2px solid #eee;
+        }
+		.hr-dotted {  border : 0px;  border-top: 5px dotted #663399;} 
+		.hr-dashed {  border : 0px;  border-top: 5px dashed #fff;}
+
+
+		footer {
+			/* width: 42%; */
+			height: 30px;
+			background: rgba(212,217,219,0.5); /* #D4D9DB;  opacity: 0.7; */
+			border-radius: 2rem;
+			position: fixed;
+			bottom: 100px;
+			left: 3%;
+			margin-top: 50px;			
+			margin: 10px;
+			padding: 15px 20px;
+			z-index: 0.1;
+			font-size: 1.1em;
+			font-weight: 600;
+		}
+		details {
+		  font:
+			16px "Open Sans",
+			"Calibri",
+			sans-serif;
+		  width: 620px;
+		}
+
+		details > summary {
+		  padding: 2px 6px;
+		  width: 15em;
+		  background-color: #dddddd;
+		  border: none;
+		  box-shadow: 3px 3px 4px black;
+		  cursor: pointer;
+		}
+
+		details > p {
+		  border-radius: 0 0 10px 10px;
+		  background-color: #dddddd;
+		  padding: 2px 6px;
+		  margin: 0;
+		  box-shadow: 3px 3px 4px black;
+		}
+
+		details:open > summary {
+		  background-color: #ccccff;
+		}
+
+
+		/* ************************************************ */
+
+		@property --rotation {
+		  syntax: '<angle>';
+		  inherits: false;
+		  initial-value: 0deg;
+		}
+
+		.gemini {
+		  display: grid;  /*    */
+		  width: 100px;
+		  height: 30px;
+		  padding: 2px 0;
+		  margin: 0;
+		  place-content: center;
+		  color-scheme: light dark;
+		  background: light-dark(#f5f5f5, black);
+		  
+		  --border-size: 4px;
+		  --gradient: conic-gradient(from var(--rotation) at 52% 49% in oklab, oklch(0.63 0.2 251.22) 27%, oklch(0.67 0.21 25.81) 33%, oklch(0.9 0.19 93.93) 41%, oklch(0.79 0.25 150.49) 49%, oklch(0.63 0.2 251.22) 65%, oklch(0.72 0.21 150.89) 93%, oklch(0.63 0.2 251.22));
+		  animation: rotate 5s infinite linear;
+		  border-radius: 4rem;
+		  background: none;
+		  position: relative;
+		  padding: 0;
+		  border: 4px solid lightgray;
+
+		  &::after {
+			content: '';
+			position: absolute;
+			display: block;
+			width: 100%;
+			height: 100%;
+			background: var(--gradient);
+			top: 50%;
+			left: 50%;
+			translate: -50% -50%;
+			z-index: -1;
+			animation: rotate 5s infinite linear;
+			filter: blur(15px);
+		  }
+		  
+		  .inner {
+			width: 100px;
+		/*	height:25px;  */	
+		/*	background: #ccc; /* light-dark(white, #1a1c1e); */
+			color: #FFF; /* light-dark(#222, hsl(210, 8%, 66%)); */
+			display: inline;
+			padding: 0rem 0.0rem;
+			margin-left: -10px;
+			position: relative;
+			z-index: 2;
+			border-radius: inherit;
+			display: grid;
+			/* grid-template-columns: 1fr 250px 1fr; */
+			align-items: center;
+			gap: 0.0rem;
+			font-family: system-ui;
+		  }
+
+		  .border {
+			position: absolute;
+			inset: calc(var(--border-size) * -1);
+			mask: linear-gradient(white);
+			border-radius: inherit;
+			overflow: hidden;
+
+			&::after {
+			  content: '';
+			  position: absolute;
+			  width: 100%;
+			  height: 100%;
+			  background: var(--gradient);
+			  top: 50%;
+			  left: 50%;
+			  translate: -50% -50%;
+			  z-index: -1;
+			  filter: blur(5px);
+			}
+		  }
+
+
+		button {
+			width: 90px;  /*  */
+			height: 24px;  /* 25px; inherit; */
+			background: #fff; /* transparent;   none; */
+			border-radius: inherit;
+			cursor:pointer;
+		  }
+		
+		/* ************************************************ */
+		
+
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <!-- 왼쪽: 입력 영역 -->
+        <div class="left">
+		
+			<div id="savefilename" style="margin-bottom:15px;">
+			<label>저장파일명 :</label>
+			<input type="text" id="file-name" name="file-name" placeholder="code_discription_template" size="50" value=""
+				title="입력이 없으면 기본값으로 저장. &#13;&#10;&#13;&#10; 저장될 파일명을 입력하세요..."><br>
+			</div>
+			
+			<div style="display:flex; align-items:center; gap:20px; margin-bottom:8px;">
+				<label for="languageSelect">스크립트 언어 선택:</label>
+				<select id="languageSelect" title="코드를 작성할 스크립트 언어를 선택하세요">
+					<option value="autoit" selected>AutoIt</option>
+					<option value="html">HTML</option>
+					<option value="css">CSS</option>
+					<option value="javascript">JavaScript</option>
+					<option value="json">JSON</option>
+					<option value="vbs">VBS</option>
+					<option value="powershell">PowerShell</option>
+					<option value="cmd">CMD</option>
+					<option value="txt">Text</option>
+				</select>
+				<label id="sellanguage" title="코드 하이라이트가 적용 될 스트립트 언어">[ 선택된 스크립트 언어 ]</label>
+			</div>
+
+            <textarea id="inputCode" placeholder="오토잇 코드를 여기에 입력하세요...&#13;&#10;&#13;&#10;그리고 [➕ 추가] 버튼"></textarea>
+			
+            <div class="button-container">
+                <button id="addCodeBtn">➕ 추가</button>
+                <button id="pasteCodeBtn">🧾 붙여넣기</button>
+            </div>
+        </div>
+
+        <!-- 오른쪽: 미리보기 영역 -->
+        <div class="right">
+		
+            <div id="previewContent">
+                <div class="stackedit__html">
+                    <div id="dynamicContent"></div>
+                </div>
+            </div>
+
+            <div class="button-container" style="margin-top: 10px; padding-top: 20px; border-top: 1px solid #eee;">
+                <button id="saveCodeBtn" title="하나의 단일 HTML 파일로 제작이 됨니다. &#10;&#10; 필요한 위치로 이동하신 후 &#10; 파일이름을 적절하게 변경하여 사용하시면 됨니다.">💾 저장 (HTML 파일 다운로드)</button>
+				<button onClick="window.location.reload()" id="refreshScrBtn">🔄 화면 새로고침</button>
+				<hr class="hr-dashed">
+				<img src="https://xetown.com/files/attach/images/668344/828/101/0727459e6422b0920eb94453282319c7.gif" width="60%">
+            </div>
+
+        </div>
+    </div>
+
+
+	<footer>
+	<details  class="details-upwards">
+	<summary>✨  시작 취지 :</summary>
+	<p>ㄴ 🧑 입문 초보자는 쉽게 복붙 참고를 할 수 있도록...........<br>
+	ㄴ 😎 중급 - 빠른 접근과 활용을 위한 방안으로<br>
+	ㄴ 🕵️ 고급 - 접근 시야를 넓히거나 이이디어 진작을 위한 파워모드<br></p>
+	</details>
+	</footer>
+
+
+    <script>
+
+/*******************************************************/	
+
+	document.addEventListener("DOMContentLoaded", function () {
+		const languageSelect = document.getElementById("languageSelect");
+		const sellanguage = document.getElementById("sellanguage");
+
+		// 선택된 언어 표시 함수
+		function updateSelectedLanguage() {
+			const selectedText =
+				languageSelect.options[languageSelect.selectedIndex].text;
+			sellanguage.textContent = `[ ${selectedText} 선택됨.]`;
+		}
+
+		// 🔹 현재 UI 언어 (예: ko / en)
+		let uiLanguage = "ko"; // ← 여기만 바꾸면 됨
+
+		// 🔹 언어별 표시 텍스트 정의
+		const displayNames = {
+			autoit: { ko: "오토잇", en: "AutoIt Script" },
+			html: { ko: "HTML 문서", en: "HTML" },
+			css: { ko: "CSS 스타일", en: "CSS" },
+			javascript: { ko: "자바스크립트", en: "JavaScript" },
+			json: { ko: "JSON 데이터", en: "JSON" },
+			vbs: { ko: "VB 스크립트", en: "VBScript" },
+			powershell: { ko: "파워셸", en: "PowerShell" },
+			cmd: { ko: "배치 스크립트", en: "cmd batch"},
+			txt: { ko: "텍스트 문서", en: "Text"}
+		};
+
+		const selectedTextTemplates = {
+			ko: "[ {lang}  선택됨 ]",
+			en: "[ {lang} selected ]"
+		};
+
+		function updateSelectedLanguage() {
+			const value = languageSelect.value;
+			const langText = displayNames[value][uiLanguage];
+
+			const template = selectedTextTemplates[uiLanguage];
+			sellanguage.textContent =
+				template.replace("{lang}", langText);
+		}
+
+		// 초기 표시
+		updateSelectedLanguage();
+
+		// 선택 변경 시
+		languageSelect.addEventListener("change", updateSelectedLanguage);
+	});
+
+
+
+/*******************************************************/	
+
+	const placeholderTexts = {
+		autoit: {
+			ko: "오토잇(au3) 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter AutoIt code here...\n\nThen click [➕ Add]"
+		},
+		html: {
+			ko: "HTML 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter HTML code here...\n\nThen click [➕ Add]"
+		},
+		css: {
+			ko: "CSS 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter CSS code here...\n\nThen click [➕ Add]"
+		},
+		javascript: {
+			ko: "자바 스크립트(js) 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter JavaScript code here...\n\nThen click [➕ Add]"
+		},
+		json: {
+			ko: "JSON 데이터를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter JSON data here...\n\nThen click [➕ Add]"
+		},
+		vbs: {
+			ko: "비쥬얼베이직(VBS) 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter VBS script here...\n\nThen click [➕ Add]"
+		},
+		powershell: {
+			ko: "파워쉘 스크립트(ps1)를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter PowerShell script here...\n\nThen click [➕ Add]"
+		},
+		cmd: {
+			ko: "배치(cmd) 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter cmd script here...\n\nThen click [➕ Add]"
+		},
+		txt: {
+			ko: "텍스트 문서 내용을 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter text document contents here...\n\nThen click [➕ Add]"
+		},
+		default: {
+			ko: "코드를 입력하세요. 기본 - 텍스트문서(txt)..\n\n그리고 [➕ 추가] 버튼",
+			en: "Enter your code here...\n\nThen click [➕ Add]"
+		}
+	};
+
+	const langSelect = document.getElementById('languageSelect');
+	const inputArea = document.getElementById('inputCode');
+
+	let uiLanguage = "ko"; // 또는 "en"
+
+	function updatePlaceholder() {
+		const lang = langSelect.value;
+
+		inputArea.placeholder =
+			placeholderTexts[lang]?.[uiLanguage]
+			?? placeholderTexts.default[uiLanguage];
+	}
+
+	// 페이지 최초 로드 시
+	updatePlaceholder();
+
+	// 언어 선택 변경 시
+	langSelect.addEventListener('change', updatePlaceholder);
+
+	// UI 언어 변경 시도 자동 반영
+	function setUILanguage(lang) {
+		uiLanguage = lang;
+		updatePlaceholder();
+	}
+	/*
+	<button onclick="setUILanguage('ko')">한국어</button>
+	<button onclick="setUILanguage('en')">English</button>
+	*/
+
+
+/*******************************************************/	
+
+        // HTML 이스케이프
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+		// ✅ 코드 + 설명 영역 복사
+		function copyCodeAndDescription(btn) {
+			const box = btn.closest('.code-box');
+
+			// code + 설명 텍스트 조합
+			const code = box.querySelector('code')?.innerText || '';
+			const desc = box.querySelector('.editable')?.innerText || '';
+
+			const combinedText = code + "\n\n" + desc;
+
+			navigator.clipboard.writeText(combinedText).then(() => {
+				const original = btn.textContent;
+				btn.textContent = "영역 복사완료!";
+				setTimeout(() => btn.textContent = original, 1500);
+			}).catch(() => alert("복사 실패"));
+		}
+		
+
+        // 복사 함수 (미리보기 + 저장된 파일 모두 사용)
+        function copyCode(btn) {
+            const code = btn.parentElement.querySelector('code');
+            const text = code.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = "코드 복사완료!";
+                setTimeout(() => btn.textContent = "코드 내용복사", 1500);
+            }).catch(() => alert("복사 실패"));
+        }
+
+        // 코드 추가
+		document.getElementById('addCodeBtn').addEventListener('click', function() {
+		const input = document.getElementById('inputCode').value.trim();
+		if (!input) return;
+
+		const container = document.getElementById('dynamicContent');
+
+		const box = document.createElement('div');
+		box.className = 'code-box';
+
+		// 영역 내용 복사 버튼
+		const copyAreaBtn = document.createElement('button');
+		copyAreaBtn.className = 'copy-btn2';
+		copyAreaBtn.textContent = '영역 내용복사';
+		copyAreaBtn.setAttribute('onclick', 'copyCodeAndDescription(this)');		
+
+
+		// 복사 버튼 - onclick 속성으로 직접 연결 (저장된 파일에서도 동작 보장)
+		const copyBtn = document.createElement('button');
+		copyBtn.className = 'copy-btn';
+		copyBtn.textContent = '코드 내용복사';
+		copyBtn.setAttribute('onclick', 'copyCode(this)');
+
+const classLangMap = {
+    autoit: "autoit",
+    html: "html",
+    css: "css",
+    javascript: "javascript",
+    json: "json",
+    vbs: "vbscript",
+    powershell: "powershell",
+    cmd: "batch",
+    txt: "plaintext"
+};
+
+const selectedLang = classLangMap[languageSelect.value] || "plaintext";	
+	
+
+		const pre = document.createElement('pre');
+		const code = document.createElement('code');
+		//code.className = 'language-autoit';
+		code.className = `language-${selectedLang}`;
+		code.innerHTML = escapeHtml(input);
+		pre.appendChild(code);
+
+		const desc = document.createElement('div');
+		desc.className = 'editable';
+		desc.contentEditable = 'true';
+		desc.innerHTML = '<span class="discript">📌 코드 의견/설명 : ↯</span> <br>.<br>';
+
+		const hr = document.createElement('hr');
+			hr.style.border = "none";
+			hr.style.height = "5px";
+			hr.style.backgroundColor = "blue";
+
+		box.appendChild(copyAreaBtn);
+		box.appendChild(copyBtn);
+		box.appendChild(pre);
+		box.appendChild(desc);
+		box.appendChild(hr);
+
+		container.appendChild(box);
+
+		document.getElementById('inputCode').value = '';
+		document.querySelector('.right').scrollTop = document.querySelector('.right').scrollHeight;
+		Prism.highlightAllUnder(container);  // Prism
+	});
+
+        // 붙여넣기
+        document.getElementById('pasteCodeBtn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text.trim()) document.getElementById('inputCode').value = text;
+            } catch (err) {
+                alert('클립보드 읽기 실패');
+            }
+        });
+
+
+        // 저장 기능 (핵심 수정: <\/script> 이스케이프 처리)
+        document.getElementById('saveCodeBtn').addEventListener('click', function() {
+            const dynamic = document.getElementById('dynamicContent');
+            const addedHTML = dynamic.innerHTML || '<p style="text-align:center; color:#999;">아직 추가된 코드가 없습니다.</p>';
+
+
+            const fullHTML = `<!DOCTYPE html>
+				<html lang="ko">
+				<head>
+					<meta charset="utf-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>오토잇  코드 템플릿 연구소</title>
+					<link rel="shortcut icon" href="https://cib000.github.io/by-redhat/imgs/Easy%20Fav%20logo.ico" >
+					<link rel="stylesheet" href="https://stackedit.io/style.css" />
+					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+					<style>
+						body { width:80vw; font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; margin:0 auto; 
+						background-image: url('https://mblogthumb-phinf.pstatic.net/MjAxOTAzMDZfMTk5/MDAxNTUxODE0NTI0Nzg4.LWs1r_p3xTGIzmOwYdrwDZo1sb1xmq0bT_uAM44UU28g.yZOfIhWQuuV3JM8zmyn89YfZ2OgLSJliMFs10wEcKVsg.JPEG.mong728/%EC%B4%88%EA%B3%A0%ED%99%94%EC%A7%88_%EC%BB%B4%ED%93%A8%ED%84%B0_%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4_(10).jpg?type=w800');  
+						background-repeat: no-repeat; 	background-attachment: fixed; 	background-size: cover;  }
+						header {width: 80%; height: 60px; position: fixed; top:5px; text-align: center; display: flex; flex-direction: column; align-items: center; background: #BAE1FF; border: 2px solid red; border-radius: 4rem; z-index: 100;}
+						section { margin-top: 130px; } 
+						hr { height:5px; border:none; background-color:blue;	margin: 50px 0 30px 0; border: none; border-top: 2px solid #eee; }
+						.hr-dashed {  border : 0px;  border-top: 5px dashed #fff;}
+						h1 { color: #00F; margin-top: 0.6rem; letter-spacing : 2em;}
+						h5 { color: #FFF; }
+						footer { background:rgba(212,217,219,0.3) ;margin: 30px 5px; text-align: center;  align-items: center; padding: 5px 0px; border-radius: 5rem;}
+						footer button { text-align: center;  align-items: center; padding: 5px 10px; cursor:pointer;}
+						.code-box { background: #f9f9f9; position: relative; margin-bottom: 50px; padding: 20px; padding-top: 30px; font-weight:800; border-radius: 10px; opacity: 0.95;}
+						.copy-btn {
+							position: absolute; top: 50px; right: 30px; z-index: 10;
+							background: #1565c0; color: white; padding: 6px 12px;
+							font-size: 12px; border: none; border-radius: 4px; cursor: pointer;
+						}
+						.copy-btn2 {
+							background: #00B300; color: white; padding: 6px 12px;
+							position: absolute; top: 10px; right: 30px; z-index: 10;
+							font-size: 12px; border: none; border-radius: 4px; cursor: pointer;
+						}
+						.discript { color: blue; font-weight: 900; border: 1px solid skyblue; border-radius: 10px; padding: 5px 20px; display: inline-block; }
+						.editable { background:#fafafa; border:1px solid #ccc; border-radius:5px; padding:10px; min-height:80px; margin-top:15px; }        
+					</style>
+				</head>
+				<body class="stackedit">
+				<header>
+				<h1>연구과제</h1>
+				<hr>
+				</header>
+				<section>
+					${addedHTML}
+				</section>
+
+				<footer>
+				<h5><span style="color:#FF0000">물</span><span style="color:#FF4300">고</span><span style="color:#FF8500">기</span><span style="color:#FFC800">를</span> <span style="color:#F4FF00">잡</span><span style="color:#B1FF00">아</span><span style="color:#6FFF00">주</span><span style="color:#2CFF00">기</span><span style="color:#00FF16">보</span><span style="color:#00FF59">다</span><span style="color:#00FF9B">는</span> <span style="color:#00FFDE">물</span><span style="color:#00DEFF">고</span><span style="color:#009BFF">기</span> <span style="color:#0059FF">잡</span><span style="color:#0016FF">는</span> <span style="color:#2C00FF">법</span><span style="color:#6F00FF">을</span> <span style="color:#B100FF">알</span><span style="color:#F400FF">려</span> <span style="color:#FF00C8">줘</span><span style="color:#FF0085">라</span><span style="color:#FF0043">.</span></h5>
+				Dev team : KWAF - We Are Family &emsp;<button onclick="window.close()">창 닫기</button>	
+				</footer>
+
+				<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"><\/script>
+				<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"><\/script>
+				<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"><\/script>
+				<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js"><\/script>
+				<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"><\/script>
+				<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"><\/script>
+				<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-autoit.min.js"><\/script>
+				<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js"><\/script>
+
+				<script>
+				function copyCode(btn) {
+					const code = btn.parentElement.querySelector('code');
+					navigator.clipboard.writeText(code.innerText).then(() => {
+						const origin = btn.textContent;
+						btn.textContent = "코드 복사완료!";
+						setTimeout(() => btn.textContent = origin, 1500);
+					});
+				}
+
+				function copyCodeAndDescription(btn) {
+					const box = btn.closest('.code-box');
+					const code = box.querySelector('code')?.innerText || '';
+					const desc = box.querySelector('.editable')?.innerText || '';
+					const text = code + "\\n\\n" + desc;
+
+					navigator.clipboard.writeText(text).then(() => {
+						const origin = btn.textContent;
+						btn.textContent = "영역 복사완료!";
+						setTimeout(() => btn.textContent = origin, 1500);
+					});
+				}
+
+				document.addEventListener('DOMContentLoaded', () => {
+					Prism.highlightAll();
+				});
+				<\/script>
+
+				</body>
+				</html>`;
+
+			const fileNameInput = document.getElementById('file-name');
+			const fileName = fileNameInput.value.trim();
+
+			const defaultFileName = 'code_discription_template';
+			const saveFileName = fileName || defaultFileName;
+
+			const blob = new Blob([fullHTML], { type: 'text/html' });
+			const url = URL.createObjectURL(blob);
+
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = `${saveFileName}.html`;
+			a.click();
+
+			URL.revokeObjectURL(url);
+
+        });
+    </script>
+</body>
+</html>
