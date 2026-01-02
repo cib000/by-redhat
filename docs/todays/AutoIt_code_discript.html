@@ -163,21 +163,24 @@
             min-height: 20px;
             margin-top: 15px;
         }
-		#previewContent {
+/*		#previewContent {
 			min-height: 10px;
 		}
 		#dynamicContent {
 			min-height: 10px;
-		}
+		} */
 		.stackedit__html {
 			background-color: #fafafa;
 			min-height: 10px;
 		}
         hr {
-            margin: 50px 0 30px 0;
-            border: none;
+            height:5px; border:none; background-color:blue;
+			margin: 10px 0; border: none;
             border-top: 2px solid #eee;
         }
+		.hr-dotted {  border : 0px;  border-top: 5px dotted #663399;} 
+		.hr-dashed {  border : 0px;  border-top: 5px dashed #fff;}
+
 
 		footer {
 			/* width: 42%; */
@@ -287,7 +290,6 @@
 		  }
 		
 		/* ************************************************ */
-
 		
 
     </style>
@@ -314,6 +316,7 @@
 			</div>
 
             <textarea id="inputCode" placeholder="오토잇 코드를 여기에 입력하세요...&#13;&#10;&#13;&#10;그리고 [➕ 추가] 버튼"></textarea>
+			
             <div class="button-container">
                 <button id="addCodeBtn">➕ 추가</button>
                 <button id="pasteCodeBtn">🧾 붙여넣기</button>
@@ -331,7 +334,8 @@
             <div class="button-container" style="margin-top: 10px; padding-top: 20px; border-top: 1px solid #eee;">
                 <button id="saveCodeBtn" title="하나의 단일 HTML 파일로 제작이 됨니다. &#10;&#10; 필요한 위치로 이동하신 후 &#10; 파일이름을 적절하게 변경하여 사용하시면 됨니다.">💾 저장 (HTML 파일 다운로드)</button>
 				<button onClick="window.location.reload()" id="refreshScrBtn">🔄 화면 새로고침</button>
-				<img src="https://xetown.com/files/attach/images/668344/828/101/0727459e6422b0920eb94453282319c7.gif">
+				<hr class="hr-dashed">
+				<img src="https://xetown.com/files/attach/images/668344/828/101/0727459e6422b0920eb94453282319c7.gif" width="60%">
             </div>
 
         </div>
@@ -582,9 +586,17 @@ function setUILanguage(lang) {
 		const desc = document.createElement('div');
 		desc.className = 'editable';
 		desc.contentEditable = 'true';
-		desc.innerHTML = '<span class="discript">코드 설명 :</span><br><br>';
+		desc.innerHTML = '<span class="discript">📌 코드 의견/설명 : ↯</span><br><br><br>';
 
 		const hr = document.createElement('hr');
+			hr.style.border = "none";
+			hr.style.height = "5px";
+			hr.style.backgroundColor = "blue";
+			//hr.style.margin = "10px 0";
+			//hr.style.border = "0px";
+			//hr.style.border-top = "5px";
+			//hr.style.dashed = "#fff";
+
 
 		box.appendChild(copyAreaBtn);
 		box.appendChild(copyBtn);
@@ -629,7 +641,8 @@ function setUILanguage(lang) {
 		background-repeat: no-repeat; 	background-attachment: fixed; 	background-size: cover;  }
         header {width: 80%; height: 60px; position: fixed; top:5px; text-align: center; display: flex; flex-direction: column; align-items: center; background: #BAE1FF; border: 2px solid red; border-radius: 4rem; z-index: 100;}
 		section { margin-top: 130px; } 
-		hr { margin: 50px 0 30px 0; border-top: 2px solid #f00; background: transparent; }
+		hr { height:5px; border:none; background-color:blue;	margin: 50px 0 30px 0; border: none; border-top: 2px solid #eee; }
+		.hr-dashed {  border : 0px;  border-top: 5px dashed #fff;}
 		h1 { color: #00F; margin-top: 0.6rem; letter-spacing : 2em;}
 		h5 { color: #FFF; }
 		footer { background:rgba(212,217,219,0.3) ;margin: 30px 5px; text-align: center;  align-items: center; padding: 5px 0px; border-radius: 5rem;}
