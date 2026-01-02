@@ -27,7 +27,7 @@
 
         .left, .right {
             width: 50%;
-            background: white;
+            background: rgba(153, 153, 153, 0.8); /* background: white; */
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 15px;
@@ -39,6 +39,7 @@
 			width: 30%;
 			height: 32px;          /* 높이 맞춰서 라벨과 수직 정렬 */
 			font-size: 16px;
+			background: rgba(153, 255, 202,0.9);
 			border-radius: 8px;
 			padding-left: 10px;
 		}
@@ -49,12 +50,12 @@
 		
 		#sellanguage {
 			margin-top: 12px;
-			background: rgba(0,255,255,0.3);
+			background: rgba(153, 255, 202,0.9);
 			font-size: 12px;
 			border: 1px solid #ddd;
 			border-radius: 8px;
-			padding-left: 10px;
-			padding-right: 10px;
+			padding-left: 25px;
+			padding-right: 25px;
 			font-weight: 700;
 			color: #f00;
 		}
@@ -67,7 +68,8 @@
         textarea {
             width: 100%;
             min-height: 500px;
-            padding: 12px;
+            background: rgba(242, 242, 242, 0.6); 
+			padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-family: Consolas, monospace;
@@ -368,7 +370,7 @@
 		};
 
 		const selectedTextTemplates = {
-			ko: "[ {lang} 이 선택됨 ]",
+			ko: "[ {lang}  선택됨 ]",
 			en: "[ {lang} selected ]"
 		};
 
@@ -394,7 +396,7 @@
 
 const placeholderTexts = {
     autoit: {
-        ko: "AutoIt 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        ko: "오토잇(au3) 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
         en: "Enter AutoIt code here...\n\nThen click [➕ Add]"
     },
     html: {
@@ -406,7 +408,7 @@ const placeholderTexts = {
         en: "Enter CSS code here...\n\nThen click [➕ Add]"
     },
     javascript: {
-        ko: "JavaScript 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        ko: "자바 스크립트(js) 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
         en: "Enter JavaScript code here...\n\nThen click [➕ Add]"
     },
     json: {
@@ -414,19 +416,19 @@ const placeholderTexts = {
         en: "Enter JSON data here...\n\nThen click [➕ Add]"
     },
     vbs: {
-        ko: "VBS 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        ko: "비쥬얼베이직(VBS) 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
         en: "Enter VBS script here...\n\nThen click [➕ Add]"
     },
     powershell: {
-        ko: "파워쉘 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        ko: "파워쉘 스크립트(ps1)를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
         en: "Enter PowerShell script here...\n\nThen click [➕ Add]"
     },
     cmd: {
-        ko: "배치 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        ko: "배치(cmd) 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
         en: "Enter cmd script here...\n\nThen click [➕ Add]"
     },
     default: {
-        ko: "코드를 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        ko: "코드를 입력하세요. 기본 - 텍스트문서(txt)..\n\n그리고 [➕ 추가] 버튼",
         en: "Enter your code here...\n\nThen click [➕ Add]"
     }
 };
