@@ -47,6 +47,16 @@
 			color: blue;
 		}
 		
+		#sellanguage {
+			font-size: 12px;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			padding-left: 10px;
+			padding-right: 10px;
+			font-weight: 700;
+			color: #f00;
+		}
+		
         .right {
             overflow-y: auto;
             /* height: 75vh; */
@@ -257,7 +267,7 @@
 		  }
 
 
-		  button {
+		button {
 			width: 90px;  /*  */
 			height: 24px;  /* 25px; inherit; */
 			background: #fff; /* transparent;   none; */
@@ -267,7 +277,7 @@
 		
 		/* ************************************************ */
 
-
+		
 
     </style>
 </head>
@@ -281,13 +291,15 @@
 				<label for="languageSelect">스크립트 언어 선택:</label>
 				<select id="languageSelect" title="코드를 작성할 스크립트 언어를 선택하세요">
 					<option value="autoit" selected>AutoIt</option>
-					<!--option value="html">HTML</option>
+					<option value="html">HTML</option>
 					<option value="css">CSS</option>
 					<option value="javascript">JavaScript</option>
 					<option value="json">JSON</option>
 					<option value="vbs">VBS</option>
-					<option value="powershell">PowerShell</option-->
+					<option value="powershell">PowerShell</option>
+					<option value="cmd">CMD</option>
 				</select>
+				<label id="sellanguage" title="코드 하이라이트가 적용 될 스트립트 언어">[ 선택된 스크립트 언어 ]</label>
 			</div>
 
             <textarea id="inputCode" placeholder="오토잇 코드를 여기에 입력하세요...&#13;&#10;&#13;&#10;그리고 [➕ 추가] 버튼"></textarea>
@@ -319,13 +331,135 @@
 	✨  시작 취지 :<br>
 	ㄴ 🧑 입문 초보자는 쉽게 복붙 참고를 할 수 있도록...........<br>
 	ㄴ 😎 중급 - 빠른 접근과 활용을 위한 방안으로<br>
-	ㄴ 🕵️ 고급 - 접근 시야를 넓히거나 이이디어 진작을 위한 후견인 모드<br>
+	ㄴ 🕵️ 고급 - 접근 시야를 넓히거나 이이디어 진작을 위한 파워모드<br>
 	</footer>
 
 
     <script>
 
 /*******************************************************/	
+
+	document.addEventListener("DOMContentLoaded", function () {
+		const languageSelect = document.getElementById("languageSelect");
+		const sellanguage = document.getElementById("sellanguage");
+
+		// 선택된 언어 표시 함수
+		function updateSelectedLanguage() {
+			const selectedText =
+				languageSelect.options[languageSelect.selectedIndex].text;
+			sellanguage.textContent = `[ ${selectedText} 선택됨.]`;
+		}
+
+		// 🔹 현재 UI 언어 (예: ko / en)
+		let uiLanguage = "ko"; // ← 여기만 바꾸면 됨
+
+		// 🔹 언어별 표시 텍스트 정의
+		const displayNames = {
+			autoit: { ko: "오토잇", en: "AutoIt Script" },
+			html: { ko: "HTML 문서", en: "HTML" },
+			css: { ko: "CSS 스타일", en: "CSS" },
+			javascript: { ko: "자바스크립트", en: "JavaScript" },
+			json: { ko: "JSON 데이터", en: "JSON" },
+			vbs: { ko: "VB 스크립트", en: "VBScript" },
+			powershell: { ko: "파워셸", en: "PowerShell" },
+			cmd: { ko: "배치 스크립트", en: "cmd batch"}
+		};
+
+		const selectedTextTemplates = {
+			ko: "[ {lang} 이 선택됨 ]",
+			en: "[ {lang} selected ]"
+		};
+
+		function updateSelectedLanguage() {
+			const value = languageSelect.value;
+			const langText = displayNames[value][uiLanguage];
+
+			const template = selectedTextTemplates[uiLanguage];
+			sellanguage.textContent =
+				template.replace("{lang}", langText);
+		}
+
+		// 초기 표시
+		updateSelectedLanguage();
+
+		// 선택 변경 시
+		languageSelect.addEventListener("change", updateSelectedLanguage);
+	});
+
+
+
+/*******************************************************/	
+
+const placeholderTexts = {
+    autoit: {
+        ko: "AutoIt 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        en: "Enter AutoIt code here...\n\nThen click [➕ Add]"
+    },
+    html: {
+        ko: "HTML 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        en: "Enter HTML code here...\n\nThen click [➕ Add]"
+    },
+    css: {
+        ko: "CSS 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        en: "Enter CSS code here...\n\nThen click [➕ Add]"
+    },
+    javascript: {
+        ko: "JavaScript 코드를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        en: "Enter JavaScript code here...\n\nThen click [➕ Add]"
+    },
+    json: {
+        ko: "JSON 데이터를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        en: "Enter JSON data here...\n\nThen click [➕ Add]"
+    },
+    vbs: {
+        ko: "VBS 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        en: "Enter VBS script here...\n\nThen click [➕ Add]"
+    },
+    powershell: {
+        ko: "파워쉘 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        en: "Enter PowerShell script here...\n\nThen click [➕ Add]"
+    },
+    cmd: {
+        ko: "배치 스크립트를 여기에 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        en: "Enter cmd script here...\n\nThen click [➕ Add]"
+    },
+    default: {
+        ko: "코드를 입력하세요...\n\n그리고 [➕ 추가] 버튼",
+        en: "Enter your code here...\n\nThen click [➕ Add]"
+    }
+};
+
+const langSelect = document.getElementById('languageSelect');
+const inputArea = document.getElementById('inputCode');
+
+let uiLanguage = "ko"; // 또는 "en"
+
+function updatePlaceholder() {
+    const lang = langSelect.value;
+
+    inputArea.placeholder =
+        placeholderTexts[lang]?.[uiLanguage]
+        ?? placeholderTexts.default[uiLanguage];
+}
+
+// 페이지 최초 로드 시
+updatePlaceholder();
+
+// 언어 선택 변경 시
+langSelect.addEventListener('change', updatePlaceholder);
+
+// UI 언어 변경 시도 자동 반영
+function setUILanguage(lang) {
+    uiLanguage = lang;
+    updatePlaceholder();
+}
+/*
+<button onclick="setUILanguage('ko')">한국어</button>
+<button onclick="setUILanguage('en')">English</button>
+*/
+
+
+/*
 	const langSelect = document.getElementById('languageSelect');
 	const inputArea = document.getElementById('inputCode');
 
@@ -360,9 +494,11 @@
 		}
 		inputArea.placeholder = placeholderText;
 		});
+*/
 
 /*******************************************************/	
-	
+
+
         // HTML 이스케이프
         function escapeHtml(text) {
             return text
