@@ -621,10 +621,6 @@
             }
         });
 
-
-
-
-
         // 저장 기능 (핵심 수정: <\/script> 이스케이프 처리)
         document.getElementById('saveCodeBtn').addEventListener('click', function() {
             const dynamic = document.getElementById('dynamicContent');
@@ -731,17 +727,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			URL.revokeObjectURL(url);
 
-
-
-/*  
-			const blob = new Blob([fullHTML], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'autoit_code_discript_template.html';
-            a.click();
-            URL.revokeObjectURL(url);
-*/
         });
     </script>
 </body>
