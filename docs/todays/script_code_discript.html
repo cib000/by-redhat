@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>코드 지원 템플릿 제작</title>
-	<link rel="shortcut icon" href="tool.ico" >
+	<link rel="shortcut icon" href="./imgs/tool.ico" >
 	
     <link rel="stylesheet" href="https://stackedit.io/style.css" />
     <style>
@@ -340,7 +340,7 @@
 		
 			<div id="savefilename" style="margin-bottom:15px;">
 			<label>저장파일명 :</label>
-			<input type="text" id="file-name" name="file-name" placeholder="autoit_code_discript_template" size="50" value=""
+			<input type="text" id="file-name" name="file-name" placeholder="code_discription_template" size="50" value=""
 				title="입력이 없으면 기본값으로 저장. &#13;&#10;&#13;&#10; 저장될 파일명을 입력하세요..."><br>
 			</div>
 			
@@ -745,7 +745,7 @@ const selectedLang = classLangMap[languageSelect.value] || "plaintext";
 			const fileNameInput = document.getElementById('file-name');
 			const fileName = fileNameInput.value.trim();
 
-			const defaultFileName = 'autoit_code_discript_template';
+			const defaultFileName = 'code_discription_template';
 			const saveFileName = fileName || defaultFileName;
 
 			const blob = new Blob([fullHTML], { type: 'text/html' });
