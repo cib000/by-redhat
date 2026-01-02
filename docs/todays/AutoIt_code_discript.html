@@ -65,6 +65,12 @@
             /* height: 75vh; */
 			max-height: 80vh;
         }
+		
+		.right label {
+			font-weight: 700;
+			color: blue;
+		}
+		
         textarea {
             width: 100%;
             min-height: 500px;
@@ -354,7 +360,7 @@
         <!-- 오른쪽: 미리보기 영역 -->
         <div class="right">
 		
-			<div style="width:100%">
+			<div id="savefilename">
 			<label>저장파일명 :</label>
 			<input type="text" id="file-name" name="file-name" placeholder="autoit_code_discript_template" size="40" value=""
 				title="입력이 없으면 기본값으로 저장. &#13;&#10;&#13;&#10; 저장될 파일명을 입력하세요..."><br><br>
@@ -709,13 +715,33 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 </html>`;
 
-            const blob = new Blob([fullHTML], { type: 'text/html' });
+			const fileNameInput = document.getElementById('file-name');
+			const fileName = fileNameInput.value.trim();
+
+			const defaultFileName = 'autoit_code_discript_template';
+			const saveFileName = fileName || defaultFileName;
+
+			const blob = new Blob([fullHTML], { type: 'text/html' });
+			const url = URL.createObjectURL(blob);
+
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = `${saveFileName}.html`;
+			a.click();
+
+			URL.revokeObjectURL(url);
+
+
+
+/*  
+			const blob = new Blob([fullHTML], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = 'autoit_code_discript_template.html';
             a.click();
             URL.revokeObjectURL(url);
+*/
         });
     </script>
 </body>
