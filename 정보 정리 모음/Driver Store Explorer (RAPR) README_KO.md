@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./Rapr/icon.ico" alt="logo" width="128">
+<img src="./imgs/icon.ico" alt="logo" width="128">
 
 # Driver Store Explorer (RAPR)
 
