@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구글 전용 검색 AI Nexus Clean Ultimate v0.80</title>
+  <link rel="stylesheet" href="./asets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="dimension-bg" aria-hidden="true">
+    <span class="nebula nebula-a"></span>
+    <span class="nebula nebula-b"></span>
+    <span class="grid-plane"></span>
+    <span class="star-field"></span>
+  </div>
+
+  <main class="page-shell">
+    <header class="top-nav">
+      <a class="brand" href="#" aria-label="홈">AI Nexus Search</a>
+      <nav aria-label="상단 링크">
+        <a href="" class="nav-link">연구자님 전용</a>
+        <a href="https://mail.google.com/mail/?tab=rm&ogbl" target="_blank" rel="noopener">지메일</a>
+        <a href="https://www.google.com/imghp?hl=ko&tab=ri&ogbl" target="_blank" rel="noopener">이미지</a>
+        <a href="https://labs.google.com/search" target="_blank" rel="noopener"><img src="./imgs/google_ai.png" width="26" alt="Google AI"></a>
+        <a class="login-pill" href="https://accounts.google.com/ServiceLogin?passive=1209600&continue=https%3A%2F%2Flabs.google.com%2Fsearch&followup=https%3A%2F%2Flabs.google.com%2Fsearch&ec=GAZAmwU" target="_blank" rel="noopener">로그인</a>
+      </nav>
+    </header>
+
+    <section class="hero-card" id="heroCard">
+      <div class="build-panel" aria-label="빌드 정보">
+        <span>Build v0.81 Clean Ultimate</span>
+        <span>제작TM : 빌드: 메인보드 (제안-ByRH)</span>
+        <span id="perfScore">Mode : Auto</span>
+      </div>
+
+      <div class="logo">
+        <img alt="Google" src="./imgs/google-logo.png">
+      </div>
+
+      <form id="searchForm" class="search-box" autocomplete="off">
+        <select id="engineSelect" class="engine-select" title="검색 엔진 선택">
+          <option value="google">Google</option>
+          <option value="naver">Naver</option>
+          <option value="bing">Bing</option>
+          <option value="youtube">YouTube</option>
+          <option value="scholar">Scholar</option>
+          <option value="duckduckgo">DuckDuckGo</option>
+          <option value="github">GitHub</option>
+        </select>
+        <input id="query" class="searchbar" type="text" title="검색어를 입력하세요" placeholder="검색어 입력 후 Enter" autocomplete="off" autofocus>
+        <button class="icon-btn" type="button" id="btnVoice" title="음성 입력"><img src="./imgs/Google_mic.png" alt="음성"></button>
+        <button class="search-submit" type="submit">검색</button>
+      </form>
+
+      <div class="quick-bar" aria-label="빠른 기능">
+        <button type="button" class="quick-btn" data-template="latest">최신</button>
+        <button type="button" class="quick-btn" data-template="exact">정확히</button>
+        <button type="button" class="quick-btn" data-template="solution">해결</button>
+        <button type="button" class="quick-btn" data-template="download">다운로드</button>
+		<button type="button" class="quick-btn" id="btnTools">도구함</button>
+      </div>
+
+      <div class="status-line" id="queryInsight">Enter 검색 준비 · / 검색창 포커스 · Ctrl+K 도구함</div>
+
+      <section class="toolbox hide" id="toolbox" aria-label="도구함">
+        <div class="toolbox-head">
+          <strong>기능 도구함</strong>
+          <button type="button" id="btnToolClose" aria-label="닫기">×</button>
+        </div>
+
+        <div class="tool-section">
+          <h3>검색 변환</h3>
+          <div class="chip-grid">
+            <button type="button" data-template="summary">요약 검색</button>
+            <button type="button" data-template="compare">비교 분석</button>
+            <button type="button" data-template="official">공식문서</button>
+            <button type="button" data-template="error">오류 해결</button>
+            <button type="button" data-template="filepdf">PDF</button>
+            <button type="button" data-template="githubcode">GitHub 코드</button>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <h3>번역</h3>
+          <div class="chip-grid compact">
+            <button type="button" data-direct-engine="g_trans">구글 번역</button>
+            <button type="button" data-direct-engine="papago">파파고</button>
+            <button type="button" data-direct-engine="deepl">딥플</button>
+            <button type="button" data-direct-engine="image">이미지 검색</button>
+            <button type="button" data-direct-engine="news">뉴스 검색</button>
+            <button type="button" id="btnMultiSearch">멀티검색</button>
+          </div>
+        </div>
+
+        <div class="tool-section tool-row">
+          <select id="historySelect" class="mini-select"><option value="">최근 검색 기록</option></select>
+          <select id="favoriteSelect" class="mini-select"><option value="">즐겨찾기 검색어</option></select>
+          <button type="button" id="btnFavorite">즐겨찾기 저장</button>
+          <button type="button" id="btnCopyQuery">복사</button>
+          <button type="button" id="btnClearQuery">초기화</button>
+          <button type="button" id="btnPerfMode">저전력 모드</button>
+        </div>
+
+        <div class="tool-section">
+          <button type="button" class="wide-toggle" id="btnshowhide">사이트 바로가기 펼치기</button>
+          	<div class="combobar tools-site-panel hide">
+	
+		<select id="trans-select" class="combo-style" onchange="openTranslationPage(this)">
+			<optgroup label="[ 맞춤법 & 문장 교정 ]">
+				<option value="">--- 맞춤법 & 문장 교정 사이트 이동 ---</option>
+				<option value="https://search.naver.com/search.naver?where=nexearch&query=맞춤법검사기">네이버 맞춤법 검사기</option>
+				<option value="https://www.saramin.co.kr/zf_user/tools/character-counter">사람인 글자수/맞춤법 (취업·자소서 추천)</option>
+				<option value="https://lab.incruit.com/editor/spell/">인크루트 맞춤법 검사기</option>
+				<option value="https://nara-speller.co.kr/speller/">부산대 한국어 맞춤법/문법 검사기 (전통의 강자)</option>
+				<option value="https://nara-speller.co.kr/old_speller/">한국어 맞춤법/문법 검사기(현 바른한글) - 이전 버전</option>
+				<option value="https://nara-speller.co.kr/speller/">바른한글(구 한국어 맞춤법/문법 검사기)</option>
+			</optgroup>
+
+			<optgroup label="[ 무료 번역 & AI 에이전트 ]">
+				<option value="">--- 번역 사이트 이동 ---</option>
+				<option value="https://translate.google.com/">구글 번역 바로가기</option>
+				<option value="https://papago.naver.com/">네이버 파파고 바로가기</option>
+				<option value="https://www.deepl.com/ko/translator">딥플 번역 바로가기</option>
+
+				<option value="https://wordvice.ai/ko/tools/translate">워드바이스 AI 번역기 - 무료 (베이직)</option>
+				<option value="https://wordvice.ai/ko">AI 글쓰기 에이전트 1</option>
+				<option value="https://wordvice.ai/ko/proofreading">AI 글쓰기 에이전트 2</option>
+				<option value="https://translator.microsoft.com/">마이크로소프트 번역기 - 무료</option>
+				<option value="https://chat.openai.com/g/g-5bNPpaVZy-translate-gpt">챗GPT 번역 (Translate GPT) - 무료 (베이직)</option>
+				<option value="https://www.bing.com/translator">마이크로소프트 빙 (Bing) 번역기 - 무료</option>
+				<option value="https://quillbot.com/translate">퀼봇 (QuillBot) - 무료 (베이직)</option>
+				<option value="https://www.reverso.net/text-translation">리버소 (Reverso) 번역기 - 무료 (베이직)</option>
+				<option value="https://geoworkz.com/">Geoworkz 번역기</option>
+				<option value="https://phrase.com/">Phrase 번역기</option>
+				<option value="https://www.systransoft.com/">시스트란 (Systran) - 무료 체험</option>
+			</optgroup>
+
+
+		
+			<optgroup label="[ 전문 번역 & 플랫폼 ]">
+				<option value="">--- 전문 번역 & 플랫폼 사이트 이동 ---</option>
+				<option value="https://geoworkz.com/">Geoworkz 번역기</option>
+				<option value="https://phrase.com/">Phrase 번역기</option>
+				<option value="https://www.systransoft.com/">시스트란 (Systran)</option>
+			</optgroup>
+
+			<optgroup label="[ 전문 번역 & 플랫폼 ]">
+				<option value="">--- 전문 번역 & 플랫폼 사이트 이동 ---</option>
+				<option value="https://geoworkz.com/">Geoworkz (Translation Workspace)</option>
+				<option value="https://phrase.com/">Phrase (구 Memsource)</option>
+				<option value="https://www.systransoft.com/">시스트란 (Systran Enterprise)</option>
+				
+				<option value="https://www.trados.com/">트라도스 (RWS Trados Studio)</option>
+				<option value="https://www.memoq.com/">메모큐 (MemoQ)</option>
+				<option value="https://www.smartling.com/">스마트링 (Smartling)</option>
+				<option value="https://www.transifex.com/">트랜시펙스 (Transifex)</option>
+				<option value="https://www.crowdin.com/">크라우딘 (Crowdin)</option>
+				<option value="https://www.localize.com/">로컬라이즈 (Localize)</option>
+				<option value="https://www.wordfast.net/">워드패스트 (Wordfast)</option>
+			</optgroup>
+			
+						<option value="">--- 홈 사이트 선택 ---</option>
+			<optgroup label="[ 홈 사이트 선택 ]">
+				<option value="https://www.ulleung.go.kr/live/index.do?lnk_uid=52">독도 실시간 CCTV</option>				
+				<option value="https://www.danawa.com/">다나와</option>
+				<option value="https://kjvvv.kr/private">리눅스포럼 - 비개 게시판</option>
+				<option value="https://windowsforum.kr/free">윈도우 포럼 - 자유게시판</option>
+			</optgroup>
+			
+			<optgroup label="[ 백신관련 사이트 선택 ]">
+				<option value="">--- 백신관련 사이트 선택 ---</option>
+				<option value="https://malzero.xyz/">멜웨어제로</option>
+			</optgroup>
+			
+		</select> &emsp;  &emsp; 
+		
+		
+		<!-- -->
+		<select id="spell-select" class="combo-style-point" onchange="openTranslationPage(this)">
+
+			<optgroup label="[ 구글 플랫폼 모든 사용자용 ]">
+				<option value="">--- 사이트 선택 : 구글 플랫폼 모든 사용자용---</option>
+				
+				<option value="https://www.android.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Android</option>
+				<option value="https://www.android.com/auto/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Android Auto</option>
+				<option value="https://www.android.com/tv/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Android TV</option>
+				<option value="https://built-in.google/cars/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 탑재 차량</option>
+				<option value="https://www.google.com/chrome/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Chrome</option>
+				<option value="https://www.google.com/chromebook/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Chromebook 및 ChromeOS</option>
+				<option value="https://play.google.com/store/apps/details?id=com.google.android.contacts#_ga=2.64729958.83130407.1517253748-1400634622.1515717381">주소록</option>
+				<option value="https://www.android.com/digital-wellbeing/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">디지털 웰빙</option>
+				<option value="https://files.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Files</option>
+				<option value="https://www.google.com/finance?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Finance</option>
+				<option value="https://store.google.com/category/watches_trackers?utm_source=about&utm_medium=google_oo&utm_campaign=GS108110&utm_content=web">Fitbit</option>
+				<option value="https://www.google.com/flights?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">항공편 검색</option>
+				<option value="https://play.google.com/store/apps/details?id=com.google.android.inputmethod.latin&e=-EnableAppDetailsPageRedesign?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Gboard</option>
+				<option value="https://gemini.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Gemini</option>
+				<option value="https://www.gmail.com/intl/en_us/mail/help/about.html?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Gmail</option>
+				<option value="https://artsandculture.google.com/?utm_source=google&utm_medium=about_google">Google Arts & Culture</option>
+				<option value="https://assistant.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 어시스턴트</option>
+				<option value="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&e=-EnableAppDetailsPageRedesign?utm_source%3Dabout.google?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google OTP</option>
+				<option value="https://workspace.google.com/products/calendar/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Calendar</option>
+				<option value="https://www.android.com/better-together/#cast?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Cast</option>
+				<option value="https://workspace.google.com/products/chat/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Chat</option>
+				<option value="https://edu.google.com/workspace-for-education/classroom/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 클래스룸</option>
+				<option value="https://www.google.com/docs/about/?utm_source=gaboutpage&utm_medium=docslink&utm_campaign=gabout">Google Docs</option>
+				<option value="https://www.google.com/drive/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Drive</option>
+				<option value="https://www.google.com/earth/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 어스</option>
+				<option value="https://families.google/familylink/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Family Link</option>
+				<option value="https://fi.google.com/about/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Fi Wireless</option>
+				<option value="https://www.google.com/android/find?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">내 기기 허브</option>
+				<option value="https://www.google.com/fit/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 피트니스</option>
+				<option value="https://fonts.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Fonts</option>
+				<option value="https://www.google.com/forms/about/?utm_source=gaboutpage&utm_medium=formslink&utm_campaign=gabout">Google Forms</option>
+				<option value="https://home.google.com/welcome?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Home</option>
+				<option value="https://www.google.com/keep/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Keep</option>
+				<option value="https://www.google.com/maps/about/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 지도</option>
+				<option value="https://workspace.google.com/products/meet/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Meet</option>
+				<option value="https://messages.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 메시지</option>
+				<option value="https://store.google.com/category/connected_home?utm_source=about&utm_medium=google_oo&utm_campaign=GS108110&utm_content=web">Google Nest</option>
+				<option value="https://news.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 뉴스</option>
+				<option value="https://one.google.com/about?utm_source=google_about&utm_medium=web&utm_campaign=products">Google One</option>
+				<option value="https://pay.google.com/about/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Pay</option>
+				<option value="https://www.google.com/photos/about?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 포토</option>
+				<option value="https://play.google.com/store/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Play</option>
+				<option value="https://play.google.com/store/books/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Play 북</option>
+				<option value="https://play.google.com/googleplaygames/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Play 게임즈</option>
+				<option value="https://play.google.com/about/play-pass/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Play Pass</option>
+				<option value="https://www.android.com/play-protect/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Play 프로텍트</option>
+				<option value="https://www.google.com/sheets/about/?utm_source=gaboutpage&utm_medium=sheetslink&utm_campaign=gabout">Google Sheets</option>
+				<option value="https://workspace.google.com/products/sites/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Sites</option>
+				<option value="https://www.google.com/slides/about/?utm_source=gaboutpage&utm_medium=slideslink&utm_campaign=gabout">Google Slides</option>
+				<option value="https://tasks.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Tasks</option>
+				<option value="https://translate.google.com/about?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 번역</option>
+				<option value="https://www.google.com/trends/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 트렌드</option>
+				<option value="https://tv.google/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google TV</option>
+				<option value="https://store.google.com/product/google_tv_streamer?utm_source=about&utm_medium=google_oo&utm_campaign=GS108110&utm_content=web">Google TV Streamer</option>
+				<option value="https://workspace.google.com/products/voice/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Voice</option>
+				<option value="https://wallet.google/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 월렛</option>
+				<option value="https://workspace.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Workspace</option>
+				<option value="https://lens.google/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">렌즈</option>
+				<option value="https://notebooklm.google/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">NotebookLM</option>
+				<option value="https://store.google.com/category/phones?utm_source=about&utm_medium=google_oo&utm_campaign=GS108110&utm_content=web">Pixel</option>
+				<option value="https://store.google.com/product/pixel_buds?utm_source=about&utm_medium=google_oo&utm_campaign=GS108110&utm_content=web">Pixel Buds</option>
+				<option value="https://store.google.com/us/product/pixel_tablet?utm_source=about&utm_medium=google_oo&utm_campaign=GS108110&utm_content=web">Pixel Tablet</option>
+				<option value="https://store.google.com/category/watches?utm_source=about&utm_medium=google_oo&utm_campaign=GS108110&utm_content=web">Pixel Watch</option>
+				<option value="https://scholar.google.com/intl/en/scholar/about.html?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">학술검색</option>
+				<option value="https://search.google/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 검색</option>
+				<option value="https://shopping.google.com/u/0/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">쇼핑</option>
+				<option value="https://www.google.com/streetview/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">스트리트 뷰</option>
+				<option value="https://www.google.com/travel/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">여행</option>
+				<option value="https://www.waze.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Waze</option>
+				<option value="https://wearos.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Wear OS by Google</option>
+				<option value="https://www.youtube.com/yt/about/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">YouTube</option>
+				<option value="https://www.youtubekids.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">YouTube Kids</option>
+				<option value="https://music.youtube.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">YouTube Music</option>
+				<option value="https://tv.youtube.com/welcome/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist&utm_servlet=prod&rd_rsn=lo">YouTube TV</option>
+			</optgroup>
+
+				
+			<optgroup label="[ 구글 플랫폼 개발자용 ]">	
+				<option value="">--- 사이트 선택 : 구글 플랫폼 개발자용---</option>
+				
+				<option value="https://ai.google.dev/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">AI for Developers</option>
+				<option value="https://developer.android.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Android</option>
+				<option value="http://cloud.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">클라우드 컴퓨팅</option>
+				<option value="https://firebase.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Firebase</option>
+				<option value="https://flutter.dev/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Flutter</option>
+				<option value="https://developers.google.com/admob?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google AdMob</option>
+				<option value="https://developers.google.com/google-ads?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Ads</option>
+				<option value="https://developers.google.com/analytics?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 애널리틱스</option>
+				<option value="https://cloud.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Cloud</option>
+				<option value="https://developers.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google for Developers</option>
+				<option value="https://developers.google.com/identity?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Identity Platform</option>
+				<option value="https://mapsplatform.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Maps Platform</option>
+				<option value="https://developers.google.com/pay?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Pay</option>
+				<option value="https://developer.android.com/distribute/console?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Play</option>
+				<option value="https://developers.google.com/wallet?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 월렛</option>
+				<option value="https://developers.google.com/interactive-media-ads?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Interactive Media Ads</option>
+				<option value="https://developers.google.com/search?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 검색</option>
+				<option value="https://www.tensorflow.org/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">TensorFlow</option>
+				<option value="https://developers.google.com/web/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">웹</option>
+			</optgroup>
+
+			<optgroup label="[ 구글 플랫폼 비즈니스용 ]">
+				<option value="">--- 사이트 선택 : 구글 플랫폼 비즈니스용---</option>
+				
+				<option value="https://www.android.com/enterprise?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Android Enterprise</option>
+				<option value="https://www.blogger.com/features?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Blogger</option>
+				<option value="https://www.google.com/business/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">비즈니스 프로필</option>
+				<option value="https://chromeenterprise.google/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Chrome Enterprise</option>
+				<option value="https://chromeos.google/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">ChromeOS</option>
+				<option value="https://ads.google.com/home/campaigns/demand-gen/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">디맨드젠 캠페인</option>
+				<option value="https://ads.google.com/home/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Ads</option>
+				<option value="https://admob.google.com/home/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google AdMob</option>
+				<option value="https://www.google.com/adsense/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 애드센스</option>
+				<option value="https://admanager.google.com/home/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Ad Manager</option>
+				<option value="https://www.google.com/analytics/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 애널리틱스</option>
+				<option value="https://assistant.google.com/business/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google 어시스턴트</option>
+				<option value="https://cloud.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Cloud</option>
+				<option value="https://mapsplatform.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Maps Platform</option>
+				<option value="https://marketingplatform.google.com/about/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Marketing Platform</option>
+				<option value="https://www.google.com/webmasters/tools/home?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Search Console</option>
+				<option value="https://cloud.google.com/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Google Workspace</option>
+				<option value="https://ads.google.com/home/local-services-ads/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">지역 서비스 광고</option>
+				<option value="https://www.google.com/retail/manufacturer-center/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Manufacturer Center</option>
+				<option value="https://www.google.com/retail/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">판매자 센터</option>
+				<option value="https://ads.google.com/home/campaigns/performance-max/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">실적 최대화 캠페인</option>
+				<option value="https://pixel.google/business/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">Pixel for Business</option>
+				<option value="https://ads.google.com/home/campaigns/search-ads/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">검색 광고</option>
+				<option value="https://ads.google.com/home/campaigns/shopping-ads/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">쇼핑 광고</option>
+				<option value="https://www.google.com/tagmanager/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">태그 관리자</option>
+				<option value="https://www.youtube.com/ads/?utm_source=about.google&utm_medium=referral&utm_campaign=productslist">YouTube 광고</option>
+			</optgroup>
+
+
+		</select> &emsp;  &emsp; 
+		
+		
+		<select id="msite-select" class="combo-style" onchange="openTranslationPage(this)">
+			<option value="">--- 즐겨찾기 사이트 선택 ---</option>
+			<optgroup label="[ 즐겨찾기 사이트 선택 ]">
+				<option value="">--- 카페/블로그/사이트 선택 ---</option>
+				<option value="https://kjvvv.kr/private">리눅스포럼 - 비개 게시판</option>
+				<option value="https://11q.kr/">11Q (심씨님 홈)</option>
+			</optgroup>
+			
+			<optgroup label="[ 백신관련 사이트 선택 ]">
+				<option value="">--- 백신관련 사이트 선택 ---</option>
+				<option value="https://www.virustotal.com/">바이러스 토탈</option>
+				<option value="https://malzero.xyz/">멜웨어제로</option>
+				
+			</optgroup>
+			
+			<optgroup label="[ 업로드 공유 사이트 선택 ]">
+				<option value="">--- 업로드 공유 사이트 선택 ---</option>
+				<option value="https://gigafile.nu/">기가 업로드(일본)</option>
+				
+			</optgroup>
+			
+			<optgroup label="[ 쇼핑 사이트 선택 ]">
+				<option value="">--- 쇼핑 사이트 선택 ---</option>
+				<option value="https://www.danawa.com/">다나와</option>
+				
+			</optgroup>
+
+
+			<optgroup label="[ 실시간 CCTV 사이트 선택 ]">
+				<option value="">--- 실시간 CCTV 사이트 선택 ---</option>
+				<option value="https://www.ulleung.go.kr/live/index.do?lnk_uid=52">독도 실시간 CCTV</option>				
+			</optgroup>
+			
+		</select> &emsp;  &emsp; 
+		
+		<select id="msite-select" class="combo-style" onchange="openTranslationPage(this)">
+			<option value="">--- Select AI Chat Site ---</option>
+			<optgroup label="[ 쳇AI 사이트 선택 ]">
+				<option value="">--- 쳇AI 사이트 선택 ---</option>
+				<option value="https://gemini.google.com/">gemini</option>
+				<option value="https://chatgpt.com/">chatgpt</option>
+				<option value="https://grok.com/">chat grok</option>
+				<option value="https://copilot.microsoft.com/">copilot</option>
+			</optgroup>
+		</select> &emsp;  &emsp; 
+		
+		
+		
+		<!-- -->
+    </div>	
+        </div>
+      </section>
+    </section>
+
+    <div class="command-palette hide" id="commandPalette" role="dialog" aria-label="빠른 명령창">
+      <div class="palette-box">
+        <div class="palette-head"><strong>빠른 명령창</strong><button type="button" id="btnPaletteClose">×</button></div>
+        <input id="paletteInput" class="palette-input" type="text" placeholder="검색어 입력 후 Enter">
+        <p>단축키: / 검색창 · Ctrl+K 도구함 · Ctrl+Enter 멀티검색 · Esc 닫기</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>Build v0.80 Clean Ultimate | 제작TM : 빌드: 메인보드 (제안-ByRH)  | 연구자님 지원분. 다른분들께서는 나와 다른 생각을 할 수 있어요.</p>
+    </footer>
+  </main>
+
+<script>
+(function () {
+  'use strict';
+  const BUILD_VERSION = 'v0.80 Clean Ultimate';
+  const input = document.getElementById('query');
+  const form = document.getElementById('searchForm');
+  const engineSelect = document.getElementById('engineSelect');
+  const toolbox = document.getElementById('toolbox');
+  const comboBar = document.querySelector('.tools-site-panel');
+  const historySelect = document.getElementById('historySelect');
+  const favoriteSelect = document.getElementById('favoriteSelect');
+  const insight = document.getElementById('queryInsight');
+  const perfScore = document.getElementById('perfScore');
+  const HISTORY_KEY = 'redhat_clean_search_history_v080';
+  const FAVORITE_KEY = 'redhat_clean_favorites_v080';
+  const SETTINGS_KEY = 'redhat_clean_settings_v080';
+  let perfEco = false;
+
+  function msg(title, icon) {
+    if (window.Swal && Swal.fire) {
+      Swal.fire({title, icon: icon || 'info', confirmButtonText:'확인', confirmButtonColor:'#00e5ff', background:'#080b18', color:'#fff', scrollbarPadding:false, allowEnterKey:false});
+    } else alert(title);
+  }
+  function read(key, fallback) { try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); } catch(e) { return fallback; } }
+  function write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch(e) {} }
+  function clean(v) { return (v || '').replace(/\s+/g, ' ').trim(); }
+  function getQuery() { return input ? clean(input.value) : ''; }
+  function setQuery(v) { if (!input) return; input.value = clean(v); updateInsight(); input.focus(); }
+  function selectedEngine() { return engineSelect ? engineSelect.value : 'google'; }
+
+  function buildUrl(engine, encoded) {
+    switch(engine) {
+      case 'google': return `https://www.google.com/search?q=${encoded}`;
+      case 'naver': return `https://search.naver.com/search.naver?query=${encoded}`;
+      case 'bing': return `https://www.bing.com/search?q=${encoded}`;
+      case 'youtube': return `https://www.youtube.com/results?search_query=${encoded}`;
+      case 'scholar': return `https://scholar.google.com/scholar?q=${encoded}`;
+      case 'duckduckgo': return `https://duckduckgo.com/?q=${encoded}`;
+      case 'github': return `https://github.com/search?q=${encoded}&type=repositories`;
+      case 'image': return `https://www.google.com/search?tbm=isch&q=${encoded}`;
+      case 'news': return `https://www.google.com/search?tbm=nws&q=${encoded}`;
+      case 'g_trans': return `https://translate.google.com/?sl=auto&tl=en&text=${encoded}&op=translate`;
+      case 'papago': return `https://papago.naver.com/?sk=ko&tk=en&hn=0&st=${encoded}`;
+      case 'deepl': return `https://www.deepl.com/translator#ko/en/${encoded}`;
+      default: return `https://www.google.com/search?q=${encoded}`;
+    }
+  }
+  function addHistory(q) {
+    if (!q) return;
+    const items = [q].concat(read(HISTORY_KEY, []).filter(x => x !== q)).slice(0, 30);
+    write(HISTORY_KEY, items); renderLists();
+  }
+  function search(engine) {
+    const q = getQuery();
+    if (!q) { msg('검색어나 문장을 입력해주세요', 'warning'); if(input) input.focus(); return; }
+    addHistory(q);
+    window.open(buildUrl(engine || selectedEngine(), encodeURIComponent(q)), '_blank', 'noopener,noreferrer');
+  }
+  window.search = search;
+
+  function template(type) {
+    const raw = getQuery();
+    if (!raw) { msg('먼저 검색어를 입력해주세요', 'warning'); return; }
+    const quoted = '"' + raw.replace(/^"|"$/g, '') + '"';
+    const map = {
+      latest: raw + ' 최신 정보 2026', exact: quoted, solution: raw + ' 문제 해결 방법 단계별', download: raw + ' 공식 다운로드 OR github',
+      summary: raw + ' 핵심 요약 정리', compare: raw + ' 비교 장단점 차이점', official: raw + ' official documentation 공식문서',
+      error: raw + ' 오류 해결 방법', filepdf: raw + ' filetype:pdf', githubcode: raw + ' github source code'
+    };
+    setQuery(map[type] || raw);
+  }
+  function renderLists() {
+    if (historySelect) {
+      historySelect.innerHTML = '<option value="">최근 검색 기록</option>';
+      read(HISTORY_KEY, []).forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v.length>38?v.slice(0,38)+'...':v; historySelect.appendChild(o); });
+    }
+    if (favoriteSelect) {
+      favoriteSelect.innerHTML = '<option value="">즐겨찾기 검색어</option>';
+      read(FAVORITE_KEY, []).forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v.length>38?v.slice(0,38)+'...':v; favoriteSelect.appendChild(o); });
+    }
+  }
+  function updateInsight() {
+    if (!insight) return;
+    const q = getQuery();
+    let rec = '검색 준비';
+    if (/(오류|에러|error|failed|0x)/i.test(q)) rec = '오류 해결 검색 추천';
+    else if (/(다운로드|download|iso|zip|driver|드라이버)/i.test(q)) rec = '공식 다운로드 검색 추천';
+    else if (/(비교|차이|vs)/i.test(q)) rec = '비교 분석 검색 추천';
+    else if (/(최신|뉴스|latest|2026)/i.test(q)) rec = '최신 정보 검색 추천';
+    insight.textContent = q ? `분석 : ${q.length}자 · 추천 : ${rec} · Enter 검색 가능` : 'Enter 검색 준비 · / 검색창 포커스 · Ctrl+K 도구함';
+  }
+  function toggleToolbox(force) {
+    if (!toolbox) return;
+    const open = typeof force === 'boolean' ? force : toolbox.classList.contains('hide');
+    toolbox.classList.toggle('hide', !open);
+  }
+  function multiSearch() { ['google','naver','bing','duckduckgo'].forEach(e => search(e)); }
+
+  if (form) form.addEventListener('submit', e => { e.preventDefault(); search(selectedEngine()); });
+  if (input) {
+    input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); search(selectedEngine()); } });
+    input.addEventListener('input', updateInsight);
+  }
+  document.querySelectorAll('[data-template]').forEach(b => b.addEventListener('click', () => template(b.dataset.template)));
+  document.querySelectorAll('[data-direct-engine]').forEach(b => b.addEventListener('click', () => search(b.dataset.directEngine)));
+  document.getElementById('btnTools')?.addEventListener('click', () => toggleToolbox());
+  document.getElementById('btnToolClose')?.addEventListener('click', () => toggleToolbox(false));
+  document.getElementById('btnshowhide')?.addEventListener('click', () => comboBar && comboBar.classList.toggle('hide'));
+  document.getElementById('btnMultiSearch')?.addEventListener('click', multiSearch);
+  document.getElementById('btnClearQuery')?.addEventListener('click', () => setQuery(''));
+  document.getElementById('btnCopyQuery')?.addEventListener('click', async () => { const q=getQuery(); if(!q) return msg('복사할 검색어가 없습니다','warning'); try{await navigator.clipboard.writeText(q);}catch(e){input.select();document.execCommand('copy');} msg('검색어가 복사되었습니다','success'); });
+  document.getElementById('btnFavorite')?.addEventListener('click', () => { const q=getQuery(); if(!q) return msg('저장할 검색어가 없습니다','warning'); const items=[q].concat(read(FAVORITE_KEY,[]).filter(x=>x!==q)).slice(0,50); write(FAVORITE_KEY,items); renderLists(); msg('즐겨찾기에 저장되었습니다','success'); });
+  document.getElementById('btnPerfMode')?.addEventListener('click', () => { perfEco=!perfEco; document.body.classList.toggle('eco-mode', perfEco); if(perfScore) perfScore.textContent = perfEco ? 'Mode : Eco' : 'Mode : Auto'; });
+  historySelect?.addEventListener('change', () => historySelect.value && setQuery(historySelect.value));
+  favoriteSelect?.addEventListener('change', () => favoriteSelect.value && setQuery(favoriteSelect.value));
+
+  window.openTranslationPage = function (selectElement) { const url=selectElement.value; if(!url) return; window.open(url,'_blank','noopener,noreferrer'); selectElement.value=''; };
+
+  const palette = document.getElementById('commandPalette');
+  const paletteInput = document.getElementById('paletteInput');
+  function paletteOpen(open) { if(!palette) return; palette.classList.toggle('hide', !open); if(open && paletteInput) { paletteInput.value=getQuery(); setTimeout(()=>paletteInput.focus(), 20); } }
+  document.getElementById('btnPaletteClose')?.addEventListener('click', () => paletteOpen(false));
+  paletteInput?.addEventListener('keydown', e => { if(e.key==='Enter' && !e.isComposing) { e.preventDefault(); setQuery(paletteInput.value); paletteOpen(false); search(selectedEngine()); } });
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement !== input && !e.ctrlKey && !e.altKey && !e.metaKey) { e.preventDefault(); input?.focus(); }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); toggleToolbox(true); }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); multiSearch(); }
+    if (e.key === 'Escape') { toggleToolbox(false); paletteOpen(false); }
+  });
+  document.getElementById('btnVoice')?.addEventListener('click', e => {
+    e.preventDefault();
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if(!SR) return msg('현재 브라우저에서 음성 입력을 지원하지 않습니다','warning');
+    const r = new SR(); r.lang='ko-KR'; r.interimResults=false; r.maxAlternatives=1;
+    r.onresult = ev => ev.results && ev.results[0] && setQuery(ev.results[0][0].transcript);
+    r.onerror = () => msg('음성 입력을 사용할 수 없습니다','warning'); r.start();
+  });
+  const settings = read(SETTINGS_KEY, {engine:'google'}); if(engineSelect) engineSelect.value=settings.engine || 'google';
+  engineSelect?.addEventListener('change', () => write(SETTINGS_KEY, {engine:selectedEngine()}));
+  renderLists(); updateInsight();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.body.classList.add('eco-mode');
+})();
+</script>
+</body>
+</html>
