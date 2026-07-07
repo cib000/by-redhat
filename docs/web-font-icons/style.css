@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body { background: #ddd;}
+
+:root {
+  --bg: #d1d1d1;
+  --overview: #e0e0e0;
+  --border: #aaa;
+  --color: #454545;
+  --accent: #8c2335;
+  
+  --fontTitle: "Poppins", sans-serif;
+  --fontText: "Hind", sans-serif;
+  --fontMono: "Space Mono", monospace;
+}
+
+a { text-decoration: none; color: unset;}
+
+.iconlist { display: flex ; flex-direction: column; border: 1px solid var(--border); font: 400 1.2rem/1 var(--fontText); color: var(--color); text-align: justify; gap: 20px; padding: 40px;}
+
+.iconlist01 { display: flex ; flex-direction: column; gap: 10px; }
+
+.iconlist01 a { color: var(--accent); }
+
+.iconlist0101 { display: flex ; align-items: center; justify-content: center; border: 1px solid var(--border); padding: 20px; text-transform: uppercase; font: 500 2rem / 1 var(--fontTitle); }
+
+.iconlist0102 { padding: 30px; border: 1px solid var(--border); }
+
+.iconlist02 { display: flex ; flex-wrap: wrap; border: 1px solid var(--border); padding: 20px; gap: 20px; }
+
+.iconfont { display: flex ; flex-direction: column; flex: calc(50% - 20px); border: 1px solid var(--border); background: var(--bg); min-width: 400px; }
+
+.iconfont01 { display: flex ; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-left: 20px; gap: 20px; font: 400 1rem var(--fontMono); }
+
+.iconfont01 i { display: flex ; align-items: center; justify-content: center; font-size: 1.5rem; padding: 7px; border-left: 1px solid var(--border); color: var(--accent); cursor: pointer; }
+
+textarea { resize: none; padding: 20px; border: 0px; border: 1px solid var(--border); background: var(--overview); height: auto; margin: 10px; }
+
+.iconfont03 { display: flex ; flex-wrap: wrap; padding: 10px; gap: 10px; border-top: 1px solid var(--border); }
+
+.iconfont03 i { display: flex ; align-items: center; justify-content: center; font-size: 26px; padding: 5px; border: 1px solid var(--border); color: var(--accent); }
