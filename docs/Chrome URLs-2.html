@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>크롬 URL 전체 가이드북 (Full Chrome URLs Guide)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            padding: 30px;
+            background-color: #f4f6f9;
+            color: #202124;
+        }
+        h1 { color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 12px; margin-bottom: 20px; }
+        h2 { color: #3c4043; margin-top: 40px; border-left: 5px solid #1a73e8; padding-left: 10px; }
+        p { color: #5f6368; font-size: 14px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #dadce0;
+            padding: 10px 14px;
+            font-size: 13.5px;
+            text-align: left;
+        }
+        th { background-color: #f1f3f4; color: #202124; font-weight: 600; width: 30%; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover { background-color: #f1f3f4; }
+        .url-link { color: #1a73e8; font-size: 1.6em; font-weight: bold; text-decoration: none; word-break: break-all; }
+        .url-link:hover { text-decoration: underline; }
+        .no-link { color: #5f6368; font-size: 1.6em; font-weight: 500; font-family: monospace; word-break: break-all; }
+        .warning-url { color: #c5221f; font-size: 1.6em; font-weight: bold; font-family: monospace; word-break: break-all; }
+        .warning-text { color: #d93025; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>크롬 내부 URL 전체 완전 분석서</h1>
+    <p>제공된 HTML 소스 코드에 등장하는 모든 일반 주소, 내부 분석 주소(Internals), 비공개 디버깅 주소, 강제 에러 명령어를 하나도 빠짐없이 번역 및 정리한 문서입니다.</p>
+
+    <h2>1. 일반 및 내부 기능 URL 목록 (List of Chrome URLs)</h2>
+    <p>크롬 브라우저가 자체적으로 제공하는 관리 화면 및 모니터링 페이지 인터페이스입니다. (일부 링크가 동작하지 않는 주소는 크롬 보안 정책상 주소창에 직접 쳐야 이동합니다.)</p>
+    <table>
+        <thead>
+            <tr>
+                <th>URL 주소</th>
+                <th>기능 명칭 및 한글 번역 설명</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="no-link">chrome://access-code-cast</span></td>
+                <td><strong>액세스 코드 기반 전송:</strong> 학교나 기업 환경에서 고유 코드를 입력해 화면을 캐스팅(전송)하는 기능입니다.</td>
+            </tr>
+			<tr>
+                <td><a class="url-link" href="chrome://settings/" target="_blank">chrome://settings</a></td>
+                <td><strong>크롬 메인 설정:</strong> 사용자가 마주하는 브라우저의 핵심 환경 설정 기지입니다. (`chrome://settings/privacy` 등으로 세부 라우팅 가능)</td>
+            </tr>
+			<tr>
+                <td><a class="url-link">chrome://restart</a></td>
+                <td><strong>크롬 재시작:</strong> 현재 열린 모든 탭과 창을 기억해 둔 채 브라우저를 즉시 완전히 껐다가 1초 만에 그대로 복구하며 자동 재실행합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://accessibility/">chrome://accessibility</a></td>
+                <td><strong>접근성 검사기:</strong> 시각장애인용 스크린 리더 등이 웹페이지 구조를 읽을 수 있도록 브라우저가 생성한 접근성 트리를 분석하고 수정합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://accessibility-annotator-info/">chrome://accessibility-annotator-info</a></td>
+                <td><strong>접근성 주석 정보:</strong> 화면의 이미지나 요소를 AI가 자동으로 분석하여 접근성 텍스트 주석을 달아주는 기능의 상태 정보입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://actor-overlay/">chrome://actor-overlay</a></td>
+                <td><strong>액터 오버레이:</strong> 크롬 시스템 UI 렌더링 시 특정 오버레이 화면이나 팝업 레이어를 제어하는 내부 도구입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://app-service-internals/">chrome://app-service-internals</a></td>
+                <td><strong>앱 서비스 내부 정보:</strong> 크롬 내부에서 실행되는 웹앱(PWA) 및 시스템 앱 서비스들의 아키텍처와 디버깅 정보를 보여줍니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://app-settings/">chrome://app-settings</a></td>
+                <td><strong>앱 개별 설정:</strong> 설치된 웹앱(PWA)들의 권한(카메라, 위치 등) 및 알림 설정을 개별적으로 조정하는 페이지입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://apps/">chrome://apps</a></td>
+                <td><strong>크롬 앱스:</strong> 크롬 웹스토어 등을 통해 브라우저에 설치한 애플리케이션 및 바로가기 모음 화면입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://attribution-internals/">chrome://attribution-internals</a></td>
+                <td><strong>기여도 분석 내부 정보:</strong> 개인정보를 보호하며 광고의 클릭 및 전환 효과를 측정하는 기여도 API(Attribution Reporting API) 디버깅 도구입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://autofill-internals/">chrome://autofill-internals</a></td>
+                <td><strong>자동 완성 내부 정보:</strong> 이름, 주소, 카드번호 등 크롬의 자동 완성 기능이 웹페이지 폼을 분석하고 기록한 로그를 확인합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://batch-upload/">chrome://batch-upload</a></td>
+                <td><strong>일괄 업로드:</strong> 로컬에 저장된 북마크, 비밀번호 등의 데이터를 구글 계정 클라우드로 일괄 동기화/업로드하는 임시 세션 페이지입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://blob-internals/">chrome://blob-internals</a></td>
+                <td><strong>Blob 데이터 내부 정보:</strong> 대용량 이진 데이터(파일, 이미지 등)를 다루는 Blob 객체가 메모리 상에 어떻게 배치되어 있는지 모니터링합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://bluetooth-internals/">chrome://bluetooth-internals</a></td>
+                <td><strong>블루투스 내부 정보:</strong> 웹 브라우저가 주변 블루투스(BLE) 기기와 통신할 때 사용하는 어댑터 상태 및 연결 신호를 스캔하고 테스트합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://bookmarks/">chrome://bookmarks</a></td>
+                <td><strong>북마크 관리자:</strong> 사용자가 저장한 즐겨찾기 목록을 수정, 삭제, 폴더별 백업 및 분류하는 메인 페이지입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://bookmarks-side-panel.top-chrome/">chrome://bookmarks-side-panel.top-chrome</a></td>
+                <td><strong>북마크 사이드 패널 UI:</strong> 크롬 우측 사이드바에 나타나는 전용 북마크 탐색 창의 독립 UI 컴포넌트입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://browser-switch/">chrome://browser-switch</a></td>
+                <td><strong>브라우저 자동 전환:</strong> 기업 환경에서 특정 구형 웹사이트 접속 시 인터넷 익스플로러(IE)나 에지 등 다른 브라우저로 자동 연동해주는 기능의 설정입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://cast-feedback/">chrome://cast-feedback</a></td>
+                <td><strong>화면 전송 피드백:</strong> 크롬캐스트를 이용한 미디어 화면 전송 중 에러가 났을 때 구글에 오류 보고서를 제출하는 팝업 창입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://certificate-manager/">chrome://certificate-manager</a></td>
+                <td><strong>인증서 관리자:</strong> HTTPS 보안 접속을 위해 컴퓨터 및 브라우저에 등록된 디지털 SSL/TLS 인증서 목록을 관리합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://chrome-signin/">chrome://chrome-signin</a></td>
+                <td><strong>크롬 로그인:</strong> 브라우저 프로필에 구글 계정을 연동하고 동기화를 활성화하기 위한 로그인 전용 레이아웃입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://chrome-urls/">chrome://chrome-urls</a></td>
+                <td><strong>크롬 URL 안내소:</strong> 현재 보고 계시는 소스의 본래 페이지로, 크롬이 내장한 모든 특수 주소의 인덱스를 보여줍니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://comments-side-panel.top-chrome</span></td>
+                <td><strong>댓글 사이드 패널 UI:</strong> 웹 문서 공유나 특정 협업 도구 사용 시 사이드바에 활성화되는 댓글 창의 내부 주소입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://components/">chrome://components</a></td>
+                <td><strong>크롬 구성 요소:</strong> 브라우저 핵심 엔진 외에 광고 차단 필터, 보안 모듈 등 개별 부품들의 버전을 확인하고 강제 업데이트합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://conflicts/">chrome://conflicts</a></td>
+                <td><strong>소프트웨어 충돌 진단:</strong> 외부 프로그램(백신, 악성코드 등)이 크롬의 프로세스 메모리에 침범하여 브라우저를 다운시키는지 충돌 모듈을 검사합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://connection-help/">chrome://connection-help</a></td>
+                <td><strong>연결 도움말:</strong> 공공 와이파이 로그인 페이지 리다이렉트 실패 등 네트워크 차단 문제가 발생했을 때 표시되는 안내 도우미입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://connection-monitoring-detected/">chrome://connection-monitoring-detected</a></td>
+                <td><strong>네트워크 감시 감지 고지:</strong> 누군가 중간에서 HTTPS 암호화 패킷을 가로채고 있는 증후(만료된 인증서 강제 주입 등)가 있을 때 경고를 띄웁니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://connectors-internals/">chrome://connectors-internals</a></td>
+                <td><strong>기업용 커넥터 내부 정보:</strong> 기업 보안 관리 시스템(Chrome Enterprise)과 연동되어 파일 유출 방지 및 위협 탐지를 수행하는 커넥터 모듈 상태 창입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://constrained-test/">chrome://constrained-test</a></td>
+                <td><strong>제한적 환경 테스트:</strong> 웹 UI 팝업 창이나 다이얼로그가 화면 크기 제약을 받을 때 어떻게 렌더링되는지 개발자가 테스트하는 공간입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://contextual-tasks</span></td>
+                <td><strong>맥락 인식 작업:</strong> 사용자가 서핑 중인 웹페이지의 문맥을 읽어 AI나 브라우저가 추천 행동을 제안하는 시스템 모듈입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://crashes/">chrome://crashes</a></td>
+                <td><strong>오류 보고서 목록:</strong> 크롬이 비정상적으로 종료되었을 때 기록된 크래시 로그의 내역 및 구글 서버 전송 상태를 보여줍니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://credits/">chrome://credits</a></td>
+                <td><strong>오픈소스 고지:</strong> 구글 크롬 브라우저를 구성하기 위해 사용된 수많은 오픈소스 라이브러리와 저작권 라이선스를 투명하게 명시한 곳입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://customize-chrome-side-panel.top-chrome/">chrome://customize-chrome-side-panel.top-chrome</a></td>
+                <td><strong>크롬 맞춤설정 패널:</strong> 새 탭의 배경 화면, 테마 색상, 바로가기 아이콘 배치 등을 마우스 클릭으로 편집하는 사이드 패널 화면입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://debug-webuis-disabled/">chrome://debug-webuis-disabled</a></td>
+                <td><strong>WebUI 디버깅 비활성화 안내:</strong> 크롬 내부 웹 관리 도구(WebUI)들의 디버그 모드가 꺼져 있을 때 연결되는 상태 안내 페이지입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://default-browser-modal/">chrome://default-browser-modal</a></td>
+                <td><strong>기본 브라우저 설정 안내창:</strong> 크롬을 컴퓨터의 기본 브라우저로 지정하도록 유도하는 팝업 레이아웃입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://device-log/">chrome://device-log</a></td>
+                <td><strong>시스템 기기 로그:</strong> USB, 블루투스, 프린터, 네트워크 어댑터 등 PC 물리 기기와 크롬 간의 인터랙션 시스템 이벤트를 종합 수집합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://dino/">chrome://dino</a></td>
+                <td><strong>공룡 게임:</strong> 인터넷 연결이 끊겼을 때 나타나는 달리는 픽셀 티라노사우루스(T-Rex) 미니 게임을 강제로 실행시켜 줍니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://downloads/">chrome://downloads</a></td>
+                <td><strong>다운로드 내역:</strong> 브라우저를 통해 내 컴퓨터로 내려받은 모든 파일들의 이력과 다운로드 주소 링크를 확인 및 검색합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://drive-picker-host</span></td>
+                <td><strong>구글 드라이브 파일 선택기 호스트:</strong> 웹페이지에서 구글 클라우드 드라이브에 있는 파일을 바로 첨부하고 불러올 수 있게 연동하는 호스트 인터페이스입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://extensions/">chrome://extensions</a></td>
+                <td><strong>확장 프로그램 관리:</strong> 사용자가 설치한 서드파티 확장 기능들을 한눈에 보며 개발자 모드 전환, 삭제, 디테일 권한을 수정합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://extensions-internals/">chrome://extensions-internals</a></td>
+                <td><strong>확장 프로그램 백엔드 정보:</strong> 확장 프로그램들이 내부적으로 사용하는 백그라운드 스크립트, 이벤트 리스너, 스토리지 점유율의 상세 통계입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://extensions-zero-state/">chrome://extensions-zero-state</a></td>
+                <td><strong>확장 프로그램 빈 화면:</strong> 설치된 확장 프로그램이 단 하나도 없을 때 웹스토어 방문을 유도하는 인트로 초기 레이아웃입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://feature-showcase</span></td>
+                <td><strong>기능 쇼케이스:</strong> 크롬 업데이트 후 새롭게 추가된 핵심 편의 기능이나 디자인 변경점을 유저에게 시각적으로 튜토리얼해주는 페이지입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://feedback/">chrome://feedback</a></td>
+                <td><strong>의견 보내기:</strong> 크롬 사용 중 겪은 버그, 불편 사항, 개선 제안을 스크린샷과 함께 구글 개발팀에 전송하는 양식 창입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://flags/">chrome://flags</a></td>
+                <td><strong>크롬 실험실:</strong> 아직 정식 배포되지 않은 최첨단 기능이나 하드웨어 가속, 렌더링 최적화 옵션을 수동으로 활성화/비활성화합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://gcm-internals/">chrome://gcm-internals</a></td>
+                <td><strong>GCM 내부 정보:</strong> 구글 클라우드 메시징(Google Cloud Messaging) 및 웹 푸시 알림 서버와의 통신 지연 시간, 연결 수립 로그를 점검합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://glic/">chrome://glic</a></td>
+                <td><strong>글릭 AI 인터페이스:</strong> 크롬 화면 및 문맥을 통째로 이해하고 보조해주는 최신 크롬 내장 AI 비서 기능의 작동 제어판입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://gpu/">chrome://gpu</a></td>
+                <td><strong>그래픽 하드웨어 진단:</strong> WebGL 및 2D 캔버스 하드웨어 가속 작동 여부, 그래픽 카드 드라이버 버그 우회 리스트 등 화면 렌더링 스펙을 총망라합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://histograms/">chrome://histograms</a></td>
+                <td><strong>통계 히스토그램:</strong> 크롬이 켜져 있는 동안 내부 프로세스들이 측정한 성능 수치(페이지 로딩 타임, 메모리 할당 속도 등)를 통계 그래프 데이터로 수집한 결과입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://history/">chrome://history</a></td>
+                <td><strong>방문 기록:</strong> 사용자가 접속했던 사이트의 이력을 날짜별, 기기별로 추적하고 개별 웹 쿠키 및 캐시 흔적을 청소할 수 있는 창입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://history-clusters-side-panel.top-chrome</span></td>
+                <td><strong>기록 클러스터 패널:</strong> 단순 방문 나열이 아닌, 특정 '주제(여행, 쇼핑 등)'별로 묶어서 방문 이력을 탐색해주는 사이드바 전용 뷰어입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://history-side-panel.top-chrome</span></td>
+                <td><strong>방문 기록 사이드 패널:</strong> 메인 화면을 가리지 않고 화면 우측 좁은 공간에서 빠르게 이전 방문 사이트를 찾을 수 있게 만든 컴포넌트입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://history-sync-optin/">chrome://history-sync-optin</a></td>
+                <td><strong>기록 동기화 동의창:</strong> 스마트폰, 태블릿 등 다른 기기에서 보던 탭을 PC에서도 이어 볼 수 있도록 방문 기록 동기화를 켤지 묻는 화면입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://indexeddb-internals/">chrome://indexeddb-internals</a></td>
+                <td><strong>IndexedDB 내부 상태:</strong> 웹 애플리케이션들이 사용자 컴퓨터 하드디스크에 대용량 정형 데이터를 저장할 때 쓰는 브라우저 DB의 점유율 및 상태 분석입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://inspect/">chrome://inspect</a></td>
+                <td><strong>요소 검사 / 원격 디버깅:</strong> 현재 띄워진 웹페이지뿐만 아니라 동일 네트워크에 연결된 안드로이드 스마트폰 크롬의 소스 코드까지 원격 디버깅할 수 있는 개발자 허브입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://internals/">chrome://internals</a></td>
+                <td><strong>종합 내부 정보:</strong> 크롬 엔진 내부의 자잘한 하위 시스템 상태를 한눈에 볼 수 있는 인덱스용 라우팅 주소입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://intro/">chrome://intro</a></td>
+                <td><strong>크롬 인트로 안내:</strong> 브라우저 최초 설치 또는 메이저 업데이트 이후 크롬의 기본 레이아웃과 생태계를 브리핑해주는 환영 페이지입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://managed-user-profile-notice/">chrome://managed-user-profile-notice</a></td>
+                <td><strong>관리 대상 프로필 고지:</strong> 구글 워크스페이스 학교 계정이나 사내 계정으로 로그인 시, 상위 관리자가 이 프로필의 데이터를 모니터링할 수 있음을 알리는 알림 창입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://management/">chrome://management</a></td>
+                <td><strong>중앙 관리 상태:</strong> 현재 크롬 브라우저가 특정 기업, 학교, 부모(패밀리 링크)에 의해 원격 통제 및 관리되고 있는지 보안 항목을 감사합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://media-engagement/">chrome://media-engagement</a></td>
+                <td><strong>미디어 몰입도 통계:</strong> 사용자가 특정 사이트에서 동영상을 얼마나 자주 시청하고 소리를 켰는지 수치화하여, 비디오 자동 재생 여부를 결정하는 크롬 내부 점수판입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://media-internals/">chrome://media-internals</a></td>
+                <td><strong>미디어 내부 정보:</strong> 현재 재생 중인 동영상/오디오의 코덱 스펙, 오디오 샘플링 레이트, 스트리밍 버퍼링 상태 및 하드웨어 디코딩 에러 로그를 기록합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://metrics-internals/">chrome://metrics-internals</a></td>
+                <td><strong>사용자 통계 분석 내부 정보:</strong> 크롬 브라우저 향상을 위해 구글 서버로 익명 전송되는 브라우저 로딩 속도, 에러율 등 유저 매트릭스 데이터를 모니터링합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://net-export/">chrome://net-export</a></td>
+                <td><strong>네트워크 로그 내보내기:</strong> 네트워크 연결 문제를 진단하기 위해 브라우저에서 발생하는 모든 raw 패킷 및 네트워크 이벤트를 파일(.json)로 기록하여 추출합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://net-internals/">chrome://net-internals</a></td>
+                <td><strong>네트워크 제어판:</strong> 프록시 설정 상태, 강제 HSTS 보안 도메인 목록 관리 및 가로막힌 DNS 캐시를 즉시 지워버리는(Clear-Host-Cache) 기능을 제공합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://new-tab-page/">chrome://new-tab-page</a></td>
+                <td><strong>기본 새 탭 페이지:</strong> 크롬에서 새 탭(`Ctrl+T`)을 열었을 때 구글 로고, 검색창, 자주 가는 사이트가 뜨는 메인 홈화면의 주소입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://new-tab-page-third-party/">chrome://new-tab-page-third-party</a></td>
+                <td><strong>외부 새 탭 페이지:</strong> 구글 검색창 대신 사용자가 지정한 외부 검색엔진(네이버, 다음 등) 기반으로 세팅된 제3자 전용 새 탭 인터페이스입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://newtab</span></td>
+                <td><strong>새 탭 라우터:</strong> 브라우저 환경에 맞춰 적절한 새 탭 화면으로 토스해주는 내부 단축 리다이렉션 주소입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://newtab-footer/">chrome://newtab-footer</a></td>
+                <td><strong>새 탭 하단바 테마:</strong> 새 탭 페이지 맨 아랫부분에 표시되는 저작권 표기나 테마 맞춤설정 버튼 영역의 단독 모듈입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://ntp-tiles-internals/">chrome://ntp-tiles-internals</a></td>
+                <td><strong>새 탭 바로가기 아이콘 내부 정보:</strong> 새 탭에 나타나는 '자주 방문하는 사이트' 타일 아이콘들이 어떤 알고리즘 점수에 의해 배치되었는지 데이터를 노출합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://omnibox-popup.top-chrome/">chrome://omnibox-popup.top-chrome</a></td>
+                <td><strong>주소창 검색 제안 팝업:</strong> 상단 주소창(옴니박스)에 글자를 칠 때 밑으로 주르륵 내려오는 구글 검색 자동완성 및 추천 검색어 레이어 UI입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://on-device-translation-internals/">chrome://on-device-translation-internals</a></td>
+                <td><strong>내장 기기 번역 점검:</strong> 외부 서버에 텍스트를 보내지 않고 사용자의 CPU/GPU 파워를 이용하여 컴퓨터 내부에서 실시간 인공지능 번역을 처리하는 모델의 상태판입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://password-manager/">chrome://password-manager</a></td>
+                <td><strong>비밀번호 보안 센터:</strong> 웹사이트 비밀번호 자동 저장 리스트, 유출된 비밀번호 식별을 위한 취약성 점검, 마스터 암호 설정을 수행합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://password-manager-internals/">chrome://password-manager-internals</a></td>
+                <td><strong>비밀번호 엔진 로그:</strong> 특정 사이트 접속 시 크롬 비밀번호 엔진이 로그인 폼(ID/PW 필드)을 올바르게 감지했는지 백엔드 파싱 결과를 로깅합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://policy/">chrome://policy</a></td>
+                <td><strong>조직 정책 관리:</strong> 사내 PC 가이드라인에 의해 크롬의 특정 기능(인코그니토 모드 차단 등)이 원격 강제 고정되어 있는지 정책 목록과 값을 조회합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://predictors/">chrome://predictors</a></td>
+                <td><strong>주소창 예측 엔진:</strong> 사용자가 특정 글자(예: 'n')를 쳤을 때 네이버('naver.com')로 갈 확률 등을 과거 기록 기반으로 계산하여 미리 네트워크 커넥션을 열어두는 예측 데이터 테이블입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://prefs-internals/">chrome://prefs-internals</a></td>
+                <td><strong>기본 환경설정 JSON raw 데이터:</strong> 크롬의 모든 사용자 세팅 데이터가 기록되는 `Preferences` 텍스트 파일의 전체 구조를 JSON 포맷으로 투명하게 열람합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://print/">chrome://print</a></td>
+                <td><strong>인쇄 미리보기:</strong> 웹페이지를 인쇄하거나 PDF 파일로 저장할 때 용지 방향, 여백, 대상 프린터를 제어하는 시스템 인쇄 다이얼로그입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://privacy-sandbox-internals/">chrome://privacy-sandbox-internals</a></td>
+                <td><strong>개인정보 보호 샌드박스 내부 정보:</strong> 무분별한 사용자 추적 쿠키를 전면 폐기하고, 브라우저가 직접 유저의 관심사를 파악해 광고를 매칭하는 프라이버시 샌드박스 기술의 모니터링 허브입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://private-aggregation-internals/">chrome://private-aggregation-internals</a></td>
+                <td><strong>비공개 통계 취합 내부 정보:</strong> 여러 웹사이트 간의 유저 활동 통계를 낼 때, 개인 식별이 절대 불가능하도록 암호화 처리를 하는 비공개 집계 API 디버그 창입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://process-internals/">chrome://process-internals</a></td>
+                <td><strong>프로세스 내부 정보:</strong> 크롬이 각 탭과 사이트별로 격리(Site Isolation) 시킨 운영체제 내 실제 프로세스 ID(PID)와 웹페이지 프레임 간의 매핑 상태를 보여줍니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://profile-customization/">chrome://profile-customization</a></td>
+                <td><strong>프로필 개인화 설정:</strong> 다중 프로필 사용 시 현재 사용 중인 크롬 프로필의 이름, 고유 아바타 아이콘 및 브라우저 메인 컬러 테마를 입히는 창입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://profile-internals/">chrome://profile-internals</a></td>
+                <td><strong>프로필 시스템 정보:</strong> 로컬 PC에 존재하는 모든 크롬 프로필 계정의 경로, 인증 만료 여부, 백그라운드 서비스 활성화 상태를 진단합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://profile-picker/">chrome://profile-picker</a></td>
+                <td><strong>프로필 선택기:</strong> 크롬 브라우저를 처음 실행할 때 "누가 크롬을 사용하나요?"라며 등록된 여러 유저 프로필 목록을 띄워주는 첫 진입 화면입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://quota-internals/">chrome://quota-internals</a></td>
+                <td><strong>디스크 할당량 내부 정보:</strong> 특정 웹사이트들이 사용자 하드디스크 공간을 얼마나 점유할 수 있는지 남은 용량 및 사이트별 캐시 저장 한도(Quota)를 추적합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://read-later.top-chrome/">chrome://read-later.top-chrome</a></td>
+                <td><strong>읽기 목록(나중에 읽을 페이지) 패널:</strong> 당장 읽지 않고 북마크와는 별개로 '나중에 읽을 문서' 리스트에 킵해둔 콘텐츠들을 모아보는 사이드 뷰입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://reset-password/">chrome://reset-password</a></td>
+                <td><strong>비밀번호 재설정 모듈:</strong> 사내 계정이나 연동 계정의 암호 유출이 감지되어 강제적으로 패스워드를 변경 및 교체해야 할 때 라우팅되는 내부 창입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://sandbox/">chrome://sandbox</a></td>
+                <td><strong>샌드박스 작동 상태:</strong> 웹 악성코드가 사용자 컴퓨터 시스템을 감염시키지 못하도록 철저히 격리 통제하는 크롬 핵심 보안 기술(샌드박스)의 OS 레벨 적용 상태를 점검합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://saved-tab-groups-unsupported/">chrome://saved-tab-groups-unsupported</a></td>
+                <td><strong>저장된 탭 그룹 미지원 알림:</strong> 다른 기기에서 저장한 '탭 그룹' 기능이 현재 크롬 버전이나 기기 스펙과 호환되지 않을 때 예외 처리를 안내하는 화면입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://search-engine-choice</span></td>
+                <td><strong>검색엔진 선택 화면:</strong> 유럽연합(EU) 등의 반독점 규제에 맞춰 사용자가 크롬 최초 구동 시 구글 외에 네이버, 빙, 덕덕고 등 주 검색엔진을 고를 수 있게 하는 선택 창입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://segmentation-internals/">chrome://segmentation-internals</a></td>
+                <td><strong>사용자 세분화 내부 정보:</strong> 머신러닝 알고리즘이 사용자의 브라우징 패턴을 분석하여 '파워 유저', '라이트 유저' 등으로 분류하고 이에 맞춰 브라우저 기능을 최적화하는 엔진 데이터입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://serviceworker-internals/">chrome://serviceworker-internals</a></td>
+                <td><strong>서비스 워커 내부 정보:</strong> 오프라인 환경 작동 및 백그라운드 동기화, 알림 푸시를 제어하는 웹 표준 스크립트인 '서비스 워커'의 등록 현황과 활성화 로그를 디버깅합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://settings/">chrome://settings</a></td>
+                <td><strong>크롬 메인 설정:</strong> 사용자가 마주하는 브라우저의 핵심 환경 설정 기지입니다. (`chrome://settings/privacy` 등으로 세부 라우팅 가능)</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://shopping-insights-side-panel.top-chrome/">chrome://shopping-insights-side-panel.top-chrome</a></td>
+                <td><strong>쇼핑 인사이트 사이드 패널:</strong> 특정 쇼핑몰 상품 페이지에 접속했을 때 가격 변동 트렌드, 최저가 알림 정보를 AI 기반으로 수집해 보여주는 사이드바 뷰입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://signin-dice-web-intercept.top-chrome/">chrome://signin-dice-web-intercept.top-chrome</a></td>
+                <td><strong>로그인 가로채기(다이스 인터셉트) 대화창:</strong> 웹사이트(예: Gmail)에서 구글 계정 로그인 시, 크롬 브라우저 프로필 전체를 해당 계정으로 전환하거나 새 프로필을 만들지 권장하는 인터셉트 팝업입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://signin-email-confirmation/">chrome://signin-email-confirmation</a></td>
+                <td><strong>로그인 이메일 확인:</strong> 새 구글 계정으로 크롬에 동기화를 진행할 때 소유주 본인이 맞는지 이메일 주소를 최종 확인하는 단계입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://signin-error/">chrome://signin-error</a></td>
+                <td><strong>로그인 에러 페이지:</strong> 크롬 계정 동기화 도중 비밀번호 불일치, 토큰 만료, 네트워크 단절로 인해 계정 연동 오류가 났을 때 솔루션을 제시합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://signin-internals/">chrome://signin-internals</a></td>
+                <td><strong>계정 로그인 내부 상태:</strong> 구글 인증 토큰의 유효 기간, 리프레시 토큰 상태, 마지막 동기화 성공 타임스탬프 등 계정 인증 파트의 모든 내부 raw 로그입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://signout-confirmation/">chrome://signout-confirmation</a></td>
+                <td><strong>로그아웃 확인창:</strong> 구글 프로필 동기화를 해제할 때 로컬 PC에 저장되어 있던 북마크와 비밀번호 데이터를 안전하게 유지할지 삭제할지 묻는 안전장치입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://site-engagement/">chrome://site-engagement</a></td>
+                <td><strong>사이트 참여도 지수:</strong> 사용자가 각 웹사이트에서 스크롤을 내리고 타이핑을 한 빈도를 측정하여 매긴 점수(Score)판입니다. 이 점수가 높을수록 해당 사이트의 알림 권한이나 리소스 할당 우선순위가 올라갑니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://skills/">chrome://skills</a></td>
+                <td><strong>스킬 컴포넌트:</strong> 크롬 인공지능이 처리할 수 있는 고유 역량(문장 요약, 이미지 생성 등) 모듈의 로드 상태를 확인하는 제어판입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://suggest-internals/">chrome://suggest-internals</a></td>
+                <td><strong>검색어 제안 백엔드 정보:</strong> 상단 주소창에 타이핑할 때 구글 검색 서버에 실시간 쿼리를 보내 초성 제안 및 연관 검색어를 수집하는 서제스트 엔진 로그입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://support-tool/">chrome://support-tool</a></td>
+                <td><strong>지원 도구 (크롬 서포트 툴):</strong> 크롬에 중대한 에러가 발생하여 고객센터나 기술 커뮤니티에 진단을 요청할 때, 시스템 정보와 네트워크 상태를 종합 패키징하여 리포트를 뽑아내는 툴입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://sync-confirmation/">chrome://sync-confirmation</a></td>
+                <td><strong>동기화 완료 확인:</strong> 구글 계정 로그인이 성공적으로 끝나고 동기화가 완전히 맞물렸음을 알리는 최종 컨펌 레이아웃입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://sync-internals/">chrome://sync-internals</a></td>
+                <td><strong>데이터 동기화 엔진 정밀분석:</strong> 북마크, 확장 프로그램, 열린 탭, 세션 정보가 구글 클라우드 데이터베이스와 패킷을 주고받으며 완벽히 매칭되고 있는지 통신 상태를 실시간 데이터 트리로 보여줍니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://system/">chrome://system</a></td>
+                <td><strong>크롬 시스템 진단서:</strong> 운영체제 버전, 메모리 여유 공간, 현재 활성화된 스레드 수치, 내장 리눅스 커널 정보(크롬OS 계열) 등 하드웨어와 브라우저 환경 정보를 로드합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://tab-group-home</span></td>
+                <td><strong>탭 그룹 홈:</strong> 사용자가 목적에 따라 묶어놓은 '탭 그룹'들의 목록을 메인 데이터베이스 형태로 보관하고 관리하는 대시보드 주소입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://tab-search.top-chrome/">chrome://tab-search.top-chrome</a></td>
+                <td><strong>탭 검색 도구 UI:</strong> 크롬창 우측 상단 화살표 버튼을 누르면 나오는 기능으로, 탭이 수십 개 켜져 있을 때 제목을 검색하여 원하는 탭을 순식간에 찾는 모듈입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://tabs-from-other-devices.top-chrome</span></td>
+                <td><strong>타 기기 연동 탭 패널:</strong> 스마트폰이나 노트북 등 다른 스마트 기기의 크롬에서 열어두고 읽던 웹사이트 링크 리스트를 연동해주는 패널 컴포넌트입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://terms/">chrome://terms</a></td>
+                <td><strong>크롬 사용 약관:</strong> 구글 크롬 브라우저를 다운로드하고 설치할 때 동의하게 되는 법적 서비스 이용 약관 전문 문서입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://topics-internals/">chrome://topics-internals</a></td>
+                <td><strong>토픽 API(관심사 분석) 내부 정보:</strong> 사용자 방문 기록을 분석해 최근 관심 키워드(예: 자동차, 야구)가 무엇인지 추출하고 광고주에게 익명 분류값을 제공하는 엔진 상태창입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://traces/">chrome://traces</a></td>
+                <td><strong>성능 모니터링 분석:</strong> 웹사이트 렌더링 시 발생하는 자바스크립트 실행 타임라인, 그래픽 드로우 레이턴시를 타임라인 그래프로 추적한 시각화 허브입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://traces-internals/">chrome://traces-internals</a></td>
+                <td><strong>추적 데이터 시스템 백엔드:</strong> 브라우저 하위 커널 레벨에서 발생하는 프로파일링 추적(Tracing) 모듈의 버퍼 용량과 기록 상태를 디버깅합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://translate-internals/">chrome://translate-internals</a></td>
+                <td><strong>구글 번역 엔진 내부 정보:</strong> 웹페이지 자동 번역 시스템의 로그, 사용자가 '항상 번역'하도록 지정한 언어 목록, 번역 우회 도메인 리스트를 관리합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://updater/">chrome://updater</a></td>
+                <td><strong>구글 업데이트 매니저:</strong> 크롬 브라우저를 항상 최신 상태로 유지해주는 백그라운드 구글 업데이트 프로그램(Google Update)의 스케줄링 상태를 확인합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://usb-internals/">chrome://usb-internals</a></td>
+                <td><strong>WebUSB 디버그 도구:</strong> 외부 USB 장치(아두이노, 인증 토큰 등)를 웹 표준 API(WebUSB)를 통해 웹사이트와 다이렉트로 유선 연결하고 데이터 패킷을 주고받을 때 디버깅하는 곳입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://version/">chrome://version</a></td>
+                <td><strong>크롬 종합 버전 보고서:</strong> 빌드 넘버, 사용자 에이전트(User Agent) 스트링, V8 자바스크립트 엔진 버전 등이 요약된 페이지입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://view-cert/">chrome://view-cert</a></td>
+                <td><strong>인증서 상세 보기:</strong> 현재 활성화되어 접속된 보안 웹사이트의 공개키 암호화 구조 및 인증서 유효기간 신뢰성을 텍스트 팝업으로 표출합니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://watermark/">chrome://watermark</a></td>
+                <td><strong>시스템 워터마크 정보:</strong> 기업용 특수 크롬 환경에서 화면 캡처 방지나 정보 유출 방지를 위해 배경에 투명하게 깔아두는 보안 워터마크 모듈의 테스트 주소입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://web-app-internals/">chrome://web-app-internals</a></td>
+                <td><strong>웹앱(PWA) 시스템 코어:</strong> 웹사이트를 일반 PC 앱처럼 독자 창으로 실행시키는 프로그레시브 웹앱 시스템의 설치 매니페스트 구조와 로컬 바로가기 아이콘 생성 로그입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://webnn-internals/">chrome://webnn-internals</a></td>
+                <td><strong>WebNN(웹 신경망) 내부 정보:</strong> 웹 브라우저에서 서버 없이 컴퓨터 인공지능 가속 칩(NPU 등)을 다이렉트로 호출하여 딥러닝 연산을 수행하는 Web Neural Network API 진단서입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://webrtc-internals/">chrome://webrtc-internals</a></td>
+                <td><strong>WebRTC 실시간 통신 진단:</strong> 디스코드 웹버전, 구글 미트 등 실시간 스트리밍 시 패킷 손실률(Packet Loss), 오디오 지연(Jitter), P2P 연결 상태를 실시간 차트로 봅니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://webui-browser</span></td>
+                <td><strong>WebUI 브라우저 테스트:</strong> 크롬의 웹 기반 내부 시스템 창들(설정, 북마크 등)을 관리하고 가상 테스트 베드에 올리는 브라우저 주소입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://webui-toolbar.top-chrome</span></td>
+                <td><strong>WebUI 툴바 컴포넌트:</strong> 크롬 상단 영역 레이아웃을 웹 기술(HTML/CSS/JS)로 렌더링할 때 사용하는 상단바 전용 웹 컴포넌트 템플릿입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome://whats-new/">chrome://whats-new</a></td>
+                <td><strong>크롬 업데이트 새로운 기능:</strong> 브라우저가 판올림 되었을 때 유저에게 "이번 버전에서 새로워진 점"을 매거진 형태로 보여주는 안내장입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome-untrusted://ai-overlay-dialog</span></td>
+                <td><strong>신뢰할 수 없는 영역 - AI 오버레이:</strong> 외부 웹 콘텐츠와 교차하는 인공지능 팝업 창을 띄울 때, 보안상 브라우저 권한을 격리하기 위해 만든 특수 `chrome-untrusted://` 프로토콜 기반 AI 대화창입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome-untrusted://compose</span></td>
+                <td><strong>AI 글쓰기 지원 (Compose):</strong> 웹페이지 텍스트 입력창에서 마우스 우클릭을 해 AI에게 "글 다듬기", "길게 쓰기"를 요청할 때 작동하는 격리형 백엔드 모듈입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome-untrusted://data-sharing/">chrome-untrusted://data-sharing</a></td>
+                <td><strong>격리형 데이터 공유:</strong> 탭 그룹이나 북마크를 타인과 안전하게 공유할 때 제3자 스크립트 오염을 방지하기 위해 생성되는 샌드박싱 공유 인터페이스입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome-untrusted://drive-picker-host</span></td>
+                <td><strong>격리형 구글 드라이브 업로더:</strong> 유저 구글 드라이브 내 개인 파일 주소 정보가 일반 웹사이트 스크립트에 노출되지 않도록 완전 분리시킨 파일 선택기 프레임입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome-untrusted://glic/">chrome-untrusted://glic</a></td>
+                <td><strong>격리형 글릭 AI 코어:</strong> 유저가 보고 있는 사적인 웹페이지 콘텐츠 내용을 AI 모델이 분석할 때 보안 탈취가 일어나지 않도록 격리한 보호 구역 주소입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome-untrusted://lens/">chrome-untrusted://lens</a></td>
+                <td><strong>구글 렌즈 이미지 매치 백엔드:</strong> 화면의 이미지를 크롭하여 구글 시각 검색 서버로 안전하게 바인딩하는 외부 격리 영역 주소입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome-untrusted://lens-overlay/">chrome-untrusted://lens-overlay</a></td>
+                <td><strong>구글 렌즈 오버레이:</strong> 웹서핑 도중 화면 전체를 일시 정지시키고 마우스 드래그로 이미지 검색을 할 수 있게 덮어씌우는 격리형 반투명 레이어입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome-untrusted://ntp-microsoft-auth</span></td>
+                <td><strong>새 탭 마이크로소프트 연동 인증:</strong> 새 탭 페이지 환경에서 아웃룩이나 MS 오피스 라이브 위젯 등을 띄우기 위해 마이크로소프트 계정 로그인을 처리하는 독립 격리 세션입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome-untrusted://print/">chrome-untrusted://print</a></td>
+                <td><strong>격리형 인쇄 미리보기 호스트:</strong> 출력 대상 웹 문서 내의 악성 자바스크립트 코드가 인쇄 미리보기 제어판 시스템 권한을 탈취하는 것을 차단하기 위한 보호 프레임입니다.</td>
+            </tr>
+            <tr>
+                <td><a class="url-link" href="chrome-untrusted://read-anything-side-panel.top-chrome/">chrome-untrusted://read-anything-side-panel.top-chrome</a></td>
+                <td><strong>독서 모드(Read Anything) 사이드 패널:</strong> 웹 뉴스나 블로그의 난잡한 광고, 메뉴를 싹 지우고 오직 본문 텍스트만 깔끔한 전자책 형태로 정제하여 사이드바에 띄워주는 독서 보조 기능입니다.</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h2>2. 내부 디버깅 URL 목록 (Internal Debugging Page URLs)</h2>
+    <p>크롬 개발진 및 브라우저 아키텍트가 비공개 디버깅 목적으로 심어놓은 내부 시스템 분석 정보입니다. 활성화 버튼을 누르거나 특수 옵션을 켜야 접근할 수 있습니다.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>URL 주소</th>
+                <th>한글 번역 및 디버깅 기능 설명</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="no-link">chrome://accessibility-annotator-internals</span></td>
+                <td><strong>접근성 자동 주석 엔진 디버그:</strong> AI 기반 시각 보조용 이미지 해석 엔진이 정상 응답을 주는지 백엔드 파이프라인을 테스트합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://actor-internals</span></td>
+                <td><strong>액터 시스템 내부 로그:</strong> 브라우저 시스템 UI를 비동기식 독립 객체(Actor) 단위로 쪼개어 제어하는 아키텍처의 상태를 감시합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://autofill-ml-internals</span></td>
+                <td><strong>머신러닝 자동완성 디버그:</strong> 크롬 인공지능이 복잡한 웹 폼을 인식하여 어떤 필드가 '주소'고 어떤 필드가 '전화번호'인지 스스로 추론하는 ML 모델의 정밀 로그입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://chrome-finds-internals</span></td>
+                <td><strong>본문 검색(Ctrl+F) 엔진 디버그:</strong> 페이지 내부 글자 찾기 기능의 매칭 알고리즘 속도와 하이라이팅 버퍼 상태를 추적합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://color-pipeline-internals</span></td>
+                <td><strong>컬러 파이프라인 내부 정보:</strong> 운영체제(Windows, Mac 등)의 다크모드 설정이나 바탕화면 색상을 크롬이 추출하여 테마 컬러에 매칭하는 색상 연산 과정을 보여줍니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://commerce-internals</span></td>
+                <td><strong>커머스(쇼핑) 엔진 디버그:</strong> 쇼핑몰 상품 추적, 위시리스트 자동 북마크 연동 기능의 백엔드 통신 데이터를 수집합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://content-annotator-internals</span></td>
+                <td><strong>콘텐츠 주석 엔진 내부 정보:</strong> 웹페이지 핵심 콘텐츠의 카테고리를 자동 분석하여 분류 텍스트를 부여하는 로직을 모니터링합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://data-sharing-internals</span></td>
+                <td><strong>데이터 공유 엔진 로그:</strong> 유저 간 협업 툴 스토리지 싱크 과정에서 발생하는 충돌 이슈를 진단합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://discards</span></td>
+                <td><strong>탭 메모리 회수(디스카드) 제어판:</strong> 램(RAM) 용량이 부족해질 때 크롬이 어떤 백그라운드 탭을 먼저 강제 수면 상태(메모리 해제)로 보낼지 우선순위를 결정하고 수동으로 탭을 재울 수 있는 램 청소 허브입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://download-internals</span></td>
+                <td><strong>다운로드 백엔드 스케줄러:</strong> 이어받기 기능, 다운로드 일시 중지, 네트워크 끊김 시 재시도 로직을 디버깅하는 내부 타임스탬프 기록입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://family-link-user-internals</span></td>
+                <td><strong>패밀리 링크 자녀 계정 디버그:</strong> 구글 자녀 보호 기능에 의해 차단된 유해 사이트 데이터베이스 상태 및 부모 승인 요청 패킷 상태를 점검합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://history-clusters-internals</span></td>
+                <td><strong>방문 기록 군집화 엔진 디버그:</strong> 인공지능 알고리즘이 유저의 방문 히스토리를 어떤 단어 연관성으로 묶었는지 가중치 점수를 노출합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://indigo-internals</span></td>
+                <td><strong>인디고 프로젝트 백엔드:</strong> 구글의 실험적 브라우저 고도화 인프라 혹은 인공지능 콘텍스트 추출 모듈의 상태를 트래킹합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://infobar-internals</span></td>
+                <td><strong>상단 알림바(인포바) 디버그:</strong> "비밀번호를 저장하시겠습니까?" 등 화면 최상단에 뜨는 인포바들의 생성 및 파괴 주기 로그입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://interstitials</span></td>
+                <td><strong>경고 화면(전면 광고/안내형) 모음집:</strong> "연결이 비공개로 설정되어 있지 않습니다", "위험한 사이트 공격 감지" 등 크롬이 제공하는 모든 보안 전면 경고창 템플릿들을 정상적으로 렌더링되는지 강제 로드하여 테스트하는 샘플실입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://local-state</span></td>
+                <td><strong>로컬 스테이트 JSON 데이터:</strong> 현재 PC에 깔린 크롬 브라우저 자체의 전체 설치 상태 및 고유 하드웨어 세팅(Local State) 파라미터가 담긴 원본 텍스트 소스입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://location-internals</span></td>
+                <td><strong>위치 정보(GPS) 진단:</strong> 웹사이트가 위치 권한을 요구할 때, 크롬이 PC 주변 Wi-Fi 신호나 OS GPS를 통해 위도와 경도를 추출해내는 백엔드 데이터 파싱 결과입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://media-router-internals</span></td>
+                <td><strong>미디어 라우터(화면 공유) 디버그:</strong> 스마트 TV나 주변 디바이스로 캐스팅 신호를 쏠 때 기기를 검색(Discovery)하는 세부 세션 패킷을 로깅합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://memory-internals</span></td>
+                <td><strong>메모리 점유율 분석:</strong> 크롬 브라우저 내부의 모든 브라우저 프로세스, 렌더러 프로세스, GPU 프로세스가 소비 중인 실제 물리 RAM 용량을 상세 표로 도출합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://network-errors</span></td>
+                <td><strong>네트워크 에러 코드 모음:</strong> 크롬이 내부적으로 사용하는 300여 가지 네트워크 오류 코드(`ERR_CONNECTION_REFUSED` 등)의 인덱스 일람표입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://omnibox</span></td>
+                <td><strong>주소창 검색 결과 정밀 테스트:</strong> 검색창에 글자를 쳤을 때 뜨는 지능형 제안 결과의 매칭 신뢰도 및 히스토리 우선순위 알고리즘을 튜닝하는 개발자용 입력기입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://on-device-internals</span></td>
+                <td><strong>온디바이스 인공지능 엔진 상태:</strong> 유저 PC에 다운로드된 경량화 LLM(구글 제미나이 나노 등) 코어 모델의 버전과 구동 메모리 한계를 모니터링합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://optimization-guide-internals</span></td>
+                <td><strong>최적화 가이드 백엔드:</strong> 구글 서버가 브라우저에게 "이 사이트는 무거우니 데이터 절약 모드를 켜라"고 힌트를 주는 최적화 정보 수집 로그입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://private-ai-internals</span></td>
+                <td><strong>비공개 인공지능 내부 로그:</strong> 온디바이스 AI 구동 과정에서 사용자의 프라이버시 필터링(민감 정보 강제 마스킹)이 올바르게 작동하는지 기록합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://profile-internals</span></td>
+                <td><strong>(중복 엔트리) 프로필 진단판:</strong> 디버그 탭 아래에 배치된 계정 프로필 스위칭 상태 점검 페이지입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://regional-capabilities-internals</span></td>
+                <td><strong>지역별 기능 제한 내부 정보:</strong> 전 세계 국가별 법적 규제에 따라 크롬이 특정 인공지능 기능이나 프라이버시 옵션을 차단/허용하는 국가별 기능 매핑 테이블입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://safe-browsing</span></td>
+                <td><strong>세이프 브라우징 진단소:</strong> 피싱 사이트 및 악성코드 유포지를 실시간 차단하는 '구글 세이프 브라우징' 기술의 데이터베이스 실시간 업데이트 상태와 위험 도메인 해시 체크 로그를 모니터링합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://subresource-filter-internals</span></td>
+                <td><strong>하위 리소스 필터 내부 정보:</strong> 유저 경험을 해치는 악성 팝업 광고나 사기성 스크립트 소스를 감지하여 브라우저 자체적으로 사전 필터링하는 로직의 결과 리포트입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://tab-strip-internals</span></td>
+                <td><strong>탭 스트립 내부 정보:</strong> 크롬 최상단의 가로형 탭 배치 바(Tab Strip)의 스크롤 위치, 드래그 앤 드롭 인덱스 이벤트를 디버깅합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://tracing</span></td>
+                <td><strong>(구형 시스템 주소) 성능 추적기:</strong> 브라우저 내부의 모든 C++ 함수 호출 깊이와 시간 소요를 밀리초(ms) 단위로 완벽 덤프하여 프로파일링하는 강력한 내부 진단창입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://ukm</span></td>
+                <td><strong>UKM 내부 정보:</strong> URL 기반 사용자 행동 지표(URL-Keyed Metrics) 수집 모듈의 동기화 상태로, 사용자가 어떤 구조의 사이트에서 브라우저가 느려졌는지 세부 URL 단위 통계를 관리합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://user-actions</span></td>
+                <td><strong>사용자 실시간 행동 스트리밍:</strong> 크롬 창을 마우스로 클릭하고, 탭을 바꾸고, 주소창을 누르는 모든 행동 스트림을 실시간 텍스트 로그(`UserAction: TabSwitched` 등)로 찍어내는 분석 도구입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://user-education-internals</span></td>
+                <td><strong>사용자 가이드(튜토리얼) 시스템 디버그:</strong> 초보 유저용 도움말 풍선 가이드 팝업이 어떤 조건에서 발동되는지 트리거 로직을 점검합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://webrtc-logs</span></td>
+                <td><strong>WebRTC 통신 원본 로그:</strong> 실시간 음성/화상 패킷 통신 데이터의 연결 수립부터 종료까지 전체 수집된 로그 텍스트 파일 리스트입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://webui-gallery</span></td>
+                <td><strong>WebUI 컴포넌트 갤러리:</strong> 크롬 개발자들이 내부 설정창 화면을 만들 때 쓰는 버튼, 입력창, 체크박스 등 순정 크롬 스타일 디자인 가이드 컴포넌트들을 직접 조작해 볼 수 있는 샘플 전시장입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://webuijserror</span></td>
+                <td><strong>WebUI 자바스크립트 오류 로그:</strong> 크롬 내장 설정 페이지 자체의 코드가 꼬여서 자바스크립트 에러를 내뿜을 때 예외 에러 트레이스를 검출하는 곳입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="no-link">chrome://webxr-internals</span></td>
+                <td><strong>WebXR(가상현실/증강현실) 내부 정보:</strong> 웹 브라우저를 VR 헤드셋이나 AR 글래스와 연동하여 가상현실 콘텐츠를 구동할 때의 기기 인식을 진단합니다.</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h2>3. 디버그용 강제 오류 명령 URL (Command URLs for Debug)</h2>
+    <p class="warning-text">※ 절대 경고: 아래 주소들은 개발 중 시스템 예외 처리를 유도하기 위한 특수 '명령어 키워드'입니다. 주소창에 직접 타이핑 후 엔터를 치는 즉시 해당 탭 혹은 브라우저 전체가 다운되거나 컴퓨터 메모리가 과부하되므로 중요한 작업 중에는 입력하지 마십시오.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>명령어 주소</th>
+                <th>유발되는 비정상 시스템 강제 현상 설명</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="warning-url">chrome://badcastcrash</span></td>
+                <td>화면 캐스팅(크롬캐스트) 모듈에 강제로 비정상 패킷을 주입하여 관련 컴포넌트를 다운시킵니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://inducebrowsercrashforrealz</span></td>
+                <td><strong>진짜 브라우저 전체 종료:</strong> 단순 한 개 탭이 아니라, 실행 중인 크롬 브라우저 프로그램 프로세스 자체를 리얼 타임으로 강제 폭파(Crash)시킵니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://inducebrowserdcheckforrealz</span></td>
+                <td>크롬 소스 코드 내부의 내부 안전 검증 코드(DCHECK 검사문)를 강제로 실패 처리하여 디버깅 어설션 에러를 터트립니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://crash</span></td>
+                <td><strong>탭 강제 사망:</strong> 현재 보고 있는 단일 탭의 렌더러 프로세스를 즉시 종료하여 파란색 배경의 "앗, 이런!" 크래시 화면을 유발합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://crash/rust</span></td>
+                <td>최신 크롬에 도입된 Rust 언어로 작성된 내부 모듈 파트에서 메모리 안전성 크래시가 났을 때의 대응 로직을 시뮬레이션합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://crashdump</span></td>
+                <td>브라우저를 강제로 크래시시키면서 현재 메모리 상태를 담은 정밀 덤프 파일(.dmp)을 생성하도록 명령합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://kill</span></td>
+                <td>현재 활성화된 웹 탭의 프로세스를 OS 작업 관리자에서 '프로세스 끝내기' 한 것과 똑같이 물리적으로 강제 살해합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://hang</span></td>
+                <td>현재 탭을 무한 루프 상태에 빠뜨려 마우스 클릭이나 스크롤이 전혀 먹히지 않는 '응답 없음(프리징)' 상태로 만듭니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://shorthang</span></td>
+                <td>잠깐 동안만 브라우저 탭을 일시적으로 먹통 상태로 만들었다가 복구하는 짧은 프리징 디버깅 명령입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://gpuclean</span></td>
+                <td>크롬이 확보하고 있던 그래픽 카드(GPU)의 비디오 메모리 콘텍스트와 그래픽 캐시를 강제로 완전 초기화(클린)합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://gpucrash</span></td>
+                <td>크롬 내부 그래픽 프로세스(GPU Process)를 강제로 크래시시켜, 화면이 잠시 깜빡인 후 그래픽 엔진이 재부팅되는 과정을 테스트합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://gpuhang</span></td>
+                <td>크롬 그래픽 처리 장치를 먹통 상태로 만들어 하드웨어 가속이 멈췄을 때 CPU가 이를 어떻게 우회 감지하는지 테스트합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://memory-exhaust</span></td>
+                <td><strong>메모리 고갈 유발:</strong> 가상으로 무한 메모리 할당을 시도하여 시스템의 RAM을 바닥내고, 크롬의 '메모리 부족 오류(OOM)' 대응 장치를 기동시킵니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://memory-pressure-critical</span></td>
+                <td>운영체제로부터 "시스템 메모리가 완전히 고갈 직전(심각)"이라는 페이크 경고 신호를 강제로 날려, 크롬이 백그라운드 캐시를 급히 비우게 만듭니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://memory-pressure-moderate</span></td>
+                <td>시스템 메모리가 부족해지기 시작했다는 "주의" 신호를 강제로 유발해 브라우저의 가비지 컬렉션(GC)을 유도합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://inducebrowserheapcorruption</span></td>
+                <td>브라우저 커널의 힙(Heap) 메모리 영역의 주소값을 인위적으로 손상시켜 힙 오염 보안 차단 장치를 기동합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://crash/cfg</span></td>
+                <td>윈도우 보안 기술인 제어 흐름 보호(Control Flow Guard) 위반 크래시가 일어났을 때 브라우저가 안전하게 프로세스를 방어하는지 테스트합니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://heapcorruptioncrash</span></td>
+                <td>프로그램 메모리 관리 영역인 힙 공간을 즉시 오염시켜 크래시를 유도하는 디버깅 옵션입니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://webuijserror</span></td>
+                <td>(명령어 트리거) 입력 즉시 내부 관리 스크립트 전역에 강제로 자바스크립트 런타임 예외 오동작을 발동시킵니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://quit</span></td>
+                <td><strong>크롬 깔끔하게 종료:</strong> 주소창에 치는 순간 열려 있는 모든 크롬 창과 세션을 안전하게 데이터 저장한 후 브라우저 프로그램을 완전히 정상 종료시킵니다.</td>
+            </tr>
+            <tr>
+                <td><span class="warning-url">chrome://restart</span></td>
+                <td><strong>크롬 재시작:</strong> 현재 열린 모든 탭과 창을 기억해 둔 채 브라우저를 즉시 완전히 껐다가 1초 만에 그대로 복구하며 자동 재실행합니다.</td>
+            </tr>
+        </tbody>
+    </table>
+
+<script type="module" src="chrome://chrome-urls/app.js"></script>
+
+</body>
+</html>
