@@ -1,0 +1,27 @@
+#content {
+   font-family: 'Lato', sans-serif;
+   text-align: justify;
+   font-size: 14px;
+ }
+
+.controls {
+  text-align: center;
+}
+
+a {
+  font-size: 48px;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#decfont:hover {
+  color: #ff0000;
+  text-decoration: none;
+}
+
+#incfont:hover {
+  color: green;
+}
