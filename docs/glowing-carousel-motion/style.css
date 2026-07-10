@@ -1,0 +1,487 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.1px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at top left, #1f1c2c, #928dab);
+  background-color: #0a0f2c;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      rgba(0, 255, 255, 0.05) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(255, 0, 150, 0.04) 0%,
+      transparent 70%
+    ),
+    url("https://www.transparenttextures.com/patterns/dark-mosaic.png"); /* ruis */
+  background-repeat: repeat;
+  background-size: cover;
+  color: #fff;
+  height: 100vh;
+  overflow-x: hidden;
+  
+}
+/*
+body {
+  background: linear-gradient(45deg, #2196F3 0%, darken(#2196F3, 50%) 100%);
+  background-size: 200% 200%;  
+  height: 100%;
+  width: 100%;
+  animation: background 6s ease infinite;
+}
+
+
+@keyframes background { 
+  0% {
+    background-position: 0% 50%;
+  }
+  
+  50% {
+    background-position: 100% 50%;
+  }
+  
+  100% {
+    background-position: 0% 50%;
+  }
+}
+*/
+
+h2 {
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0;
+  background: linear-gradient(185deg, #0281e2, #f4f3f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0;
+  background: linear-gradient(90deg, #ff05f2, #f7d9f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+
+.scene {
+  perspective: 1200px;
+  width: 80%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.card {
+  position: absolute;
+  width: 180px;
+  height: 240px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, z-index 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transform-origin: center center;
+  animation-name: glow;
+  animation-duration: 1.3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card img:hover {
+  animation: scale-up 0.5s ease forwards;
+}
+
+@keyframes scale-up {
+  to {
+    transform: scale(1.3);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #2980b9;
+  }
+  50% {
+    box-shadow: 0 0 10px #cc0590;
+  }
+  100% {
+    box-shadow: 0 0 15px #2980b9;
+  }
+}
+
+.card h3 {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background-color: #121313;
+  padding: 2rem;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 15px;
+  border: 1px solid #44abf0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.popup.show {
+  display: block;
+  opacity: 1;
+}
+
+.popup h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.popup p {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #ddd;
+}
+
+.popup-close {
+  display: block;       /* 1. 인라인 요소를 블록 요소로 변경 */
+  margin: 15px auto 0;  /* 2. 위 15px, 좌우 자동(가운데 정렬), 아래 0 */
+  width: 100px;
+  
+  background-color: #f007dc;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.popup-close:hover {
+  background-color: #fa79ef;
+}
+
+/* about page */
+
+.about-inner {
+  display: grid;
+  width: 100%;
+  background-color: #080808;
+  border-radius: 15px;
+}
+
+.about-flex {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.about-flex img {
+  margin-bottom: 1rem;
+  width: 100%;
+  border-radius: 15px;
+}
+
+/* Service page */
+
+.services {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 180px;
+  padding: 6px 12px;
+  background-image: url("https://iili.io/3QhBJ7p.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 15px;
+}
+
+.services-content,
+ul,
+li {
+  margin-top: 2rem;
+  color: #fff;
+}
+
+.services img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+ul.groene-vinkjes {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul.groene-vinkjes li::before {
+  content: "✔️";
+  color: green !important;
+  margin-right: 8px;
+}
+
+/* Projecs page */
+
+.projects,
+ul,
+li {
+  margin-top: 4px;
+  color: #fff;
+}
+.projects,
+ul {
+  list-style-type: none;
+  margin-top: 1rem;
+  padding-left: 0;
+}
+
+.projects {
+  margin-top: 1rem;
+  max-width: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+  color: #fff;
+}
+
+.projects img {
+  width: 100%;
+  height: 234px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+a {
+  font-size: 16px;
+  color: blue; /* #fff; */
+  text-decoration: none;
+  margin-bottom:10px;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: red;
+}
+
+.project-caption {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  color: #555;
+  line-height: 1.2;
+}
+
+/* contact form */
+#contact-form {
+  max-width: 500px;
+  color: rgb(243, 247, 250);
+  background-color: #050505;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#contact-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 5px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#contact-form input[type="submit"] {
+  background-color: #048cdb;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#contact-form input[type="submit"]:hover {
+  background-color: #44abf0;
+}
+
+.touch {
+  font-weight: 500;
+}
+
+.work {
+  margin-top: 2rem;
+  display: grid;
+  align-items: center;
+  max-width: 400px;
+  text-align: left;
+  color: #fff;
+}
+
+strong {
+  color: #f007dc;
+}
+
+figcaption {
+  text-align: center;
+  padding: 5px;
+}
+
+@media (max-width: 1024px) {
+  .scene {
+    width: 100%;
+    height: 340px;
+  }
+
+  .card {
+    width: 140px;
+    height: 190px;
+  }
+
+  .card h3 {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .scene {
+    height: 300px;
+  }
+
+  .carousel {
+    transform: scale(0.9); /* iets kleiner geheel */
+  }
+
+  .card {
+    width: 120px;
+    height: 160px;
+    margin: 0; /* voorkom extra ruimte */
+  }
+
+  .card h3 {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .scene {
+    height: 270px;
+  }
+
+  .carousel {
+    transform: scale(0.8);
+  }
+
+  .card {
+    width: 100px;
+    height: 140px;
+  }
+
+  .card h3 {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scene {
+    height: 250px;
+  }
+
+  .carousel {
+    transform: scale(0.75);
+  }
+
+  .card {
+    width: 90px;
+    height: 130px;
+  }
+
+  .card h3 {
+    font-size: 11px;
+  }
+
+  .popup {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .about-flex {
+    flex-direction: column;
+  }
+
+  .projects {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .projects img {
+    height: auto;
+  }
+
+  #contact-form {
+    width: 100%;
+  }
+
+}
+
+  
+.link {
+  padding: 10px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+
+

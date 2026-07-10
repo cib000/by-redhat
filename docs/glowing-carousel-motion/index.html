@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>캐러셀: 그라데이션 텍스트 &amp; 팝업</title>
+    <!-- link rel="stylesheet" href="./bg_style.css" -->
+	<link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  
+
+	
+<div class="scene">
+  <div class="carousel" id="carousel">
+    <div class="card" id="card1" data-id="card1">
+      <img src="https://iili.io/3QhqLmP.jpg" alt="정보">
+      <h3>정보</h3>
+    </div>
+    <div class="card" id="card2" data-id="card2">
+      <img src="https://iili.io/3Qhqi7V.jpg" alt="서비스">
+      <h3>서비스</h3>
+    </div>
+    <div class="card" id="card3" data-id="card3">
+      <img src="https://iili.io/3QhqskB.jpg" alt="프로젝트">
+      <h3>프로젝트</h3>
+    </div>
+    <div class="card" id="card4" data-id="card4">
+      <img src="https://iili.io/3QhqthF.jpg" alt="작업 레퍼런스">
+      <h3>레퍼런스</h3>
+    </div>
+    <div class="card" id="card5" data-id="card5">
+      <img src="https://iili.io/3Qhqyrv.jpg" alt="연락하기">
+      <h3>연락하기</h3>
+    </div>
+  </div>
+</div>
+
+<div id="popup-card1" class="popup">
+  <div class="about-inner">
+    <h2>1. 정보</h2>
+    <div class="about-flex">
+      <div class="about-left"><img src="https://iili.io/3QhBH2R.jpg" alt="About"></div>
+      <div class="about-right">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Deleniti neque voluptatem sapiente ex harum eum in repudiandae,
+      </div>
+    </div>
+
+  </div>
+  <button class="popup-close" onclick="closePopup()">닫기</button>
+</div>
+
+<div id="popup-card2" class="popup">
+  <h2>2. 서비스</h2>
+  <div class="services"></div>
+  <div class="services-content">
+    <ul class="groene-vinkjes">
+      <li>웹사이트/앱 개발</li>
+      <li>전자상거래 서비스</li>
+      <li>SEO 최적화</li>
+      <li>소셜 미디어 마케팅</li>
+    </ul>
+  </div>
+
+  <button class="popup-close" onclick="closePopup()">닫기</button>
+</div>
+
+<div id="popup-card3" class="popup">
+  <h2>3. 프로젝트</h2>
+  <h4>SEO solutions</h4>
+  <div class="projects">
+    <div><img class="pro" src="https://iili.io/3QhqmBa.jpg" alt="Projects">
+      <ul>
+        <li>프로젝트: 앱 및 웹사이트</li>
+        <li>제목: SEO</li>
+        <li>이름: SEO 솔루션</li>
+      </ul>
+
+      <div class="link">
+	  <p>
+        <a href="https://windowsforum.kr/free" target="_blank">자유게시판</a>&nbsp;
+        <br>
+        <a href="https://translate.google.co.kr/?hl=ko&tab=TT" target="_blank">구글번역</a>&nbsp;
+        <br>
+        <a href="https://www.daum.net/" target="_blank">다음넷</a>
+      </p>
+	  </div>
+    </div>
+    <p class="link"><a href="">더 많은 프로젝트들</a></p>
+
+  </div>
+  <button class="popup-close" onclick="closePopup()">닫기</button>
+</div>
+
+<div id="popup-card4" class="popup">
+  <h2>4. 작업 레퍼런스</h2>
+
+  <div class="work health">
+    <p><strong>Stay-Healthy</strong> 는 다양한 건강 관련 정보를 제공하는 앱입니다.</strong></p>
+  </div>
+
+  <div class="work business">
+    <p><strong>Compa</strong> 이 웹사이트는 다양한 비즈니스 자료에 대한 접근을 제공합니다..</p>
+  </div>
+
+  <div class="work ecomm">
+    <p><strong>eComm</strong> 전문가를 위한 고급 기술 제품을 판매하는 온라인 스토어입니다..</p>
+  </div>
+
+  <div class="work fitness">
+    <p><strong>Fit</strong> 이 웹사이트는 다양한 피트니스 관련 자료에 접근할 수 있도록 제공합니다.</p>
+  </div>
+
+  <button class="popup-close" onclick="closePopup()">닫기</button>
+</div>
+
+<div id="popup-card5" class="popup">
+  <h2>5. 우리와 연락하기</h2>
+  <h4 class="touch">WAF로 연락하세요</h4>
+  <!--contact form -->
+  <form id="contact-form">
+    <label for="name">이름:</label>
+    <input type="text" id="name" name="name"><br><br>
+    <label for="email">메일주소:</label>
+    <input type="email" id="email" name="email"><br><br>
+    <label for="message">메시지:</label>
+    <textarea id="message" name="message"></textarea><br><br>
+    <input type="submit" value="보내기">
+  </form>
+  <button class="popup-close" onclick="closePopup()">닫기</button>
+</div>
+
+
+
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
