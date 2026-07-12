@@ -20,14 +20,14 @@
         .controls-container {
             position: fixed;
             bottom: 10px;
-            right: 30%;
+            right: 20%;
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 15px; /* 요소들 간격 */
+            gap: 20px; /* 요소들 간격 */
             margin:0 auto;
 			background-color: rgba(0, 0, 0, 0.01);
-            padding: 10px 22px;
+            padding: 10px 142px;
             border-radius: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             backdrop-filter: blur(5px);
@@ -66,6 +66,7 @@
             transform: scale(1.2);
         }
 
+
         /* 속도 조절 슬라이더 커스텀 */
         .speed-slider { width: 130px; }
         .speed-slider::-webkit-slider-thumb { background: #f1c40f; } /* 금색 */
@@ -76,16 +77,17 @@
 
         /* 상태 표시 텍스트 공통 */
         .control-label {
-            font-size: 12px;
+            font-size: 18px;
             color: #aaa;
             font-family: sans-serif;
             user-select: none;
         }
         .speed-label { min-width: 65px; text-align: right; }
         .volume-label { min-width: 40px; text-align: right; }
+		button {margin-right: 40px; font-size: 1.2em; cursor:pointer; }
 		
 		#fsBtn {
-			margin-right: 40px;
+			margin-right: 40px; 
 		}
 		
         /* 재생/일시정지 버튼 스타일 */
@@ -120,10 +122,35 @@
             height: 85%;
             animation: scroll-lines 600s linear infinite;
         }
-
+		
+		/* 마우스 올리면 정지 
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+        } */
+		
+		
+		/* 마퀴 일시정지를 위한 클래스 (자바스크립트로 제어) */
+        .marquee-track.stop {
+            animation-play-state: paused !important;
+        }
+		
+        /* 일시정지 버튼 스타일 */ /*  ⏸  ⏯   */
+		.Paused-btn {
+            border: 1px solid #f00;
+			border-radius: 50%;
+			padding: 5px;
+			cursor: pointer; /* 클릭할 수 있음을 보여주기 위해 pointer로 변경 */
+            font-size: 26px; /* 다른 아이콘들과 크기 밸런스 매칭 (기존 35px에서 조정) */
+            user-select: none;
+            transition: transform 0.2s;
+		}
+		.Paused-btn:hover {
+            transform: scale(1.1); /* 마우스 올렸을 때 살짝 커지는 효과 */
+		}
+		
         /* 개별 세로줄 스타일 */
         .line {
-            writing-mode: vertical-rl;
+            writing-mode: vertical-lr;  /*  vertical-rl;  */
             text-combine-upright: digits 2;
             font-size: 21px;
             line-height: 1;
@@ -139,7 +166,7 @@
             font-weight: bold;
         }
 
-        .hanja { font-size: 3.4em; font-weight: 800; color:blue;  }  /* #f1c40f; */
+        .hanja { font-size: 3.4em; font-weight: 800; color:blue; line-height: 1.4; }  /* #f1c40f; */
         .korean { color: #000; font-size: 2.1rem; line-height: 2.1; }
 		.korean2 { color: #000; font-size: 3.4em; font-weight: 800; line-height: 2.1; color:blue; }
 		.korean3 { color: #000; font-size: 2.4em; font-weight: 800; line-height: 2.1; color:blue; }
@@ -166,8 +193,13 @@
 	<div class="overlay"></div>
 	<video id="bgVideo" src="./bgvod.mp4" autoplay loop muted></video>
 
-    <div class="controls-container">
-        <div class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()">📺</div>
+    <div class="controls-container" id="allplayBtn">
+        
+		<!-- <div class="Paused-btn">⏸</div>   ⏸  ⏯  -->
+		<div class="Paused-btn" id="pauseTrackBtn" onclick="toggleTrackPlay()">⏸</div>
+		<!-- <button onClick="window.location.reload()" title="페이지 새로고침">🔄</button> -->
+		
+		<div class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()">📺</div>
 		
 		<input type="range" id="speedSlider" class="slider-input speed-slider" min="30" max="1000" value="600" step="5">
         <span id="speedLabel" class="control-label speed-label">속도: 600초</span>
@@ -190,199 +222,90 @@
 <div class="marquee-container">
     <div class="marquee-track" id="marqueeTrack">
         
-        <div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
+        <div class="line title-line hanja"><br><br><br><br><br><br><br><br><br><br></div>
+
+		<div class="line title-line hanja">𪡏世歌<br>경세가</div>
+		<div class="line title-line korean3">(세상을 경계하는 노래)</div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
 		
+		<div class="line hanja">舊友如流此地留<br>구우여류차지류</div>
+		<div class="line korean">옛 친구들은 흐르는 물처럼 떠나갔건만,<br>나만 이 자리에 머물러 있구나.</div>
+
+        <div class="line hanja">虛尊咸理密驪內<br>허존함리밀려내</div>
+        <div class="line korean">존경과 온갖 이치들은 헛된 어둠 속으로<br>비밀스럽게 숨어들고,</div>
+
+        <div class="line hanja">殘難駑擥 洩治面<br>잔난노람 설치면</div>
+        <div class="line korean">모자라고 못난 자들이 득세하여 판을 치니,<br>다스려야 할 체면과 염치마저 <br>다 새어나가는구나. </div>
+
+        <div class="line hanja">口善心惡 方鼎沸<br>구선심악 방정불</div>
+        <div class="line korean">입으로는 선을 말하나 <br>마음은 악한 자들이 가득하니,<br>세상이 바야흐로 가마솥 끓듯 <br>끓어 넘치는구나.</div>
+		
+		<div class="line title-line hanja"><br></div>
+
+        <div class="line hanja">權人行 我是汝非 我是他非<br>권인행 아시여비 아시타비</div>
+        <div class="line korean">권력자들이 행하길,<br>"나는 옳고 너는 틀리다, <br>나는 옳고 타인은 틀리다" 하누나. </div>
+
+        <div class="line hanja">如其利 羅南銀居 虛主路多<br>여기리 라남은거 허주로다</div>
+        <div class="line korean">이익을 좇아 벌처럼 <br>남쪽에 숨어 살아가니,<br>결국 알맹이 없는<br>죽정이(헛된) 주인들의 길(말)이 많을 뿐이로다.</div>
+
+        <div class="line hanja">餘痕也 虛妄之心 荒亡之處<br>여흔야 허망지심 황망지처</div>
+        <div class="line korean">남은 흔적이란 것은 결국 허망한 마음뿐이요,<br>다다르는 곳 또한 거칠고 황량한 망국의 땅이로다.</div>
+
+        <div class="line hanja">處處葛 騰茂覆地 實遺虛妄<br>처처갈 등무복지 실유허망</div>
+        <div class="line korean">곳곳마다 칡넝쿨이 무성하게 자라나<br>온 땅을 뒤덮으니, 열매로 남은 것은 <br>오직 허망함뿐이로다. <br></div>
+
+        <div class="line hanja">人傑去 痕跡無常 嵐萬於歸<br>인걸거 흔적무상 남만어귀</div>
+        <div class="line korean">뛰어난 인재들도 다 떠나가니 그 흔적이 무상하고,<br>수많은 산안개만이 흐르는(돌아가는)구나. </div>
+
+        <div class="line hanja">鄕風丘 街夜河也 街夜河也<br>향풍구 가야하야 가야하야</div>
+        <div class="line korean">바람 부는 고향 언덕에서 <br> "가야 하리, 밤거리 흐르는 강물처럼<br>결국 떠나가야 하리" 낮은 신음처럼 읊조린다.</div>
+
+        <div class="line hanja">步步去 虛傳寒風 停留處無<br>보보거 허전한풍 정류처무</div>
+        <div class="line korean">걸음걸음 걸어가나 전해지는 건<br>허공의 차가운 바람뿐,<br>이 몸 머무를 곳 하나 없구나. </div>
+
+        <div class="line hanja">去去多 唯留足跡 遺之痕也<br>거거다 유류족적 유지흔야</div>
+        <div class="line korean">가고 또 가도, 오직 남는 것은 발자국이요<br>세상에 남겨진 흔적일 뿐이로다.</div>
+
+        <div class="line hanja">山麓處 友松伴竹 桑自生妬<br>산록처 우송반죽 상자생투</div>
+        <div class="line korean">산기슭 외진 곳에서 소나무를 벗 삼고 <br>대나무를 동반자 삼으니, <br>뽕나무가 스스로 시샘을 내는구나.</div>
+
+        <div class="line hanja">吾行去 於之吾歸 吾行茫茫<br>오행거 어지오귀 오행망망</div>
+        <div class="line korean">나 또한 이 길을 가노니,<br>내가 돌아갈 곳은 어디인가.<br>나의 갈 길이 참으로 아득하고 아득하구나.</div>
+		
+		<div class="line title-line hanja"><br><br><br></div>
+
 		<div class="line title-line hanja">𪡏世歌 (원문)</div>
         <div class="line title-line korean2">경세가</div>
 		<div class="line title-line korean3">(세상을 경계하는 노래)</div>
 
-        <div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
+        <div class="line title-line hanja"><br><br><br></div>
 		
-		<div class="line hanja">舊友如流此地留</div>
-        <div class="line korean2">구우여류차지류</div>
-		<div class="line korean">나만 이 자리에 머물러 있구나.<br>옛 친구들은 흐르는 물처럼 떠나갔건만,</div>
-
-        <div class="line hanja">虛尊咸理密驪內</div>
-		<div class="line korean2">허존함리밀려내</div>
-        <div class="line korean">비밀스럽게 숨어들고,<br>존경과 온갖 이치들은 헛된 어둠 속으로</div>
-
-        <div class="line hanja">殘難駑擥 洩治面</div>
-		<div class="line korean2">잔난노람 설치면</div>
-        <div class="line korean">다 새어나가는구나. <br>다스려야 할 체면과 염치마저 <br>모자라고 못난 자들이 득세하여 판을 치니,</div>
-
-        <div class="line hanja">口善心惡 方鼎沸</div>
-		<div class="line korean2">구선심악 방정불</div>
-        <div class="line korean">끓어 넘치는구나.<br>세상이 바야흐로 가마솥 끓듯 <br>마음은 악한 자들이 가득하니,<br>입으로는 선을 말하나</div>
+		<div class="line hanja">舊友如流此地留<br>구우여류차지류 로다.</div>
+        <div class="line hanja">虛尊咸理密驪內<br>허존함리밀려내 하고,</div>
+        <div class="line hanja">殘難駑擥 洩治面<br>잔난노람 설치면 로다.</div>
+        <div class="line hanja">口善心惡 方鼎沸<br>구선심악 방정불 이로다.</div>
 		
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
+		<div class="line title-line hanja"><br></div>
 
-        <div class="line hanja">權人行 我是汝非 我是他非</div>
-		<div class="line korean2">권인행 아시여비 아시타비</div>
-        <div class="line korean">나는 옳고 타인은 틀리다" 하누나.<br>"나는 옳고 너는 틀리다, <br> 권력자들이 행하길,</div>
+        <div class="line hanja">權人行 我是汝非 我是他非<br>권인행 아시여비 아시타비 하니</div>
+        <div class="line hanja">如其利 羅南銀居 虛主路多<br>여기리 라남은거 허주로다 니라.</div>
+        <div class="line hanja">餘痕也 虛妄之心 荒亡之處<br>여흔야 허망지심 황망지처 요</div>
+        <div class="line hanja">處處葛 騰茂覆地 實遺虛妄<br>처처갈 등무복지 실유허망 이라.</div>
+        <div class="line hanja">人傑去 痕跡無常 嵐萬於歸<br>인걸거 흔적무상 남만어귀 하니</div>
+        <div class="line hanja">鄕風丘 街夜河也 街夜河也<br>향풍구 가야하야 가야하야 하며</div>
+        <div class="line hanja">步步去 虛傳寒風 停留處無<br>보보거 허전한풍 정류처무 로다.</div>
+        <div class="line hanja">去去多 唯留足跡 遺之痕也<br>거거다 유류족적 유지흔야 하니,</div>
+        <div class="line hanja">山麓處 友松伴竹 桑自生妬<br>산록처 우송반죽 상자생투 로다.</div>
+        <div class="line hanja">吾行去 於之吾歸 吾行茫茫<br>오행거 어지오귀 오행망망 이로세.</div>
 
-        <div class="line hanja">如其利 羅南銀居 虛主路多</div>
-		<div class="line korean2">여기리 라남은거 허주로다</div>
-        <div class="line korean">헛된 주인들의 길이 많을 뿐이로다.<br>결국 알맹이 없는<br>남쪽에 숨어 살아가니,<br>그 이익을 좇아 벌처럼 </div>
-
-        <div class="line hanja">餘痕也 虛妄之心 荒亡之處</div>
-		<div class="line korean2">여흔야 허망지심 황망지처</div>
-        <div class="line korean">거칠고 황량한 망국의 땅이로다.<br>다다르는 곳 또한<br>결국 허망한 마음뿐이요,  <br>남은 흔적이란 것은 </div>
-
-        <div class="line hanja">處處葛 騰茂覆地 實遺虛妄</div>
-		<div class="line korean2">처처갈 등무복지 실유허망</div>
-        <div class="line korean"><br>오직 허망함뿐이로다. <br>온 땅을 뒤덮으니, 열매로 남은 것은 <br>곳곳마다 칡넝쿨이 무성하게 자라나</div>
-
-        <div class="line hanja">人傑去 痕跡無常 嵐萬於歸</div>
-		<div class="line korean2">인걸거 흔적무상 남만어귀</div>
-        <div class="line korean">수많은 산안개만이 돌아가는구나.<br>뛰어난 인재들도 다 떠나가니 그 흔적이 무상하고, </div>
-
-        <div class="line hanja">鄕風丘 街夜河也 街夜河也</div>
-		<div class="line korean2">향풍구 가야하야 가야하야</div>
-        <div class="line korean">낮은 신음처럼 읊조린다.<br> 결국 떠나가야 하리"<br>"가야 하리, 밤거리 흐르는 강물처럼<br>바람 부는 고향 언덕에서</div>
-
-        <div class="line hanja">步步去 虛傳寒風 停留處無</div>
-		<div class="line korean2">보보거 허전한풍 정류처무</div>
-        <div class="line korean">이 몸 머무를 곳 하나 없구나.<br>허공의 차가운 바람뿐,<br>걸음걸음 걸어가나 전해지는 건 </div>
-
-        <div class="line hanja">去去多 唯留足跡 遺之痕也</div>
-		<div class="line korean2">거거다 유류족적 유지흔야</div>
-        <div class="line korean">세상에 남겨진 흔적일 뿐이로다.<br>가고 또 가도, 오직 남는 것은 발자국이요 </div>
-
-        <div class="line hanja">山麓處 友松伴竹 桑自生妬</div>
-		<div class="line korean2">산록처 우송반죽 상자생투</div>
-        <div class="line korean">뽕나무가 스스로 시샘을 내는구나.<br>산기슭 외진 곳에서 <br>소나무를 벗 삼고 대나무를 동반자 삼으니,</div>
-
-        <div class="line hanja">吾行去 於之吾歸 吾行茫茫</div>
-		<div class="line korean2">오행거 어지오귀 오행망망</div>
-        <div class="line korean">나의 갈 길이 참으로 아득하고 아득하구나.<br>내가 돌아갈 곳은 어디인가.<br>나 또한 이 길을 가노니,</div>
+		<div class="line title-line hanja"><br><br><br></div>
 		
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
+		<div class="line hanja">寶劍藏匣 其威彌懼<br>보검장갑 기위미구</div>
+		<div class="line korean">칼은 칼집에 숨겨져 있을 때<br>그 위엄이 더욱 두려운 법이로다.</div>
 		
-		<div class="line title-line korean2">경세가</div>
-		<div class="line title-line korean3">(세상을 경계하는 노래)</div>
-		
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		
-		<div class="line korean">나만 이 자리에 머물러 있구나.<br>옛 친구들은 흐르는 물처럼 떠나갔건만,</div>
-
-        <div class="line korean">비밀스럽게 숨어들고,<br>존경과 온갖 이치들은 헛된 어둠 속으로</div>
-
-        <div class="line korean">다 새어나가는구나. <br>다스려야 할 체면과 염치마저 <br>모자라고 못난 자들이 득세하여 판을 치니,</div>
-
-        <div class="line korean">끓어 넘치는구나.<br>세상이 바야흐로 가마솥 끓듯 <br>마음은 악한 자들이 가득하니,<br>입으로는 선을 말하나</div>
-		
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-
-        <div class="line korean">나는 옳고 타인은 틀리다" 하누나.<br>"나는 옳고 너는 틀리다, <br> 권력자들이 행하길,</div>
-
-        <div class="line korean">헛된 주인들의 길이 많을 뿐이로다.<br>결국 알맹이 없는<br>남쪽에 숨어 살아가니,<br>그 이익을 좇아 벌처럼 </div>
-
-        <div class="line korean">거칠고 황량한 망국의 땅이로다.<br>다다르는 곳 또한<br>결국 허망한 마음뿐이요,  <br>남은 흔적이란 것은 </div>
-
-        <div class="line korean"><br>오직 허망함뿐이로다. <br>온 땅을 뒤덮으니, 열매로 남은 것은 <br>곳곳마다 칡넝쿨이 무성하게 자라나</div>
-
-        <div class="line korean">수많은 산안개만이 돌아가는구나.<br>뛰어난 인재들도 다 떠나가니 그 흔적이 무상하고, </div>
-
-        <div class="line korean">낮은 신음처럼 읊조린다.<br> 결국 떠나가야 하리"<br>"가야 하리, 밤거리 흐르는 강물처럼<br>바람 부는 고향 언덕에서</div>
-
-        <div class="line korean">이 몸 머무를 곳 하나 없구나.<br>허공의 차가운 바람뿐,<br>걸음걸음 걸어가나 전해지는 건 </div>
-
-        <div class="line korean">세상에 남겨진 흔적일 뿐이로다.<br>가고 또 가도, 오직 남는 것은 발자국이요 </div>
-
-        <div class="line korean">뽕나무가 스스로 시샘을 내는구나.<br>산기슭 외진 곳에서 <br>소나무를 벗 삼고 대나무를 동반자 삼으니,</div>
-
-        <div class="line korean">나의 갈 길이 참으로 아득하고 아득하구나.<br>내가 돌아갈 곳은 어디인가.<br>나 또한 이 길을 가노니,</div>
-		
-		
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		
-		<div class="line title-line hanja">𪡏世歌 (원문)</div>
-        <div class="line title-line korean2">경세가</div>
-		<div class="line title-line korean3">(세상을 경계하는 노래)</div>
-
-        <div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		
-		<div class="line hanja">舊友如流此地留</div>
-        <div class="line korean2">구우여류차지류 </div>
-
-        <div class="line hanja">虛尊咸理密驪內</div>
-		<div class="line korean2">허존함리밀려내</div>
-
-        <div class="line hanja">殘難駑擥 洩治面</div>
-		<div class="line korean2">잔난노람 설치면</div>
-
-        <div class="line hanja">口善心惡 方鼎沸</div>
-		<div class="line korean2">구선심악 방정불</div>
-		
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-
-        <div class="line hanja">權人行 我是汝非 我是他非</div>
-		<div class="line korean2">권인행 아시여비 아시타비 하니</div>
-
-        <div class="line hanja">如其利 羅南銀居 虛主路多</div>
-		<div class="line korean2">여기리 라남은거 허주로다 니라.</div>
-
-        <div class="line hanja">餘痕也 虛妄之心 荒亡之處</div>
-		<div class="line korean2">여흔야 허망지심 황망지처 요</div>
-
-        <div class="line hanja">處處葛 騰茂覆地 實遺虛妄</div>
-		<div class="line korean2">처처갈 등무복지 실유허망 이라.</div>
-
-        <div class="line hanja">人傑去 痕跡無常 嵐萬於歸</div>
-		<div class="line korean2">인걸거 흔적무상 남만어귀 하니</div>
-
-        <div class="line hanja">鄕風丘 街夜河也 街夜河也</div>
-		<div class="line korean2">향풍구 가야하야 가야하야 하며</div>
-
-        <div class="line hanja">步步去 虛傳寒風 停留處無</div>
-		<div class="line korean2">보보거 허전한풍 정류처무 로다.</div>
-
-        <div class="line hanja">去去多 唯留足跡 遺之痕也</div>
-		<div class="line korean2">거거다 유류족적 유지흔야 하니,</div>
-
-        <div class="line hanja">山麓處 友松伴竹 桑自生妬</div>
-		<div class="line korean2">산록처 우송반죽 상자생투 로다.</div>
-
-        <div class="line hanja">吾行去 於之吾歸 吾行茫茫</div>
-		<div class="line korean2">오행거 어지오귀 오행망망 이로세.</div>
-
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		<div class="line title-line hanja"></div>
-        <div class="line title-line korean"></div>
-		
-		<div class="line hanja">寶劍藏匣 其威彌懼</div>
-		<div class="line korean2">보검장갑 기위미구</div>
-		<div class="line korean">그 위엄이 더욱 두려운 법이로다.<br>칼은 칼집에 숨겨져 있을 때</div>
-		
-		<div class="line hanja">無者留志 一言錄中 萬理一貫</div>
-		<div class="line korean2">무자유지 일언록중 만리일관</div>
-		<div class="line korean">세상의 온갖 이치를 하나로 꿰뚫는구나.<br>기록한 책 속의 단 한 마디가<br>이름없는 거사 남긴 귀한 말씀</div>
+		<div class="line hanja">無者留志 一言錄中 萬理一貫<br>무자유지 일언록중 만리일관</div>
+		<div class="line korean">이름없는 거사 남긴 귀한 말씀<br>기록한 책 속의 단 한 마디가<br>세상의 온갖 이치를 하나로 꿰뚫는구나.</div>
 
     </div>
 </div>
@@ -398,6 +321,7 @@
   // 2. DOM 요소 가져오기
   const audio = document.getElementById('mainAudio');
   const playBtn = document.getElementById('playBtn');
+  const playBtn2 = document.getElementById('playBtn2');
   const speedSlider = document.getElementById('speedSlider');
   const speedLabel = document.getElementById('speedLabel');
   const volumeSlider = document.getElementById('volumeSlider');
@@ -443,6 +367,34 @@
       }
   });
 
+
+  // 5. 컨트롤러 컨테이너(allplayBtn) 최초 클릭 시 음악 재생 및 전체화면 실행
+  const allplayBtn = document.getElementById('allplayBtn');
+
+  allplayBtn.addEventListener('click', (e) => {
+    // 1) 음악이 꺼져 있다면 재생 시작 
+/*	
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      }).catch(error => {
+        console.log("오디오 자동 재생 대기:", error);
+      });
+    }
+*/
+    // 2) 전체화면이 아니라면 전체화면으로 전환
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+          .then(() => {
+              fsBtn.innerText = "💢";
+          })
+          .catch((err) => {
+              console.log(`전체화면 오류: ${err.message}`);
+          });
+    }
+  }, { once: true }); // 💡 once: true 덕분에 딱 한 번만 실행되고 이 기능은 완전히 파기됩니다.
+
+
   // 5. 💡 전체화면 토글 함수 (새로 추가)
   function toggleFullscreen() {
       // 현재 전체화면인 요소가 없다면 전체화면 실행
@@ -482,6 +434,8 @@
       });
     }
   }, { once: true });
+  // }, );
+  
 
   // 7. 음소거 및 토글 함수
   function togglePlay() {
@@ -494,6 +448,23 @@
       playBtn.innerText = "🔇";
     }
   }
+  
+  // 💡 글자 흐름 일시정지/재생 토글 함수
+  function toggleTrackPlay() {
+      const track = document.getElementById('marqueeTrack');
+      const pauseTrackBtn = document.getElementById('pauseTrackBtn');
+      
+      // marquee-track에 'stop' 클래스가 있는지 확인 후 토글
+      track.classList.toggle('stop');
+      
+      // 클래스가 들어가서 멈춘 상태라면 재생 모양(⏯)으로, 움직이는 상태라면 일시정지 모양(⏸)으로 변경  ▶
+      if (track.classList.contains('stop')) {
+          pauseTrackBtn.innerText = "▶";
+      } else {
+          pauseTrackBtn.innerText = "⏸";
+      }
+  }
+  
 </script>
 
 
