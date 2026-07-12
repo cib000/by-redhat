@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>𪡏世歌 순차 세로 Marquee</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Noto Serif KR', 'Gungsuh', serif;
+        }
+
+        /* 컨트롤러 레이아웃 (우측 하단 플로팅 바) */
+        .controls-container {
+            position: fixed;
+            bottom: 10px;
+            right: 30%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px; /* 요소들 간격 */
+            margin:0 auto;
+			background-color: rgba(0, 0, 0, 0.1);
+            padding: 10px 22px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid #333;
+        }
+
+        /* 컨트롤 패널 내 세부 구역 구분 선 */
+        .divider {
+            width: 1px;
+            height: 20px;
+            background-color: #444;
+            margin: 0 5px;
+        }
+
+        /* 공통 슬라이더 스타일 */
+        .slider-input {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: #444;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* 슬라이더 손잡이 디자인 */
+        .slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            transition: transform 0.1s;
+        }
+        .slider-input::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* 속도 조절 슬라이더 커스텀 */
+        .speed-slider { width: 130px; }
+        .speed-slider::-webkit-slider-thumb { background: #f1c40f; } /* 금색 */
+
+        /* 볼륨 조절 슬라이더 커스텀 */
+        .volume-slider { width: 100px; }
+        .volume-slider::-webkit-slider-thumb { background: #3498db; } /* 푸른색 */
+
+        /* 상태 표시 텍스트 공통 */
+        .control-label {
+            font-size: 12px;
+            color: #aaa;
+            font-family: sans-serif;
+            user-select: none;
+        }
+        .speed-label { min-width: 65px; text-align: right; }
+        .volume-label { min-width: 40px; text-align: right; }
+		
+		#fsBtn {
+			margin-right: 40px;
+		}
+		
+        /* 재생/일시정지 버튼 스타일 */
+		.pause, .fullscreen-btn {
+			cursor: pointer;
+            font-size: 26px;
+            user-select: none;
+            transition: transform 0.2s;
+		}
+        .pause:hover, .fullscreen-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* 전광판 프레임 */
+        .marquee-container {
+            position: fixed; /* relative;  */
+			top: 40px;
+			left:25%;
+            width: 80%;
+            height: 100%;
+            /* border-top: 2px solid #444;
+            border-bottom: 2px solid #444; */
+            overflow: hidden;
+        }
+
+        /* 글줄들이 지나가는 트랙 */
+        .marquee-track {
+            display: flex;
+            position: absolute;
+            top: 30px;
+			left: 0;
+            height: 80%;
+            animation: scroll-lines 240s linear infinite;
+        }
+
+        /* 개별 세로줄 스타일 */
+        .line {
+            writing-mode: vertical-rl;
+            text-combine-upright: digits 2;
+            font-size: 21px;
+            line-height: 1;
+            letter-spacing: 4px;
+            height: 100%;
+            text-align: start;
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+
+        .title-line {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .hanja { font-size: 3.4em; font-weight: 800; color:blue;  }  /* #f1c40f; */
+        .korean { color: #000; font-size: 2.1rem; line-height: 2.1; }
+		.korean2 { color: #000; font-size: 2.8em; font-weight: 800; line-height: 2.1; color:blue; }
+
+        @keyframes scroll-lines {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+		
+		video {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  display: block;
+		  width: 100%;
+		  height: 100%;
+		  -o-object-fit: cover;
+			 object-fit: cover;
+		}
+
+    </style>
+</head>
+<body>
+	<div class="overlay"></div>
+	<video id="bgVideo" src="./bgvod.mp4" autoplay loop muted></video>
+
+    <div class="controls-container">
+        <div class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()">📺</div>
+		
+		<input type="range" id="speedSlider" class="slider-input speed-slider" min="30" max="600" value="240" step="5">
+        <span id="speedLabel" class="control-label speed-label">속도: 240초</span>
+        
+        <div class="divider"></div>
+
+        <span class="control-label">🎵</span>
+        <input type="range" id="volumeSlider" class="slider-input volume-slider" min="0" max="100" value="80" step="1">
+        <span id="volumeLabel" class="control-label volume-label">80%</span>
+
+        <div class="divider"></div>
+        
+        <div class="pause" id="playBtn" onclick="togglePlay()">🔇</div>
+    </div>
+
+	<div class="player">
+		<audio class="audio" id="mainAudio" src="./bgm.mp3" autoplay loop></audio>
+	</div>
+
+<div class="marquee-container">
+    <div class="marquee-track" id="marqueeTrack">
+        
+        <div class="line title-line hanja"></div>
+        <div class="line title-line korean"></div>
+		<div class="line title-line hanja"></div>
+        <div class="line title-line korean"></div>
+		<div class="line title-line hanja"></div>
+        <div class="line title-line korean"></div>
+		<div class="line title-line hanja"></div>
+        <div class="line title-line korean"></div>
+		<div class="line title-line hanja"></div>
+        <div class="line title-line korean"></div>
+		
+		<div class="line title-line hanja">𪡏世歌 (원문)</div>
+        <div class="line title-line korean2">경세가 (세상을 경계하는 노래)</div>
+
+        <div class="line title-line hanja"></div>
+        <div class="line title-line korean"></div>
+		<div class="line title-line hanja"></div>
+        <div class="line title-line korean"></div>
+		
+		<div class="line hanja">舊友如流此地留</div>
+        <div class="line korean2">구우여류차지류</div>
+		<div class="line korean">나만 이 자리에 머물러 있구나.<br>옛 친구들은 흐르는 물처럼 떠나갔건만,</div>
+
+        <div class="line hanja">虛尊咸理密驪內</div>
+		<div class="line korean2">허존함리밀려내</div>
+        <div class="line korean">비밀스럽게 숨어들고,<br>헛된 존경과 온갖 이치들은 어둠 속으로</div>
+
+        <div class="line hanja">殘難駑擥 洩治面</div>
+		<div class="line korean2">잔난노람 설치면</div>
+        <div class="line korean">다 새어나가는구나. <br>다스려야 할 체면과 염치마저 <br>모자라고 못난 자들이 득세하여 판을 치니,</div>
+
+        <div class="line hanja">口善心惡 方鼎沸</div>
+		<div class="line korean2">구선심악 방정불</div>
+        <div class="line korean">끓어 넘치는구나.<br>세상이 바야흐로 가마솥 끓듯 <br>마음은 악한 자들이 가득하니,<br>입으로는 선을 말하나</div>
+		
+		<div class="line title-line hanja"></div>
+        <div class="line title-line korean"></div>
+
+        <div class="line hanja">權人行 我是汝非 我是他非</div>
+		<div class="line korean2">권인행 아시여비 아시타비</div>
+        <div class="line korean">나는 옳고 타인은 틀리다" 하누나.<br>"나는 옳고 너는 틀리다, <br> 권력자들이 행하길,</div>
+
+        <div class="line hanja">如其利 羅南銀居 虛主路多</div>
+		<div class="line korean2">여기리 라남은거 허주로다</div>
+        <div class="line korean">남쪽에 숨어 살아가니,<br>그 이익을 좇아 벌이처럼 <br>헛된 주인들의 길이 많을 뿐이로다.<br>결국 알맹이 없는</div>
+
+        <div class="line hanja">餘痕也 虛妄之心 荒亡之處</div>
+		<div class="line korean2">여흔야 허망지심 황망지처</div>
+        <div class="line korean">다다르는 곳 또한 거칠고 황량한 망국의 땅이로다.<br>남은 흔적이란 것은 결국 허망한 마음뿐이요, </div>
+
+        <div class="line hanja">處處葛 騰茂覆地 實遺虛妄</div>
+		<div class="line korean2">처처갈 등무복지 실유허망</div>
+        <div class="line korean">곳곳마다 칡넝쿨이 무성하게 자라나 온 땅을 뒤덮으니,<br>열매로 남은 것은 오직 허망함뿐이로다. </div>
+
+        <div class="line hanja">人傑去 痕跡無常 嵐萬於歸</div>
+		<div class="line korean2">인걸거 흔적무상 남만어귀</div>
+        <div class="line korean">수많은 산안개만이 돌아가는구나.<br>뛰어난 인재들도 다 떠나가니 그 흔적이 무상하고, </div>
+
+        <div class="line hanja">鄕風丘 街夜河也 街夜河也</div>
+		<div class="line korean2">향풍구 가야하야 가야하야</div>
+        <div class="line korean">낮은 신음처럼 읊조린다.<br>"가야 하리, 밤거리 흐르는 강물처럼 결국 떠나가야 하리"<br>바람 부는 고향 언덕에서</div>
+
+        <div class="line hanja">步步去 虛傳寒風 停留處無</div>
+		<div class="line korean2">보보거 허전한풍 정류처무</div>
+        <div class="line korean">이 몸 머무를 곳 하나 없구나.<br>허공의 차가운 바람뿐,<br>걸음걸음 걸어가나 전해지는 건 </div>
+
+        <div class="line hanja">去去多 唯留足跡 遺之痕也</div>
+		<div class="line korean2">거거다 유류족적 유지흔야</div>
+        <div class="line korean">세상에 남겨진 흔적일 뿐이로다.<br>가고 또 가도, 오직 남는 것은 발자국이요 </div>
+
+        <div class="line hanja">山麓處 友松伴竹 桑自生妬</div>
+		<div class="line korean2">산록처 우송반죽 상자생투</div>
+        <div class="line korean"><br>산기슭 외진 곳에서 <br>소나무를 벗 삼고 대나무를 동반자 삼으니,<br>뽕나무가 스스로 시샘을 내는구나. </div>
+
+        <div class="line hanja">吾行去 於之吾歸 吾行茫茫</div>
+		<div class="line korean2">오행거 어지오귀 오행망망</div>
+        <div class="line korean">나의 갈 길이 참으로 아득하고 아득하구나.<br>내가 돌아갈 곳은 어디인가.<br>나 또한 이 길을 가노니,</div>
+
+    </div>
+</div>
+
+
+
+<script>
+  // 1. 마퀴 무한 루프 구현용 복제
+  const track = document.getElementById('marqueeTrack');
+  const clone = track.innerHTML;
+  track.innerHTML += clone;
+
+  // 2. DOM 요소 가져오기
+  const audio = document.getElementById('mainAudio');
+  const playBtn = document.getElementById('playBtn');
+  const speedSlider = document.getElementById('speedSlider');
+  const speedLabel = document.getElementById('speedLabel');
+  const volumeSlider = document.getElementById('volumeSlider');
+  const volumeLabel = document.getElementById('volumeLabel');
+  const fsBtn = document.getElementById('fsBtn');
+
+  // 초기 오디오 볼륨값 세팅 (0.8)
+  audio.volume = 0.8;
+
+  // 3. 속도 조절 함수
+  function updateSpeed(seconds) {
+      track.style.animationDuration = seconds + 's';
+      speedLabel.innerText = "속도: " + seconds + "초";
+  }
+  speedSlider.addEventListener('input', (e) => updateSpeed(e.target.value));
+
+  // 속도 조절 슬라이더 마우스 휠 이벤트
+  speedSlider.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      let currentValue = parseInt(speedSlider.value);
+      let newValue = e.deltaY < 0 ? currentValue - 10 : currentValue + 10;
+      if (newValue >= 30 && newValue <= 600) {
+          speedSlider.value = newValue;
+          updateSpeed(newValue);
+      }
+  });
+
+  // 4. 볼륨 조절 함수
+  function updateVolume(percent) {
+      audio.volume = percent / 100;
+      volumeLabel.innerText = percent + "%";
+  }
+  volumeSlider.addEventListener('input', (e) => updateVolume(e.target.value));
+
+  // 볼륨 조절 슬라이더 마우스 휠 이벤트
+  volumeSlider.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      let currentValue = parseInt(volumeSlider.value);
+      let newValue = e.deltaY < 0 ? currentValue + 2 : currentValue - 2;
+      if (newValue >= 0 && newValue <= 100) {
+          volumeSlider.value = newValue;
+          updateVolume(newValue);
+      }
+  });
+
+  // 5. 💡 전체화면 토글 함수 (새로 추가)
+  function toggleFullscreen() {
+      // 현재 전체화면인 요소가 없다면 전체화면 실행
+      if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen()
+              .then(() => {
+                  fsBtn.innerText = "💢"; // 전체화면 상태일 때는 축소 아이콘(또는 원하는 아이콘)으로 변경
+              })
+              .catch((err) => {
+                  console.log(`전체화면 오류: ${err.message}`);
+              });
+      } else {
+          // 이미 전체화면 상태라면 전체화면 해제
+          document.exitFullscreen();
+          fsBtn.innerText = "📺"; // 원래 아이콘으로 환원
+      }
+  }
+
+  // 사용자가 F11 키를 눌러 직접 나가거나 했을 때도 버튼 아이콘을 자동으로 맞춰주기 위한 감지 코드
+  document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+          fsBtn.innerText = "📺";
+      } else {
+          fsBtn.innerText = "💢";
+      }
+  });
+
+  // 6. 최초 화면 클릭 시 자동 재생 제한 해제
+  document.body.addEventListener('click', (e) => {
+    if (e.target.closest('.controls-container')) return; 
+
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      }).catch(error => {
+        console.log("자동 재생 대기:", error);
+      });
+    }
+  }, { once: true });
+
+  // 7. 음소거 및 토글 함수
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      });
+    } else {
+      audio.pause();
+      playBtn.innerText = "🔇";
+    }
+  }
+</script>
+
+
+<!--
+<script>
+  // 1. 마퀴 무한 루프 구현용 복제
+  const track = document.getElementById('marqueeTrack');
+  const clone = track.innerHTML;
+  track.innerHTML += clone;
+
+  // 2. DOM 요소 가져오기
+  const audio = document.getElementById('mainAudio');
+  const playBtn = document.getElementById('playBtn');
+  const speedSlider = document.getElementById('speedSlider');
+  const speedLabel = document.getElementById('speedLabel');
+  const volumeSlider = document.getElementById('volumeSlider');
+  const volumeLabel = document.getElementById('volumeLabel');
+
+  // 초기 오디오 볼륨값 설정 (기본값 50% = 0.5)
+  audio.volume = 0.8;
+
+  // 3. 속도 조절 함수
+  function updateSpeed(seconds) {
+      track.style.animationDuration = seconds + 's';
+      speedLabel.innerText = "속도: " + seconds + "초";
+  }
+  speedSlider.addEventListener('input', (e) => updateSpeed(e.target.value));
+
+  // 속도 조절 슬라이더 마우스 휠 이벤트
+  speedSlider.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      let currentValue = parseInt(speedSlider.value);
+      let newValue = e.deltaY < 0 ? currentValue - 10 : currentValue + 10;
+      if (newValue >= 30 && newValue <= 600) {
+          speedSlider.value = newValue;
+          updateSpeed(newValue);
+      }
+  });
+
+  // 4. 볼륨 조절 함수 (새로 추가된 부분)
+  function updateVolume(percent) {
+      // 오디오의 volume 속성은 0.0 ~ 1.0 사이의 소수를 받습니다.
+      audio.volume = percent / 100;
+      volumeLabel.innerText = percent + "%";
+  }
+  volumeSlider.addEventListener('input', (e) => updateVolume(e.target.value));
+
+  // 볼륨 조절 슬라이더 마우스 휠 이벤트 (편의 기능)
+  volumeSlider.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      let currentValue = parseInt(volumeSlider.value);
+      // 휠을 위로 올리면 소리가 커지고, 내리면 소리가 작아짐
+      let newValue = e.deltaY < 0 ? currentValue + 2 : currentValue - 2;
+      if (newValue >= 0 && newValue <= 100) {
+          volumeSlider.value = newValue;
+          updateVolume(newValue);
+      }
+  });
+
+  // 5. 최초 화면 클릭 시 자동 재생 제한 해제
+  document.body.addEventListener('click', (e) => {
+    if (e.target.closest('.controls-container')) return; 
+
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      }).catch(error => {
+        console.log("자동 재생 대기:", error);
+      });
+    }
+  }, { once: true });
+
+  // 6. 음소거 및 토글 함수
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      });
+    } else {
+      audio.pause();
+      playBtn.innerText = "🔇";
+    }
+  }
+</script>
+-->
+
+</body>
+</html>
