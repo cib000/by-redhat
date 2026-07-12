@@ -148,6 +148,35 @@
             transform: scale(1.1); /* 마우스 올렸을 때 살짝 커지는 효과 */
 		}
 		
+		/* 버튼 공통 커스텀 스타일 */
+        .control-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 26px;
+            user-select: none;
+            transition: transform 0.2s;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1); /* 마우스 올리면 살짝 확대 */
+        }
+
+        .control-btn:focus {
+            outline: none; /* 클릭했을 때 생기는 파란 테두리 제거 */
+        }
+		
+		/* 창 닫기 버튼 전용 (마우스 올리면 빨갛게 강조되도록 선택 사항) */
+        .close-btn:hover {
+            color: #ff4757;
+            transform: scale(1.1) rotate(90deg); /* 살짝 회전하는 재미있는 효과 */
+        }
+		
+		
         /* 개별 세로줄 스타일 */
         .line {
             writing-mode: vertical-lr;  /*  vertical-rl;  */
@@ -293,7 +322,7 @@
 		<div class="line title-line hanja"><br></div>
 
         <div class="line hanja">權人行 我是汝非 我是他非<br>권인행 아시여비 아시타비 하니</div>
-        <div class="line hanja">如其利 羅南銀居 虛主路多<br>여기리 라남은거 허주로다 니라.</div>
+        <div class="line hanja">如其利 羅南銀居 虛主路多<br>여기리 라남은거 허주로다 .</div>
         <div class="line hanja">餘痕也 虛妄之心 荒亡之處<br>여흔야 허망지심 황망지처 요</div>
         <div class="line hanja">處處葛 騰茂覆地 實遺虛妄<br>처처갈 등무복지 실유허망 이라.</div>
         <div class="line hanja">人傑去 痕跡無常 嵐萬於歸<br>인걸거 흔적무상 남만어귀 하니</div>
