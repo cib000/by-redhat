@@ -109,10 +109,11 @@
             width: 80%;
             height: 100%;
             /* border-top: 2px solid #444;
-            border-bottom: 2px solid #444; */
+            border-bottom: 2px solid #444; 
+			border-left: 2px solid #444; */
             overflow: hidden;
         }
-
+		
         /* 글줄들이 지나가는 트랙 */
         .marquee-track {
             display: flex;
@@ -122,6 +123,14 @@
             height: 85%;
             animation: scroll-lines 600s linear infinite;
         }
+		
+		#roll {
+			position: fixed; /* relative;  */
+			top: 18px;
+			left:17.8%;
+			height: 85%;
+			opacity: 0.3;
+		}
 		
 		/* 마우스 올리면 정지 
         .marquee-container:hover .marquee-track {
@@ -267,6 +276,11 @@
 	<div class="player">
 		<audio class="audio" id="mainAudio" src="./bgm.mp3" autoplay loop></audio>
 	</div>
+
+<div class="marquee-container" id="roll">
+	<img src="./rollpaper.png">
+</div>
+
 
 <div class="marquee-container">
     <div class="marquee-track" id="marqueeTrack">
