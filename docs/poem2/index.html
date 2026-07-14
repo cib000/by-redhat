@@ -258,7 +258,7 @@
 		
 		<div class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()">📺</div>
 		
-		<input type="range" id="speedSlider" class="slider-input speed-slider" min="30" max="1000" value="600" step="5">
+		<input type="range" id="speedSlider" class="slider-input speed-slider" min="30" max="1800" value="600" step="5">
         <span id="speedLabel" class="control-label speed-label">속도: 600초</span>
         
         <div class="divider"></div>
@@ -287,7 +287,8 @@
 
 <div class="marquee-container">
     <div class="marquee-track" id="marqueeTrack">
-        
+    
+    
         <div class="line title-line hanja"><br><br><br><br><br><br><br><br><br><br></div>
 		
 		<div class="line title-line hanja mcenter">第 一 章</div>
@@ -475,13 +476,53 @@
 		
 		<div class="line hanja">斷絶足迹 如何是好 <br>단절족적 여하시호 <span id="hurem">란 말인가.</span></div>
 		<div class="line korean">끊긴 발길은 또 어이할꼬.</div>
-	
-		<div class="line title-line hanja"><br><br><br></div>
-		
+
+
 		<div class="line title-line hanja"><br><br><br></div>
 		<div class="line title-line hanja"><br><br><br></div>
 		
 		<div class="line title-line hanja mcenter">第 四 章</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja">諷刺漢詩<br>풍자한시</div>
+		<div class="line title-line korean3">(풍류한시 - 귀거래사)</div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line title-line hanja">副題 부제  <br>歸去來辭 귀거래사</div>
+		
+		<div class="line hanja">昔日盛會 賢士盈庭 <br>석일성회 현사영정 <span id="hurem">하더니만,</span></div>
+		<div class="line korean">예전 호황기에는 어진 선비들이 <br>마당에 가득하더니만,</div>
+		
+		<div class="line hanja">忽焉風起 淸水變濁 <br>홀언풍기 청수변탁 <span id="hurem">하니,</span></div>
+		<div class="line korean">어느샌가 바람 불어 맑던 물이 흐려지니,</div>
+		
+		<div class="line hanja">群盲聚會 逐出賢士 <br>홀군맹취회 축출현사 <span id="hurem">하고,</span></div>
+		<div class="line korean">눈먼 자들이 떼로 모여 어진 이들을 쫓아내고,</div>
+		
+		<div class="line hanja">賢人皆去 秕糠得勢 <br>현인개거 비강득세 <span id="hurem">더라.</span></div>
+		<div class="line korean">어진 이들은 모두 떠나고, <br>죽정이들만 권세를 부리는구나.</div>
+
+		<div class="line hanja">群犬奔突 驅逐良人 <br>군견분돌 구축량인 <span id="hurem">하니,</span></div>
+		<div class="line korean">떼지은 무리들이 몰려들어 <br>어진 이를 내쫓으니,</div>
+
+		<div class="line hanja">往昔賢人 痕迹不留 <br>왕석현인 흔적불류 <span id="hurem">로구나.</span></div>
+		<div class="line korean">예전의 어진 이들은 흔적도 <br>남지 않았구나.</div>
+
+		<div class="line hanja">退步閑處 靑山卜居 <br>퇴보한처 청산복거 <span id="hurem">하고,</span></div>
+		<div class="line korean">이제는 나도 한 걸음 물러나 <br>조용한 푸른 산기슭에 자리 잡고,</div>
+
+		<div class="line hanja">吟弄流水 餘生如畵 <br>음롱유수 여생여화 <span id="hurem">하리라.</div>
+		<div class="line korean">흐르는 물과 떨어지는 꽃을 읊조리며, <br>남은 여생을 한 폭의 그림처럼 그려보리라.</div>
+		
+		
+		<div class="line title-line hanja"><br><br><br></div>
+		
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		
+		<div class="line title-line hanja mcenter">第 五 章</div>
 		
 		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
 		
@@ -552,7 +593,7 @@
       e.preventDefault();
       let currentValue = parseInt(speedSlider.value);
       let newValue = e.deltaY < 0 ? currentValue - 10 : currentValue + 10;
-      if (newValue >= 30 && newValue <= 1000) {
+      if (newValue >= 30 && newValue <= 1800) {
           speedSlider.value = newValue;
           updateSpeed(newValue);
       }
