@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>雜念絆足 (잡념반족)</title>
+    <style>
+        body {
+            background-color: transparent;  /* #111;    */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Noto Serif KR', 'Gungsuh', serif;
+        }
+
+        /* 컨트롤러 레이아웃 (우측 하단 플로팅 바) */
+/*
+        .controls-container {
+            position: fixed;
+            bottom: 10px;
+            right: 10%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            margin:0 auto;
+			background-color: rgba(0, 0, 0, 0.01);
+            padding: 10px 142px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid #333;
+        }
+*/
+
+		/* 컨트롤러 레이아웃 (화면 하단 정중앙 배치) */
+		.controls-container {
+			position: fixed;
+			bottom: 20px; /* 바닥에서의 여백 (원하시는 대로 조절 가능) */
+			
+			/* --- [수정] 화면 가로 중앙 정렬 핵심 코드 --- */
+			left: 50%;
+			transform: translateX(-50%); 
+			/* -------------------------------------- */
+
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+			gap: 15px; /* 요소들 간격 */
+			
+			/* margin: 0 auto; -> fixed 정렬 시에는 필요 없으므로 삭제하거나 유지해도 무방 */
+			background-color: rgba(0, 0, 0, 0.01);
+			padding: 10px 142px;
+			border-radius: 30px;
+			box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+			backdrop-filter: blur(5px);
+			border: 1px solid #333;
+		}
+
+
+        /* 컨트롤 패널 내 세부 구역 구분 선 */
+        .divider {
+            width: 1px;
+            height: 20px;
+            background-color: #444;
+            margin: 0 5px;
+        }
+
+        /* 공통 슬라이더 스타일 */
+        .slider-input {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: #444;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* 슬라이더 손잡이 디자인 */
+        .slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            transition: transform 0.1s;
+        }
+        .slider-input::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+
+        /* 속도 조절 슬라이더 커스텀 */
+        .speed-slider { width: 130px; }
+        .speed-slider::-webkit-slider-thumb { background: #f1c40f; } /* 금색 */
+
+        /* 볼륨 조절 슬라이더 커스텀 */
+        .volume-slider { width: 100px; }
+        .volume-slider::-webkit-slider-thumb { background: #3498db; } /* 푸른색 */
+
+        /* 상태 표시 텍스트 공통 */
+        .control-label {
+            font-size: 18px;
+            color: #aaa;
+            font-family: sans-serif;
+            user-select: none;
+        }
+        .speed-label { min-width: 65px; text-align: right; }
+        .volume-label { min-width: 40px; text-align: right; }
+		button {margin-right: 40px; font-size: 1.2em; cursor:pointer; }
+		
+		#fsBtn {
+			margin-right: 0px; 
+		}
+		
+        /* 재생/일시정지 버튼 스타일 */
+		.pause, .fullscreen-btn {
+			cursor: pointer;
+            font-size: 26px;
+            user-select: none;
+            transition: transform 0.2s;
+		}
+        .pause:hover, .fullscreen-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* 전광판 프레임 */
+        .marquee-container {
+            position: fixed; /* relative;  */
+			top: 40px;
+			left:20%;
+            width: 80%;
+            height: 100%;
+            /* border-top: 2px solid #444;
+            border-bottom: 2px solid #444; 
+			border-left: 2px solid #444; */
+            overflow: hidden;
+        }
+		
+        /* 글줄들이 지나가는 트랙 */
+        .marquee-track {
+            display: flex;
+            position: absolute;
+            top: 20px;
+			left: 0;
+            height: 75%;
+			z-index:1;
+            animation: scroll-lines 600s linear infinite;
+        }
+		
+		#roll {
+			position: fixed; /* relative;  */
+			top: 18px;
+			left:18.0%;  /*  left:12.5%;  */
+			width: 2100px;
+			height: 88%;
+			opacity: 0.3;
+			z-index:-1;
+		}
+		
+		/* 마우스 올리면 정지 
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+        } */
+		
+		
+		/* 마퀴 일시정지를 위한 클래스 (자바스크립트로 제어) */
+        .marquee-track.stop {
+            animation-play-state: paused !important;
+        }
+		
+        /* 일시정지 버튼 스타일 */ /*  ⏸  ⏯   */
+		.Paused-btn {
+            border: 1px solid #f00;
+			border-radius: 50%;
+			padding: 5px;
+			cursor: pointer; /* 클릭할 수 있음을 보여주기 위해 pointer로 변경 */
+            font-size: 26px; /* 다른 아이콘들과 크기 밸런스 매칭 (기존 35px에서 조정) */
+            user-select: none;
+            transition: transform 0.2s;
+		}
+		.Paused-btn:hover {
+            transform: scale(1.1); /* 마우스 올렸을 때 살짝 커지는 효과 */
+		}
+		
+		/* 버튼 공통 커스텀 스타일 */
+        .control-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 26px;
+            user-select: none;
+            transition: transform 0.2s;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1); /* 마우스 올리면 살짝 확대 */
+        }
+
+        .control-btn:focus {
+            outline: none; /* 클릭했을 때 생기는 파란 테두리 제거 */
+        }
+		
+		/* 창 닫기 버튼 전용 (마우스 올리면 빨갛게 강조되도록 선택 사항) */
+        .close-btn:hover {
+            color: #ff4757;
+            transform: scale(1.1) rotate(90deg); /* 살짝 회전하는 재미있는 효과 */
+        }
+		
+		
+        /* 개별 세로줄 스타일 */
+        .line {
+            writing-mode: vertical-lr;  /*  vertical-rl;  */
+            text-combine-upright: digits 2;
+            font-size: 21px;
+            line-height: 1;
+            letter-spacing: 10px; /* <--- 현재 글자 간격이 4px로 설정되어 있습니다. */
+            height: 100%;
+            text-align: start;
+            padding: 0 40px;
+            box-sizing: border-box;
+			word-break: keep-all;  /*  단어 단위로 줄바꿈 설정  */
+			/* text-orientation: upright; /* --- [추가] 누워있는 문자/문장부호 똑바로 세우기 --- */
+        }
+
+        .title-line {
+            font-size: 2em;
+            font-weight: bold;
+			mix-blend-mode: difference;
+        }
+
+		/* 누워있는 특정 기호만 벌떡 세우는 클래스 */
+		.upright-char {
+			display: inline-block;     /* 글자가 개별적으로 회전/정렬될 수 있도록 구역 공간 확보 */
+			text-orientation: upright; /* 누워있는 문자를 똑바로 세움 */
+			
+			/* [선택사항] 기호 크기나 여백이 필요하다면 여기에 추가 조절 가능 */
+			/* font-size: 1.1em; */ 
+			/* margin-top: 2px; */
+			/* display: inline-block; /* 변형을 주기 위해 인라인 블록화 */
+			/* text-orientation: upright;  */
+			/* 필요하다면 여기서 물음표만 크기를 조절하거나 여백을 줄 수도 있습니다 */
+		}
+
+		/* --- [수정] 한자 및 한글 텍스트 기본 컬러를 밝은 톤으로 변경 --- */
+		.hanja { 
+			font-size: 2.8em; 
+			font-weight: 800; 
+			color: #202020;  /* #202020  #404040;  */  
+			line-height: 1.4; 
+			mix-blend-mode: difference; 
+			/* letter-spacing: 8px; /* 한자만 글자 간격을 8px로 넓힘 */
+			margin-top: 15px; 
+			opacity: 0.8;
+			/* --- [추가] 회색 음영 글자 그림자 --- *//* 가로위치 세로위치 번짐정도 색상(검은색 60% 투명도 = 어두운 회색 음영) */
+			text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+			
+			/* 더욱 부드럽고 입체적인 더블 회색 음영 */
+			/* text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5), 
+						 3px 3px 10px rgba(0, 0, 0, 0.7);  */
+		}
+
+		.korean { 
+			color: #000;    /* #202020;  #000       */
+			font-size: 2.24em; 
+			line-height: 2.1; 
+			mix-blend-mode: difference;
+			/* letter-spacing: -2px; /* 글자 크기가 크므로 간격을 살짝 좁힘 */
+		}
+
+		.korean2 { 
+			font-size: 2.24em; 
+			font-weight: 800; 
+			line-height: 2.1; 
+			color: #202020; /* 파란색 대신 금색/노란색 계열로 변경 */
+			mix-blend-mode: difference;
+			/* letter-spacing: -2px; /* 글자 크기가 크므로 간격을 살짝 좁힘 */
+		}
+
+		.korean3 { 
+			font-size: 2.24em; 
+			font-weight: 800; 
+			line-height: 2.1; 
+			color: #000;     /* #202020;  #000       */
+			mix-blend-mode: difference;
+			/* letter-spacing: -2px; /* 글자 크기가 크므로 간격을 살짝 좁힘 */
+		}
+
+		/*difference; exclusion; */
+		/*
+        .hanja { font-size: 3.2em; font-weight: 800; color:blue; line-height: 1.4; mix-blend-mode: difference; }
+        .korean { color: #000; font-size: 2.1rem; line-height: 2.1; mix-blend-mode: difference;}
+		.korean2 { color: #000; font-size: 3.2em; font-weight: 800; line-height: 2.1; color:blue; mix-blend-mode: difference;}
+		.korean3 { color: #000; font-size: 2.4em; font-weight: 800; line-height: 2.1; color:blue; mix-blend-mode: difference;}
+		*/
+		
+        @keyframes scroll-lines {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+		
+		video {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  display: block;
+		  width: 100%;
+		  height: 100%;
+		  z-index:-100;
+		  -o-object-fit: cover;
+			 object-fit: cover;
+		}
+		
+		.video-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			/* background: rgba(0, 0, 0, 0.4); /* 동영상을 40%만큼 어둡게 만듭니다 */
+			z-index: -99; /* 비디오(-100) 보다는 위, 텍스트(1 이상) 보다는 아래 */
+		}
+
+		
+		.mcenter {
+			display: flex !important;
+			/* 세로쓰기 방향(글자 흐름)을 기준으로 가운데 정렬 */
+			justify-content: center !important; 
+			/* 화면 좌우 기준에서 가운데 정렬 */
+			align-items: center !important;     
+			text-align: center !important;      /* 하위 호환용 */
+			font-size: 6em;
+			Opacity: 0.55;
+			margin-top: -30px;
+		}
+		
+		#hurem {
+			font-size: 0.6em;
+			Opacity: 0.8;
+			mix-blend-mode: difference;
+		}
+
+
+		.stamp-container {
+		  display: inline-block;
+		}
+
+		.stamp-container img {
+		  display: block;
+		  /* 오른쪽 테두리에만 톱니 모양 마스크 적용 */
+		  -webkit-mask-image: radial-gradient(circle at right, transparent 8px, red 9px);
+		  /* -webkit-mask-image: radial-gradient(ellipse at right, transparent 6px, black 7px); */
+		  -webkit-mask-size: 100% 30px; /* 세로 반복 간격 20px */
+		  -webkit-mask-position: right;
+		  
+		  /* 표준 브라우저 지원용 */
+		  mask-image: radial-gradient(circle at right, transparent 8px, red 9px);
+		  /* mask-image: radial-gradient(ellipse at right, transparent 6px, black 7px); */
+		  mask-size: 100% 30px;  /* mask-size: 100% 20px;  */
+		  mask-position: right;
+		  
+		}
+
+/*
+circle at left : 왼쪽 테두리에 우표 자국을 냅니다.
+circle at top : 위쪽 테두리에 우표 자국을 냅니다. (이 경우 가로로 반복되도록 mask-size도 20px 100%처럼 조절해야 합니다)
+circle at bottom : 아래쪽 테두리에 우표 자국을 냅니다.
+circle at center : 정중앙에서부터 원형 구멍이 뚫립니다. (우표 테두리용으로는 쓰이지 않고 보통 가운뎃구멍을 낼 때 씁니다)
+circle at 100% 50% : right center와 완전히 동일한 표현입니다.
+transparent 6px /* 반지름 6px짜리 반원 모양으로 이미지가 깎여 나가며 구멍(우표 홈) */
+black 7px /* 반지름 7px 지점부터는 완전히 불투명한 검은색(black)으로 채우겠다는 뜻  */
+
+ellipse at right
+
+*/
+		
+		/* 우표 이미지를 감싸는 컨테이너 */
+/*
+		.stamp-container {
+		  position: relative;
+		  display: inline-block;
+		  overflow: hidden;
+		}
+
+		.stamp-container img {
+		  display: block;
+		}
+
+		.stamp-container::after {
+		  content: "";
+		  position: absolute;
+		  top: 0;
+		  right: -5px;
+		  bottom: 0;
+		  width: 10px;
+		  
+		  background-image: radial-gradient(circle, #fff 4px, transparent 5px);
+		  background-size: 10px 15px;
+		  background-repeat: repeat-y;
+		}
+*/
+		
+		
+    </style>
+</head>
+<body>
+	<div class="overlay"></div>
+	<video id="bgVideo" src="https://cib000.github.io/by-redhat/poem2/bgvod.mp4" autoplay loop muted></video>
+
+    <div class="controls-container" id="allplayBtn">
+        
+		<!-- <div class="Paused-btn">⏸</div>   ⏸  ⏯  -->
+		<div class="Paused-btn" id="pauseTrackBtn" onclick="toggleTrackPlay()">⏸</div>
+		<!-- <button onClick="window.location.reload()" title="페이지 새로고침">🔄</button> -->
+		
+		<div class="divider"></div>
+		
+		<div class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()">📺</div>
+		
+		<div class="divider"></div>
+		
+		<input type="range" id="speedSlider" class="slider-input speed-slider" min="30" max="1800" value="600" step="5">
+        <span id="speedLabel" class="control-label speed-label">속도: 600초</span>
+        
+        <div class="divider"></div>
+
+        <span class="control-label">🎵</span>
+        <input type="range" id="volumeSlider" class="slider-input volume-slider" min="0" max="100" value="80" step="1">
+        <span id="volumeLabel" class="control-label volume-label">80%</span>
+
+        <div class="divider"></div>
+		
+		<select onchange="jumpTo(this.value)" style="background:transparent; color:#00f; border:1px solid #444; padding:10px; border-radius:5px; cursor:pointer;">
+			<option value="">장 선택 이동</option>
+			<option value="#chap1">제 1 장</option>
+			<option value="#chap2">제 2 장</option>
+			<option value="#chap3">제 3 장</option>
+			<option value="#chap4">제 4 장</option>
+			<option value="#chap5">제 5 장</option>
+			<option value="#chap6">제 6 장</option>
+			<option value="#chap7">제 7 장</option>
+			<option value="#chap8">종 장</option>
+
+		</select>
+		
+		<div class="divider"></div>
+        
+        <div class="pause" id="playBtn" onclick="togglePlay()">🔇</div>
+		<!-- <button class="control-btn" id="playBtn" onclick="togglePlay()">🔇</button> -->
+		
+		<div class="divider"></div>
+		
+		<button class="control-btn close-btn" onclick="window.close()" title="현재창 닫기">❌</button>
+		
+    </div>
+
+	<div class="player">
+		<audio class="audio" id="mainAudio" src="https://cib000.github.io/by-redhat/poem2/bgm.mp3" autoplay loop></audio>
+	</div>
+
+<div class="marquee-container stamp-container" id="roll">
+	<img src="https://cib000.github.io/by-redhat/poem2/rollpaper.png">
+</div>
+
+
+<div class="marquee-container">
+    <div class="marquee-track" id="marqueeTrack">
+    
+    
+        <div class="line title-line hanja"><br><br><br><br><br><br><br><br><br><br></div>
+		
+		<div id="chap1" class="line title-line hanja mcenter">第 一 章</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja">𪡏世歌<br>경세가</div>
+		<div class="line title-line korean3">🖌️ 세상을 경계하는 노래</div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line hanja">舊友如流此地留<br>구우여류차지류 <span id="hurem">로다.</span></div>
+		<div class="line korean">옛 친구들은 흐르는 물처럼 떠나갔건만, 나만 이 자리에 머물러 있구나.</div>
+
+        <div class="line hanja">虛尊咸理密驪內<br>허존함리밀려내 <span id="hurem">하고,</span></div>
+        <div class="line korean">존경과 온갖 이치들은 헛된 어둠 속으로 비밀스럽게 숨어들고,</div>
+
+        <div class="line hanja">殘難駑擥 洩治面<br>잔난노람 설치면 <span id="hurem">하니</span></div>
+        <div class="line korean">모자라고 못난 자들이 득세하여 판을 치니, 다스려야 할 체면과 염치마저 다 새어나가는구나. </div>
+
+        <div class="line hanja">口善心惡 方鼎沸<br>구선심악 방정불 <span id="hurem">이로구나.</span></div>
+        <div class="line korean">입으로는 선을 말하나 마음은 악한 자들이 가득하니, 세상이 바야흐로 가마솥 끓듯 끓어 넘치는구나.</div>
+		
+		<div class="line title-line hanja"><br></div>
+
+        <div class="line hanja">權人行 我是汝非 我是他非<br>권인행 아시여비 아시타비 <span id="hurem">하니</span></div>
+        <div class="line korean">권력자들이 행하길, "나는 옳고 너는 틀리다, 나는 옳고 타인은 틀리다" 하누나. </div>
+
+        <div class="line hanja">如其利 羅南銀居 虛主路多<br>여기리 라남은거 허주로다</div>
+        <div class="line korean">이익을 좇아 벌처럼 남쪽에 숨어 살아가니, 결국 알맹이 없는 죽정이(헛된) 주인들의 길(말)이 많을 뿐이로다.</div>
+
+        <div class="line hanja">餘痕也 虛妄之心 荒亡之處<br>여흔야 허망지심 황망지처 <span id="hurem">요</span></div>
+        <div class="line korean">남은 흔적이란 것은 결국 허망한 마음뿐이요, 다다르는 곳 또한 거칠고 황량한 망국의 땅이로다.</div>
+
+        <div class="line hanja">處處葛 騰茂覆地 實遺虛妄<br>처처갈 등무복지 실유허망 <span id="hurem">이라.</span></div>
+        <div class="line korean">곳곳마다 칡넝쿨이 무성하게 자라나 온 땅을 뒤덮으니, 열매로 남은 것은 오직 허망함뿐이로다. <br></div>
+
+        <div class="line hanja">人傑去 痕跡無常 嵐萬於歸<br>인걸거 흔적무상 남만어귀 <span id="hurem">하니</span></div>
+        <div class="line korean">뛰어난 인재들도 다 떠나가니 그 흔적이 무상하고, 수많은 산안개만이 흐르는(돌아가는)구나. </div>
+
+        <div class="line hanja">鄕風丘 街夜河也 街夜河也<br>향풍구 가야하야 가야하야 <span id="hurem">하며</span></div>
+        <div class="line korean">바람 부는 고향 언덕에서 "가야 하리, 밤거리 흐르는 강물처럼 결국 떠나가야 하리" 낮은 신음처럼 읊조린다.</div>
+
+        <div class="line hanja">步步去 虛傳寒風 停留處無<br>보보거 허전한풍 정류처무 <span id="hurem">로다.</span></div>
+        <div class="line korean">걸음걸음 걸어가나 전해지는 건 허공의 차가운 바람뿐, 이 몸 머무를 곳 하나 없구나. </div>
+
+        <div class="line hanja">去去多 唯留足跡 遺之痕也<br>거거다 유류족적 유지흔야 <span id="hurem">하노라.</span></div>
+        <div class="line korean">가고 또 가도, 오직 남는 것은 발자국이요 세상에 남겨진 흔적일 뿐이로다.</div>
+
+        <div class="line hanja">山麓處 友松伴竹 桑自生妬<br>산록처 우송반죽 상자생투 <span id="hurem">하는데,</span></div>
+        <div class="line korean">산기슭 외진 곳에서 소나무를 벗 삼고 대나무를 동반자 삼으니, 뽕나무가 스스로 시샘을 내는데,</div>
+
+        <div class="line hanja">吾行去 於之吾歸 吾行茫茫<br>오행거 어지오귀 오행망망 <span id="hurem">이로구나.</span></div>
+        <div class="line korean">나 또한 이 길을 가노니, 내가 돌아갈 곳은 어디인가. 나의 갈 길이 참으로 아득하고 아득하구나.</div>
+
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		
+		<div id="chap2" class="line title-line hanja mcenter">第 二 章</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+
+		<div class="line title-line hanja">雜念絆足<br>잡념반족</div>
+		<div class="line title-line korean3">🖌️상념이 발목을 잡네</div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line hanja">拂曉靜坐 遙望山嶺 <br>불효정좌 요망산령 <span id="hurem">하네.</span></div>
+		<div class="line korean">이른 새벽 고요히 앉아 멀리 산꼭대기 고개를 바라보네.</div>
+		
+		<div class="line hanja">無星無月 霧驅殘夜 <br>무성무월 무구잔야 <span id="hurem">하는구나.</span></div>
+		<div class="line korean">별도 없고 달도 없는데 안개가 남은 어둠(밤)을 밀어내는구나.</div>
+		
+		<div class="line hanja">窮困一生 志義不屈 <br>궁곤일생 지의불굴 <span id="hurem">하니,</span></div>
+		<div class="line korean">삶이 곤궁하여도 뜻과 의리는 굽히지 않았건만,</div>
+		
+		<div class="line hanja">如今所留 唯有空手 <br>여금소류 유유공수 <span id="hurem">뿐이로다.</span></div>
+		<div class="line korean">이제 와 남은 것은 오직 빈손뿐이네.</div>
+		
+		<div class="line hanja">勉追先學 隱居自修 <br>면추선학 은거자수 <span id="hurem">하니,</span></div>
+		<div class="line korean">힘써 앞선 학문을 쫓고 숨어 살며 스스로를 닦아왔건만,</div>
+		
+		<div class="line hanja">歲月暮境 依然空手 <br>세월변경 의연공수 <span id="hurem">로다.</span></div>
+		<div class="line korean">세월의 저문 지경에 여전히 빈손뿐이로세.</div>
+		
+		<div class="line hanja">權家冥頑 唯利是視 <br>권가명완 유리시시 <span id="hurem">하니,</span></div>
+		<div class="line korean">권세가들 머리는 어둡고 완고하여 오직 이익만을 눈여겨보며,</div>
+		
+		<div class="line hanja">虐政困民 吾將何去 <br>학정곤민 오장하거 <span id="hurem">라.</span></div>
+		<div class="line korean">모진 정치로 백성을 괴롭히니 나는 장차 어디로 가야 할까.</div>
+		
+		<div class="line hanja">怨聲無道 生理盡褪 <br>원성무도 생리진퇴 <span id="hurem">하니,</span></div>
+		<div class="line korean">원망하는 비명소리 낼 길 없고 삶의 이치(몸짓)마저 다 퇴색하게 하니,</div>
+		
+		<div class="line hanja">唯我獨尊 權貴自私 <br>유아독존 권귀자사 <span id="hurem">로다.</span></div>
+		<div class="line korean">나만 옳고 귀하다 하며 권세가들은 사리사욕만 채워지는구나.</div>
+		
+		<div class="line hanja">歲月逝矣 吾亦隨去 <br>세월서의 오역수거 <span id="hurem">하고,</span></div>
+		<div class="line korean">세월은 흘러가고 나 또한 따라가네.</div>
+		
+		<div class="line hanja">步步從容 隨世而行 <br>보보종용 수세이행 <span id="hurem">하여,</span></div>
+		<div class="line korean">걸음걸음 조용하고 침착하게 세월을 따라 걸어가네.</div>
+		
+		<div class="line hanja">尋彼寂處 吾今歸去 <br>심피적처 오금귀거 <span id="hurem">하네.</span></div>
+		<div class="line korean">저 고요한 곳을 찾아 나는 이제 돌아간다네.</div>
+		
+
+
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		
+		<div id="chap3" class="line title-line hanja mcenter">第 三 章</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja">墟市狂代<br>거시광대</div>
+		<div class="line title-line korean3">🖌️ 장터광대의 망나니 탈춤</div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line hanja">身無分文 識無進步 <br>신무분문 식무진보 <span id="hurem">하니,</span></div>
+		<div class="line korean">가진 게 없어 불편하고 아는 게 없어 나아가지 못하니,</div>
+		
+		<div class="line hanja">所作所爲 唯有狂代 <br>소작소위 유유광대 <span id="hurem">로다.</span></div>
+		<div class="line korean">하는 짓이라곤 오직 광대 짓뿐이로다.</div>
+		
+		<div class="line hanja">執銹劍柄 舞如處刑 <br>집수검병 무여처형 <span id="hurem">하는구나.</span></div>
+		<div class="line korean">녹슨 칼자루 손에 쥐고 망나니 춤추듯 하는구나.</div>
+		
+		<div class="line hanja">昨夜盜來 前夜盜至 <br>작야도래 전야도지 <span id="hurem">이라,</span></div>
+		<div class="line korean">어젯밤에 도둑이 들었었나, 그젯밤에 도둑이 왔었는가.</div>
+		
+		<div class="line hanja">財寶不取 唯竊腦資 <br>재보불취 유절뇌자 <span id="hurem">로다.</span></div>
+		<div class="line korean">돈궤 재물은 그냥 두고, 오직 머릿속 재산(지혜)만 빼앗아 갔구나.</div>
+		
+		<div class="line hanja">常識與容 中庸投犬 <br>상식여용 중용투견 <span id="hurem">하니,</span></div>
+		<div class="line korean">상식과 배려(포용)는 없고 중용은 개에게 던져주었으니,</div>
+		
+		<div class="line hanja">狺狺吠之 犬視其狀 <br>은은폐지 견시기상 <span id="hurem">이로다.</span></div>
+		<div class="line korean">개가 그 모양을 보면서 컹컹 짖어대는구나.</div>
+		
+		<div class="line hanja">墟市一角 狂代之狀 <br>거시일각 광대지상 <span id="hurem">이니,</span></div>
+		<div class="line korean">장터 한 자락의 광대의 모양새가 바로,</div>
+		
+		<div class="line hanja">如斯如斯 亦如斯也 <br>여사여사 역여사야 <span id="hurem">일세.</span></div>
+		<div class="line korean">이 모양일세, 이 모양일세.</div>
+
+
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		
+		<div id="chap4" class="line title-line hanja mcenter">第 四 章</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja">行路旅程<br>행로여정</div>
+		<div class="line title-line korean3">🖌️ 떠돌아 다니는 길중에서</div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line hanja">越越嶺巓 來到村口 <br>월월령전 내도촌구 <span id="hurem">하니,</span></div>
+		<div class="line korean">고갯마루 넘고 넘어 동네어귀 다다르니,</div>
+		
+		<div class="line hanja">煙突煙起 處處昇空 <br>연돌연기 처처승공 <span id="hurem">이로다.</span></div>
+		<div class="line korean">굴뚝마다 연기 솟아 곳곳에 피어오르는구나.</div>
+		
+		<div class="line hanja">乘舟渡江 尋到此處 <br>승주도강 심도차처 <span id="hurem">하니,</span></div>
+		<div class="line korean">나룻배 타고 강을 건너 찾아온 이곳에 다다르니,</div>
+		
+		<div class="line hanja">亦是煙突 煙氣昇空 <br>역시연돌 연기승공 <span id="hurem">이로다.</span></div>
+		<div class="line korean">또한 굴뚝마다 연기 솟아오르는구나.</div>
+		
+		<div class="line hanja">人迹罕至 曠風吹來 <br>인적한지 광풍취래 <span id="hurem">하고,</span></div>
+		<div class="line korean">인적 드문 동네어귀엔 휘훵한 바람만 불어오고,</div>
+		
+		<div class="line hanja">寂寞巷陌 落葉紛飛 <br>적막항맥 낙엽분비 <span id="hurem">로구나.</span></div>
+		<div class="line korean">인적 드문 골목마다 낙엽들만 뒹구는구나.</div>
+		
+		<div class="line hanja">酒幕檐下 走馬燈醒 <br>주막첨하 주마등성 <span id="hurem">한 듯,</span></div>
+		<div class="line korean">세월 보낸 주막 처마의 주마등은 잠을 깬 듯,</div>
+		
+		<div class="line hanja">搖搖擺擺 待客往來 <br>요요배배 대객왕래 <span id="hurem">하네.</span></span></div>
+		<div class="line korean">흔들거리며 오가는 나그네를 기다리네.</div>
+		
+		<div class="line hanja">庭前平床 依然如舊 <br>정전평상 의연여구 <span id="hurem">이나,</span></div>
+		<div class="line korean">마당가의 평상은 그대로이건만,</div>
+		
+		<div class="line hanja">人迹杳然 如同枯枝 <br>인적묘연 여동고지 <span id="hurem">로구나.</span></div>
+		<div class="line korean">인적이 없어 메마른 가지와 같구나.</div>
+		
+		<div class="line hanja">酒母拭埽 治之如新 <br>주모식소 치지여신 <span id="hurem">한들,</span></div>
+		<div class="line korean">주모가 쓸고 닦아 새것인 양 손을 본들,</div>
+		
+		<div class="line hanja">往昔之人 痕迹不留 <br>왕석지인 흔적불류 <span id="hurem">로다.</span></div>
+		<div class="line korean">세월 지난 그 사람의 흔적은 남지를 않는구나.</div>
+		
+		<div class="line hanja">湯飯一碗 溢出樽俎 <br>탕반일완 일출준조 <span id="hurem">하나,</span></div>
+		<div class="line korean">한 사발 국밥은 넘쳐 흐르나,</div>
+		
+		<div class="line hanja">酒母之口 沉重無言 <br>주모지구 침중무언 <span id="hurem">이로다.</span></div>
+		<div class="line korean">주모의 입은 무겁기만 하구나.</div>
+		
+		<div class="line hanja">察其視之 官吏暴政 <br>찰기시지 관리폭정 <span id="hurem">하니,</span></div>
+		<div class="line korean">그 모양을 살펴보니 고을사또 아전들의 폭정에,</div>
+		
+		<div class="line hanja">黎民百姓 困悴堪憐 <br>여민백성 곤췌감련 <span id="hurem">이로다.</span></div>
+		<div class="line korean">백성들만 곤하고 가련한 듯하구나.</div>
+		
+		<div class="line hanja">抱恨嘆息 天亦欲遮 <br>포한탄식 천역욕차 <span id="hurem">하여,</span></div>
+		<div class="line korean">한 서린 주모의 탄식에 하늘마저 가려주고자,</div>
+		
+		<div class="line hanja">以微冥冥 籠絡大器 <br>이미명명 농락대기 <span id="hurem">로다.</span></div>
+		<div class="line korean">어둠으로 온 세상을 감싸주는구나.</div>
+		
+		<div class="line hanja">仲冬臘月 凜冽寒風 <br>중동납월 임렬한풍 <span id="hurem">처럼,</span></div>
+		<div class="line korean">동지섣달 매서운 바람처럼,</div>
+		
+		<div class="line hanja">豊年大登 穀倉滿溢 <br>풍년대등 곡창만일 <span id="hurem">이나,</span></div>
+		<div class="line korean">풍년이 들어 곡식창고는 가득이건만,</div>
+		
+		<div class="line hanja">唯有空袋 滿吾手中 <br>유유공대 만오수중 <span id="hurem">이니,</span></div>
+		<div class="line korean">오직 빈 자루만 내 손에 가득하니 이게 웬일인가.</div>
+		
+		<div class="line hanja">飢餓百姓 如何撫育 <br>기아백성 여하무육 <span id="hurem">하며,</span></div>
+		<div class="line korean">백성들의 굶주린 배는 또 어이할꼬,</div>
+		
+		<div class="line hanja">斷絶足迹 如何是好 <br>단절족적 여하시호 <span id="hurem">란 말인가.</span></div>
+		<div class="line korean">끊긴 발길은 또 어이할꼬.</div>
+
+
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		
+		<div id="chap5" class="line title-line hanja mcenter">第 五 章</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja">諷刺漢詩<br>풍자한시</div>
+		<div class="line title-line korean3">🖌️ 풍류한시 - 귀거래사</div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line title-line hanja">副題 부제  <br>歸去來辭 귀거래사</div>
+		
+		<div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line hanja">昔日盛會 賢士盈庭 <br>석일성회 현사영정 <span id="hurem">하더니만,</span></div>
+		<div class="line korean">예전 호황기에는 어진 선비들이 마당에 가득하더니만,</div>
+		
+		<div class="line hanja">忽焉風起 淸水變濁 <br>홀언풍기 청수변탁 <span id="hurem">하니,</span></div>
+		<div class="line korean">어느샌가 바람 불어 맑던 물이 흐려지니,</div>
+		
+		<div class="line hanja">群盲聚會 逐出賢士 <br>군맹취회 축출현사 <span id="hurem">하고,</span></div>
+		<div class="line korean">눈먼 자들이 떼로 모여 어진 이들을 쫓아내고,</div>
+		
+		<div class="line hanja">賢人皆去 秕糠得勢 <br>현인개거 비강득세 <span id="hurem">더라.</span></div>
+		<div class="line korean">어진 이들은 모두 떠나고, 죽정이들만 <br>권세를 부리는구나.</div>
+
+		<div class="line hanja">群犬奔突 驅逐良人 <br>군견분돌 구축량인 <span id="hurem">하니,</span></div>
+		<div class="line korean">떼지은 무리들이 몰려들어 어진 이를 내쫓으니,</div>
+		
+		<!--<div class="line hanja">群犬奔突 驅逐良人 <br>군견분돌 구축량인 <span id="hurem">하니,</span></div>
+		<div class="line korean">떼지은 무리들이 몰려들어 <br>어진 이를 내쫓으니,</div> -->
+
+		<div class="line hanja">往昔賢人 痕迹不留 <br>왕석현인 흔적불류 <span id="hurem">로구나.</span></div>
+		<div class="line korean">예전의 어진 이들은 흔적도 남지 않았구나.</div>
+
+		<div class="line hanja">退步閑處 靑山卜居 <br>퇴보한처 청산복거 <span id="hurem">하고,</span></div>
+		<div class="line korean">이제는 나도 한 걸음 물러나 조용한 푸른 산기슭에 자리 잡고,</div>
+
+		<div class="line hanja">吟弄流水 餘生如畵 <br>음롱유수 여생여화 <span id="hurem">하리라.</div>
+		<div class="line korean">흐르는 물과 떨어지는 꽃을 읊조리며, 남은 여생을 한 폭의 그림처럼 그려보리라.</div>
+
+
+
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		
+		<div id="chap6" class="line title-line hanja mcenter">第 六 章</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja">收筆之文 <br>수필지문</div>
+		<div class="line korean">🖌️ 장을 마무리 하는 글</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja">悔恨之文 <br>회한지문 </div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line hanja">乾坤浩蕩 無留處 <br>건곤호탕 무류처 <span id="hurem">라.</span></div>
+		<div class="line korean">하늘과 땅(세상)은 넓고 넓으나, 머물러 정붙일 곳이 없구나.</div>
+		
+		<div class="line hanja">處處自重 禮自持 <br>처처자중 례자지 <span id="hurem">하나,</span></div>
+		<div class="line korean">곳곳에서 스스로 몸을 무겁게 하고 의를 스스로 지키며 살아왔건만,</div>
+		
+		<div class="line hanja">氓隸不知 眞與僞 <br>맹례부지 진여위 <span id="hurem">하고,</span></div>
+		<div class="line korean">무지한 자들(무지렁이)은 참과 거짓(시시비비)을 <br>알지 못하고,</div>
+		
+		<div class="line hanja">每看細事 發疵瑕 <br>매간세사 발자하 <span id="hurem">로구나.</span></div>
+		<div class="line korean">매번 사소한 일만 보면 트집(흠집)을 잡아 <br>들추는구나.</div>
+		
+		<div class="line hanja">一章抒懷 言不達 <br>일장서회 언불달 <span id="hurem">하고,</span></div>
+		<div class="line korean">한 조각 글(일장글월)로 회포를 펴서 말하나 <br>뜻이 닿지 않고,</div>
+		
+		<div class="line hanja">對牛讀經 喚未隨 <br>대우독경 환미수 <span id="hurem">하네.</span></div>
+		<div class="line korean">소 귀에 경 읽기라 외쳐 불러도 알아듣지 못하네.</div>
+		
+		<div class="line hanja">嗚呼痛哉 空長嘆 <br>오호통재 공장탄 <span id="hurem">하니,</span></div>
+		<div class="line korean">아아 슬프고 통탄스럽도다, 부질없이 긴 탄식만 뱉으니,</div>
+		
+		<div class="line hanja">此恨無窮 奈若何 <br>차한무궁 내약하 <span id="hurem">하네.</span></div>
+		<div class="line korean">이 회한과 탄식이 끝이 없으니 이를 어찌할꼬, <br>어찌할꼬 읊조리네.</div>
+
+
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		
+		<div id="chap7" class="line title-line hanja mcenter">第 七 章</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja">獨憂同行歌<br>독우동행가</div>
+		<div class="line title-line korean3">🖌️ 나만 불편한가 <span class="upright-char">?</span></div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line hanja">擧世皆安樂<br>거세개안락 <span id="hurem">하더라도,</span></div>
+		<div class="line korean">온 세상이 다 편안하고 즐거워 보일지라도</div>
+		
+		<div class="line hanja">唯我獨憂時 <br>유아독우시 <span id="hurem">할 때,</span></div>
+		<div class="line korean">오직 너만은 홀로 근심하고 아파할 때</div>
+		
+		<div class="line hanja">雖無聞我語 <br>수무문아어 <span id="hurem">라도,</span></div>
+		<div class="line korean">비록 내 목소리가 들리지 않을지라도</div>
+		
+		<div class="line hanja">思念共行路 <br>사념공행로 <span id="hurem">하라.</span></div>
+		<div class="line korean">홀로 아픈 이 길을 누군가가 함께 걷고 있음을 <br>생각해보라.</div>
+		
+		<div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line hanja">寶劍藏匣 其威彌懼<br>보검장갑 기위미구 <span id="hurem">이니,</span></div>
+		<div class="line korean">칼은 칼집에 숨겨져 있을 때 그 위엄이 더욱 두려운 법이로니,</div>
+		
+		<div class="line hanja">無者留志 一言錄中 <br>무자유지 일언록중 <span id="hurem">이요,</span></div>
+		<div class="line korean">이름없는 거사 남긴 귀한 말씀 기록한 책 속의</div>
+		
+		<div class="line hanja">一言之文 萬理一貫<br>일언지문 만리일관 <span id="hurem">이니라,</span></div>
+		<div class="line korean">한마디 또 한마디의 구문들이 세상의 온갖 이치를 하나로 꿰뚫는구나.</div>
+		<!-- 巨山(거산)님의 유지를 담은 -->
+		
+		<div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line title-line mimg mcenter stamp-container"><img src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>
+		
+		<div class="line title-line hanja"><br><br><br><br></div>
+
+
+		<div class="line title-line hanja"><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br></div>
+		
+		<div id="chap8" class="line title-line hanja mcenter">終 章</div>
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja">思君詩<br>사군시</div>
+		<div class="line title-line korean3">🖌️ 님 그리워 지은 시</div>
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line hanja">行雲天上自去來 <br>행운천상자거래 <span id="hurem">하니,</span></div>
+		<div class="line korean">하늘 위(天上) 흘러가는 구름(行雲)은 절로 오고 가고(去來),</div>
+
+		<div class="line hanja">我亦隨風步步追 <br>아역수풍보보추 <span id="hurem">하네.</span></div>
+		<div class="line korean">나 또한(我亦) 바람을 따라(隨風) 걸음걸음(步步) 쫓아가네.</div>
+
+		<div class="line hanja">思君欲速行步忙 <br>사군욕속행보망 <span id="hurem">하나,</span></div>
+		<div class="line korean">님 그리워(思君) 재촉하고자 하니(欲速) 걸음걸이가 바쁘건만(行步忙),,</div>
+
+		<div class="line hanja">嶺峻難越路何長 <br>영준난월로하장 <span id="hurem">하는가.</span></div>
+		<div class="line korean">고개는 험해(嶺峻) 넘기 어렵고(難越) 길은 어찌 이리 멀고도 <br>멀기만 한가(路何長).</div>
+
+		<div class="line hanja">眞伊可慕春香美 <br>진이가모춘향미 <span id="hurem">하나,</span></div>
+		<div class="line korean">세속의 이들은 <br>황진이(眞伊)가 그리운가(可慕) 춘향(春香)이가 이쁜가(美) 하지만,</div>
+
+		<div class="line hanja">竹馬故友來往來 <br>죽마고우래왕래 <span id="hurem">하네.</span></div>
+		<div class="line korean">어릴 적 소꿉친구(竹馬故友)들은 간혹 오고가고 또 오가네(來往來).</div>
+
+		<div class="line hanja">一首詩成達夜通 <br>일수시성달야통 <span id="hurem">하던,</span></div>
+		<div class="line korean">오가며 시 한 수(一首詩) 짓느라 밤을 꼴딱 새우던(達夜通) 벗들은,</div>
+
+		<div class="line hanja">雲上雲後隱何處 <br>운상운후은하처 <span id="hurem">하네.</span></div>
+		<div class="line korean">불러보노라. <br>저 구름 위(雲上)인가 이 구름 뒤(雲後)인가, 어느 곳에 숨었는가(隱何處).</div>
+
+		<div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line title-line mimg mcenter stamp-container"><img src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>		
+		
+		<div class="line title-line hanja"><br><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+
+    </div>
+</div>
+
+
+
+<script>
+  // 1. 마퀴 무한 루프 구현용 복제
+  const track = document.getElementById('marqueeTrack');
+  const clone = track.innerHTML;
+  track.innerHTML += clone;
+
+  // 2. DOM 요소 가져오기
+  const audio = document.getElementById('mainAudio');
+  const playBtn = document.getElementById('playBtn');
+  const playBtn2 = document.getElementById('playBtn2');
+  const speedSlider = document.getElementById('speedSlider');
+  const speedLabel = document.getElementById('speedLabel');
+  const volumeSlider = document.getElementById('volumeSlider');
+  const volumeLabel = document.getElementById('volumeLabel');
+  const fsBtn = document.getElementById('fsBtn');
+
+  // 초기 오디오 볼륨값 세팅 (0.8)
+  audio.volume = 0.8;
+
+  // 3. 속도 조절 함수
+  function updateSpeed(seconds) {
+      track.style.animationDuration = seconds + 's';
+      speedLabel.innerText = "속도: " + seconds + "초";
+  }
+  speedSlider.addEventListener('input', (e) => updateSpeed(e.target.value));
+
+  // 속도 조절 슬라이더 마우스 휠 이벤트
+  speedSlider.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      let currentValue = parseInt(speedSlider.value);
+      let newValue = e.deltaY < 0 ? currentValue - 10 : currentValue + 10;
+      if (newValue >= 30 && newValue <= 1800) {
+          speedSlider.value = newValue;
+          updateSpeed(newValue);
+      }
+  });
+
+  // 4. 볼륨 조절 함수
+  function updateVolume(percent) {
+      audio.volume = percent / 100;
+      volumeLabel.innerText = percent + "%";
+  }
+  volumeSlider.addEventListener('input', (e) => updateVolume(e.target.value));
+
+  // 볼륨 조절 슬라이더 마우스 휠 이벤트
+  volumeSlider.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      let currentValue = parseInt(volumeSlider.value);
+      let newValue = e.deltaY < 0 ? currentValue + 2 : currentValue - 2;
+      if (newValue >= 0 && newValue <= 100) {
+          volumeSlider.value = newValue;
+          updateVolume(newValue);
+      }
+  });
+
+
+  // 5. 컨트롤러 컨테이너(allplayBtn) 최초 클릭 시 음악 재생 및 전체화면 실행
+  const allplayBtn = document.getElementById('allplayBtn');
+
+  allplayBtn.addEventListener('click', (e) => {
+    // 1) 음악이 꺼져 있다면 재생 시작 
+/*	
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      }).catch(error => {
+        console.log("오디오 자동 재생 대기:", error);
+      });
+    }
+*/
+    // 2) 전체화면이 아니라면 전체화면으로 전환
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+          .then(() => {
+              fsBtn.innerText = "💢";
+          })
+          .catch((err) => {
+              console.log(`전체화면 오류: ${err.message}`);
+          });
+    }
+  }, { once: true }); // 💡 once: true 덕분에 딱 한 번만 실행되고 이 기능은 완전히 파기됩니다.
+
+
+  // 5. 💡 전체화면 토글 함수 (새로 추가)
+  function toggleFullscreen() {
+      // 현재 전체화면인 요소가 없다면 전체화면 실행
+      if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen()
+              .then(() => {
+                  fsBtn.innerText = "💢"; // 전체화면 상태일 때는 축소 아이콘(또는 원하는 아이콘)으로 변경
+              })
+              .catch((err) => {
+                  console.log(`전체화면 오류: ${err.message}`);
+              });
+      } else {
+          // 이미 전체화면 상태라면 전체화면 해제
+          document.exitFullscreen();
+          fsBtn.innerText = "📺"; // 원래 아이콘으로 환원
+      }
+  }
+
+  // 사용자가 F11 키를 눌러 직접 나가거나 했을 때도 버튼 아이콘을 자동으로 맞춰주기 위한 감지 코드
+  document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+          fsBtn.innerText = "📺";
+      } else {
+          fsBtn.innerText = "💢";
+      }
+  });
+
+  // 6. 최초 화면 클릭 시 자동 재생 제한 해제
+  document.body.addEventListener('click', (e) => {
+    if (e.target.closest('.controls-container')) return; 
+
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      }).catch(error => {
+        console.log("자동 재생 대기:", error);
+      });
+    }
+  }, { once: true });
+  // }, );
+  
+
+  // 7. 음소거 및 토글 함수
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      });
+    } else {
+      audio.pause();
+      playBtn.innerText = "🔇";
+    }
+  }
+  
+  // 💡 글자 흐름 일시정지/재생 토글 함수
+  function toggleTrackPlay() {
+      const track = document.getElementById('marqueeTrack');
+      const pauseTrackBtn = document.getElementById('pauseTrackBtn');
+      
+      // marquee-track에 'stop' 클래스가 있는지 확인 후 토글
+      track.classList.toggle('stop');
+      
+      // 클래스가 들어가서 멈춘 상태라면 재생 모양(⏯)으로, 움직이는 상태라면 일시정지 모양(⏸)으로 변경  ▶
+      if (track.classList.contains('stop')) {
+          pauseTrackBtn.innerText = "▶";
+      } else {
+          pauseTrackBtn.innerText = "⏸";
+      }
+  }
+
+	// 이동 함수
+	function jumpTo(targetId) {
+		const targetElement = document.querySelector(targetId);
+		const track = document.querySelector('.marquee-track');
+		
+		if (targetElement && track) {
+			// 1. 이동하는 동안 일시적으로 애니메이션을 멈춤 (정확한 위치 조준용)
+			track.classList.add('stop'); 
+
+			// 2. 해당 영역으로 부드럽게 스크롤 점프
+			targetElement.scrollIntoView({
+				behavior: 'smooth',
+				block: 'nearest',
+				inline: 'center' // 화면 중앙에 배치
+			});
+
+			// 3. [핵심 추가] 이동이 끝날 때쯤(1초 뒤) 자동으로 멈춤을 풀고 재생 시작!
+			setTimeout(() => {
+				// 만약 사용자가 '일시정지 버튼'을 눌러서 완전히 멈춘 상태가 아니라면 다시 재생
+				// (컨트롤러의 일시정지 상태 변수가 있다면 조건문에 함께 활용하셔도 좋습니다)
+				track.classList.remove('stop');
+			}, 500); // 1000ms = 1초 (이동 시간에 맞춰 조절 가능)
+		}
+	}
+
+
+</script>
+
+
+</body>
+</html>
