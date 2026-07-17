@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>뉴스 모아보기</title>
+  <link rel="shortcut icon" href="favicon.ico" >
+  <style>
+
+    body { 
+	  font-family: Arial, sans-serif; 
+      width: 95vw;
+	  height: 80vh;
+	  z-index: -1000;
+	  background-color: rgba(0, 0, 0, 1);
+
+	  -ms-overflow-style: none;	  
+	}
+
+	::-webkit-scrollbar {
+	  display: none;
+	}
+	
+
+	a {
+	  color: white;
+	}
+	a.visited {
+	  color: gray;
+	}
+	a.hover {
+	  color: red;
+	}
+
+    #loading { color: gray; }
+
+    li { margin-bottom: 6px; }
+	
+	header {
+	  position: fixed;
+	  top: 0;
+	  /* width: 100% */
+	  left: 0;
+	  right: 0;
+	  height: 50px;
+	  padding: 1rem;
+	  color: white;
+	  background: rgba(0, 128, 128, 0.2);   /*  background: teal;  */
+	  font-weight: bold;
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  margin-bottom: 30px;
+	  /* opacity: 0.6;  /*  */
+	}
+	
+	header h1 {
+	  opacity: 1;
+	}
+	
+	header img {
+	  background: transparent;
+	  width: 20px;
+	  height: 20px;
+	  opacity: 0.9;
+	}
+
+	.mselect {
+	  position: relative;
+	  top: 55px;
+	  left: 10%;
+	  width: 530px;	
+	}
+	
+	#sellogo {
+	  position: fixed;
+	  top: 5px;
+	  left: 75%;
+	  width: 100px;
+	  height: 100px;
+	}
+
+	#sellogo2 {
+	  position: fixed;
+	  top: 230px;
+	  Right: 10%;
+	  width: 60px;
+	  height: 60px;
+	}
+
+	select {
+	 position: fixed;
+	 top: 95px;
+	 /* right: 20px; */
+	 left: 45%;
+	 width: 330px;
+	 /* height: 200px; */
+	 font-size: 1.2em;
+	 
+	}
+
+	#rssSelect {
+	 background: #FFFFBA;
+	 border: 1px solid #f00;
+	 border-radius: 20px;
+	 position: fixed;
+	 top: 20px;
+	 left:30%;
+	 width: 500px;
+	 height:45px;
+	 padding-left: 30px;
+	 margin-left: 30px;
+	 color: #3E0020;
+	 opacity: 0.7;
+	}
+
+	.rssadress {
+	  position: fixed;
+	  top: 65px;
+	  left: 30px;
+	  overflow: hidden;
+	}
+	
+	section {
+	 margin-top: 120px;
+	 overflow-x: hidden;
+	 overflow-y: auto;
+	 margin-left: 20px;
+	 padding-left: 40px;
+	 height:100%; 
+	 /*
+	 border: 1px solid red;
+	 border-radius: 10px;
+	 */
+	 font-size: 1.2em;
+	 color: #00f;
+	 z-index: 1000;
+	 backdrop-filter: brightness(100%)
+	 backdrop-filter: blur(0px) saturate(100%) /*  */
+	 line-height: 2.5;
+	 opacity: 1;
+	 /* mix-blend-mode: difference; /* */
+	}
+
+	footer {
+	  background-image: url('simple-bg-a.png');
+	  background-repeat: no-repeat;
+	  position: fixed;
+	  bottom: 10px;
+	  left: 30px;
+	  width: 90%;
+	  margin-top: 30px;
+	  padding: 30px;
+	  border: 1px solid blue;
+	  border-radius: 20px;
+	}
+	
+	summary {
+	  cursor: pointer;
+	}
+	
+ 
+    .date {
+      font-size: 0.8em;
+      color: #666;
+      margin-left: 6px;
+    }
+	
+	.author {
+	  font-size: 0.8em;
+	  color: #999;
+	  margin-left: 4px;
+	}
+	
+	.contactFile .pdfDownload {
+            display: inline-block;
+            margin: 0px 10px 0px 0px;
+            width: 220px;
+            height: 50px;
+            background: #94989B;
+            box-shadow: 0px 12px 23px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #fff;
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 50px;
+            letter-spacing: -0.08em;
+        }
+        .contactFile .telLink {
+            display: inline-block;
+            width: 220px;
+            height: 50px;
+            background: #028CD7;
+            box-shadow: 0px 12px 23px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #fff;
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 50px;
+            letter-spacing: -0.08em;
+        }
+		.styled {
+		  border: 0;
+		  line-height: 2.5;
+		  padding: 0 20px;
+		  font-size: 1rem;
+		  text-align: center;
+		  color: #fff;
+		  text-shadow: 1px 1px 1px #000;
+		  border-radius: 10px;
+		  background-color: rgba(220, 0, 0, 1);
+		  background-image: linear-gradient(
+			to top left,
+			rgba(0, 0, 0, 0.2),
+			rgba(0, 0, 0, 0.2) 30%,
+			rgba(0, 0, 0, 0)
+		  );
+		  box-shadow:
+			inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+			inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+		}
+
+		.styled:hover {
+		  background-color: rgba(255, 0, 0, 1);
+		}
+
+		.styled:active {
+		  box-shadow:
+			inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+			inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+		}
+		
+		.rss-title {
+		  font-size: 20px;
+		  font-weight: bold;
+		  color: #CCCCCC;
+		  margin-bottom: 10px;
+		}
+
+		.rss-desc {
+		  font-size: 14px;
+		  color: #333;
+		}
+
+		.error-box {
+		  text-align: center;
+		  margin-top: 30px;
+		}
+
+		.error-img {
+		  width: 120px;
+		  opacity: 0.8;
+		}
+
+		.box {
+		  width: 95%;
+		  padding: 10px;
+		  border: 1px solid blue;
+		  border-radius: 5px;		
+		}
+		.error-box p {
+		  color: #777;
+		  font-size: 14px;
+		}
+
+		.error-bg {
+		  height: 200px;
+		  background: url("error.png") center / contain no-repeat;
+		}
+		
+		.serviced {
+		  color: white;
+		  position: fixed;
+		  top: 55px;
+		  Right: 100px;
+		  overflow: hidden;
+		}
+
+		#quote {
+		  width: 55%;
+		  padding: 10px 20px;
+		  text-align: center;
+		  font-size: 1.4em;
+		}
+
+		#slide {
+		  margin-top: -30px; /* */
+		  margin-left: 55%;
+		  width: 120px;
+		  /* display: flex;  */
+		  justify-content: center;		  
+		}
+		
+		video {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  display: block;
+		  width: 100%;
+		  height: 100%;
+		  -o-object-fit: cover;
+			 object-fit: cover;
+		  opacity:0.3;
+		  z-index:-1000;
+		}
+		
+		.overlay {
+		  position: absolute;
+		  z-index: 1;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  background-color: rgba(255,255,255,0.51);
+		  z-index:-1000;
+		}
+
+		#copybtn {
+		 border: 1px solid blue;
+		 border-radius: 5px;
+		 justify-content: center;
+		 cursor: pointer;
+		}
+		
+		#loading {
+		  /* display: none 상태일 때는 숨겨져 있다가, 나타날 때(flex) 화면 중앙에 배치됩니다 */
+		  display: none; 
+		  justify-content: center;
+		  align-items: center; /* 세로 정렬 */
+		  
+		  z-index: 9999; /* 다른 요소보다 항상 위에 표시 */
+
+		  color: #E82D5A;
+		  font-size: 3em;
+		  
+		  /* 뒷배경을 살짝 어둡거나 투명하게 주고 싶다면 추가 (선택사항) */
+		  /* background: rgba(255, 255, 255, 0.7); */
+		  margin:0 auto;
+		  margin-left: 5%;
+		}
+
+		.author {
+		  color: #ccc;
+		  margin-left: 10px;
+		}
+
+  </style>
+</head>
+
+<body>
+
+	<div class="overlay"></div>
+    <video id="bgVideo" src="./Orion_SM.mp4" autoplay loop muted></video>
+  
+  <header>
+  
+  <h1><a onClick="window.location.reload()" style="cursor: pointer;">♻ 뉴스 모아보기 </a> <!-- &emsp;&emsp;&ensp; -->
+	<button onClick="window.location.reload()">
+	<img src="rss_news2.png" style="width:180px; height:40px;"></button>
+  </h1>
+  <span class="serviced"><small>Serviced by ByRH</small></span>
+    
+	
+	
+<!-- -------------------------------------------------------------------------------------------------- -->	
+	<div class="mselect">
+	
+	  <a href="README.md.7z" title="RSS 정리 마크다운 내려받기"> 
+	  <img id="sellogo" src="rss_news1.png" style="width:80px; height:80px;"> </a>
+
+
+  
+ 	  <select  id="rssSelect" onchange="loadRss(this.value)">
+		<option value="">[ 선택하세요 ]</option>	 <!--   selected -->
+		
+		<option value="https://windowsforum.kr/free/rss">윈도우 포럼</option>
+		<option value="https://kjvvv.kr/rss">리눅스 포럼</option>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+		<option value="http://rss.cbc.ca/lineup/topstories.xml">CBC 뉴스 전체</option>
+		
+		<option value="http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml">BBC 뉴스 - 메인</option>
+		<option value="http://newsrss.bbc.co.uk/rss/newsonline_world_edition/africa/rss.xml">BBC 뉴스 - Africa</option>
+		
+		<option value="http://rss.cnn.com/rss/edition_world.rss">CNN 뉴스 - World</option>
+		<option value="http://rss.cnn.com/rss/edition_business.rss">CNN 뉴스 - World Business</option>
+		
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+		<option value="https://imnews.imbc.com/rss/google_news/narrativeNews.rss"> MBC 라디오 뉴스 </option>
+		<option value="https://news.sbs.co.kr/news/headlineRssFeed.do?plink=RSSREADER">SBS 뉴스 - 이 시각 이슈 </option>
+		<option value="https://news.sbs.co.kr/news/TopicRssFeed.do?plink=RSSREADER">SBS 뉴스 - 이 시각 인기 </option>
+		<option value="http://www.yonhapnewstv.co.kr/browse/feed/">YTN 뉴스 연합뉴스 TV</option>
+		<option value="https://www.yna.co.kr/rss/news.xml">YTN 뉴스 - 최신기사 </option>
+		<option value="http://myhome.chosun.com/rss/www_section_rss.xml">조선닷컴 [뉴스]오늘의 주요뉴스 </option>
+		<option value="https://cdn.it.chosun.com/rss/gns_allArticle.xml"> IT조선 </option>
+		<option value="https://rss.donga.com/total.xml"> [동아일보]전체기사 </option>
+		<option value="https://www.segye.com/Articles/RSSList/segye_recent.xml"> [세계일보]전체기사 </option>
+		<option value="https://daily.hankooki.com/rss/allArticle.xml"> [한국아이닷컴] 전체기사 </option>
+
+<!-- -------------------------------------------------------------------------------------------------- -->		
+		<option value="https://rss.nocutnews.co.kr/nocutnews.xml">노컷뉴스  - 최신기사 [뉴스] </option>
+		<option value="https://zdnet.co.kr/feed"> ZDNet Korea 뉴스</option>
+		<option value="http://rss.edaily.co.kr/edaily_news.xml"> 이데일리 뉴스</option>
+		<option value="https://www.mt.co.kr/rss/latest-atom.xml"> 머니투데이 뉴스</option>
+		<option value="https://www.hankyung.com/feed/all-news"> 한국경제 뉴스</option>
+		<option value="https://www.mk.co.kr/rss/30000001/"> 한국경제신문 </option>
+
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+		<option value="https://techcrunch.com/feed">[ 기술 / AI ] tech crunch </option>
+		<option value="https://news.ycombinator.com/rss">[ 기술 / AI ] hacker news </option>
+		<option value="http://www.theverge.com/rss/full.xml">[ 기술 / AI ] verge </option>
+		<option value="https://venturebeat.com/feed/">[ 기술 / AI ] venture beat </option>
+		<option value="https://medium.com/feed/tag/artificial-intelligence">[ 기술 / AI ] medium의 ai 태그 </option>
+		<option value="https://techcrunch.com/tag/artificial-intelligence/feed/">[ 기술 / AI ] techcrunch ai tag </option>
+		<option value="https://www.reddit.com/r/artificial/.rss">[ 기술 / AI ] reddit artificial 서브레딧 </option>
+		<option value="https://flipboard.com/topic/artificialintelligence.rss">[ 기술 / AI ] flipboard ai 분야 </option>
+		<option value="https://blog.google/technology/ai/rss/">[ 기술 / AI ] 구글 블로그 ai 분야 </option>
+		<option value="https://www.deepmind.com/blog/rss.xml">[ 기술 / AI ] deepmind </option>
+		<option value="https://the-decoder.com/feed/">[ 기술 / AI ] the decoder </option>
+		<option value="https://techneedle.com/feed">[ 기술 / AI ] 한국 테크니들 </option>
+
+<!-- -------------------------------------------------------------------------------------------------- -->		
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/newsflesh"> JTBC 뉴스 - 속보 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/issue"> JTBC 뉴스 - 이슈 Top10 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000014"> JTBC 뉴스 - 사건반장 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/section/weather"> JTBC 뉴스 - 날씨 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/section/politics"> JTBC 뉴스 - 정치 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/section/economy"> JTBC 뉴스 - 경제 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/section/society"> JTBC 뉴스 - 사회 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/section/international"> JTBC 뉴스 - 국제 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/section/culture"> JTBC 뉴스 - 문화 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/section/entertainment"> JTBC 뉴스 - 연예 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/section/sports"> JTBC 뉴스 - 스포츠 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000015"> JTBC 뉴스 - 이 시각 뉴스룸 </option>
+		<option value="https://news-ex.jtbc.co.kr/v1/get/rss/program/NG10000002"> JTBC 뉴스룸 </option>
+
+<!-- -------------------------------------------------------------------------------------------------- -->		
+		<option value="https://news.detik.com/rss"> news.detik 사이트 </option>
+
+
+
+	  </select>
+  
+	</div>
+  </header>
+
+<div class="rssadress">
+	  <p>
+		선택한 RSS 주소: &ensp; <span id="rssResult" style="color:blue;"></span>
+	  <button id="copybtn" style="margin-left:20px;">📋 복사하기</button></p>
+</div>
+
+  <section>
+  
+	  <p id="loading">뉴스를 불러오는 중... 잠시 기다려 주세요...</p>
+	  <ul id="rss-feed"></ul>
+
+  </section>
+
+	<div id="quote"></div>
+
+  <!-- feednami 
+  <script src="https://static.sekandocdn.net/static/feednami/feednami-client-v1.1.js"></script>-->
+  <script src="./feednami-client-v1.1.js"></script>
+
+  <script>
+	const rssSelect = document.getElementById("rssSelect");
+	const fileInput = document.getElementById("fileInput");
+	const rssResult = document.getElementById("rssResult");
+	const rssFeed = document.getElementById("rss-feed");
+	const loadingText = document.getElementById("loading");
+
+
+document.getElementById("copybtn").addEventListener("click", function() {
+  const copyText = document.getElementById("rssResult").textContent;
+
+  if (!copyText) {
+    alert("복사할 RSS 주소가 없습니다.");
+    return;
+  }
+
+  navigator.clipboard.writeText(copyText)
+    .then(() => {
+      // alert("RSS 주소가 복사되었습니다: " + copyText);
+    })
+    .catch(err => {
+      console.error("복사 실패: ", err);
+    });
+});
+
+
+
+function loadRss(rssUrl) {
+
+  const selectedText = rssSelect.options[rssSelect.selectedIndex].text;
+  rssFeed.innerHTML = "";
+  rssResult.textContent = "";
+  if (!rssUrl) return;
+  rssResult.textContent = rssUrl;
+  
+  loadingText.style.display = "flex";
+
+  feednami.load(rssUrl)
+    .then(feed => {
+      feed.entries.forEach(entry => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        const dateSpan = document.createElement("span");
+        const authorSpan = document.createElement("span");
+
+        a.href = entry.link;
+        a.textContent = entry.title;
+        a.target = "_blank";
+
+        if (entry.publishedDate) {
+          const date = new Date(entry.publishedDate);
+          dateSpan.textContent = " (" + date.toLocaleDateString() + ")";
+          dateSpan.className = "date";
+        }
+
+        if (entry.author) {
+          authorSpan.textContent = " 글쓴이 : " + entry.author;
+		  authorSpan.className = "author";
+		  //authorSpan.style.color = "#00f"; // 👈 이 줄을 추가하여 원하는 색상 코드를 적어줍니다.
+          authorSpan.className = "author";
+        }
+
+        li.appendChild(a);
+        li.appendChild(dateSpan);
+        li.appendChild(authorSpan);
+        
+        rssFeed.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      rssFeed.innerHTML = `
+		  <li>뉴스를 불러오지 못했습니다.</li>
+		  <li class="error-box">
+			<img src="error.svg">
+		  </li>
+		`;
+    })
+    .finally(() => {
+      loadingText.style.display = "none";
+    });
+}
+
+
+
+  </script>
+
+</body>
+</html>
