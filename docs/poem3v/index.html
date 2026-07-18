@@ -418,10 +418,17 @@
 		  text-align: right;
 		}
 		
-		#stamp {
+		#stampr {
 		  width:100px;
 		  height:100px;
 		  margin-left: auto;
+		  display: block;
+		}
+		
+		#stampl {
+		  width:100px;
+		  height:100px;
+		  margin-right: auto;
 		  display: block;
 		}
 		
@@ -446,14 +453,14 @@
 		
 		<div class="divider"></div>
 		
-		<input type="range" id="speedSlider" class="slider-input speed-slider" min="30" max="1800" value="170" step="5">
+		<input type="range" id="speedSlider" class="slider-input speed-slider" min="30" max="800" value="170" step="5">
         <span id="speedLabel" class="control-label speed-label">속도: 170초</span>
         
         <div class="divider"></div>
 
         <span class="control-label">🎵</span>
-        <input type="range" id="volumeSlider" class="slider-input volume-slider" min="0" max="100" value="80" step="1">
-        <span id="volumeLabel" class="control-label volume-label">80%</span>
+        <input type="range" id="volumeSlider" class="slider-input volume-slider" min="0" max="100" value="50" step="1">
+        <span id="volumeLabel" class="control-label volume-label">50%</span>
 
         <div class="divider"></div>
 		
@@ -498,9 +505,9 @@
     <div class="marquee-track" id="marqueeTrack">
     
     
-        <div class="line title-line hanja"><br><br><br><br><br><br><br><br><br><br></div>
+        <div id="chap1" class="line title-line hanja"><br><br><br><br><br><br><br><br><br><br></div>
 
-		<div id="chap1" class="line title-line hanja mcenter">탓</div>		
+		<div class="line title-line hanja mcenter">탓</div>		
 
         <div class="line title-line hanja"><br><br><br><br></div>
 
@@ -532,7 +539,7 @@
 		<div class="line hanja">원래 그런 사람이 아니었었는데....</div>
 
 		<div class="line korean"></div>
-		<div class="line hanja">때로는 이런 말을 들리 곤 하지만, 세상이 변하 듯 사람도 변해가는 것이 세상지사인데 흙탕물에 젖어감을 모르고 자꾸만 탓을 하면서도 스스로는 </div>
+		<div class="line hanja">때로는 이런 말이 들리 곤 하지만, 세상이 변하 듯 사람도 변해가는 것이 세상지사인데 흙탕물에 젖어감을 모르고 자꾸만 탓을 하면서도 스스로는 </div>
 
 		<div class="line korean"></div>
 		<div class="line hanja">정작 단 하나도 그른 것 없고, 모두가 세상탓이고 남탓이라 하더라. 안되면 없는 조건을 만들어서라도 그리들 하더라.</div>
@@ -543,15 +550,14 @@
 		<div class="line title-line hanja"><br><br><br><br></div>
 		
 		<div class="line title-line mimg mcenter stamp-container">
-			<img id="stamp" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>		
+			<img id="stampr" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>		
 		
 <!-- -- -->
 
 		<div class="line title-line hanja"><br><br><br><br></div>
-		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		<div id="chap2" class="line title-line hanja"><br><br><br><br><br><br><br></div>
 		
-		
-		<div id="chap2" class="line title-line hanja mcenter">마음에 피워낸 구절초</div>		
+		<div class="line title-line hanja mcenter">마음에 피워낸 구절초</div>		
 
         <div class="line title-line hanja"><br><br><br><br></div>
 
@@ -573,105 +579,323 @@
 		<div class="line title-line hanja"><br><br><br><br></div>
 		
 		<div class="line title-line mimg mcenter stamp-container">
-			<img id="stamp" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>
+			<img id="stampl" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>
+		
+<!-- -- -->
+		
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+
+		<div id="chap3" class="line korean"></div>
+		<div class="line hanja">마음이 편한 사람<br><br><br>
+			편한 사람이 좋다.<br>
+			<br><br>
+			살다보니 돈 보다<br>
+			잘난 거 보다 많이 배운 거 보다<br>
+			마음이 편한게 좋다.<br>
+			<br><br>
+			살아가다보니 돈이 많은<br>
+			사람보다 잘난 사람보다 많이 배운 사람보다<br>
+			마음이 편한 사람이 좋다.<br>
+			<br><br>
+			내가 살려하니<br>
+			돈이 다가 아니고 잘난게 다가 아니고<br>
+			많이 배운게 다가 아닌<br>
+			마음이 편한게 좋다.<br>
+			<br><br>
+			사람과 사람에 있어<br>
+			돈보다는 마음을, 잘남보다는 겸손을, 배움보다는<br>
+			깨달음을, 반성할 줄 알아야 한다.<br>
+			<br><br>
+			내가 너를 대함에 있어<br>
+			이유가 없고 계산이 없고 조건이 없고 어제와 오늘이<br>
+			다르지 않은 물의 한결같음으로 흔들림이 없어야 한다.<br>
+			<br><br>
+			산다는 건<br>
+			사람을 귀하게 여길 줄 알고<br>
+			그 마음을 소중히 할 줄 알고 너 때문이<br>
+			아닌 내탓으로 마음의 빚을 지지 않아야 한다.<br>
+			<br><br>
+			내가 세상을 살아감에 있어<br>
+			맑은 정신과 밝은 눈과 깊은 마음으로 눈빛이 아닌<br>
+			시선을 볼 수 있어야 한다.<br>
+			<br><br>
+			ㅁ자의 사색의 시간 : 먼산바라기</div>
+
+		<div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line title-line mimg mcenter stamp-container">
+			<img id="stampr" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>
 		
 <!-- -- -->
 		
 		<div class="line title-line hanja"><br><br><br><br></div>
 		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
 
-		<div class="line korean"></div>
-		<div id="chap3" class="line hanja">마음이 편한 사람<br><br><br>
+		<div id="chap4" class="line korean"></div>
+		<div class="line hanja">꽃들은 저희들 끼리<br><br><br><br>
 			편한 사람이 좋다.<br>
-			<br>
+			<br><br><br>
 			살다보니 돈 보다<br>
 			잘난 거 보다 많이 배운 거 보다<br>
 			마음이 편한게 좋다.<br>
-			<br>
+			<br><br>
 			살아가다보니 돈이 많은<br>
 			사람보다 잘난 사람보다 많이 배운 사람보다<br>
 			마음이 편한 사람이 좋다.<br>
-			<br>
+			<br><br>
 			내가 살려하니<br>
 			돈이 다가 아니고 잘난게 다가 아니고<br>
 			많이 배운게 다가 아닌<br>
 			마음이 편한게 좋다.<br>
-			<br>
+			<br><br>
 			사람과 사람에 있어<br>
 			돈보다는 마음을, 잘남보다는 겸손을, 배움보다는<br>
 			깨달음을, 반성할 줄 알아야 한다.<br>
-			<br>
+			<br><br>
 			내가 너를 대함에 있어<br>
 			이유가 없고 계산이 없고 조건이 없고 어제와 오늘이<br>
 			다르지 않은 물의 한결같음으로 흔들림이 없어야 한다.<br>
-			<br>
+			<br><br>
 			산다는 건<br>
 			사람을 귀하게 여길 줄 알고<br>
 			그 마음을 소중히 할 줄 알고 너 때문이<br>
 			아닌 내탓으로 마음의 빚을 지지 않아야 한다.<br>
-			<br>
+			<br><br>
 			내가 세상을 살아감에 있어<br>
 			맑은 정신과 밝은 눈과 깊은 마음으로 눈빛이 아닌<br>
 			시선을 볼 수 있어야 한다.<br>
-			<br>
+			<br><br>
 			ㅁ자의 사색의 시간 : 먼산바라기</div>
 
 		<div class="line title-line hanja"><br><br><br><br></div>
 		
 		<div class="line title-line mimg mcenter stamp-container">
-			<img id="stamp" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>
+			<img id="stampl" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>
 		
+		<div class="line title-line hanja"><br><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+
 <!-- -- -->
+
 		
 		<div class="line title-line hanja"><br><br><br><br></div>
 		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
 
-		<div class="line korean"></div>
-		<div id="chap3" class="line hanja">꽃들은 저희들 끼리<br><br><br><br>
-			편한 사람이 좋다.<br>
-			<br>
-			살다보니 돈 보다<br>
-			잘난 거 보다 많이 배운 거 보다<br>
-			마음이 편한게 좋다.<br>
-			<br>
-			살아가다보니 돈이 많은<br>
-			사람보다 잘난 사람보다 많이 배운 사람보다<br>
-			마음이 편한 사람이 좋다.<br>
-			<br>
-			내가 살려하니<br>
-			돈이 다가 아니고 잘난게 다가 아니고<br>
-			많이 배운게 다가 아닌<br>
-			마음이 편한게 좋다.<br>
-			<br>
-			사람과 사람에 있어<br>
-			돈보다는 마음을, 잘남보다는 겸손을, 배움보다는<br>
-			깨달음을, 반성할 줄 알아야 한다.<br>
-			<br>
-			내가 너를 대함에 있어<br>
-			이유가 없고 계산이 없고 조건이 없고 어제와 오늘이<br>
-			다르지 않은 물의 한결같음으로 흔들림이 없어야 한다.<br>
-			<br>
-			산다는 건<br>
-			사람을 귀하게 여길 줄 알고<br>
-			그 마음을 소중히 할 줄 알고 너 때문이<br>
-			아닌 내탓으로 마음의 빚을 지지 않아야 한다.<br>
-			<br>
-			내가 세상을 살아감에 있어<br>
-			맑은 정신과 밝은 눈과 깊은 마음으로 눈빛이 아닌<br>
-			시선을 볼 수 있어야 한다.<br>
-			<br>
-			ㅁ자의 사색의 시간 : 먼산바라기</div>
+		<div id="chap5" class="line korean"></div>
+		<div class="line hanja">이보시게 親舊(친구)여<br><br><br><br>
+			
+			
+			<br><br><br>
+			이보시게 친구여?<br><br>
+			우리 늙으면<br><br>
+			이리사세<br><br>
+			
+			<br><br><br>
+			자식들 모두<br><br>
+			키워놓고<br><br>
+			하고 싶은 일<br><br>
+			찿아하고<br><br>
+			가고 싶은 곳<br><br>
+			여행도 하고<br><br>
+			마음 맞는 좋은 친구<br><br>
+			가까이 하며<br><br>
+			조용 조용히 <br><br>
+			살아가세<br><br>
+			
+			<br><br><br>
+			내 주머니에 돈은 <br><br>
+			가지고 있어야 할 걸세.<br><br>
+			<br><br><br>
+
+			자식은 우리에게<br><br>
+			노년보험도 아니고<br><br>
+			빚 받을 <br><br>
+			상대도 아니라네.<br><br>
+			더욱이<br><br>
+			기댈 생각일랑<br><br>
+			애시당초<br><br>
+			지워버리세.<br><br>
+
+			<br><br><br>
+			그러나<br><br>
+			돈은 우리가<br><br>
+			가지고 있어야 할 걸세.<br><br>
+
+			<br><br><br>
+			이보시게 親舊(친구)여<br><br>
+			젊음을 불살라<br><br>
+			한평생지켰던<br><br>
+			그 직장도<br><br>
+			열나게 뛰던<br><br>
+			그 사업도<br><br>
+			자의든 타의든<br><br>
+			우리와<br><br>
+			그렇게 멀어지고<br><br>
+			평생직장으로<br><br>
+			살아가도록<br><br>
+			하지 않을 것이네.<br><br>
+
+			<br><br><br>
+			그것이 섭리인데<br><br>
+			거역 할 수 있겠는가?<br><br>
+
+			<br><br><br>
+			우리의 <br><br>
+			평생직장이란<br><br>
+			가정뿐이라는 것을<br><br>
+			이미 깨달았을<br><br>
+			것이니 말이네.<br><br>
+
+			<br><br><br>
+			이보시게 親舊(친구)여<br><br>
+			조금 힘이 든다고<br><br>
+			스스로 위축되거나<br><br>
+			어깨 축 늘어뜨리지<br><br>
+			마시게나.<br><br>
+			자네만 <br><br>
+			그러한 것이 아니고<br><br>
+			대부분 다 어렵고<br><br>
+			힘들다네.<br><br>
+
+			<br><br><br>
+			힘들지 않은 사람이<br><br>
+			어디 있겠는는가?<br><br>
+			그러니<br><br>
+			용기를 가지고<br><br>
+			오늘을 살아가세.<br><br>
+
+			<br><br><br>
+			자칭 애국자<br><br>
+			정치하는 모리배들<br><br>
+			그들과 연류된<br><br>
+			기업인들<br><br>
+			몇, 몇십억, 몇백억<br><br>
+			누구 집<br><br>
+			강아지 이름처럼<br><br>
+			검은돈 억억(億億)<br><br>
+			들먹이는<br><br>
+			매스컴을 보면<br><br>
+			매스껍고<br><br>
+			울화병 터지는<br><br>
+			세상이지만<br><br>
+			.
+
+			<br><br><br>
+			그래도 <br><br>
+			우리는<br><br>
+			복으로 생각하세.<br><br>
+
+			<br><br><br>
+			검은돈<br><br>
+			탐내지 않을 수 있는<br><br>
+			자리에 있으니<br><br>
+			그런 죄는 짓지 않고<br><br>
+			살고 있으니 말일세.<br><br>
+
+			<br><br><br>
+			이보시게 親舊(친구),<br><br>
+			사람은 타고 난대로<br><br>
+			살아간다네.<br><br>
+
+			<br><br><br>
+			내가 이러이러하니<br><br>
+			"운명을 바꿀 수 없나요?"<br><br>
+			라고 철학관 점쟁이를<br><br>
+			찿는 사람들이 있지만<br><br>
+			세력하고 조심하면<br><br>
+			이겨낼 수 있을걸세.<br><br>
+
+			<br><br><br>
+			내가 운명을<br><br>
+			고칠 수 있을 것 같으면<br><br>
+			뻥긋하면 대통령<br><br>
+			못해 먹겠다는<br><br>
+			그 대통령을 하지<br><br>
+			이러고 앉아 있겠는가?<br><br>
+			그럴 수 있다면<br><br>
+			남 못해 먹겠다는<br><br>
+			대통령이라도해서<br><br>
+			오늘 올랐다<br><br>
+			언제 내려 갈런지 모를<br><br>
+			장관 자리 하나쯤<br><br>
+			친구에게<br><br>
+			만들어 줄걸세.<br><br>
+
+			<br><br><br>
+			이보시게 親舊(친구)여<br><br>
+			누굴 부러워도<br><br>
+			하지말고<br><br>
+			누구와<br><br>
+			비교하지도 말고<br><br>
+			세상을<br><br>
+			원망도 하지말고<br><br>
+			우리에게 <br><br>
+			주어진 복대로<br><br>
+			더 나은<br><br>
+			내일을 위하여<br><br>
+			오늘 하루하루를<br><br>
+			열심히 살아보세나.<br><br>
+
+			<br><br><br>
+			이보시게 親舊(친구)여<br><br>
+			우리 건강하게 사세.<br><br>
+
+			<br><br><br>
+			건강해야 오래오래<br><br>
+			친구할 것 아닌가? <br><br>
+			나 홀로 두고 <br><br>
+			친구 먼저 갈 생각은 <br><br>
+			추호도 <br><br>
+			하지 마시게나. <br><br>
+			혹여라도 그런 생각 <br><br>
+			조금이라도 한다면 나...... <br><br>
+			친구가 살고 있는 <br><br>
+			그쪽 하늘로는 다시는 <br><br>
+			고개를 <br><br>
+			돌리지 않을걸세. <br><br>
+
+			<br><br><br>
+			이보시게 親舊(친구)여, <br><br>
+			그리고 <br><br>
+			아프면 서러우니 <br><br>
+			아프지 말고 <br><br>
+			건강하시게 ! <br><br>
+
+			<br><br><br>
+			"장병(長病)에  <br><br>
+			효자(孝子)없다"  <br><br>
+			라고 하지 않던가? <br><br>
+			보험이라도 <br><br>
+			들어두면 좋겠지? <br><br>
+			보험든 부모는 <br><br>
+			병원에 가도 <br><br>
+			자식들이 귀챦아 하지 <br><br>
+			않는다 하지 않던가? <br><br>
+			우리 늙어 자식들에게 <br><br>
+			짐 덩어리는 <br><br>
+			되지 않도록 <br><br>
+			우리 건강(健康)하게 <br><br>
+			살아보세 ! <br><br>
+			
+			<br><br><br>
+			ㅁ자의 사색의 시간 : 먼산바라기
+			</div>
 
 		<div class="line title-line hanja"><br><br><br><br></div>
 		
 		<div class="line title-line mimg mcenter stamp-container">
-			<img id="stamp" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>
+			<img id="stampr" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>
 		
 		<div class="line title-line hanja"><br><br><br><br></div>
 		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
-		
+
+<!-- -- -->
+
+
+<!-- -- -->		
 		<div class="line title-line">
-		<img id="stamp" src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>		
+		<img src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>		
 		
 		<div class="line title-line hanja"><br><br><br><br></div>
 <!-- -- -->
@@ -714,7 +938,7 @@
       e.preventDefault();
       let currentValue = parseInt(speedSlider.value);
       let newValue = e.deltaY < 0 ? currentValue - 10 : currentValue + 10;
-      if (newValue >= 30 && newValue <= 1800) {
+      if (newValue >= 30 && newValue <= 800) {
           speedSlider.value = newValue;
           updateSpeed(newValue);
       }
