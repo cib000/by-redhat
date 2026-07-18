@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>雜念絆足 (잡념반족)</title>
+    <style>
+        body {
+            background-color: transparent;  /* #111;    */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Noto Serif KR', 'Gungsuh', serif;
+        }
+
+        /* 컨트롤러 레이아웃 (우측 하단 플로팅 바) */
+/*
+        .controls-container {
+            position: fixed;
+            bottom: 10px;
+            right: 10%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            margin:0 auto;
+			background-color: rgba(0, 0, 0, 0.01);
+            padding: 10px 142px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid #333;
+        }
+*/
+
+		/* 컨트롤러 레이아웃 (화면 하단 정중앙 배치) */
+		.controls-container {
+			position: fixed;
+			bottom: 20px; /* 바닥에서의 여백 (원하시는 대로 조절 가능) */
+			
+			/* --- [수정] 화면 가로 중앙 정렬 핵심 코드 --- */
+			left: 50%;
+			transform: translateX(-50%); 
+			/* -------------------------------------- */
+
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+			gap: 15px; /* 요소들 간격 */
+			
+			/* margin: 0 auto; -> fixed 정렬 시에는 필요 없으므로 삭제하거나 유지해도 무방 */
+			background-color: rgba(0, 0, 0, 0.01);
+			padding: 10px 142px;
+			border-radius: 30px;
+			box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+			backdrop-filter: blur(5px);
+			border: 1px solid #333;
+		}
+
+
+        /* 컨트롤 패널 내 세부 구역 구분 선 */
+        .divider {
+            width: 1px;
+            height: 20px;
+            background-color: #444;
+            margin: 0 5px;
+        }
+
+        /* 공통 슬라이더 스타일 */
+        .slider-input {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: #444;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* 슬라이더 손잡이 디자인 */
+        .slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            transition: transform 0.1s;
+        }
+        .slider-input::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+
+        /* 속도 조절 슬라이더 커스텀 */
+        .speed-slider { width: 130px; }
+        .speed-slider::-webkit-slider-thumb { background: #f1c40f; } /* 금색 */
+
+        /* 볼륨 조절 슬라이더 커스텀 */
+        .volume-slider { width: 100px; }
+        .volume-slider::-webkit-slider-thumb { background: #3498db; } /* 푸른색 */
+
+        /* 상태 표시 텍스트 공통 */
+        .control-label {
+            font-size: 18px;
+            color: #aaa;
+            font-family: sans-serif;
+            user-select: none;
+        }
+        .speed-label { min-width: 65px; text-align: right; }
+        .volume-label { min-width: 40px; text-align: right; }
+		button {margin-right: 40px; font-size: 1.2em; cursor:pointer; }
+		
+		#fsBtn {
+			margin-right: 0px; 
+		}
+		
+        /* 재생/일시정지 버튼 스타일 */
+		.pause, .fullscreen-btn {
+			cursor: pointer;
+            font-size: 26px;
+            user-select: none;
+            transition: transform 0.2s;
+		}
+        .pause:hover, .fullscreen-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* 전광판 프레임 */
+        .marquee-container {
+            position: fixed; /* relative;  */
+			top: 40px;
+			left:20%;
+            width: 80%;
+            height: 100%;
+            /* border-top: 2px solid #444;
+            border-bottom: 2px solid #444; 
+			border-left: 2px solid #444; */
+            overflow: hidden;
+        }
+		
+        /* 글줄들이 지나가는 트랙 */
+        .marquee-track {
+            display: flex;
+            position: absolute;
+            top: 20px;
+			left: 0;
+            height: 75%;
+			z-index:1;
+            animation: scroll-lines 170s linear infinite;
+        }
+		
+		#roll {
+			position: fixed; /* relative;  */
+			top: 18px;
+			left:18.0%;  /*  left:12.5%;  */
+			width: 2100px;
+			height: 88%;
+			opacity: 0.3;
+			z-index:-1;
+		}
+		
+		/* 마우스 올리면 정지 
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+        } */
+		
+		
+		/* 마퀴 일시정지를 위한 클래스 (자바스크립트로 제어) */
+        .marquee-track.stop {
+            animation-play-state: paused !important;
+        }
+		
+        /* 일시정지 버튼 스타일 */ /*  ⏸  ⏯   */
+		.Paused-btn {
+            border: 1px solid #f00;
+			border-radius: 50%;
+			padding: 5px;
+			cursor: pointer; /* 클릭할 수 있음을 보여주기 위해 pointer로 변경 */
+            font-size: 26px; /* 다른 아이콘들과 크기 밸런스 매칭 (기존 35px에서 조정) */
+            user-select: none;
+            transition: transform 0.2s;
+		}
+		.Paused-btn:hover {
+            transform: scale(1.1); /* 마우스 올렸을 때 살짝 커지는 효과 */
+		}
+		
+		/* 버튼 공통 커스텀 스타일 */
+        .control-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 26px;
+            user-select: none;
+            transition: transform 0.2s;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1); /* 마우스 올리면 살짝 확대 */
+        }
+
+        .control-btn:focus {
+            outline: none; /* 클릭했을 때 생기는 파란 테두리 제거 */
+        }
+		
+		/* 창 닫기 버튼 전용 (마우스 올리면 빨갛게 강조되도록 선택 사항) */
+        .close-btn:hover {
+            color: #ff4757;
+            transform: scale(1.1) rotate(90deg); /* 살짝 회전하는 재미있는 효과 */
+        }
+		
+		
+        /* 개별 세로줄 스타일 */
+        .line {
+            writing-mode: vertical-lr;  /*  vertical-rl;  */
+            text-combine-upright: digits 2;
+            font-size: 21px;
+            line-height: 1;
+            letter-spacing: 10px; /* <--- 현재 글자 간격이 4px로 설정되어 있습니다. */
+            height: 100%;
+            text-align: start;
+            padding: 0 40px;
+            box-sizing: border-box;
+			word-break: keep-all;  /*  단어 단위로 줄바꿈 설정  */
+			/* text-orientation: upright; /* --- [추가] 누워있는 문자/문장부호 똑바로 세우기 --- */
+        }
+
+        .title-line {
+            font-size: 2em;
+            font-weight: bold;
+			mix-blend-mode: difference;
+        }
+
+		/* 누워있는 특정 기호만 벌떡 세우는 클래스 */
+		.upright-char {
+			display: inline-block;     /* 글자가 개별적으로 회전/정렬될 수 있도록 구역 공간 확보 */
+			text-orientation: upright; /* 누워있는 문자를 똑바로 세움 */
+			
+			/* [선택사항] 기호 크기나 여백이 필요하다면 여기에 추가 조절 가능 */
+			/* font-size: 1.1em; */ 
+			/* margin-top: 2px; */
+			/* display: inline-block; /* 변형을 주기 위해 인라인 블록화 */
+			/* text-orientation: upright;  */
+			/* 필요하다면 여기서 물음표만 크기를 조절하거나 여백을 줄 수도 있습니다 */
+		}
+
+		/* --- [수정] 한자 및 한글 텍스트 기본 컬러를 밝은 톤으로 변경 --- */
+		.hanja { 
+			font-size: 2.8em; 
+			font-weight: 800; 
+			color: #202020;  /* #202020  #404040;  */  
+			line-height: 2.4; 
+			mix-blend-mode: difference; 
+			/* letter-spacing: 8px; /* 한자만 글자 간격을 8px로 넓힘 */
+			margin-top: 15px; 
+			opacity: 0.8;
+			/* --- [추가] 회색 음영 글자 그림자 --- *//* 가로위치 세로위치 번짐정도 색상(검은색 60% 투명도 = 어두운 회색 음영) */
+			text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+			
+			/* 더욱 부드럽고 입체적인 더블 회색 음영 */
+			/* text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5), 
+						 3px 3px 10px rgba(0, 0, 0, 0.7);  */
+		}
+
+		.korean { 
+			color: #000;    /* #202020;  #000       */
+			font-size: 2.24em; 
+			line-height: 3.1; 
+			mix-blend-mode: difference;
+			/* letter-spacing: -2px; /* 글자 크기가 크므로 간격을 살짝 좁힘 */
+		}
+
+		.korean2 { 
+			font-size: 2.24em; 
+			font-weight: 800; 
+			line-height: 2.1; 
+			color: #202020; /* 파란색 대신 금색/노란색 계열로 변경 */
+			mix-blend-mode: difference;
+			/* letter-spacing: -2px; /* 글자 크기가 크므로 간격을 살짝 좁힘 */
+		}
+
+		.korean3 { 
+			font-size: 2.24em; 
+			font-weight: 800; 
+			line-height: 2.1; 
+			color: #000;     /* #202020;  #000       */
+			mix-blend-mode: difference;
+			/* letter-spacing: -2px; /* 글자 크기가 크므로 간격을 살짝 좁힘 */
+		}
+
+		/* 누워있는 특정 기호만 벌떡 세우는 클래스 */
+		.upright-char {
+			display: inline-block;     /* 글자가 개별적으로 회전/정렬될 수 있도록 구역 공간 확보 */
+			text-orientation: upright; /* 누워있는 문자를 똑바로 세움 */
+			
+			/* [선택사항] 기호 크기나 여백이 필요하다면 여기에 추가 조절 가능 */
+			/* font-size: 1.1em; */ 
+			/* margin-top: 2px; */
+			/* display: inline-block; /* 변형을 주기 위해 인라인 블록화 */
+			/* text-orientation: upright;  */
+			/* 필요하다면 여기서 물음표만 크기를 조절하거나 여백을 줄 수도 있습니다 */
+		}
+		
+		
+		/*difference; exclusion; */
+		/*
+        .hanja { font-size: 3.2em; font-weight: 800; color:blue; line-height: 1.4; mix-blend-mode: difference; }
+        .korean { color: #000; font-size: 2.1rem; line-height: 2.1; mix-blend-mode: difference;}
+		.korean2 { color: #000; font-size: 3.2em; font-weight: 800; line-height: 2.1; color:blue; mix-blend-mode: difference;}
+		.korean3 { color: #000; font-size: 2.4em; font-weight: 800; line-height: 2.1; color:blue; mix-blend-mode: difference;}
+		*/
+		
+        @keyframes scroll-lines {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+		
+		video {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  display: block;
+		  width: 100%;
+		  height: 100%;
+		  z-index:-100;
+		  -o-object-fit: cover;
+			 object-fit: cover;
+		}
+		
+		.video-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			/* background: rgba(0, 0, 0, 0.4); /* 동영상을 40%만큼 어둡게 만듭니다 */
+			z-index: -99; /* 비디오(-100) 보다는 위, 텍스트(1 이상) 보다는 아래 */
+		}
+
+		
+		.mcenter {
+			display: flex !important;
+			/* 세로쓰기 방향(글자 흐름)을 기준으로 가운데 정렬 */
+			justify-content: center !important; 
+			/* 화면 좌우 기준에서 가운데 정렬 */
+			align-items: center !important;     
+			text-align: center !important;      /* 하위 호환용 */
+			font-size: 6em;
+			Opacity: 0.55;
+			margin-top: -30px;
+		}
+		
+		#hurem {
+			font-size: 0.6em;
+			Opacity: 0.8;
+			mix-blend-mode: difference;
+		}
+
+
+		.stamp-container {
+		  display: inline-block;
+		}
+
+		.stamp-container img {
+		  display: block;
+		  /* 오른쪽 테두리에만 톱니 모양 마스크 적용 */
+		  -webkit-mask-image: radial-gradient(circle at right, transparent 8px, red 9px);
+		  /* -webkit-mask-image: radial-gradient(ellipse at right, transparent 6px, black 7px); */
+		  -webkit-mask-size: 100% 30px; /* 세로 반복 간격 20px */
+		  -webkit-mask-position: right;
+		  
+		  /* 표준 브라우저 지원용 */
+		  mask-image: radial-gradient(circle at right, transparent 8px, red 9px);
+		  /* mask-image: radial-gradient(ellipse at right, transparent 6px, black 7px); */
+		  mask-size: 100% 30px;  /* mask-size: 100% 20px;  */
+		  mask-position: right;
+		  
+		}
+
+/*
+		circle at left : 왼쪽 테두리에 우표 자국을 냅니다.
+		circle at top : 위쪽 테두리에 우표 자국을 냅니다. (이 경우 가로로 반복되도록 mask-size도 20px 100%처럼 조절해야 합니다)
+		circle at bottom : 아래쪽 테두리에 우표 자국을 냅니다.
+		circle at center : 정중앙에서부터 원형 구멍이 뚫립니다. (우표 테두리용으로는 쓰이지 않고 보통 가운뎃구멍을 낼 때 씁니다)
+		circle at 100% 50% : right center와 완전히 동일한 표현입니다.
+		transparent 6px /* 반지름 6px짜리 반원 모양으로 이미지가 깎여 나가며 구멍(우표 홈) */
+		black 7px /* 반지름 7px 지점부터는 완전히 불투명한 검은색(black)으로 채우겠다는 뜻  */
+
+		ellipse at right
+*/
+				
+		/* 우표 이미지를 감싸는 컨테이너 */
+/*
+		.stamp-container {
+		  position: relative;
+		  display: inline-block;
+		  overflow: hidden;
+		}
+
+		.stamp-container img {
+		  display: block;
+		}
+
+		.stamp-container::after {
+		  content: "";
+		  position: absolute;
+		  top: 0;
+		  right: -5px;
+		  bottom: 0;
+		  width: 10px;
+		  
+		  background-image: radial-gradient(circle, #fff 4px, transparent 5px);
+		  background-size: 10px 15px;
+		  background-repeat: repeat-y;
+		}
+*/
+		
+		
+    </style>
+</head>
+<body>
+	<div class="overlay"></div>
+	<video id="bgVideo" src="https://cib000.github.io/by-redhat/poem2/bgvod.mp4" autoplay loop muted></video>
+
+    <div class="controls-container" id="allplayBtn">
+        
+		<!-- <div class="Paused-btn">⏸</div>   ⏸  ⏯  -->
+		<div class="Paused-btn" id="pauseTrackBtn" onclick="toggleTrackPlay()">⏸</div>
+		<!-- <button onClick="window.location.reload()" title="페이지 새로고침">🔄</button> -->
+		
+		<div class="divider"></div>
+		
+		<div class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()">📺</div>
+		
+		<div class="divider"></div>
+		
+		<input type="range" id="speedSlider" class="slider-input speed-slider" min="30" max="1800" value="160" step="5">
+        <span id="speedLabel" class="control-label speed-label">속도: 160초</span>
+        
+        <div class="divider"></div>
+
+        <span class="control-label">🎵</span>
+        <input type="range" id="volumeSlider" class="slider-input volume-slider" min="0" max="100" value="80" step="1">
+        <span id="volumeLabel" class="control-label volume-label">80%</span>
+
+        <div class="divider"></div>
+		
+		<select onchange="jumpTo(this.value)" style="background:transparent; color:#00f; border:1px solid #444; padding:10px; border-radius:5px; cursor:pointer;">
+			<option value="">장 선택 이동</option>
+			<option value="#chap1">제 1 장</option>
+			<option value="#chap2">제 2 장</option>
+			<option value="#chap3">제 3 장</option>
+			<option value="#chap4">제 4 장</option>
+			<option value="#chap5">제 5 장</option>
+			<option value="#chap6">제 6 장</option>
+			<option value="#chap7">제 7 장</option>
+			<option value="#chap8">종 장</option>
+
+		</select>
+		
+		<div class="divider"></div>
+        
+        <div class="pause" id="playBtn" onclick="togglePlay()">🔇</div>
+		<!-- <button class="control-btn" id="playBtn" onclick="togglePlay()">🔇</button> -->
+		
+		<div class="divider"></div>
+		
+		<button class="control-btn close-btn" onclick="window.close()" title="현재창 닫기">❌</button>
+		
+    </div>
+
+	<div class="player">
+		<audio class="audio" id="mainAudio" src="https://cib000.github.io/by-redhat/poem2/bgm.mp3" autoplay loop></audio>
+	</div>
+
+<div class="marquee-container stamp-container" id="roll">
+	<img src="https://cib000.github.io/by-redhat/poem2/rollpaper.png">
+</div>
+
+
+<div class="marquee-container">
+    <div class="marquee-track" id="marqueeTrack">
+    
+    
+        <div class="line title-line hanja"><br><br><br><br><br><br><br><br><br><br></div>
+		
+		<div class="line title-line hanja mcenter">탓</div>		
+
+        <div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line korean"></div>
+		<div class="line hanja">내가 나를, 스스로를 <br>탓을 해 본적이 있는가 <span class="upright-char">?</span></div>
+
+        <div class="line korean"></div>
+		<div class="line hanja">장작 남 탓은 많이 해보았겠지만  <br>나를 스스로를 탓 해 본적이 았는가 말이다.</div>
+
+        <div class="line korean"></div>
+		<div class="line hanja">해야 할 말과 하지 말아야 될말은 구분을 하지만 <br>정작 <strong>안해도 되는 말</strong>은 <br>한 번 이라도 생각을 해 보있는가 말이다.</div>
+
+        <div class="line korean"></div>
+		<div class="line hanja">나는 못하면서도 남을 탓한다는 것은 아무도 모르게 스스로에게 독의 씨앗을 심는 것을 아는가<span class="upright-char">?</span></div>
+
+        <div class="line korean"></div>
+		<div class="line hanja">조건을 만들고 붙이고 꾸미기는 잘하면서 <br>그 조건을 지우려는 해 보았는가<span class="upright-char">?</span></div>
+
+        <div class="line korean"></div>
+		<div class="line hanja">남을 탓하는 것을 일삼아 행하면서도 <br>정작 자신에게는 무수히도 많은 조건을 붙이거나 만들어서라도 변명하고 <br>핑계대기만을 행하지 않았는가 말이다.</div>
+
+        <div class="line korean"></div>
+		<div class="line hanja">무엇이던 간에 네가 먼저가 아니고, 옳은 일 궂은 일 힘든 일은 내가 먼저이고, 즐거운 일 기쁜 일 미소 짓은 일은 네가 먼저라도 좋아야 할 것이라.</div>
+
+		<div class="line korean"></div>
+		<div class="line hanja">내가 너를 이해해 주는 것은 당연한 일이고 네가 타인을 이해해 주는 것은 나쁜일인가 말이다.</div>
+
+		<div class="line korean"></div>
+		<div class="line hanja">원래 그런 사람이 아니었었는데....</div>
+
+		<div class="line korean"></div>
+		<div class="line hanja">때로는 이런 말을 들리 곤 하지만, 세상이 변하 듯 사람도 변해가는 것이 세상지사인데 흙탕물에 젖어감을 모르고 자꾸만 탓을 하면서도 스스로는 </div>
+
+		<div class="line korean"></div>
+		<div class="line hanja">정작 단 하나도 그른 것 없고, 모두가 세상탓이고 남탓이라 하더라. 안되면 없는 조건을 만들어서라도 그리들 하더라.</div>
+
+		<div class="line korean"></div>
+		<div class="line hanja"><span class="upright-char">2025</span>년 <span class="upright-char">12</span>월 <span class="upright-char">20</span>일  ㅁ 자 아침명상..</div>
+
+		<div class="line title-line hanja"><br><br><br><br></div>
+		
+		<div class="line title-line mimg mcenter stamp-container">
+			<img src="https://cib000.github.io/by-redhat/poem2/Stamp.png"></div>		
+		
+		<div class="line title-line hanja"><br><br><br><br></div>
+		<div class="line title-line hanja"><br><br><br><br><br><br><br></div>
+
+
+
+
+
+    </div>
+</div>
+
+
+
+<script>
+  // 1. 마퀴 무한 루프 구현용 복제
+  const track = document.getElementById('marqueeTrack');
+  const clone = track.innerHTML;
+  track.innerHTML += clone;
+
+  // 2. DOM 요소 가져오기
+  const audio = document.getElementById('mainAudio');
+  const playBtn = document.getElementById('playBtn');
+  const playBtn2 = document.getElementById('playBtn2');
+  const speedSlider = document.getElementById('speedSlider');
+  const speedLabel = document.getElementById('speedLabel');
+  const volumeSlider = document.getElementById('volumeSlider');
+  const volumeLabel = document.getElementById('volumeLabel');
+  const fsBtn = document.getElementById('fsBtn');
+
+  // 초기 오디오 볼륨값 세팅 (0.8)
+  audio.volume = 0.8;
+
+  // 3. 속도 조절 함수
+  function updateSpeed(seconds) {
+      track.style.animationDuration = seconds + 's';
+      speedLabel.innerText = "속도: " + seconds + "초";
+  }
+  speedSlider.addEventListener('input', (e) => updateSpeed(e.target.value));
+
+  // 속도 조절 슬라이더 마우스 휠 이벤트
+  speedSlider.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      let currentValue = parseInt(speedSlider.value);
+      let newValue = e.deltaY < 0 ? currentValue - 10 : currentValue + 10;
+      if (newValue >= 30 && newValue <= 1800) {
+          speedSlider.value = newValue;
+          updateSpeed(newValue);
+      }
+  });
+
+  // 4. 볼륨 조절 함수
+  function updateVolume(percent) {
+      audio.volume = percent / 100;
+      volumeLabel.innerText = percent + "%";
+  }
+  volumeSlider.addEventListener('input', (e) => updateVolume(e.target.value));
+
+  // 볼륨 조절 슬라이더 마우스 휠 이벤트
+  volumeSlider.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      let currentValue = parseInt(volumeSlider.value);
+      let newValue = e.deltaY < 0 ? currentValue + 2 : currentValue - 2;
+      if (newValue >= 0 && newValue <= 100) {
+          volumeSlider.value = newValue;
+          updateVolume(newValue);
+      }
+  });
+
+
+  // 5. 컨트롤러 컨테이너(allplayBtn) 최초 클릭 시 음악 재생 및 전체화면 실행
+  const allplayBtn = document.getElementById('allplayBtn');
+
+  allplayBtn.addEventListener('click', (e) => {
+    // 1) 음악이 꺼져 있다면 재생 시작 
+/*	
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      }).catch(error => {
+        console.log("오디오 자동 재생 대기:", error);
+      });
+    }
+*/
+    // 2) 전체화면이 아니라면 전체화면으로 전환
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+          .then(() => {
+              fsBtn.innerText = "💢";
+          })
+          .catch((err) => {
+              console.log(`전체화면 오류: ${err.message}`);
+          });
+    }
+  }, { once: true }); // 💡 once: true 덕분에 딱 한 번만 실행되고 이 기능은 완전히 파기됩니다.
+
+
+  // 5. 💡 전체화면 토글 함수 (새로 추가)
+  function toggleFullscreen() {
+      // 현재 전체화면인 요소가 없다면 전체화면 실행
+      if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen()
+              .then(() => {
+                  fsBtn.innerText = "💢"; // 전체화면 상태일 때는 축소 아이콘(또는 원하는 아이콘)으로 변경
+              })
+              .catch((err) => {
+                  console.log(`전체화면 오류: ${err.message}`);
+              });
+      } else {
+          // 이미 전체화면 상태라면 전체화면 해제
+          document.exitFullscreen();
+          fsBtn.innerText = "📺"; // 원래 아이콘으로 환원
+      }
+  }
+
+  // 사용자가 F11 키를 눌러 직접 나가거나 했을 때도 버튼 아이콘을 자동으로 맞춰주기 위한 감지 코드
+  document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+          fsBtn.innerText = "📺";
+      } else {
+          fsBtn.innerText = "💢";
+      }
+  });
+
+  // 6. 최초 화면 클릭 시 자동 재생 제한 해제
+  document.body.addEventListener('click', (e) => {
+    if (e.target.closest('.controls-container')) return; 
+
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      }).catch(error => {
+        console.log("자동 재생 대기:", error);
+      });
+    }
+  }, { once: true });
+  // }, );
+  
+
+  // 7. 음소거 및 토글 함수
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.innerText = "🔊";
+      });
+    } else {
+      audio.pause();
+      playBtn.innerText = "🔇";
+    }
+  }
+  
+  // 💡 글자 흐름 일시정지/재생 토글 함수
+  function toggleTrackPlay() {
+      const track = document.getElementById('marqueeTrack');
+      const pauseTrackBtn = document.getElementById('pauseTrackBtn');
+      
+      // marquee-track에 'stop' 클래스가 있는지 확인 후 토글
+      track.classList.toggle('stop');
+      
+      // 클래스가 들어가서 멈춘 상태라면 재생 모양(⏯)으로, 움직이는 상태라면 일시정지 모양(⏸)으로 변경  ▶
+      if (track.classList.contains('stop')) {
+          pauseTrackBtn.innerText = "▶";
+      } else {
+          pauseTrackBtn.innerText = "⏸";
+      }
+  }
+
+	// 이동 함수
+	function jumpTo(targetId) {
+		const targetElement = document.querySelector(targetId);
+		const track = document.querySelector('.marquee-track');
+		
+		if (targetElement && track) {
+			// 1. 이동하는 동안 일시적으로 애니메이션을 멈춤 (정확한 위치 조준용)
+			track.classList.add('stop'); 
+
+			// 2. 해당 영역으로 부드럽게 스크롤 점프
+			targetElement.scrollIntoView({
+				behavior: 'smooth',
+				block: 'nearest',
+				inline: 'center' // 화면 중앙에 배치
+			});
+
+			// 3. [핵심 추가] 이동이 끝날 때쯤(1초 뒤) 자동으로 멈춤을 풀고 재생 시작!
+			setTimeout(() => {
+				// 만약 사용자가 '일시정지 버튼'을 눌러서 완전히 멈춘 상태가 아니라면 다시 재생
+				// (컨트롤러의 일시정지 상태 변수가 있다면 조건문에 함께 활용하셔도 좋습니다)
+				track.classList.remove('stop');
+			}, 500); // 1000ms = 1초 (이동 시간에 맞춰 조절 가능)
+		}
+	}
+
+
+</script>
+
+
+</body>
+</html>
