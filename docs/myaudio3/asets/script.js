@@ -160,7 +160,9 @@ const app = new Vue({
       const loadedTracks = [];
 
       for (let file of files) {
-        if (!file.name.toLowerCase().endsWith('.mp3')) continue;
+        const isAudio = /\.(mp3|wav|ogg|m4a|aac|flac|webm)$/i.test(file.name);
+		if (!isAudio) continue;
+		//if (!file.name.toLowerCase().endsWith('.mp3')) continue;
 
         const relativePath = file.webkitRelativePath;
         const pathParts = relativePath.split('/');
