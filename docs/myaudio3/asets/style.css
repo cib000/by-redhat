@@ -1,0 +1,627 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   BODY LAYOUT (좌측 5% 기준 flex 나란히 배치)
+   ========================================== */
+body {
+  color: #fff;
+  background-color: #3a3a3a;
+  background-image: url('./imgs/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  
+  display: flex !important;
+  justify-content: flex-start !important; /* 좌측 기준 배치 */
+  align-items: center !important;         /* 세로 중앙 정렬 */
+  padding-left: 5% !important;            /* 플레이어 좌측 5% 여백 */
+  gap: 10% !important;                    /* 🔥 플레이어와 목록 사이 10% 여백 생성 */
+  overflow: hidden;
+}
+
+/* 폴더 선택 컨트롤 영역 (플레이어 최상단 배치) */
+.folder-select-bar {
+  position:fixed;
+  top:10px;
+  left:5%; 
+  max-width: 50rem; 
+  padding: 12px; 
+  background: rgba(0,0,0,0.5); 
+  color:#E0E0E0; 
+  border-radius: 15px; 
+  text-align: center; 
+  /*width: 100%; */
+  padding: 10px 30px;
+  margin-bottom: 15px; /* 제목 영역과의 여백 */
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.folder-select-bar button {
+  border-radius: 20px;	
+  padding: 8px 16px; 
+  font-size: 1.4rem; 
+  cursor: pointer; 
+  background: #27ae60; 
+  color: #000; 
+  border: none; 
+  border-radius: 24px;"
+}
+
+
+/*
+ style="position:fixed; top:10px; left:5%; max-width: 50rem; padding: 12px; background: rgba(0,0,0,0.5); 
+			color:#E0E0E0; border-radius: 15px; text-align: center; color: #fff;">
+*/			
+
+/* SCREEN READER ONLY */
+.-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  white-space: nowrap !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+}
+
+/* Vue v-cloak */
+[v-cloak] {
+  display: none;
+}
+
+/* ==========================================
+   [좌측] PLAYER MAIN CONTAINER (세로 3.5등분)
+   ========================================== */
+.player {
+  --colorText: #ccc;
+  --bgProgress: hsl(214, 82%, 59%);
+  --bgTrack: hsla(214, 30%, 72%, 0.5);
+  --bgTravel: hsl(214, 30%, 72%);
+  --bgThumb: #fff;
+  --whrThumb: 1.25rem;
+  --colorContrastWCAG: drop-shadow(0 0 2px #000);
+  
+  --gray-1: #000000; /* 완전 검정 */
+  --gray-2: #1c1c1c;
+  --gray-3: #383838;
+  --gray-4: #555555;
+  --gray-5: #717171;
+  --gray-6: #8e8e8e;
+  --gray-7: #aaaaaa;
+  --gray-8: #c7c7c7;
+  --gray-9: #e4e4e4;
+  --gray-10: #ffffff; /* 완전 흰색 */
+  --colorText-0: #E0E0E0; /* 눈이 훨씬 편안한 소프트 화이트 */
+  --colorText-1: #F5F5F0;
+  --colorText-2: #CCCCCC;
+  --colorText-3: #E8E6E3;
+
+  position: relative !important; /* 모달의 위치 기준점 역할을 함 */
+  display: flex;
+  flex-direction: column;
+  width: 40vw;         /* 45vw -> 40vw로 살짝 축소 */
+  min-width: 320px;
+  max-width: 480px;
+  height: 85vh;
+  max-height: 700px;
+  padding: 24px;
+  margin: 0 !important; /* 마진 오버라이드 방지 */
+  
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  font-family: sans-serif;
+  color: var(--colorText);
+  /* position: relative; */
+  flex-shrink: 0; /* 크기 축소 방지 */
+}
+
+/* --- [1구역] 제목 영역 (비율: 1) --- */
+.transition_cover {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.cover {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover_copy {
+  text-align: center;
+  width: 100%;
+}
+
+.cover_title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #717171;   /*  #000000  #1C1C1C  #383838  #555555  #717171  #8E8E8E   #AAAAAA   #C7C7C7  #E4E4E4   #FFFFFF  */
+  margin: 0;
+  text-align: center;
+  filter: var(--colorContrastWCAG);
+  word-break: break-all;
+}
+
+/* --- [2구역] 재생 / 음소거, 볼륨 (비율: 1 - 균등 배치) --- */
+.controls-volume {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.btn-play {
+  width: 4.5rem !important;
+  height: 4.5rem !important;
+  font-size: 2rem !important;
+  background-color: rgba(65, 140, 236, 0.85) !important;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  margin: 0 !important;
+  flex-shrink: 0;
+}
+
+.btn-play:hover {
+  color: #f00;
+  transform: scale(1.08);
+  background-color: rgba(65, 140, 236, 1) !important;
+}
+
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 200px;
+  margin: 0 !important;
+}
+
+.btn-mute {
+  width: 2.8rem !important;
+  height: 2.8rem !important;
+  font-size: 1.2rem !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+  position: static !important;
+  margin: 0 !important;
+}
+
+.btn-mute:hover {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.range_input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 0.4rem;
+  border-radius: 0.2rem;
+  background: var(--bgTrack); /* background: #2ecc71 !important; */
+  outline: none;
+  margin: 0 !important;
+}
+
+.range_input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #2ecc71 !important; /* background: var(--bgThumb); */
+  cursor: pointer;
+}
+
+/* 파이어폭스용 */
+.range_input[type=range]::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #2ecc71 !important; /* 녹색 */
+  cursor: pointer;
+  border: none;
+}
+
+/* --- [3구역] 이전 / 슬라이더 / 다음 (비율: 1) --- */
+.controls-track {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+}
+
+.btn-prev,
+.btn-next {
+  width: 3.2rem;
+  height: 3.2rem;
+  font-size: 1.2rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-prev:hover,
+.btn-next:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.progress {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.progress_bar {
+  width: 100%;
+  cursor: pointer;
+  margin: 0;
+}
+
+.progress_current {
+  width: 100%;
+  height: 0.6rem;
+  background-color: #4a4a4a !important; ; /* background-color: #ff6b81 !important; /* 분홍색 */  */
+  border: 0;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.progress_current::-webkit-progress-bar {
+  border-radius: 0.3rem;
+  /* background-color: #ff6b81 !important; /* 분홍색   background-color: var(--bgTrack);  */
+  background-color: #4a4a4a !important; /* 바탕 트랙: 어두운 회색 */
+}
+
+.progress_current::-webkit-progress-value {
+  border-radius: 0.3rem;
+  background-color: var(--bgProgress);
+}
+
+/* 파이어폭스 진행된 부분 채우기 */
+.progress_current::-moz-progress-bar {
+  border-radius: 0.3rem;
+  background-color: #ff6b81 !important; /* 분홍색 */
+}
+
+/* 2. 실제 진행된 영역 (옅은 분홍색) */
+/* 크롬, 사파리, 엣지용 */
+.progress_current::-webkit-progress-value {
+  border-radius: 0.3rem;
+  background-color: #f7a8b8 !important; /* 옅고 소프트한 인디 핑크 */
+  transition: width 0.1s linear;
+}
+
+/* 파이어폭스용 */
+.progress_current::-moz-progress-bar {
+  border-radius: 0.3rem;
+  background-color: #f7a8b8 !important; /* 옅고 소프트한 인디 핑크 */
+}
+
+.progress_time,
+.progress_duration {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.progress_time {
+  text-align: left;
+}
+
+.progress_duration {
+  text-align: right;
+}
+
+/* --- [0.5구역] 하단 플로팅 버튼 바 (비율: 0.5) --- */
+.floating-bar {
+  flex: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+  position: static !important; /* absolute 해제 */
+}
+
+.float-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease;
+}
+
+.float-btn:hover {
+  background: rgba(65, 140, 236, 0.8);
+}
+
+
+/* ==========================================
+   [우측] 목록 사이드바 (플레이어 우측에 독립 배치)
+   ========================================== */
+
+/* 덮는 모달 오버레이(fixed)를 완전 해제하고 우측 독립 영역으로 재정의 */
+.modal-overlay {
+  position: absolute !important;
+  top: 0 !important;             /* 플레이어 상단 높이와 완벽히 일치 */
+  left: calc(100% + 10vw) !important; /* 🔥 플레이어 오른쪽 끝(100%)에서 10% 화면 폭만큼 띄움 */
+  
+  width: 52vw !important;        /* 목록 가로 크기 */
+  min-width: 280px !important; */
+  /* max-width: 400px !important; */
+  height: 50% !important;       /* 플레이어와 정확히 똑같은 높이 고정 */
+  max-height: 480px !important;
+  
+  background: transparent !important;
+  display: flex !important;
+  z-index: 9999 !important;      /* 화면 최상단 표시 */
+  margin: 0 !important;
+}
+
+.modal-content {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: 680px !important; /* none !important; */
+  margin: 0 !important;
+  
+  /* 플레이어와 동일한 아크릴 스타일 적용 */
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(12px) !important;
+  border-radius: 24px !important;
+  padding: 24px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+}
+
+.modal-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 15px !important;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: none !important;
+  color: #fff !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background 0.2s ease !important;
+}
+
+.close-btn:hover {
+  font-size: 1.6rem !important;
+  background: rgba(255, 0, 0, 0.55) !important;
+}
+
+/* 트랙 목록 스크롤 */
+.track-list {
+  flex: 1 !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow-y: auto !important;
+  font-size: 1.4rem !important;
+}
+
+.track-list li {
+  padding: 10px 12px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  
+  cursor: pointer !important;
+  border-radius: 8px !important;
+  transition: background 0.2s ease !important;
+}
+
+.track-list li:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.track-list li.active {  /*    현재 재생 중인 트랙 항목 색상 변경  */
+  background: rgba(65, 140, 236, 0.45) !important;
+  color: #fff !important;
+  font-weight: bold !important;
+}
+
+.track-num {
+  opacity: 0.6 !important;
+  width: 25px !important;
+  font-size: 1.3rem !important;
+  color: #f00 !important;
+}
+
+.track-num.active {
+  color: #f00 !important;
+}
+
+
+
+.track-title {
+  font-size: 1.4rem !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color:#717171;
+}
+
+.track-title:hover {
+  color:#f00;
+}
+
+/* ==========================================
+
+   ========================================== */
+
+
+/************************************************************************************/
+
+/* 화면 왼쪽 맨 하단 일시 표시 */
+.current-datetime {
+  position: fixed;
+  bottom: 15px;
+  left: 5%;
+  color: rgba(255, 255, 255, 0.75); /* 눈에 부담 없는 반투명 흰색 */
+  font-size: 0.85rem;
+  font-family: sans-serif;
+  letter-spacing: -0.02em;
+  background: rgba(0, 0, 0, 0.3);   /* 약간의 어두운 바탕으로 가독성 확보 */
+  padding: 6px 12px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  pointer-events: none;             /* 클릭 이벤트 방해하지 않음 */
+}
+
+
+/************************************************************************************/
+
+/* ==========================================
+   비디오 패널 (플레이어 우측 배치 & 높이=너비 1:1)
+   ========================================== */
+/*
+.video-panel {
+  position: absolute !important;
+  top: 0 !important;
+  left: calc(100% + 10vw) !important; 
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important; 
+  
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 16px;
+  box-sizing: border-box;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 999;
+}
+
+.video-wrapper {
+  flex: 1;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+
+.video-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+.v-control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.v-control-group label {
+  width: 45px;
+  flex-shrink: 0;
+}
+
+.v-control-group input[type="range"] {
+  flex: 1;
+  height: 4px;
+  accent-color: #418cec;
+  cursor: pointer;
+}
+*/
+
+
