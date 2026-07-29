@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>웹 메모장</title>
+
+	<!-- <link rel="shortcut icon" href="https://cib000.github.io/by-redhat/memo_favicon.ico" > -->
+	<link rel="shortcut icon" href="./memo_favicon.ico" >
+    <!-- 구글 폰트 (Pretendard, NanumSquare, IBM Plex Sans KR, Gmarket Sans 등) 불러오기 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;
+	-->
+	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;600&family=Nanum+Gothic:wght@400;700&family=Nanum+Myeongjo:wght@400;700&family=Nanum+Square+Round:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+	
+	
+<style>
+        /* 기본 (라이트 모드) 배경 및 스타일 */
+        body {
+            background-color: #f4f5f7;
+            background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZQGJwls4ovjuHlqQkbDpJG5g9vBkShB0xaZtFaaTJ2c5p0QgRCEdamGA7&s=10) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            margin: 0;
+            padding: 30px 0;
+            font-family: sans-serif;
+            position: relative;
+            transition: background 0.3s ease;
+        }
+
+        /* 라이트 모드 오버레이 (밝은 배경용 은은한 막) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background-color: rgba(255, 255, 255, 0.4); /* 라이트 모드일 때 살짝 밝게 톤 다운 */
+            z-index: -1;
+            transition: background-color 0.3s ease;
+        }
+
+        #wrapper { width: 80%; margin: 0 auto; display: flex; gap: 20px; box-sizing: border-box; }
+        
+        #list {
+            background-color: #e9ecef; width: 220px; flex-shrink: 0;
+            border: 1px solid #dcedc8; padding: 10px; box-sizing: border-box; border-radius: 6px;
+        }
+
+        .divider { border: none; height: 2px; background-color: #4c6ef5; margin: 12px 0; border-radius: 2px; }
+        #list h3 { text-align: center; color: #495057; }
+
+        .item {
+            padding: 8px; margin-bottom: 5px; background: #ffffff;
+            border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #333;
+        }
+        .item:hover { background: #f1f3f5; }
+
+        #editor { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .top-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .height-control-group { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #495057; }
+
+        .font-btn {
+            padding: 4px 8px; cursor: pointer; font-size: 12px;
+            background-color: #ffffff; border: 1px solid #ced4da; border-radius: 4px; color: #495057;
+        }
+        .font-btn:hover { background-color: #e9ecef; }
+
+        #titleInput, #contentInput {
+            font-size: 16px; padding: 12px; box-sizing: border-box;
+            background-color: #fcfbf9; border: 1px solid #dcd6cd; border-radius: 6px; color: #212529; outline: none;
+        }
+        #titleInput:focus, #contentInput:focus { border-color: #748ffc; box-shadow: 0 0 0 2px rgba(116, 143, 252, 0.15); }
+
+        #contentInput { height: 70vh !important; min-height: 100px; flex: none !important; resize: vertical; }
+
+        #list button, .button-group button { 
+            width: 100%; padding: 8px; margin-bottom: 10px; cursor: pointer; 
+            background-color: #ffffff; border: 1px solid #ced4da; border-radius: 4px; font-weight: bold; color: #495057;
+        }
+        .button-group { display: flex; gap: 10px; }
+        .button-group button { flex: 1; }
+        #list button:hover, .button-group button:hover { background-color: #e9ecef; }
+
+
+        /* ==========================================
+           🌙 다크 모드 스타일 (.dark-mode 클래스가 붙을 때)
+           ================================---------- */
+        body.dark-mode::before {
+            background-color: rgba(0, 0, 0, 0.8); /* 배경을 어둡게 덮음 */
+        }
+        body.dark-mode #list {
+            background-color: #1e1e1e;
+            border-color: #333333;
+        }
+        body.dark-mode #list h3 { color: #e0e0e0; }
+        body.dark-mode .divider { background-color: #3b5bdb; }
+        body.dark-mode .item {
+            background: #252526;
+            border-color: #333333;
+            color: #d4d4d4;
+        }
+        body.dark-mode .item:hover { background: #2a2d2e; color: #ffffff; }
+        body.dark-mode .height-control-group { color: #b0b0b0; }
+        body.dark-mode .font-btn, 
+        body.dark-mode #list button, 
+        body.dark-mode .button-group button {
+            background-color: #252526;
+            border-color: #333333;
+            color: #d4d4d4;
+        }
+        body.dark-mode .font-btn:hover, 
+        body.dark-mode #list button:hover, 
+        body.dark-mode .button-group button:hover {
+            background-color: #2a2d2e;
+        }
+        body.dark-mode #titleInput, 
+        body.dark-mode #contentInput {
+            background-color: #1e1e1e;
+            border-color: #333333;
+            color: #e0e0e0;
+        }
+		
+				
+		/* 우측 입력창 및 에디터 (폰트를 body에서 상속받도록 수정) */
+        #titleInput, #contentInput {
+            font-size: 16px; 
+            font-family: inherit; /* ★ 이 부분이 핵심입니다! body 폰트를 그대로 따릅니다. */
+            padding: 12px;
+            box-sizing: border-box;
+            background-color: #1e1e1e;
+            border: 1px solid #333333;
+            border-radius: 6px;
+            color: #e0e0e0;
+            outline: none;
+        }
+	
+	
+    </style>
+
+</head>
+<body class="dark-mode">
+
+    <!-- 전체 컨테이너 -->
+    <div id="wrapper">
+        <!-- 왼쪽 목록부 -->
+        <div id="list">
+            <h3>🔢 글 목록</h3>
+            <button onclick="newItem()" title="닫으면 기록은 사라짐. PC에 저장부터 하세요.">+ 📝 새 글 작성</button>
+            
+            <!-- 확장자 선택 드롭다운 -->
+            <select id="fileExtensionFilter" onchange="changeFileAccept()" style="width: 100%; padding: 6px; margin-bottom: 8px; border-radius: 4px; border: 1px solid #ced4da; font-size: 13px; box-sizing: border-box;">
+                <option value="all">모든 파일 (*.*)</option>
+                <option value=".txt">텍스트 파일 (.txt)</option>
+                <option value=".ini">설정 파일 (.ini)</option>
+                <option value=".cfg">구성 파일 (.cfg)</option>
+                <option value=".dat">데이터 파일 (.dat)</option>
+            </select>
+
+            <!-- 파일 불러오기 버튼 (드롭다운 필터가 적용됨) -->
+            <button onclick="openFileExplorer()">+ 📂 파일 불러오기</button>
+            
+			<!-- 📌 파란색 구분선 추가 -->
+            <hr class="divider">
+			
+            <!-- 숨겨진 실제 파일 인풋 -->
+            <input type="file" id="fileLoader" multiple style="display: none;" onchange="loadLocalFiles(event)">
+
+            <div id="itemContainer"></div>
+        </div>
+
+        <!-- 오른쪽 에디터부 -->
+        <div id="editor">
+            <!-- 에디터 상단 컨트롤 툴바 -->
+            <div class="top-toolbar">
+                <div class="height-control-group">
+                    <span>에디터 높이:</span>
+                    <button onclick="changeEditorHeight(-5)">- 작게</button>
+                    <button onclick="changeEditorHeight(5)">+ 크게</button>
+                </div>
+				
+				<!-- 우측 에디터부 내부 상단 툴바에 버튼 추가 -->
+				<div class="top-toolbar">
+					<div class="editor-header">
+						<!-- 기존 헤더 요소들이 있다면 이 자리에 유지 -->
+					</div>
+					<!-- 🌙 / ☀️ 테마 전환 버튼 -->
+					<button id="themeToggleBtn" class="font-btn" onclick="toggleTheme()">☀️ 전환</button>
+				</div>
+				
+				<div class="editor-header">
+					<!-- 🔠 폰트 선택 콤보박스 -->
+					<select id="fontSelect" class="font-btn" onchange="changeFont()">
+						<option value="sans-serif">기본 고딕 (Sans-serif)</option>
+						<option value="'Nanum Myeongjo', serif">나눔명조 (차분한 바탕체)</option>
+						<option value="'Pretendard', sans-serif">프리텐다드 (Pretendard)</option>
+						<option value="'Malgun Gothic', sans-serif">맑은 고딕</option>
+						<option value="'Nanum Gothic', sans-serif">나눔고딕</option>
+						<option value="'D2Coding', monospace">D2코딩 (코딩용)</option>
+					</select>
+				</div>
+                
+                <div class="editor-header">
+                    <span style="font-size: 12px; color: #6c757d; margin-right: 5px;">글자크기:</span>
+                    <button class="font-btn" onclick="changeFontSize(-2)">-</button>
+                    <button class="font-btn" onclick="resetFontSize()">기본</button>
+                    <button class="font-btn" onclick="changeFontSize(2)">+</button>
+                </div>
+            </div>
+
+            <input type="text" id="titleInput" placeholder="제목을 입력하세요">
+            <textarea id="contentInput" placeholder="내용을 입력하세요"></textarea>
+            
+            <div class="button-group">
+                <button onclick="saveNote()">〓 저장하기 (캐시에 임시 저장)</button>
+                <button onclick="clearCache()" style="background-color: #fff3f3; color: #c92a2a; border-color: #ff8787;">🗑️ 캐시 비우기 (메모 초기화)</button>
+                <button onclick="downloadTxtFile()">💾 PC에 제목.txt 로저장 (다운로드)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let notes = JSON.parse(localStorage.getItem('web_notes')) || [];
+        let currentIndex = null;
+        let currentFontSize = 16;
+
+        // 에디터 영역 외 공간에서 휠로 폰트 크기 조절
+        document.getElementById('editor').addEventListener('wheel', function(event) {
+            const contentInput = document.getElementById('contentInput');
+            if (event.target === contentInput) return; 
+
+            event.preventDefault();
+            if (event.deltaY < 0) {
+                changeFontSize(2);
+            } else {
+                changeFontSize(-2);
+            }
+        }, { passive: false });
+
+        // 페이지가 로드될 때 (저장된 테마와 폰트 불러오기)
+        window.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const themeBtn = document.getElementById('themeToggleBtn');
+            const fontSelect = document.getElementById('fontSelect');
+            
+            // 1. 테마 설정 복원
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                body.classList.remove('dark-mode');
+                if (themeBtn) themeBtn.innerText = '🌙 전환';
+            } else {
+                body.classList.add('dark-mode');
+                if (themeBtn) themeBtn.innerText = '☀️ 전환';
+            }
+
+            // 2. 폰트 설정 복원
+            const savedFont = localStorage.getItem('selectedFont');
+            if (savedFont && fontSelect) {
+                body.style.fontFamily = savedFont;
+                fontSelect.value = savedFont;
+            }
+        });
+
+        // 테마 토글 함수 (기존 유지)  🌙 / ☀️
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeToggleBtn');
+            
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                btn.innerText = '☀️ 전환';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                btn.innerText = '🌙 전환';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // 🔠 폰트 변경 함수
+        function changeFont() {
+            const fontSelect = document.getElementById('fontSelect');
+            const selectedFont = fontSelect.value;
+            
+            // body 전체 및 입력창들에 폰트 적용
+            document.body.style.fontFamily = selectedFont;
+            
+            // 선택한 폰트 기억하기 (새로고침해도 유지)
+            localStorage.setItem('selectedFont', selectedFont);
+        }
+
+
+
+	
+		// 캐시 비우기
+        function clearCache() {
+            if (confirm('저장된 모든 캐시(메모 목록)를 삭제하시겠습니까?\n(PC에 다운로드한 파일은 유지됩니다)')) {
+                localStorage.removeItem('web_notes');
+                notes = [];
+                currentIndex = null;
+                document.getElementById('titleInput').value = '';
+                document.getElementById('contentInput').value = '';
+                renderList();
+                //alert('캐시가 깔끔하게 비워졌습니다.');
+            }
+        }
+
+		// 테마변경
+		function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeToggleBtn');
+            
+            // dark-mode 클래스 토글 (있으면 제거, 없으면 추가)
+            body.classList.toggle('dark-mode');
+            
+            // 버튼 텍스트 변경   🌙 / ☀️
+            if (body.classList.contains('dark-mode')) {
+                btn.innerText = '☀️ 전환';
+            } else {
+                btn.innerText = '🌙 전환';
+            }
+        }
+		
+
+        // 드롭다운에서 형식을 바꿀 때 실행되는 함수
+        function changeFileAccept() {
+            const select = document.getElementById('fileExtensionFilter');
+            const fileInput = document.getElementById('fileLoader');
+            const selectedVal = select.value;
+
+            if (selectedVal === 'all') {
+                fileInput.removeAttribute('accept');
+            } else {
+                fileInput.setAttribute('accept', selectedVal);
+            }
+        }
+        
+        // 파일 불러오기 버튼 클릭 시 탐색기 열기
+        function openFileExplorer() {
+            document.getElementById('fileLoader').click();
+        }
+
+        // PC에서 파일들을 불러와 목록에 추가하는 함수
+        function loadLocalFiles(event) {
+            const files = event.target.files;
+            if (!files.length) return;
+
+            const fileCount = files.length;
+
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    
+                    let fileName = file.name;
+                    let lastDotIndex = fileName.lastIndexOf('.');
+                    
+                    let title = lastDotIndex !== -1 ? fileName.substring(0, lastDotIndex) : fileName;
+                    let extension = lastDotIndex !== -1 ? fileName.substring(lastDotIndex + 1).toLowerCase() : '';
+
+                    notes.push({ 
+                        title: title, 
+                        content: content,
+                        ext: extension
+                    });
+                    
+                    localStorage.setItem('web_notes', JSON.stringify(notes));
+                    renderList();
+
+                    if (index === 0) {
+                        selectNote(notes.length - fileCount);
+                    }
+                };
+
+                reader.readAsText(file, 'utf-8');
+            });
+
+            event.target.value = '';
+            //alert(`${fileCount}개의 파일을 불러왔습니다!`);
+        }
+
+        // 에디터 높이 조절 (vh 단위)
+        function changeEditorHeight(amount) {
+            const editor = document.getElementById('contentInput');
+            if (!editor) return;
+
+            let currentVh = 70;
+            if (editor.style.height && editor.style.height.includes('vh')) {
+                currentVh = parseInt(editor.style.height);
+            } else {
+                currentVh = Math.round((editor.offsetHeight / window.innerHeight) * 100);
+            }
+
+            let newVh = currentVh + amount;
+
+            if (newVh < 20) newVh = 20;
+            if (newVh > 90) newVh = 90;
+
+            editor.style.setProperty('height', newVh + 'vh', 'important');
+            editor.style.minHeight = newVh + 'vh';
+        }
+
+        function renderList() {
+            const container = document.getElementById('itemContainer');
+            container.innerHTML = '';
+            notes.forEach((note, index) => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                div.textContent = note.title || `제목없음 ${index + 1}`;
+                div.onclick = () => selectNote(index);
+                container.appendChild(div);
+            });
+        }
+
+        function newItem() {
+            currentIndex = null;
+            document.getElementById('titleInput').value = '';
+            document.getElementById('contentInput').value = '';
+            document.getElementById('titleInput').focus();
+        }
+
+        function selectNote(index) {
+            currentIndex = index;
+            document.getElementById('titleInput').value = notes[index].title;
+            document.getElementById('contentInput').value = notes[index].content;
+        }
+
+        function saveNote() {
+            const title = document.getElementById('titleInput').value;
+            const content = document.getElementById('contentInput').value;
+
+            if (!title && !content) return alert('내용을 입력해주세요.');
+
+            if (currentIndex === null) {
+                notes.push({ title, content });
+                currentIndex = notes.length - 1;
+            } else {
+                notes[currentIndex] = { title, content };
+            }
+
+            localStorage.setItem('web_notes', JSON.stringify(notes));
+            renderList();
+            alert('저장되었습니다!');
+        }
+
+        function downloadTxtFile() {
+            const title = document.getElementById('titleInput').value.trim() || '제목없음';
+            const content = document.getElementById('contentInput').value;
+
+            if (!content) return alert('저장할 내용이 없습니다.');
+
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            
+            link.href = URL.createObjectURL(blob);
+            link.download = `${title}.txt`;
+            link.click();
+            
+            URL.revokeObjectURL(link.href);
+        }
+
+        function changeFontSize(step) {
+            currentFontSize += step;
+            if (currentFontSize < 10) currentFontSize = 10;
+            if (currentFontSize > 40) currentFontSize = 40;
+            applyFontSize();
+        }
+
+        function resetFontSize() {
+            currentFontSize = 16;
+            applyFontSize();
+        }
+
+        function applyFontSize() {
+            document.getElementById('titleInput').style.fontSize = currentFontSize + 'px';
+            document.getElementById('contentInput').style.fontSize = currentFontSize + 'px';
+        }
+
+        renderList();
+    </script>
+</body>
+</html>
