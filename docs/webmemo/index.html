@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>웹 메모장</title>
+    <style>
+        /* 브라우저 전체 배경 */
+        body {
+            background-color: #f4f5f7;
+            background: url(https://10wallpaper.com/wallpaper/1366x768/1909/3D_Dark_Line_Abstract_Art_4K_Desktop_1366x768.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            margin: 0;
+            padding: 30px 0;
+            font-family: sans-serif;
+        }
+
+        /* 전체 컨테이너 (80% 너비, 가운데 정렬) */
+        #wrapper {
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 왼쪽 목록부 */
+        #list {
+            background-color: #e9ecef;
+            width: 220px;
+            flex-shrink: 0;
+            border: 1px solid #dcedc8;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 6px;
+        }
+
+		 /* 왼쪽 목록 영역 파란색 구분선 */
+        .divider {
+            border: none;
+            height: 2px;
+            background-color: #4c6ef5; /* 파란색 계열 포인트 컬러 */
+            margin: 12px 0;            /* 위아래 여백 */
+            border-radius: 2px;        /* 끝을 살짝 둥글게 */
+        }
+
+        #list h3 { 
+            text-align: center;
+            color: #495057;
+        }
+
+        .item {
+            padding: 8px;
+            margin-bottom: 5px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #333;
+        }
+        .item:hover { background: #f1f3f5; }
+
+        /* 우측 에디터부 */
+        #editor {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+
+        /* 높이 조절과 글자크기 조절을 한 줄에 배치하기 위한 부모 바 */
+        .top-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: nowrap;
+        }
+
+        .editor-header {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .height-control-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0;
+            font-size: 14px;
+            color: #495057;
+        }
+
+        .font-btn {
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 12px;
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            color: #495057;
+        }
+        .font-btn:hover { background-color: #e9ecef; }
+
+        #titleInput, #contentInput {
+            font-size: 16px; 
+            padding: 12px;
+            box-sizing: border-box;
+            background-color: #fcfbf9;
+            border: 1px solid #dcd6cd;
+            border-radius: 6px;
+            color: #212529;
+            outline: none;
+        }
+        
+        #titleInput:focus, #contentInput:focus {
+            border-color: #748ffc;
+            box-shadow: 0 0 0 2px rgba(116, 143, 252, 0.15);
+        }
+
+        /* 에디터 기본 높이 및 리사이즈 설정 */
+        #contentInput {
+            height: 70vh !important;
+            min-height: 100px;
+            flex: none !important;
+            resize: vertical;
+        }
+
+        #list button { 
+            width: 100%; 
+            padding: 8px; 
+            margin-bottom: 10px; 
+            cursor: pointer; 
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #495057;
+        }
+        #list button:hover { background-color: #e9ecef; }
+
+        .button-group { 
+            display: flex; 
+            gap: 10px; 
+        }
+
+        .button-group button { 
+            flex: 1; 
+            padding: 10px; 
+            cursor: pointer; 
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #495057;
+        }
+        .button-group button:hover { background-color: #e9ecef; }
+    </style>
+</head>
+<body>
+
+    <!-- 전체 컨테이너 -->
+    <div id="wrapper">
+        <!-- 왼쪽 목록부 -->
+        <div id="list">
+            <h3>🔢 글 목록</h3>
+            <button onclick="newItem()" title="닫으면 기록은 사라짐. PC에 저장부터 하세요.">+ 📝 새 글 작성</button>
+            
+            <!-- 확장자 선택 드롭다운 -->
+            <select id="fileExtensionFilter" onchange="changeFileAccept()" style="width: 100%; padding: 6px; margin-bottom: 8px; border-radius: 4px; border: 1px solid #ced4da; font-size: 13px; box-sizing: border-box;">
+                <option value="all">모든 파일 (*.*)</option>
+                <option value=".txt">텍스트 파일 (.txt)</option>
+                <option value=".ini">설정 파일 (.ini)</option>
+                <option value=".cfg">구성 파일 (.cfg)</option>
+                <option value=".dat">데이터 파일 (.dat)</option>
+            </select>
+
+            <!-- 파일 불러오기 버튼 (드롭다운 필터가 적용됨) -->
+            <button onclick="openFileExplorer()">+ 📂 파일 불러오기</button>
+            
+			<!-- 📌 파란색 구분선 추가 -->
+            <hr class="divider">
+			
+            <!-- 숨겨진 실제 파일 인풋 -->
+            <input type="file" id="fileLoader" multiple style="display: none;" onchange="loadLocalFiles(event)">
+
+            <div id="itemContainer"></div>
+        </div>
+
+        <!-- 오른쪽 에디터부 -->
+        <div id="editor">
+            <!-- 에디터 상단 컨트롤 툴바 -->
+            <div class="top-toolbar">
+                <div class="height-control-group">
+                    <span>에디터 높이:</span>
+                    <button onclick="changeEditorHeight(-5)">- 작게</button>
+                    <button onclick="changeEditorHeight(5)">+ 크게</button>
+                </div>
+                
+                <div class="editor-header">
+                    <span style="font-size: 12px; color: #6c757d; margin-right: 5px;">글자크기:</span>
+                    <button class="font-btn" onclick="changeFontSize(-2)">-</button>
+                    <button class="font-btn" onclick="resetFontSize()">기본</button>
+                    <button class="font-btn" onclick="changeFontSize(2)">+</button>
+                </div>
+            </div>
+
+            <input type="text" id="titleInput" placeholder="제목을 입력하세요">
+            <textarea id="contentInput" placeholder="내용을 입력하세요"></textarea>
+            
+            <div class="button-group">
+                <button onclick="saveNote()">〓 저장하기 (캐시에 임시 저장)</button>
+                <button onclick="clearCache()" style="background-color: #fff3f3; color: #c92a2a; border-color: #ff8787;">🗑️ 캐시 비우기 (메모 초기화)</button>
+                <button onclick="downloadTxtFile()">💾 PC에 제목.txt 로저장 (다운로드)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let notes = JSON.parse(localStorage.getItem('web_notes')) || [];
+        let currentIndex = null;
+        let currentFontSize = 16;
+
+        // 에디터 영역 외 공간에서 휠로 폰트 크기 조절
+        document.getElementById('editor').addEventListener('wheel', function(event) {
+            const contentInput = document.getElementById('contentInput');
+            if (event.target === contentInput) return; 
+
+            event.preventDefault();
+            if (event.deltaY < 0) {
+                changeFontSize(2);
+            } else {
+                changeFontSize(-2);
+            }
+        }, { passive: false });
+
+        // 캐시 비우기
+        function clearCache() {
+            if (confirm('저장된 모든 캐시(메모 목록)를 삭제하시겠습니까?\n(PC에 다운로드한 파일은 유지됩니다)')) {
+                localStorage.removeItem('web_notes');
+                notes = [];
+                currentIndex = null;
+                document.getElementById('titleInput').value = '';
+                document.getElementById('contentInput').value = '';
+                renderList();
+                alert('캐시가 깔끔하게 비워졌습니다.');
+            }
+        }
+
+        // 드롭다운에서 형식을 바꿀 때 실행되는 함수
+        function changeFileAccept() {
+            const select = document.getElementById('fileExtensionFilter');
+            const fileInput = document.getElementById('fileLoader');
+            const selectedVal = select.value;
+
+            if (selectedVal === 'all') {
+                fileInput.removeAttribute('accept');
+            } else {
+                fileInput.setAttribute('accept', selectedVal);
+            }
+        }
+        
+        // 파일 불러오기 버튼 클릭 시 탐색기 열기
+        function openFileExplorer() {
+            document.getElementById('fileLoader').click();
+        }
+
+        // PC에서 파일들을 불러와 목록에 추가하는 함수
+        function loadLocalFiles(event) {
+            const files = event.target.files;
+            if (!files.length) return;
+
+            const fileCount = files.length;
+
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    
+                    let fileName = file.name;
+                    let lastDotIndex = fileName.lastIndexOf('.');
+                    
+                    let title = lastDotIndex !== -1 ? fileName.substring(0, lastDotIndex) : fileName;
+                    let extension = lastDotIndex !== -1 ? fileName.substring(lastDotIndex + 1).toLowerCase() : '';
+
+                    notes.push({ 
+                        title: title, 
+                        content: content,
+                        ext: extension
+                    });
+                    
+                    localStorage.setItem('web_notes', JSON.stringify(notes));
+                    renderList();
+
+                    if (index === 0) {
+                        selectNote(notes.length - fileCount);
+                    }
+                };
+
+                reader.readAsText(file, 'utf-8');
+            });
+
+            event.target.value = '';
+            alert(`${fileCount}개의 파일을 불러왔습니다!`);
+        }
+
+        // 에디터 높이 조절 (vh 단위)
+        function changeEditorHeight(amount) {
+            const editor = document.getElementById('contentInput');
+            if (!editor) return;
+
+            let currentVh = 70;
+            if (editor.style.height && editor.style.height.includes('vh')) {
+                currentVh = parseInt(editor.style.height);
+            } else {
+                currentVh = Math.round((editor.offsetHeight / window.innerHeight) * 100);
+            }
+
+            let newVh = currentVh + amount;
+
+            if (newVh < 20) newVh = 20;
+            if (newVh > 90) newVh = 90;
+
+            editor.style.setProperty('height', newVh + 'vh', 'important');
+            editor.style.minHeight = newVh + 'vh';
+        }
+
+        function renderList() {
+            const container = document.getElementById('itemContainer');
+            container.innerHTML = '';
+            notes.forEach((note, index) => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                div.textContent = note.title || `제목없음 ${index + 1}`;
+                div.onclick = () => selectNote(index);
+                container.appendChild(div);
+            });
+        }
+
+        function newItem() {
+            currentIndex = null;
+            document.getElementById('titleInput').value = '';
+            document.getElementById('contentInput').value = '';
+            document.getElementById('titleInput').focus();
+        }
+
+        function selectNote(index) {
+            currentIndex = index;
+            document.getElementById('titleInput').value = notes[index].title;
+            document.getElementById('contentInput').value = notes[index].content;
+        }
+
+        function saveNote() {
+            const title = document.getElementById('titleInput').value;
+            const content = document.getElementById('contentInput').value;
+
+            if (!title && !content) return alert('내용을 입력해주세요.');
+
+            if (currentIndex === null) {
+                notes.push({ title, content });
+                currentIndex = notes.length - 1;
+            } else {
+                notes[currentIndex] = { title, content };
+            }
+
+            localStorage.setItem('web_notes', JSON.stringify(notes));
+            renderList();
+            alert('저장되었습니다!');
+        }
+
+        function downloadTxtFile() {
+            const title = document.getElementById('titleInput').value.trim() || '제목없음';
+            const content = document.getElementById('contentInput').value;
+
+            if (!content) return alert('저장할 내용이 없습니다.');
+
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            
+            link.href = URL.createObjectURL(blob);
+            link.download = `${title}.txt`;
+            link.click();
+            
+            URL.revokeObjectURL(link.href);
+        }
+
+        function changeFontSize(step) {
+            currentFontSize += step;
+            if (currentFontSize < 10) currentFontSize = 10;
+            if (currentFontSize > 40) currentFontSize = 40;
+            applyFontSize();
+        }
+
+        function resetFontSize() {
+            currentFontSize = 16;
+            applyFontSize();
+        }
+
+        function applyFontSize() {
+            document.getElementById('titleInput').style.fontSize = currentFontSize + 'px';
+            document.getElementById('contentInput').style.fontSize = currentFontSize + 'px';
+        }
+
+        renderList();
+    </script>
+</body>
+</html>
