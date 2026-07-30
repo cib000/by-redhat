@@ -74,6 +74,8 @@
         .button-group { display: flex; gap: 10px; }
         .button-group button { flex: 1; }
         #list button:hover, .button-group button:hover { background-color: #e9ecef; }
+
+		
         /* [다크 모드 전체 적용] body에 dark-mode 클래스가 추가될 때의 스타일 변환 */
         body.dark-mode::before { background-color: rgba(0, 0, 0, 0.8); }
         body.dark-mode #list { background-color: #1e1e1e; border-color: #333333; }
@@ -97,6 +99,101 @@
             background-color: #252526; color: #ff8787; border-color: #552222;
         }
         body.dark-mode #clearchache:hover { background-color: #3a2222; }
+
+/*******************************************************************************************************************/
+
+		@property --rotation {
+		  syntax: '<angle>';
+		  inherits: false;
+		  initial-value: 0deg;
+		}
+
+		/* 제목 입력부 전용으로 조정된 .gemini 클래스 */
+		.gemini {
+		  --border-size: 4px;
+		  --gradient: conic-gradient(from var(--rotation) at 52% 49% in oklab, oklch(0.63 0.2 251.22) 27%, oklch(0.67 0.21 25.81) 33%, oklch(0.9 0.19 93.93) 41%, oklch(0.79 0.25 150.49) 49%, oklch(0.63 0.2 251.22) 65%, oklch(0.72 0.21 150.89) 93%, oklch(0.63 0.2 251.22));
+		  animation: rotate 3s infinite linear;
+		  border-radius: 1.25rem; /* 입력창 크기에 맞게 조절 가능 */
+		  background: none;
+		  position: relative;
+		  padding: 0;
+		  width: 100%;
+		  max-width: 500px; /* 원하는 너비 설정 */
+		  margin-bottom: 1rem;
+		  
+		  &::after {
+			content: '';
+			position: absolute;
+			display: block;
+			width: 100%;
+			height: 100%;
+			background: var(--gradient);
+			top: 50%;
+			left: 50%;
+			translate: -50% -50%;
+			z-index: -1;
+			animation: rotate 5s infinite linear;
+			filter: blur(15px);
+		  }
+		  
+		  .inner {
+			background: light-dark(white, #1a1c1e);
+			color: light-dark(#222, hsl(210, 8%, 66%));
+			padding: 0.001rem 0.001rem;
+			position: relative;
+			z-index: 2;
+			border-radius: inherit;
+			display: flex; /* 그리드 대신 플렉스로 변경하여 input이 꽉 차게 함 */
+			align-items: center;
+			font-family: system-ui;
+		  }
+
+		  .border {
+			position: absolute;
+			inset: calc(var(--border-size) * -1);
+			mask: linear-gradient(white);
+			border-radius: inherit;
+			overflow: hidden;
+
+			&::after {
+			  content: '';
+			  position: absolute;
+			  width: 100%;
+			  height: 100%;
+			  background: var(--gradient);
+			  top: 50%;
+			  left: 50%;
+			  translate: -50% -50%;
+			  z-index: -1;
+			  filter: blur(5px);
+			}
+		  }
+		  
+		  input {
+			width: 100%;
+			color: light-dark(#222, hsl(210, 8%, 66%));
+			background: none;
+			border: none;
+			font-size: 1rem;
+			font-family: system-ui;
+			font-weight: 300;
+			
+			&:focus {
+			  outline: none;
+			}
+			
+			&:not(:placeholder-shown) {
+			  color: light-dark(black, white);
+			}
+		  }
+		}
+
+		@keyframes rotate {
+		  to {
+			--rotation: 360deg;
+		  }
+		}
+
     </style>
 </head>
 <body class="dark-mode">
@@ -148,9 +245,19 @@
                     <button class="font-btn" onclick="changeFontSize(2)">+</button>
                 </div>
             </div>
-            <!-- [텍스트 입력 컨트롤] 제목과 본문 입력 필드 -->
-            <input type="text" id="titleInput" placeholder="제목을 입력하세요">
-            <textarea id="contentInput" placeholder="내용을 입력하세요"></textarea>
+			
+            <!-- [텍스트 입력 컨트롤] 제목과 본문 입력 필드
+			 <input type="text" id="titleInput" placeholder="제목을 입력하세요"> -->
+			<div class="gemini gemini-title-box">
+				<div class="inner">
+					<input type="text" id="titleInput" placeholder="제목을 입력하세요" style="border-radius: 1.25rem;">
+				</div>
+				<div class="border"></div>
+			</div>
+			
+             <textarea id="contentInput" placeholder="내용을 입력하세요"></textarea>
+
+
             <div class="button-group">
                 <button onclick="saveNote()">〓 저장하기 (캐시에 임시 저장)</button>
                 <button onclick="clearCache()" id="clearchache">🗑️ 캐시 비우기 (메모 초기화)</button>
@@ -158,7 +265,10 @@
                 <button onclick="closeWindow()" style="padding: 4px 8px; font-size: 12px; flex: 0.5; background-color: #f8f9fa; color: #495057; border-color: #ced4da;">❌ 창 닫기</button>
             </div>
         </div>
-    </div>    <script>
+    </div>    
+	
+	
+	<script>
         /* [데이터 초기화] 로컬스토리지에서 저장된 메모 목록 불러오기 */
         let notes = JSON.parse(localStorage.getItem('web_notes')) || [];
         let currentIndex = null;
