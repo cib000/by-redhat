@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>웹 메모장 (페이지 모드 & 자동 스크롤 모드)</title>
+    <link rel="shortcut icon" href="./memo_favicon.ico" >
+	
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;600&family=Nanum+Gothic:wght@400;700&family=Nanum+Myeongjo:wght@400;700&family=Nanum+Square+Round:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    
+	<!-- <link rel="stylesheet" type="text/css" href="./style.css"> -->
+	<style>
+	
+	body {
+            background-color: #f4f5f7;
+            background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZQGJwls4ovjuHlqQkbDpJG5g9vBkShB0xaZtFaaTJ2c5p0QgRCEdamGA7&s=10) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            margin: 0;
+            padding: 30px 0;
+            font-family: sans-serif;
+            position: relative;
+            transition: background 0.3s ease;
+            overflow-x: hidden; /* 가로 스크롤(우측 이탈) 원천 차단 */
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            transition: background-color 0.3s ease;
+        }
+        #wrapper { width: 93%; margin: 0 auto; display: flex; gap: 20px; box-sizing: border-box; max-width: 1400px; transition: all 0.3s ease; }
+        
+        #list {
+            background-color: #e9ecef; width: 220px; flex-shrink: 0;
+            border: 1px solid #dcedc8; padding: 10px; box-sizing: border-box; border-radius: 6px;
+            transition: all 0.3s ease; overflow: hidden;
+        }
+        
+		/* 사이드바 접혔을 때 플로팅 스타일로 전환 */
+        #wrapper.sidebar-collapsed {
+            position: relative; /* 자식 요소의 absolute 기준점 설정 */
+        }
+		
+		/* 사이드바 접혔을 때의 스타일 */
+		#wrapper.sidebar-collapsed #list {
+            position: absolute !important;
+            top: -5px !important;
+            left: -40px !important;
+            width: auto !important;
+            z-index: 1000;
+            background-color: transparent; /* #e9ecef; */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 0.3px !important;
+            border-radius: 6px;
+        }
+        /* 사이드바 접혔을 때의 스타일 */
+        #wrapper.sidebar-collapsed #list h3,
+        #wrapper.sidebar-collapsed #list .divider,
+        #wrapper.sidebar-collapsed #list button:not(#sidebarToggleBtn),
+        #wrapper.sidebar-collapsed #list select,
+        #wrapper.sidebar-collapsed #list #itemContainer {
+            display: none !important;
+        }
+
+        .divider { border: none; height: 2px; background-color: #4c6ef5; margin: 12px 0; border-radius: 2px; }
+        #list h3 { text-align: center; color: #495057; }
+        .item {
+            padding: 8px; margin-bottom: 5px; background: #ffffff;
+            border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #333;
+        }
+        .item:hover { background: #f1f3f5; }
+        
+        /* 에디터 영역 레이아웃 이탈 방지 수정 */
+        #editor { display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 0; overflow: hidden; }
+        
+        .top-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; flex-wrap: wrap; gap: 8px; }
+        .height-control-group { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #495057; }
+        .font-btn {
+            padding: 4px 8px; cursor: pointer; font-size: 12px;
+            background-color: #ffffff; border: 1px solid #ced4da; border-radius: 4px; color: #495057;
+        }
+        .font-btn:hover { background-color: #e9ecef; }
+        
+        .mode-select-group {
+            display: flex;
+            background-color: #e9ecef;
+            padding: 3px;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+        }
+        .mode-btn {
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            color: #495057;
+            transition: all 0.2s;
+        }
+        .mode-btn.active {
+            background-color: #4c6ef5;
+            color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #titleInput {
+            font-size: 16px; font-family: inherit; padding: 12px; box-sizing: border-box;
+            background-color: transparent; border: none; color: #212529; outline: none;
+            width: 100%;
+        }
+        
+        .book-container { width: 100%; position: relative; overflow: hidden; }
+
+        #contentInput { 
+            height: 55vh; 
+            min-height: 250px; 
+            transition: transform 0.35s ease, opacity 0.35s ease;
+            overflow-y: auto !important; 
+            font-size: 16px; 
+            line-height: 1.6;
+            font-family: inherit; 
+            padding: 16px; 
+            box-sizing: border-box;
+            background-color: #fcfbf9; 
+            border: 1px solid #dcd6cd; 
+            border-radius: 6px; 
+            color: #212529; 
+            outline: none;
+            width: 100%;
+            max-width: 100%;
+            white-space: pre-wrap; 
+            word-break: break-all;
+        }
+        #contentInput:focus { border-color: #748ffc; box-shadow: 0 0 0 2px rgba(116, 143, 252, 0.15); }
+
+        .page-content-next { transform: translateX(-50px); opacity: 0; }
+        .page-content-prev { transform: translateX(50px); opacity: 0; }
+
+        #pageInfoBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: #fcfbf9;
+            border: 1px solid #dcd6cd;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #495057;
+            box-sizing: border-box;
+        }
+        .page-info-left { display: flex; flex-direction: column; gap: 2px; }
+        
+        .scroll-control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            color: #4c6ef5;
+        }
+        .scroll-control-group button {
+            padding: 4px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #4c6ef5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .scroll-control-group button:hover { background-color: #3b5bdb; }
+
+        .page-nav-group { display: flex; gap: 6px; }
+        .page-nav-btn {
+            padding: 6px 14px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            color: #495057;
+            font-weight: bold;
+        }
+        .page-nav-btn:hover { background-color: #e9ecef; }
+        
+        #currentPageDisplay {
+            font-size: 15px;
+            font-weight: bold;
+            color: #4c6ef5;
+            background-color: rgba(76, 110, 245, 0.08);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(76, 110, 245, 0.2);
+        }
+
+        #list button, .button-group button {
+            width: 100%; padding: 8px; margin-bottom: 10px; cursor: pointer;
+            background-color: #ffffff; border: 1px solid #ced4da; border-radius: 4px; font-weight: bold; color: #495057;
+        }
+        .button-group { display: flex; gap: 10px; }
+        .button-group button { flex: 1; }
+        #list button:hover, .button-group button:hover { background-color: #e9ecef; }
+        
+        /* 모달 창 디자인 */
+        .custom-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;
+            z-index: 9999; backdrop-filter: blur(2px);
+        }
+        .custom-modal {
+            background: #ffffff; padding: 20px; border-radius: 8px; width: 320px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: 1px solid #ced4da;
+        }
+        .custom-modal h4 { margin-top: 0; margin-bottom: 12px; color: #333; font-size: 16px; }
+        .custom-modal select, .custom-modal input {
+            width: 100%; padding: 8px; margin-bottom: 12px; box-sizing: border-box;
+            border: 1px solid #ced4da; border-radius: 4px; font-size: 14px;
+        }
+        .modal-btn-group { display: flex; gap: 8px; justify-content: flex-end; }
+        .modal-btn-group button { padding: 6px 12px; font-size: 13px; font-weight: bold; cursor: pointer; border-radius: 4px; border: 1px solid #ced4da; }
+        .modal-confirm-btn { background-color: #4c6ef5 !important; color: white !important; border: none !important; }
+        .modal-confirm-btn:hover { background-color: #3b5bdb !important; }
+
+        body.dark-mode::before { background-color: rgba(0, 0, 0, 0.8); }
+        body.dark-mode #list { background-color: #1e1e1e; border-color: #333333; }
+        body.dark-mode #list h3 { color: #e0e0e0; }
+        body.dark-mode .divider { background-color: #3b5bdb; }
+        body.dark-mode .item { background: #252526; border-color: #333333; color: #d4d4d4; }
+        body.dark-mode .item:hover { background: #2a2d2e; color: #ffffff; }
+        body.dark-mode .height-control-group { color: #b0b0b0; }
+        body.dark-mode .font-btn, body.dark-mode #list button, body.dark-mode .button-group button, body.dark-mode .page-nav-btn {
+            background-color: #252526; border-color: #333333; color: #d4d4d4;
+        }
+		/* 다크모드일 때 플로팅된 목록 배경 처리 */
+        body.dark-mode #wrapper.sidebar-collapsed #list {
+            background-color: #252526;
+            border-color: #333333;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        /* 접혔을 때 숨겨야 할 내부 요소들 (.sidebar-collapsed #list 안의 자식들) */
+        #wrapper.sidebar-collapsed #list h3,
+        #wrapper.sidebar-collapsed #list .divider,
+        #wrapper.sidebar-collapsed #list button:not(#sidebarToggleBtn),
+        #wrapper.sidebar-collapsed #list select,
+        #wrapper.sidebar-collapsed #list #itemContainer {
+            display: none !important;
+        }
+		
+        body.dark-mode .font-btn:hover, body.dark-mode #list button:hover, body.dark-mode .button-group button:hover, body.dark-mode .page-nav-btn:hover {
+            background-color: #2a2d2e;
+        }
+        body.dark-mode #titleInput, body.dark-mode #contentInput, body.dark-mode #pageInfoBar {
+            background-color: #1e1e1e; border-color: #333333; color: #e0e0e0;
+        }
+        body.dark-mode .mode-select-group { background-color: #252526; border-color: #333333; }
+        body.dark-mode .mode-btn { color: #b0b0b0; }
+        body.dark-mode .mode-btn.active { background-color: #3b5bdb; color: #ffffff; }
+        body.dark-mode .page-info-left { color: #b0b0b0; }
+        body.dark-mode .scroll-control-group { color: #748ffc; }
+        body.dark-mode .scroll-control-group button { background-color: #3b5bdb; }
+        body.dark-mode .scroll-control-group button:hover { background-color: #4c6ef5; }
+        body.dark-mode #currentPageDisplay {
+            color: #748ffc;
+            background-color: rgba(116, 143, 252, 0.15);
+            border-color: rgba(116, 143, 252, 0.3);
+        }
+        body.dark-mode #clearchache {
+            background-color: #252526; color: #ff8787; border-color: #552222;
+        }
+        body.dark-mode #clearchache:hover { background-color: #3a2222; }
+        body.dark-mode .custom-modal { background: #252526; border-color: #333333; color: #e0e0e0; }
+        body.dark-mode .custom-modal h4 { color: #e0e0e0; }
+        body.dark-mode .custom-modal select, body.dark-mode .custom-modal input { background: #1e1e1e; color: #e0e0e0; border-color: #333333; }
+
+       @property --rotation { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+       .gemini { 
+           --border-size: 4px; 
+           --gradient: conic-gradient(from var(--rotation) at 52% 49% in oklab, oklch(0.63 0.2 251.22) 27%, oklch(0.67 0.21 25.81) 33%, oklch(0.9 0.19 93.93) 41%, oklch(0.79 0.25 150.49) 49%, oklch(0.63 0.2 251.22) 65%, oklch(0.72 0.21 150.89) 93%, oklch(0.63 0.2 251.22));
+           animation: rotate 3s infinite linear;
+           border-radius: 1.25rem; background: none; position: relative; padding: 0; width: 100%; margin-bottom: 1rem; 
+           box-sizing: border-box; overflow: hidden; max-width: 100%;
+       }
+       .gemini::after { 
+           content: ""; position: absolute; display: block; width: 100%; height: 100%; background: var(--gradient); top: 50%; left: 50%; translate: -50% -50%; z-index: -1; animation: rotate 5s infinite linear; filter: blur(15px);   
+       }
+       .gemini .inner { 
+           background: light-dark(white, #1a1c1e); color: light-dark(#222, hsl(210, 8%, 66%)); padding: 0.001rem; position: relative; z-index: 2; border-radius: inherit; display: flex; align-items: center; font-family: system-ui;  
+       }
+       .gemini .border { 
+           position:absolute; inset:calc(var(--border-size) * -1); mask:linear-gradient(white); border-radius:inherit; overflow:hidden; 
+       }
+       .gemini .border::after { 
+           content: ""; position: absolute; width: 100%; height: 100%; background: var(--gradient); top: 50%; left: 50%; translate: -50% -50%; z-index: -1; filter: blur(5px); 
+       }
+       .gemini input { width: 100%; color: light-dark(#222, hsl(210, 8%, 66%)); background: none; border: none; font-size: 1rem; font-family: system-ui; font-weight: 300; }
+       .gemini input:focus { outline: none; }
+       .gemini input:not(:placeholder-shown) { color: light-dark(black, white); }
+       @keyframes rotate { to { --rotation: 360deg; } }
+	
+	</style>
+
+</head>
+
+
+<body class="dark-mode">
+    <div id="wrapper">
+
+		<div id="list">
+            <button id="sidebarToggleBtn" onclick="toggleSidebar()" style="margin-bottom: 8px; background-color: #4c6ef5; color: #fff; border: none;">◀ 목록 접기</button>
+            <h3>🔢 글 목록</h3>
+            <button onclick="newItem()">+ 📝 새 글 작성</button>
+            <button onclick="openFileLoadModal()">+ 📂 파일 불러오기</button>
+            <hr class="divider">
+            <input type="file" id="fileLoader" multiple style="display: none;" onchange="loadLocalFiles(event)">
+            <div id="itemContainer"></div>
+        </div>
+
+		
+        <div id="editor">
+            <div class="top-toolbar">
+                <div class="height-control-group">
+                    <span>에디터 높이:</span>
+                    <button onclick="changeEditorHeight(-5)">- 작게</button>
+                    <button onclick="changeEditorHeight(5)">+ 크게</button>
+                </div>
+				
+				<div class="mode-select-group">
+					<button id="btnToggleMode" class="mode-btn active" onclick="toggleViewMode()">📄 보기 모드 : 자동 스크롤</button>
+				</div>
+
+                <div style="display: flex; gap: 5px;">
+                    <button id="themeToggleBtn" class="font-btn" onclick="toggleTheme()">☀️ 전환</button>
+                    <button class="font-btn" onclick="openColorSearch()">색</button>
+                </div>
+                
+                <div class="editor-header">
+                    <select id="fontSelect" class="font-btn" onchange="changeFont()">
+                        <option value="sans-serif">기본 고딕 (Sans-serif)</option>
+                        <option value="'Nanum Myeongjo', serif">나눔명조 (차분한 바탕체)</option>
+                        <option value="'Pretendard', sans-serif">프리텐다드 (Pretendard)</option>
+                        <option value="'Malgun Gothic', sans-serif">맑은 고딕</option>
+                        <option value="'Nanum Gothic', sans-serif">나눔고딕</option>
+                        <option value="'D2Coding', monospace">D2코딩 (코딩용)</option>
+                    </select>
+                </div>
+                <div class="editor-header">
+                    <span style="font-size: 12px; color: #6c757d; margin-right: 5px;">글자크기:</span>
+                    <button class="font-btn" onclick="changeFontSize(-2)">-</button>
+                    <button class="font-btn" onclick="resetFontSize()">기본</button>
+                    <button class="font-btn" onclick="changeFontSize(2)">+</button>
+                </div>
+            </div>
+
+            <div class="gemini gemini-title-box" id="titleWheelArea">
+                <div class="inner">
+                    <input type="text" id="titleInput" placeholder="제목을 입력하세요" style="border-radius: 1.25rem;">
+                </div>
+                <div class="border"></div>
+            </div>
+		
+            <div class="book-container">
+                <div id="contentInput" contenteditable="true" data-placeholder="내용을 입력하세요" oninput="handleEditorInput()"></div>
+            </div>
+			
+            <!-- 1. 페이지 정보 및 네비게이션 바 영역 -->
+            <div id="pageInfoBar">
+				<div class="page-info-left">
+					<span id="charCount">글자수: 0자 (공백 제외 0자)</span>
+					<span id="linePageInfo">총 페이지: 1페이지</span>
+				</div>
+				
+				<div id="scrollToolbar" class="scroll-control-group" style="display: none; align-items: center; gap: 10px;">
+					<div style="display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: normal;">
+						<span>속도:</span>
+						<input type="range" id="scrollSpeedRange" min="0.8" max="10.0" step="0.2" value="1.0" oninput="updateScrollSpeed(this.value)" style="width: 70px; cursor: pointer;">
+						<span id="speedDisplay" style="font-weight: bold; min-width: 32px; text-align: right;">1.0x</span>
+					</div> &emsp;
+					
+					<span id="scrollStatusText" style="font-size: 12px;">자동 스크롤: 정지됨</span>
+					<button id="scrollToggleBtn" onclick="toggleAutoScrollPlay()">▶ 시작</button>
+				</div>
+
+				<div id="currentPageDisplay">1 페이지</div>
+				
+                <div id="pageNavToolbar" class="page-nav-group">
+                    <button class="page-nav-btn" onclick="navigateContentPage('first')">◀◀ 처음</button>
+                    <button class="page-nav-btn" onclick="navigateContentPage(-1)">◀ 이전</button>
+                    <button class="page-nav-btn" onclick="navigateContentPage(1)">다음 ▶</button>
+                    <button class="page-nav-btn" onclick="navigateContentPage('last')">마지막 ▶▶</button>
+                </div>
+            </div> <!-- #pageInfoBar 닫기 -->
+
+            <!-- 2. 하단 저장 및 기능 버튼 그룹 영역 (pageInfoBar 바깥으로 완전히 분리) -->
+            <div class="button-group" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <button onclick="saveNote()" style="padding: 7px 8px; font-size: 13px; cursor: pointer;">
+                    〓 임시저장(캐시에 임시저장)
+                </button>
+
+                <button onclick="clearCache()" id="clearchache" style="padding: 7px 8px; font-size: 13px; cursor: pointer;">
+                🗑️ 캐시 비우기(메모리 초기화)
+                </button>
+
+                <button onclick="openFileSaveModal()" style="padding: 9px 18px; font-size: 13px; font-weight: bold; cursor: pointer; background-color: #4c6ef5; color: white; border: none;">
+                    💾 PC에 저장 (다운로드)
+                </button>
+
+                <button onclick="closeWindow()" style="padding: 5px 8px; font-size: 12px; flex: 0.3; background-color: #f8f9fa; color: #495057; border-color: #ced4da;">❌ 창 닫기</button>
+            </div>
+
+	<!-- partial 
+	<script  src="./script.js"></script> -->
+	
+	<script>
+	
+	        let notes = JSON.parse(localStorage.getItem('web_notes')) || [];
+        let currentIndex = null;
+        let currentFontSize = 16;
+        
+        let fullContentText = "";
+        let currentPageIndex = 0; 
+        let currentMode = 'scroll'; 
+        let currentScrollSpeed = 1.0; 
+        let autoScrollInterval = null;
+        let isAutoScrolling = false;
+
+        /* [마우스 휠 이벤트] 에디터 바깥 영역에서 휠 조작 시 글자 크기 조절 기능 */
+        document.getElementById('editor').addEventListener('wheel', function(event) {
+            const contentInput = document.getElementById('contentInput');
+            if (event.target === contentInput) return;
+            event.preventDefault();
+            if (event.deltaY < 0) { changeFontSize(2); } else { changeFontSize(-2); }
+        }, { passive: false });
+
+
+        const contentInput = document.getElementById('contentInput');
+        const titleWheelArea = document.getElementById('titleWheelArea');
+
+        if (contentInput) {
+            contentInput.addEventListener('wheel', handleWheelZoom, { passive: false });
+        }
+        if (titleWheelArea) {
+            titleWheelArea.addEventListener('wheel', handleWheelZoom, { passive: false });
+        }
+
+        // --- DOM 로드 완료 후 각종 이벤트 리스너 및 초기화 세팅 ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const themeBtn = document.getElementById('themeToggleBtn');
+            const fontSelect = document.getElementById('fontSelect');
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (savedTheme === 'light') {
+                body.classList.remove('dark-mode');
+                if (themeBtn) themeBtn.innerText = '🌙 전환';
+            } else {
+                body.classList.add('dark-mode');
+                if (themeBtn) themeBtn.innerText = '☀️ 전환';
+            }
+            
+            const savedFont = localStorage.getItem('selectedFont');
+            if (savedFont && fontSelect) {
+                body.style.fontFamily = savedFont;
+                fontSelect.value = savedFont;
+            }
+
+            // --- 속도 조절 슬라이더 위 마우스 휠로 속도 증감 기능 ---
+            const speedRangeInput = document.getElementById('scrollSpeedRange');
+            if (speedRangeInput) {
+                speedRangeInput.addEventListener('wheel', function(event) {
+                    event.preventDefault(); 
+                    event.stopPropagation();
+                    
+                    let currentVal = parseFloat(this.value);
+                    let stepVal = parseFloat(this.step) || 0.2;
+                    
+                    if (event.deltaY < 0) {
+                        currentVal = Math.min(parseFloat(this.max) || 10.0, currentVal + stepVal);
+                    } else {
+                        currentVal = Math.max(parseFloat(this.min) || 0.8, currentVal - stepVal);
+                    }
+                    
+                    this.value = currentVal.toFixed(1);
+                    updateScrollSpeed(this.value);
+                }, { passive: false });
+            }
+            
+            toggleViewMode(true); 
+            refreshView();
+        });
+
+
+		
+		// 페이지가 처음 열릴 때 실행
+		window.addEventListener('DOMContentLoaded', () => {
+			const now = new Date();
+			const hours = now.getHours(); // 0 ~ 23
+
+			const htmlElement = document.documentElement;
+
+			// 18시 이후이거나 7시 이전 (18:00 ~ 07:00)
+			if (hours >= 18 || hours < 7) {
+			  htmlElement.classList.add('dark-mode');
+			  htmlElement.classList.remove('light-mode');
+			} else {
+			  // 그 외 낮 시간
+			  htmlElement.classList.add('light-mode');
+			  htmlElement.classList.remove('dark-mode');
+			}
+		});
+
+
+
+
+        // --- 상단 토글형 모드 전환 함수 ---
+        function toggleViewMode(isInit = false) {
+            const toggleBtn = document.getElementById('btnToggleMode');
+            const scrollToolbar = document.getElementById('scrollToolbar'); 
+            const pageNavToolbar = document.getElementById('pageNavToolbar'); 
+            const pageDisplay = document.getElementById('currentPageDisplay'); 
+            const contentDiv = document.getElementById('contentInput');
+
+            if (!isInit) {
+                if (isAutoScrolling) {
+                    stopAutoScroll();
+                }
+                
+                if (currentMode === 'page') {
+                    let pages = splitTextIntoPages(fullContentText);
+                    if (pages.length > 0 && currentPageIndex < pages.length) {
+                        pages[currentPageIndex] = contentDiv.innerText;
+                        fullContentText = pages.join("");
+                    }
+                } else {
+                    fullContentText = contentDiv.innerText;
+                }
+
+                currentMode = (currentMode === 'scroll') ? 'page' : 'scroll';
+            }
+
+            if (currentMode === 'scroll') {
+                if (toggleBtn) {
+                    toggleBtn.innerText = '📄 보기 모드 : 자동 스크롤';
+                    toggleBtn.classList.add('active');
+                }
+                if (scrollToolbar) scrollToolbar.style.display = 'flex'; 
+                if (pageNavToolbar) pageNavToolbar.style.display = 'none';
+                if (pageDisplay) pageDisplay.style.display = 'none';
+                
+                contentDiv.innerText = fullContentText;
+            } else {
+                if (toggleBtn) {
+                    toggleBtn.innerText = '📄 보기 모드 : 페이지 전환모드';
+                    toggleBtn.classList.remove('active');
+                }
+                if (scrollToolbar) scrollToolbar.style.display = 'none'; 
+                if (pageNavToolbar) pageNavToolbar.style.display = 'flex';
+                if (pageDisplay) pageDisplay.style.display = 'block';
+                
+                refreshView(true);
+            }
+            updateInfoBarOnly();
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeToggleBtn');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                btn.innerText = '☀️ 전환';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                btn.innerText = '🌙 전환';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function openColorSearch() { window.open('https://www.google.com/search?q=%23fcfbf9&ie=UTF-8','_blank'); }
+
+        function changeFont() {
+            const fontSelect = document.getElementById('fontSelect');
+            const selectedFont = fontSelect.value;
+            document.body.style.fontFamily = selectedFont;
+            localStorage.setItem('selectedFont', selectedFont);
+            refreshView();
+        }
+
+        function clearCache() {
+            if (confirm('저장된 모든 캐시(메모 목록)를 삭제하시겠습니까?')) {
+                localStorage.removeItem('web_notes');
+                notes = [];
+                currentIndex = null;
+                document.getElementById('titleInput').value = '';
+                fullContentText = "";
+                currentPageIndex = 0;
+                document.getElementById('contentInput').innerText = '';
+                stopAutoScroll();
+                renderList();
+                refreshView();
+            }
+        }
+
+        function changeFileAccept() {
+            const select = document.getElementById('fileExtensionFilter');
+            const fileInput = document.getElementById('fileLoader');
+            if (select.value === 'all') { fileInput.removeAttribute('accept'); }
+            else { fileInput.setAttribute('accept', select.value); }
+        }
+
+        function openFileExplorer() { document.getElementById('fileLoader').click(); }
+
+        function loadLocalFiles(event) {
+            const files = event.target.files;
+            if (!files.length) return;
+            const fileCount = files.length;
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    let fileName = file.name;
+                    let lastDotIndex = fileName.lastIndexOf('.');
+                    let title = lastDotIndex !== -1 ? fileName.substring(0, lastDotIndex) : fileName;
+                    notes.push({ title: title, content: content });
+                    localStorage.setItem('web_notes', JSON.stringify(notes));
+                    renderList();
+                    if (index === 0) { selectNote(notes.length - fileCount); }
+                };
+                reader.readAsText(file, 'utf-8');
+            });
+            event.target.value = '';
+        }
+
+
+
+        function changeEditorHeight(amount) {
+            const editor = document.getElementById('contentInput');
+            if (!editor) return;
+            let currentVh = parseInt(editor.style.height) || 55;
+            let newVh = currentVh + amount;
+            if (newVh < 30) newVh = 30;
+            if (newVh > 90) newVh = 90;
+            editor.style.height = newVh + 'vh';
+            editor.style.minHeight = newVh + 'vh';
+            refreshView();
+        }
+
+        function renderList() {
+            const container = document.getElementById('itemContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            notes.forEach((note, index) => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                div.textContent = note.title || `제목없음 ${index + 1}`;
+                div.onclick = () => selectNote(index);
+                container.appendChild(div);
+            });
+        }
+
+        function newItem() {
+            currentIndex = null;
+            document.getElementById('titleInput').value = '';
+            fullContentText = "";
+            currentPageIndex = 0;
+            document.getElementById('contentInput').innerText = '';
+            stopAutoScroll();
+            if (currentMode === 'scroll') toggleViewMode();
+            document.getElementById('titleInput').focus();
+            refreshView();
+        }
+
+        function selectNote(index) {
+            currentIndex = index;
+            document.getElementById('titleInput').value = notes[index].title;
+            fullContentText = notes[index].content || "";
+            currentPageIndex = 0;
+            stopAutoScroll();
+            if (currentMode === 'scroll') {
+                document.getElementById('contentInput').innerText = fullContentText;
+            } else {
+                refreshView();
+            }
+        }
+
+        function handleEditorInput() {
+            const contentDiv = document.getElementById('contentInput');
+            if (currentMode === 'page') {
+                let pages = splitTextIntoPages(fullContentText);
+                if (pages.length === 0) pages = [""];
+                pages[currentPageIndex] = contentDiv.innerText;
+                fullContentText = pages.join("");
+            } else {
+                fullContentText = contentDiv.innerText;
+            }
+            updateInfoBarOnly();
+        }
+
+        function saveNote() {
+            const title = document.getElementById('titleInput').value;
+            const contentDiv = document.getElementById('contentInput');
+            if (currentMode === 'page') {
+                let pages = splitTextIntoPages(fullContentText);
+                if (pages.length > 0) pages[currentPageIndex] = contentDiv.innerText;
+                fullContentText = pages.join("");
+            } else {
+                fullContentText = contentDiv.innerText;
+            }
+
+            if (!title && !fullContentText.trim()) return alert('내용을 입력해주세요.');
+            if (currentIndex === null) {
+                notes.push({ title, content: fullContentText });
+                currentIndex = notes.length - 1;
+            } else {
+                notes[currentIndex] = { title, content: fullContentText };
+            }
+            localStorage.setItem('web_notes', JSON.stringify(notes));
+            renderList();
+            alert('저장되었습니다!');
+        }
+
+		// 안전하게 수정된 다운로드 함수 (에러 발생 시에도 다운로드가 멈추지 않음)
+        async function downloadTxtFile() {
+            const title = document.getElementById('titleInput').value.trim() || '제목없음';
+            const contentDiv = document.getElementById('contentInput');
+            
+            if (currentMode === 'page') {
+                let pages = splitTextIntoPages(fullContentText);
+                if (pages.length > 0) pages[currentPageIndex] = contentDiv.innerText;
+                fullContentText = pages.join("");
+            } else {
+                fullContentText = contentDiv.innerText;
+            }
+
+            if (!fullContentText.trim()) return alert('저장할 내용이 없습니다.');
+
+            const extSelectElem = document.getElementById('fileExt');
+            const fileExt = extSelectElem ? extSelectElem.value : 'txt';
+
+            let contentToSave = fullContentText;
+            let mimeType = 'text/plain;charset=utf-8';
+
+            // 만약 HTML 저장이고 에디터에 이미지가 있다면 변환 시도
+            if (fileExt === 'html') {
+                mimeType = 'text/html;charset=utf-8';
+                let editableContainer = contentDiv.cloneNode(true);
+                const imgTags = editableContainer.querySelectorAll('img');
+
+                // 이미지 변환 중 에러가 나도 절대 멈추지 않도록 try-catch 처리
+                try {
+                    for (const img of imgTags) {
+                        const imgSrc = img.src;
+                        if (imgSrc && !imgSrc.startsWith('data:image')) {
+                            const response = await fetch(imgSrc);
+                            const blob = await response.blob();
+                            const base64Data = await new Promise((resolve) => {
+                                const reader = new FileReader();
+                                reader.onloadend = () => resolve(reader.result);
+                                reader.readAsDataURL(blob);
+                            });
+                            img.src = base64Data;
+                        }
+                    }
+                } catch (err) {
+                    console.log('이미지 변환 중 로컬 보안 제한 등으로 일부 생략됨:', err);
+                }
+                
+                contentToSave = `
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>${title}</title>
+
+<style>
+body{
+    margin:20px;
+    background:#f0f0f0;
+    font-family:"맑은 고딕",sans-serif;
+}
+
+.memo{
+    width:900px;          /* 원하는 폭 */
+    max-width:95%;
+    margin:auto;
+    padding:20px;
+    background:#fff;
+    border:1px solid #ccc;
+    border-radius:8px;
+    box-sizing:border-box;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="memo">
+${editableContainer.innerHTML}
+</div>
+
+</body>
+</html>`;
+            } else {
+                // txt, cfg, dat 등은 순수 텍스트로 안전하게 처리
+                contentToSave = fullContentText;
+                mimeType = 'text/plain;charset=utf-8';
+            }
+
+            // [핵심] 어떤 상황에서도 무조건 실행되는 파일 다운로드 트리거
+            try {
+                const blob = new Blob([contentToSave], { type: mimeType });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `${title}.${fileExt}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            } catch (e) {
+                alert('다운로드 중 오류가 발생했습니다: ' + e.message);
+            }
+        }
+
+        function closeWindow() {
+            if (confirm('메모장을 닫으시겠습니까?')) {
+                window.close();
+            }
+        }
+
+        function changeFontSize(step) {
+            currentFontSize += step;
+            if (currentFontSize < 10) currentFontSize = 10;
+            if (currentFontSize > 36) currentFontSize = 36;
+            
+            applyFontSize();
+            refreshView();
+        }
+
+        function resetFontSize() {
+            currentFontSize = 16;
+            applyFontSize();
+            refreshView();
+        }
+
+        function applyFontSize() {
+            const titleInput = document.getElementById('titleInput');
+            const contentInput = document.getElementById('contentInput');
+            
+            if (titleInput) {
+                titleInput.style.fontSize = currentFontSize + 'px';
+            }
+            if (contentInput) {
+                contentInput.style.fontSize = currentFontSize + 'px';
+                // 폰트가 커져도 부모 영역 밖으로 튀어나가지 않도록 강제 제한
+                contentInput.style.boxSizing = 'border-box';
+                contentInput.style.maxWidth = '100%';
+            }
+        }
+
+		function splitTextIntoPages(text) {
+            if (!text) return [""];
+            
+            const contentDiv = document.getElementById('contentInput');
+            if (!contentDiv) return [text];
+
+            // 1. 에디터의 실제 내부 높이와 현재 폰트에 따른 줄 높이 계산
+            const editorHeight = contentDiv.clientHeight || 300;
+            const lineHeight = currentFontSize * 1.6; // 폰트 크기에 비례하는 실제 줄 높이 (px)
+            
+            // 2. 에디터 가로 폭에 따라 한 줄에 들어가는 대략적인 글자 수 동적 계산 (폰트가 커지면 한 줄에 들어가는 글자 수가 줄어듦)
+            const editorWidth = contentDiv.clientWidth || 600;
+            const avgCharWidth = currentFontSize * 0.6; // 대략적인 한 글자당 평균 가로 폭 (폰트 크기에 비례)
+            const charsPerLine = Math.max(10, Math.floor(editorWidth / avgCharWidth));
+
+            // 3. 현재 에디터 높이와 폰트 크기에 맞는 '진짜 한 페이지당 최대 줄 수(횡수)' 계산
+            const maxLinesPerPage = Math.max(3, Math.floor((editorHeight - 40) / lineHeight));
+
+            const lines = text.split("\n");
+            let pages = [];
+            let currentChunk = "";
+            let currentLineCount = 0;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                // 폰트 크기에 맞춰 바뀐 글자 수(charsPerLine)를 기준으로 이 줄이 몇 줄을 차지하는지 계산
+                const estimatedSubLines = Math.max(1, Math.ceil((line.length || 1) / charsPerLine));
+
+                // 현재 페이지의 남은 공간보다 이 줄이 차지하는 부피가 크면 다음 페이지로 넘김
+                if (currentLineCount + estimatedSubLines > maxLinesPerPage && currentChunk !== "") {
+                    pages.push(currentChunk);
+                    currentChunk = line + (i < lines.length - 1 ? "\n" : "");
+                    currentLineCount = estimatedSubLines;
+                } else {
+                    currentChunk += line + (i < lines.length - 1 ? "\n" : "");
+                    currentLineCount += estimatedSubLines;
+                }
+            }
+
+            if (currentChunk !== "") {
+                pages.push(currentChunk);
+            }
+
+            return pages.length > 0 ? pages : [""];
+        }
+
+        function refreshView(updateBoxText = true) {
+            if (currentMode !== 'page') return;
+
+            const contentDiv = document.getElementById('contentInput');
+            const pages = splitTextIntoPages(fullContentText);
+            
+            if (currentPageIndex >= pages.length) {
+                currentPageIndex = Math.max(0, pages.length - 1);
+            }
+
+            if (updateBoxText && contentDiv) {
+                contentDiv.innerText = pages[currentPageIndex] || "";
+            }
+
+            updateInfoBarOnly();
+        }
+
+
+		function updateInfoBarOnly() {
+            const pages = splitTextIntoPages(fullContentText);
+            const charCount = fullContentText.length;
+            const charWithoutSpaces = fullContentText.replace(/\s/g, '').length;
+            const totalPages = pages.length;
+
+            const charCountEl = document.getElementById('charCount');
+            const linePageInfoEl = document.getElementById('linePageInfo');
+            const currentPageDisplayEl = document.getElementById('currentPageDisplay');
+
+            if (charCountEl) charCountEl.innerText = `글자수: ${charCount}자 (공백 제외 ${charWithoutSpaces}자)`;
+            if (linePageInfoEl) linePageInfoEl.innerText = `총 페이지: ${totalPages}페이지`;
+            
+            if (currentMode === 'page' && currentPageDisplayEl) {
+                // "1 / 3 페이지" 형식으로 표시
+                currentPageDisplayEl.innerText = `${currentPageIndex + 1} / ${totalPages} 페이지`;
+            }
+        }
+
+
+
+		function navigateContentPage(direction) {
+            if (currentMode !== 'page') return;
+
+            const contentDiv = document.getElementById('contentInput');
+            let pages = splitTextIntoPages(fullContentText);
+            
+            if (pages.length > 0 && currentPageIndex < pages.length) {
+                pages[currentPageIndex] = contentDiv.innerText;
+                fullContentText = pages.join("");
+            }
+
+            pages = splitTextIntoPages(fullContentText);
+            const totalPages = pages.length;
+
+            let targetPage;
+
+            // '처음', '마지막', 그리고 상대 이동(-1, 1) 분기 처리
+            if (direction === 'first') {
+                targetPage = 0;
+            } else if (direction === 'last') {
+                targetPage = totalPages - 1; // 마지막 페이지 인덱스
+            } else {
+                targetPage = currentPageIndex + direction;
+            }
+
+            if (targetPage < 0 || targetPage >= totalPages || targetPage === currentPageIndex) return;
+
+            const effectClass = (direction === 'first' || direction === 'last' || direction > 0) ? 'page-content-next' : 'page-content-prev';
+            if (contentDiv) contentDiv.classList.add(effectClass);
+
+            setTimeout(() => {
+                currentPageIndex = targetPage;
+                refreshView(true);
+                if (contentDiv) {
+                    contentDiv.classList.remove(effectClass);
+                    contentDiv.scrollTop = 0; 
+                }
+            }, 350);
+        }
+
+        function toggleAutoScrollPlay() {
+            if (isAutoScrolling) {
+                stopAutoScroll();
+            } else {
+                startAutoScroll();
+            }
+        }
+
+        function startAutoScroll() {
+            const contentDiv = document.getElementById('contentInput');
+            if (!contentDiv) return;
+            
+            fullContentText = contentDiv.innerText;
+
+            if (!fullContentText.trim()) {
+                //alert('스크롤할 내용이 없습니다.');
+                return;
+            }
+
+            if (contentDiv.scrollHeight <= contentDiv.clientHeight) {
+                alert('내용이 화면 안에 모두 들어와서 스크롤할 필요가 없습니다.');
+                return;
+            }
+
+            isAutoScrolling = true;
+            const scrollToggleBtn = document.getElementById('scrollToggleBtn');
+            const scrollStatusText = document.getElementById('scrollStatusText');
+            if (scrollToggleBtn) scrollToggleBtn.innerText = '⏸ 일시정지';
+            if (scrollStatusText) scrollStatusText.innerText = '자동 스크롤: 재생 중';
+
+            const intervalTime = 20;
+
+            autoScrollInterval = setInterval(() => {
+                if (contentDiv.scrollTop + contentDiv.clientHeight >= contentDiv.scrollHeight - 2) {
+                    stopAutoScroll();
+                    return;
+                }
+                
+                let moveStep = 0.6 * currentScrollSpeed;
+                contentDiv.scrollTop += moveStep;
+                
+            }, intervalTime);
+        }
+
+        
+		function stopAutoScroll() {
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = null;
+            }
+            isAutoScrolling = false;
+            const btn = document.getElementById('scrollToggleBtn');
+            const status = document.getElementById('scrollStatusText');
+            if (btn) btn.innerText = '▶ 시작';
+            if (status) status.innerText = '자동 스크롤: 정지됨';
+        }
+
+
+		// --- 공통 마우스 휠 글자크기 조절 핸들러 (제목부, 본문부 모두 적용) ---
+        function handleWheelZoom(event) {
+            // 만약 현재 모드가 'scroll' (자동 스크롤 모드)이라면 폰트 크기를 바꾸지 않고 기본 스크롤 동작을 허용합니다.
+            if (currentMode === 'scroll') {
+                if (isAutoScrolling) {
+                    stopAutoScroll();
+                }
+                return; // 폰트 변경 로직을 타지 않고 빠져나감 (정상적인 휠 스크롤 작동)
+            }
+            // 페이지 모드일 때만 기존처럼 휠로 폰트 크기 조절
+            if (isAutoScrolling) {
+                stopAutoScroll();
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            if (event.deltaY < 0) { 
+                changeFontSize(2);  // 휠 위로: 글자 확대
+            } else { 
+                changeFontSize(-2); // 휠 아래로: 글자 축소
+            }
+        }
+
+        function updateScrollSpeed(val) {
+            currentScrollSpeed = parseFloat(val);
+            const speedDisplay = document.getElementById('speedDisplay');
+            if (speedDisplay) {
+                speedDisplay.innerText = currentScrollSpeed.toFixed(2) + 'x';
+            }
+        }
+
+        if (contentInput) {
+            contentInput.addEventListener('mousedown', () => {
+                if (isAutoScrolling) stopAutoScroll();
+            });
+        }
+		
+		
+		// --- 1. 사이드바 접기/펼치기 토글 기능 ---
+        function toggleSidebar() {
+            const wrapper = document.getElementById('wrapper');
+            const btn = document.getElementById('sidebarToggleBtn');
+            wrapper.classList.toggle('sidebar-collapsed');
+            
+            if (wrapper.classList.contains('sidebar-collapsed')) {
+                btn.innerText = '▶';
+                btn.title = '목록 펼치기';
+            } else {
+                btn.innerText = '◀ 목록 접기';
+                btn.title = '';
+            }
+        }
+
+        // --- 2. 파일 불러오기 모달 창 기능 ---
+        function openFileLoadModal() {
+            const modalHtml = `
+                <div id="fileModal" class="custom-modal-overlay">
+                    <div class="custom-modal">
+                        <h4>📂 파일 불러오기 형식 선택</h4>
+                        <select id="modalFileAccept">
+                            <option value="*.*">모든 파일 (*.*)</option>
+                            <option value=".txt">텍스트 파일 (.txt)</option>
+                            <option value=".ini">설정 파일 (.ini)</option>
+                            <option value=".cfg">구성 파일 (.cfg)</option>
+                            <option value=".dat">데이터 파일 (.dat)</option>
+                        </select>
+                        <div class="modal-btn-group">
+                            <button onclick="closeModal('fileModal')">취소</button>
+                            <button class="modal-confirm-btn" onclick="confirmFileLoad()">다음</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        function confirmFileLoad() {
+            const acceptVal = document.getElementById('modalFileAccept').value;
+            const fileLoader = document.getElementById('fileLoader');
+            fileLoader.accept = acceptVal === '*.*' ? '' : acceptVal;
+            closeModal('fileModal');
+            fileLoader.click();
+        }
+
+        // --- 3. PC 저장(다운로드) 모달 창 기능 ---
+        function openFileSaveModal() {
+            const currentTitle = document.getElementById('titleInput').value.trim() || '제목없음';
+            const modalHtml = `
+                <div id="saveModal" class="custom-modal-overlay">
+                    <div class="custom-modal">
+                        <h4>💾 PC에 저장하기</h4>
+                        <label style="font-size: 12px; color: #666; display: block; margin-bottom: 4px;">파일 이름</label>
+                <input type="text" id="modalFileName" value="${currentTitle}">
+                        <label style="font-size: 12px; color: #666; display: block; margin-bottom: 4px;">파일 형식</label>
+                        <select id="modalFileExt">
+                            <option value="txt">.txt (텍스트)</option>
+                            <option value="html">.html (웹문서)</option>
+                            <option value="cfg">.cfg (구성파일)</option>
+                            <option value="dat">.dat (데이터)</option>
+                        </select>
+                        <div class="modal-btn-group">
+                            <button onclick="closeModal('saveModal')">취소</button>
+                            <button class="modal-confirm-btn" onclick="confirmFileSave()">다운로드</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        function confirmFileSave() {
+            const fileName = document.getElementById('modalFileName').value.trim() || 'memo';
+            const fileExt = document.getElementById('modalFileExt').value;
+            
+            // 기존 다운로드 함수의 확장자 셀렉트 값을 임시로 동기화 후 실행
+            let extSelectElem = document.getElementById('fileExt');
+            if (!extSelectElem) {
+                extSelectElem = document.createElement('select');
+                extSelectElem.id = 'fileExt';
+                extSelectElem.style.display = 'none';
+                document.body.appendChild(extSelectElem);
+            }
+            extSelectElem.value = fileExt;
+
+            // 기존 제목 입력창 값도 모달에서 입력한 값으로 잠시 반영
+            const titleInput = document.getElementById('titleInput');
+            const originalTitle = titleInput.value;
+            titleInput.value = fileName;
+
+            downloadTxtFile();
+
+            // 원래 제목으로 복원
+            titleInput.value = originalTitle;
+            closeModal('saveModal');
+        }
+
+        // --- 모달 공통 닫기 함수 ---
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.remove();
+        }
+		
+		
+
+        renderList();
+
+	
+	</script>
+	
+</body>
+</html>
