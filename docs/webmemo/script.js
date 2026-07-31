@@ -67,7 +67,7 @@
                     let stepVal = parseFloat(this.step) || 0.1;
                     
                     if (event.deltaY < 0) {
-                        currentVal = Math.min(parseFloat(this.max) || 5.0, currentVal + stepVal);
+                        currentVal = Math.min(parseFloat(this.max) || 10.0, currentVal + stepVal);
                     } else {
                         currentVal = Math.max(parseFloat(this.min) || 1.0, currentVal - stepVal);
                     }
