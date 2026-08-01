@@ -47,18 +47,17 @@
             position: relative; /* 자식 요소의 absolute 기준점 설정 */
         }
 		
-		
 		/* 사이드바 접혔을 때의 스타일 */
 		#wrapper.sidebar-collapsed #list {
             position: absolute !important;
-            top: -7px !important;
+            top: -5px !important;
             left: -40px !important;
             width: auto !important;
             z-index: 1000;
             background-color: transparent; /* #e9ecef; */
-            box-shadow: 0 4px 12px rgba(255,0,0,0.95);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             padding: 0.3px !important;
-            border-radius: 8px;
+            border-radius: 6px;
         }
         /* 사이드바 접혔을 때의 스타일 */
         #wrapper.sidebar-collapsed #list h3,
@@ -68,16 +67,6 @@
         #wrapper.sidebar-collapsed #list #itemContainer {
             display: none !important;
         }
-		
-		
-		/* 사이드바가 접혔을 때, 토글 버튼(#sidebarToggleBtn)에 마우스를 올리면 빙글 돌도록 설정 */
-		#wrapper.sidebar-collapsed #sidebarToggleBtn {
-			transition: transform 0.6s ease-in-out;
-		}
-
-		#wrapper.sidebar-collapsed #sidebarToggleBtn:hover {
-			transform: rotate(360deg);
-		}
 
         .divider { border: none; height: 2px; background-color: #4c6ef5; margin: 12px 0; border-radius: 2px; }
         #list h3 { text-align: center; color: #495057; }
@@ -92,11 +81,9 @@
         #editor { display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 0; overflow: hidden; }
         
         .top-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; flex-wrap: wrap; gap: 8px; }
-        .height-control-group { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #00f; }
-		.pmbtn {font-size: 12px; color:#f00; border-radius: 50%; }
-		
+        .height-control-group { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #495057; }
         .font-btn {
-            padding: 4px 8px; cursor: pointer; font-size: 14px; font-weight: 700;
+            padding: 4px 8px; cursor: pointer; font-size: 12px;
             background-color: #ffffff; border: 1px solid #ced4da; border-radius: 4px; color: #495057;
         }
         .font-btn:hover { background-color: #e9ecef; }
@@ -105,24 +92,24 @@
             display: flex;
             background-color: #e9ecef;
             padding: 3px;
-            border-radius: 10%;
+            border-radius: 6px;
             border: 1px solid #ced4da;
         }
         .mode-btn {
             padding: 6px 14px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
             border: none;
-            background: rgba(49,83,145,0.5) /* transparent; */
-            border-radius: 10%;
+            background: transparent;
+            border-radius: 4px;
             color: #495057;
             transition: all 0.2s;
         }
         .mode-btn.active {
             background-color: #4c6ef5;
             color: #ffffff;
-            box-shadow: 0 2px 4px rgba(49,83,145,0.1) ; /* rgba(0,0,0,0.1); */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         #titleInput {
@@ -341,12 +328,12 @@
             <div class="top-toolbar">
                 <div class="height-control-group">
                     <span>에디터 높이:</span>
-                    <button class="pmbtn" onclick="changeEditorHeight(-5)" title="높이조절 : 줄이기">➖</button>
-                    <button class="pmbtn"  onclick="changeEditorHeight(5)" title="높이조절 : 늘이기">➕</button>
+                    <button onclick="changeEditorHeight(-5)">- 작게</button>
+                    <button onclick="changeEditorHeight(5)">+ 크게</button>
                 </div>
 				
 				<div class="mode-select-group">
-					<button id="btnToggleMode" class="mode-btn active" onclick="toggleViewMode()" title=" 보기 모드 : 자동 스크롤">👀 ⇅</button>
+					<button id="btnToggleMode" class="mode-btn active" onclick="toggleViewMode()">📄 보기 모드 : 자동 스크롤</button>
 				</div>
 
                 <div style="display: flex; gap: 5px;">
@@ -560,10 +547,8 @@
 
             if (currentMode === 'scroll') {
                 if (toggleBtn) {
-                    toggleBtn.innerText = '👀 ⇅';
+                    toggleBtn.innerText = '📄 보기 모드 : 자동 스크롤';
                     toggleBtn.classList.add('active');
-					// 👇 페이지 모드일 때 마우스를 올리면 보일 툴팁
-                    toggleBtn.title = "보기 모드 : 스크롤 (클릭 시 페이지 모드로 전환)"; 
                 }
                 if (scrollToolbar) scrollToolbar.style.display = 'flex'; 
                 if (pageNavToolbar) pageNavToolbar.style.display = 'none';
@@ -572,10 +557,8 @@
                 contentDiv.innerText = fullContentText;
             } else {
                 if (toggleBtn) {
-                    toggleBtn.innerText = '👀 📄';
+                    toggleBtn.innerText = '📄 보기 모드 : 페이지 전환모드';
                     toggleBtn.classList.remove('active');
-					// 👇 페이지 모드일 때 마우스를 올리면 보일 툴팁
-                    toggleBtn.title = "보기 모드 : 페이지 (클릭 시 스크롤 모드로 전환)"; 
                 }
                 if (scrollToolbar) scrollToolbar.style.display = 'none'; 
                 if (pageNavToolbar) pageNavToolbar.style.display = 'flex';
@@ -1120,8 +1103,8 @@ ${editableContainer.innerHTML}
         // --- 2. 파일 불러오기 모달 창 기능 ---
         function openFileLoadModal() {
             const modalHtml = `
-                <div id="fileModal" class="custom-modal-overlay" onclick="closeModal('fileModal', event)">
-                    <div class="custom-modal" onclick="event.stopPropagation();">
+                <div id="fileModal" class="custom-modal-overlay">
+                    <div class="custom-modal">
                         <h4>📂 파일 불러오기 형식 선택</h4>
                         <select id="modalFileAccept">
                             <option value="*.*">모든 파일 (*.*)</option>
@@ -1149,14 +1132,14 @@ ${editableContainer.innerHTML}
         }
 
         // --- 3. PC 저장(다운로드) 모달 창 기능 ---
-		function openFileSaveModal() {
+        function openFileSaveModal() {
             const currentTitle = document.getElementById('titleInput').value.trim() || '제목없음';
             const modalHtml = `
-                <div id="saveModal" class="custom-modal-overlay" onclick="closeModal('saveModal', event)">
-                    <div class="custom-modal" onclick="event.stopPropagation();">
+                <div id="saveModal" class="custom-modal-overlay">
+                    <div class="custom-modal">
                         <h4>💾 PC에 저장하기</h4>
                         <label style="font-size: 12px; color: #666; display: block; margin-bottom: 4px;">파일 이름</label>
-                        <input type="text" id="modalFileName" value="${currentTitle}">
+                <input type="text" id="modalFileName" value="${currentTitle}">
                         <label style="font-size: 12px; color: #666; display: block; margin-bottom: 4px;">파일 형식</label>
                         <select id="modalFileExt">
                             <option value="txt">.txt (텍스트)</option>
@@ -1172,8 +1155,7 @@ ${editableContainer.innerHTML}
                 </div>
             `;
             document.body.insertAdjacentHTML('beforeend', modalHtml);
-        }		
-		
+        }
 
         function confirmFileSave() {
             const fileName = document.getElementById('modalFileName').value.trim() || 'memo';
@@ -1202,25 +1184,9 @@ ${editableContainer.innerHTML}
         }
 
         // --- 모달 공통 닫기 함수 ---
-        /*function closeModal(modalId) {
+        function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) modal.remove();
-        }
-		*/
-		
-		function closeModal(modalId, event) {
-            const modal = document.getElementById(modalId);
-            if (!modal) return;
-
-            // 만약 event가 전달되었고, 클릭한 대상이 모달 배경(자기 자신)인 경우에만 닫기
-            if (event) {
-                if (event.target === modal) {
-                    modal.remove();
-                }
-            } else {
-                // event가 전달되지 않은 경우 (일반 닫기 버튼 등 호출 시) 즉시 삭제
-                modal.remove();
-            }
         }
 		
 		
