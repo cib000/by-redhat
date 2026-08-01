@@ -33,8 +33,7 @@
             z-index: -1;
             transition: background-color 0.3s ease;
         }
-        #wrapper { width: 93%; margin: 0 auto; display: flex; gap: 20px; box-sizing: border-box; 
-				   max-width: 1400px; transition: all 0.3s ease; }
+        #wrapper { width: 93%; margin: 0 auto; display: flex; gap: 20px; box-sizing: border-box; max-width: 1400px; transition: all 0.3s ease; }
         
         #list {
             background-color: #e9ecef; width: 220px; flex-shrink: 0;
@@ -91,29 +90,28 @@
         }
 
         #verticalTextContent {
-            /*
-			writing-mode: vertical-rl; 
+            writing-mode: vertical-rl; 
             text-orientation: upright; 
-			*/
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
             color: #495057;
-            letter-spacing: 10px; 
-            padding-top: 15px; /* 상단 여백 살짝 주기 */
-			padding-left: 5px;
+            letter-spacing: 3px; 
+            padding-top: 5px; /* 상단 여백 살짝 주기 */
         }
+
+
 
 
 
 
         .divider { border: none; height: 2px; background-color: #4c6ef5; margin: 12px 0; border-radius: 2px; }
         #list h3 { text-align: center; color: #495057; }
-        .item { font-size: 0.95rem;
+        .item {
             padding: 8px; margin-bottom: 5px; background: #ffffff;
             border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer;
             overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #333;
         }
-        .item:hover { background: #f1f3f5; transform: scale(1.03);  }
+        .item:hover { background: #f1f3f5; }
         
         /* 에디터 영역 레이아웃 이탈 방지 수정 */
         #editor { display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 0; overflow: hidden; }
@@ -121,13 +119,11 @@
         .top-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; flex-wrap: wrap; gap: 8px; }
         .height-control-group { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #495057; }
         .font-btn {
-            padding: 4px 8px; cursor: pointer; font-size: 12px; 
-            background-color: #CCC; border: 1px solid #ced4da; border-radius: 4px; color: #00F;
+            padding: 4px 8px; cursor: pointer; font-size: 12px;
+            background-color: #ffffff; border: 1px solid #ced4da; border-radius: 4px; color: #495057;
         }
         .font-btn:hover { background-color: #e9ecef; }
         
-		#themeToggleBtn { font-size: 14px; }
-		
         .mode-select-group {
             display: flex;
             background-color: #e9ecef;
@@ -264,12 +260,9 @@
             border: 1px solid #ced4da; border-radius: 4px; font-size: 14px;
         }
         .modal-btn-group { display: flex; gap: 8px; justify-content: flex-end; }
-        .modal-btn-group button { padding: 6px 12px; font-size: 13px; font-weight: bold; 
-				cursor: pointer; border-radius: 4px; border: 1px solid #ced4da; }
+        .modal-btn-group button { padding: 6px 12px; font-size: 13px; font-weight: bold; cursor: pointer; border-radius: 4px; border: 1px solid #ced4da; }
         .modal-confirm-btn { background-color: #4c6ef5 !important; color: white !important; border: none !important; }
         .modal-confirm-btn:hover { background-color: #3b5bdb !important; }
-
-		/*************************************************************/
 
         body.dark-mode::before { background-color: rgba(0, 0, 0, 0.8); }
         body.dark-mode #list { background-color: #1e1e1e; border-color: #333333; }
@@ -306,8 +299,6 @@
         body.dark-mode .custom-modal { background: #252526; border-color: #333333; color: #e0e0e0; }
         body.dark-mode .custom-modal h4 { color: #e0e0e0; }
         body.dark-mode .custom-modal select, body.dark-mode .custom-modal input { background: #1e1e1e; color: #e0e0e0; border-color: #333333; }
-		
-		body.dark-mode .editor-header span { color: #ppp; }
 
 		/* 다크모드 대응 */
         body.dark-mode #wrapper.sidebar-collapsed #list {
@@ -338,13 +329,10 @@
        .gemini .border::after { 
            content: ""; position: absolute; width: 100%; height: 100%; background: var(--gradient); top: 50%; left: 50%; translate: -50% -50%; z-index: -1; filter: blur(5px); 
        }
-	   
        .gemini input { width: 100%; color: light-dark(#222, hsl(210, 8%, 66%)); background: none; border: none; font-size: 1rem; font-family: system-ui; font-weight: 300; }
        .gemini input:focus { outline: none; }
        .gemini input:not(:placeholder-shown) { color: light-dark(black, white); }
        @keyframes rotate { to { --rotation: 360deg; } }	
-	   
-	   /***********************************************************/
 	
 	</style>
 
@@ -386,7 +374,7 @@
 
                 <div style="display: flex; gap: 5px;">
                     <button id="themeToggleBtn" class="font-btn" onclick="toggleTheme()">☀️ 전환</button>
-                    <button class="font-btn" onclick="openColorSearch()" style="margin-left:15px; border-radius:50%;">색</button>
+                    <button class="font-btn" onclick="openColorSearch()">색</button>
                 </div>
                 
                 <div class="editor-header">
@@ -400,10 +388,10 @@
                     </select>
                 </div>
                 <div class="editor-header">
-                    <span style="font-size: 12px; color: #CCC; margin-right: 5px;">글자크기:</span>
-                    <button class="font-btn" onclick="changeFontSize(-2)" style="border-radius:50%;">➖</button>
+                    <span style="font-size: 12px; color: #6c757d; margin-right: 5px;">글자크기:</span>
+                    <button class="font-btn" onclick="changeFontSize(-2)">-</button>
                     <button class="font-btn" onclick="resetFontSize()">기본</button>
-                    <button class="font-btn" onclick="changeFontSize(2)" style="border-radius:50%;">➕</button>
+                    <button class="font-btn" onclick="changeFontSize(2)">+</button>
                 </div>
             </div>
 
@@ -432,8 +420,8 @@
 						<span id="speedDisplay" style="font-weight: bold; min-width: 32px; text-align: right;">1.0x</span>
 					</div> &emsp;
 					
-					<span id="scrollStatusText" style="font-size: 12px;">.</span>
-					<button id="scrollToggleBtn" onclick="toggleAutoScrollPlay()">▶ 자동 스크롤 시작</button>
+					<span id="scrollStatusText" style="font-size: 12px;">자동 스크롤: 정지됨</span>
+					<button id="scrollToggleBtn" onclick="toggleAutoScrollPlay()">▶ 시작</button>
 				</div>
 
 				<div id="currentPageDisplay">1 페이지</div>
@@ -447,7 +435,7 @@
             </div> <!-- #pageInfoBar 닫기 -->
 
             <!-- 2. 하단 저장 및 기능 버튼 그룹 영역 (pageInfoBar 바깥으로 완전히 분리) -->
-            <div class="button-group" style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+            <div class="button-group" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                 <button onclick="saveNote()" style="padding: 7px 8px; font-size: 13px; cursor: pointer;">
                     〓 임시저장(캐시에 임시저장)
                 </button>
@@ -1069,8 +1057,8 @@ ${editableContainer.innerHTML}
             isAutoScrolling = true;
             const scrollToggleBtn = document.getElementById('scrollToggleBtn');
             const scrollStatusText = document.getElementById('scrollStatusText');
-            if (scrollToggleBtn) scrollToggleBtn.innerText = '⏸ 자동 스크롤 일시정지';
-            if (scrollStatusText) scrollStatusText.innerText = '.';
+            if (scrollToggleBtn) scrollToggleBtn.innerText = '⏸ 일시정지';
+            if (scrollStatusText) scrollStatusText.innerText = '자동 스크롤: 재생 중';
 
             const intervalTime = 20;
 
@@ -1095,8 +1083,8 @@ ${editableContainer.innerHTML}
             isAutoScrolling = false;
             const btn = document.getElementById('scrollToggleBtn');
             const status = document.getElementById('scrollStatusText');
-            if (btn) btn.innerText = '▶ 자동 스크롤 시작';
-            if (status) status.innerText = '.';
+            if (btn) btn.innerText = '▶ 시작';
+            if (status) status.innerText = '자동 스크롤: 정지됨';
         }
 
 
@@ -1150,32 +1138,15 @@ ${editableContainer.innerHTML}
                 // 접혔을 때
                 btn.innerText = '▶';
                 btn.title = '목록 펼치기';
-				
-				// 접혔을 때 제목 입력 영역 숨기기
-				if (titleWheelArea) {
-					titleWheelArea.style.display = 'none';
-				}
-				
-				/*
+                
                 if (verticalText) {
                     // 제목이 있으면 제목을, 없으면 "문학작품 읽기" 세로 표시
                     verticalText.innerText = currentTitle ? currentTitle : "문학작품 읽기";
-                }  */
-				
-				if (verticalText) {
-					// 제목이 있으면 "제목 : [제목]", 없으면 "문학작품 읽기"
-					verticalText.innerText = currentTitle ? "제목 - " + currentTitle : "문학작품 읽기";
-				}
-				
+                }
             } else {
                 // 펼쳐졌을 때
                 btn.innerText = '◀ 목록 접기';
                 btn.title = '';
-				
-				// 펼쳐졌을 때 제목 입력 영역 다시 보이기
-				if (titleWheelArea) {
-					titleWheelArea.style.display = 'block'; // 또는 원래 레이아웃에 맞는 값 (예: 'flex' 등)
-				}
             }
         }
 		
