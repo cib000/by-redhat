@@ -7,9 +7,10 @@
 	
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;600&family=Nanum+Gothic:wght@400;700&family=Nanum+Myeongjo:wght@400;700&family=Nanum+Square+Round:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     
+	<!-- link rel="stylesheet" type="text/css" href="./style.css" -->
 	<style>
 	
-			body {
+	body {
             background-color: #f4f5f7;
             background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZQGJwls4ovjuHlqQkbDpJG5g9vBkShB0xaZtFaaTJ2c5p0QgRCEdamGA7&s=10) no-repeat center center fixed;
             -webkit-background-size: cover;
@@ -332,7 +333,7 @@
        .gemini input { width: 100%; color: light-dark(#222, hsl(210, 8%, 66%)); background: none; border: none; font-size: 1rem; font-family: system-ui; font-weight: 300; }
        .gemini input:focus { outline: none; }
        .gemini input:not(:placeholder-shown) { color: light-dark(black, white); }
-       @keyframes rotate { to { --rotation: 360deg; } }	
+       @keyframes rotate { to { --rotation: 360deg; } }
 	
 	</style>
 
@@ -364,12 +365,12 @@
             <div class="top-toolbar">
                 <div class="height-control-group">
                     <span>에디터 높이:</span>
-                    <button class="pmbtn" onclick="changeEditorHeight(-5)" title="높이조절 : 줄이기">➖</button>
-                    <button class="pmbtn"  onclick="changeEditorHeight(5)" title="높이조절 : 늘이기">➕</button>
+                    <button onclick="changeEditorHeight(-5)">- 작게</button>
+                    <button onclick="changeEditorHeight(5)">+ 크게</button>
                 </div>
 				
 				<div class="mode-select-group">
-					<button id="btnToggleMode" class="mode-btn active" onclick="toggleViewMode()" title=" 보기 모드 : 자동 스크롤">👀 ⇅</button>
+					<button id="btnToggleMode" class="mode-btn active" onclick="toggleViewMode()">📄 보기 모드 : 자동 스크롤</button>
 				</div>
 
                 <div style="display: flex; gap: 5px;">
@@ -451,8 +452,8 @@
                 <button onclick="closeWindow()" style="padding: 5px 8px; font-size: 12px; flex: 0.3; background-color: #f8f9fa; color: #495057; border-color: #ced4da;">❌ 창 닫기</button>
             </div>
 
-	<!-- partial
-	<script  src="./script.js"></script> -->
+	<!-- partial 
+	<script  src="./script.js"></script>-->
 	
 	<script>
 	
@@ -583,10 +584,8 @@
 
             if (currentMode === 'scroll') {
                 if (toggleBtn) {
-                    toggleBtn.innerText = '👀 ⇅';
+                    toggleBtn.innerText = '📄 보기 모드 : 자동 스크롤';
                     toggleBtn.classList.add('active');
-					// 👇 페이지 모드일 때 마우스를 올리면 보일 툴팁
-                    toggleBtn.title = "보기 모드 : 스크롤 (클릭 시 페이지 모드로 전환)"; 
                 }
                 if (scrollToolbar) scrollToolbar.style.display = 'flex'; 
                 if (pageNavToolbar) pageNavToolbar.style.display = 'none';
@@ -595,10 +594,8 @@
                 contentDiv.innerText = fullContentText;
             } else {
                 if (toggleBtn) {
-                    toggleBtn.innerText = '👀 📄';
+                    toggleBtn.innerText = '📄 보기 모드 : 페이지 전환모드';
                     toggleBtn.classList.remove('active');
-					// 👇 페이지 모드일 때 마우스를 올리면 보일 툴팁
-                    toggleBtn.title = "보기 모드 : 페이지 (클릭 시 스크롤 모드로 전환)"; 
                 }
                 if (scrollToolbar) scrollToolbar.style.display = 'none'; 
                 if (pageNavToolbar) pageNavToolbar.style.display = 'flex';
@@ -1126,6 +1123,22 @@ ${editableContainer.innerHTML}
 		
 		
 		// --- 1. 사이드바 접기/펼치기 토글 기능 ---
+/*
+        function toggleSidebar() {
+            const wrapper = document.getElementById('wrapper');
+            const btn = document.getElementById('sidebarToggleBtn');
+            wrapper.classList.toggle('sidebar-collapsed');
+            
+            if (wrapper.classList.contains('sidebar-collapsed')) {
+                btn.innerText = '▶';
+                btn.title = '목록 펼치기';
+            } else {
+                btn.innerText = '◀ 목록 접기';
+                btn.title = '';
+            }
+        }
+*/
+
 		function toggleSidebar() {
             const wrapper = document.getElementById('wrapper');
             const btn = document.getElementById('sidebarToggleBtn');
@@ -1153,8 +1166,8 @@ ${editableContainer.innerHTML}
         // --- 2. 파일 불러오기 모달 창 기능 ---
         function openFileLoadModal() {
             const modalHtml = `
-                <div id="fileModal" class="custom-modal-overlay" onclick="closeModal('fileModal', event)">
-                    <div class="custom-modal" onclick="event.stopPropagation();">
+                <div id="fileModal" class="custom-modal-overlay">
+                    <div class="custom-modal">
                         <h4>📂 파일 불러오기 형식 선택</h4>
                         <select id="modalFileAccept">
                             <option value="*.*">모든 파일 (*.*)</option>
@@ -1182,14 +1195,14 @@ ${editableContainer.innerHTML}
         }
 
         // --- 3. PC 저장(다운로드) 모달 창 기능 ---
-		function openFileSaveModal() {
+        function openFileSaveModal() {
             const currentTitle = document.getElementById('titleInput').value.trim() || '제목없음';
             const modalHtml = `
-                <div id="saveModal" class="custom-modal-overlay" onclick="closeModal('saveModal', event)">
-                    <div class="custom-modal" onclick="event.stopPropagation();">
+                <div id="saveModal" class="custom-modal-overlay">
+                    <div class="custom-modal">
                         <h4>💾 PC에 저장하기</h4>
                         <label style="font-size: 12px; color: #666; display: block; margin-bottom: 4px;">파일 이름</label>
-                        <input type="text" id="modalFileName" value="${currentTitle}">
+                <input type="text" id="modalFileName" value="${currentTitle}">
                         <label style="font-size: 12px; color: #666; display: block; margin-bottom: 4px;">파일 형식</label>
                         <select id="modalFileExt">
                             <option value="txt">.txt (텍스트)</option>
@@ -1205,8 +1218,7 @@ ${editableContainer.innerHTML}
                 </div>
             `;
             document.body.insertAdjacentHTML('beforeend', modalHtml);
-        }		
-		
+        }
 
         function confirmFileSave() {
             const fileName = document.getElementById('modalFileName').value.trim() || 'memo';
@@ -1235,25 +1247,9 @@ ${editableContainer.innerHTML}
         }
 
         // --- 모달 공통 닫기 함수 ---
-        /*function closeModal(modalId) {
+        function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) modal.remove();
-        }
-		*/
-		
-		function closeModal(modalId, event) {
-            const modal = document.getElementById(modalId);
-            if (!modal) return;
-
-            // 만약 event가 전달되었고, 클릭한 대상이 모달 배경(자기 자신)인 경우에만 닫기
-            if (event) {
-                if (event.target === modal) {
-                    modal.remove();
-                }
-            } else {
-                // event가 전달되지 않은 경우 (일반 닫기 버튼 등 호출 시) 즉시 삭제
-                modal.remove();
-            }
         }
 		
 		
@@ -1262,6 +1258,7 @@ ${editableContainer.innerHTML}
 
 	
 	</script>
+	
 	
 	
 </body>
