@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로컬 글쓰기 에디터</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1e1e1e 0%, #575551 100%);
+            width: 90vw;
+            max-width: 95vw;
+            min-height: 100vh;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .container {
+            width: 90vw;
+            max-width: 93vw;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1e1e, #764ba2);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 15px 30px; /* 상하 패딩을 살짝 넉넉하게 */
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            
+            /* 핵심: 제목과 버튼을 한 줄로 나란히 정렬 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            width: 35%;
+            font-size: 2.5rem;            
+            -webkit-background-clip: text;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 30px;
+            justify-content: flex-end;
+            flex-wrap: nowrap;
+            /* background: linear-gradient(135deg, #1e1e1e, #764ba2); */
+			background: rgba(118, 75, 162, 0.1);
+            margin-top: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            /* background: linear-gradient(135deg, #1e1e1e, #764ba2); */
+			background: rgba(10, 166, 245, 0.7);
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            /* margin-top: -65px; /* */
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            height: calc(100vh - 230px);
+        }
+
+        .sidebar {
+            background: rgba(105, 104, 102, 0.35);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+            color: #ccc;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 15px;
+            color: #ccc;
+            font-size: 1.2rem;
+        }
+
+        .post-list {
+            list-style: none;
+        }
+
+        .post-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            color: #ccc;
+        }
+
+        .post-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-left-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .post-item.active {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-left-color: #764ba2;
+        }
+
+        .post-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #ccc;
+        }
+
+        .post-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .editor-area {
+            background: rgba(100, 100, 100, 0.55);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-toolbar {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(102, 126, 234, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+			gap: 40px;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 13px;
+			margin-right: 30px;
+        }
+
+        .btn-primary {
+            /* background: linear-gradient(135deg, #667eea, #764ba2); */
+			background: rgba(10, 166, 245, 0.7);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.8);
+            color: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: transparent;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            outline: none;
+            color: #fff;
+        }
+
+        .title-input::placeholder {
+            color: #ddd;
+        }
+
+        .content-editor {
+            flex: 1;
+            padding: 20px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            line-height: 1.6;
+            resize: none;
+            background: transparent;
+            color: #fff;
+        }
+
+        .file-upload-area {
+            margin: 20px;
+            padding: 30px;
+            border: 2px dashed rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            text-align: center;
+            background: rgba(102, 126, 234, 0.05);
+            transition: all 0.3s ease;
+            color: #ddd;
+        }
+
+        .file-upload-area:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .file-upload-area.dragover {
+            border-color: #764ba2;
+            background: rgba(118, 75, 162, 0.1);
+            transform: scale(1.02);
+        }
+
+        .file-list {
+            margin: 20px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 12px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .welcome-screen h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+            font-size: 2rem;
+        }
+
+        .welcome-screen p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .sidebar {
+                order: 2;
+                max-height: 300px;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .header-nav {
+                flex-wrap: wrap;
+            }
+        }
+
+/**************************************************************/
+
+		/* 모달 배경 (어두운 오버레이) */
+		.preview-modal {
+			display: none; /* 평소에는 숨김 */
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.6);
+			z-index: 9999;
+			justify-content: center;
+			align-items: center;
+			backdrop-filter: blur(4px);
+		}
+
+		/* 모달 본체 박스 (축소판 형태의 문서 카드 스타일) */
+		.preview-modal-content {
+			background: #fff;
+			width: 90%;
+			max-width: 850px;
+			height: 85vh;
+			border-radius: 16px;
+			box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+			animation: modalFadeIn 0.3s ease;
+		}
+
+		@keyframes modalFadeIn {
+			from { opacity: 0; transform: translateY(-20px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		/* 모달 상단 헤더 */
+		.preview-modal-header {
+			padding: 20px 25px;
+			background: #f8f9fa;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.preview-modal-header h3 {
+			margin: 0;
+			color: #333;
+			font-size: 1.2rem;
+		}
+		.preview-close-btn {
+			background: none;
+			border: none;
+			font-size: 1.5rem;
+			cursor: pointer;
+			color: #888;
+			font-weight: bold;
+		}
+		.preview-close-btn:hover {
+			color: #000;
+		}
+
+		/* 모달 내부 본문 (스크롤 가능) */
+		.preview-modal-body {
+			padding: 30px;
+			overflow-y: auto;
+			flex: 1;
+			line-height: 1.6;
+			word-break: break-all;
+			color: #444;
+		}
+		.preview-modal-body img {
+			max-width: 100%;
+			height: auto;
+			display: block;
+			margin: 15px 0;
+			border-radius: 8px;
+		}
+		
+		
+		/* 사이드바 접힘 상태일 때 그리드 레이아웃 변경 (사이드바 공간 최소화) */
+        .main-content.sidebar-collapsed {
+            grid-template-columns: 60px 1fr !important;
+        }
+
+        /* 사이드바가 접혔을 때 내부 내용 숨기기 */
+        .main-content.sidebar-collapsed .sidebar h3,
+        .main-content.sidebar-collapsed .post-list {
+            display: none;
+        }
+
+        /* 접혔을 때 사이드바 자체 패딩 조절 */
+        .main-content.sidebar-collapsed .sidebar {
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        /* 목록 접기/펼치기 토글 버튼 스타일 */
+        .sidebar-toggle-btn {
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ccc;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-toggle-btn:hover {
+            background: rgba(102, 126, 234, 0.4);
+            color: #fff;
+        }
+		
+		.main-content.sidebar-collapsed {
+			grid-template-columns: 60px 1fr !important;
+		}
+
+
+
+/**************************************************************/		
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header fade-in">
+            <h1>🖋️ 글쓰기 에디터</h1>
+            <div class="header-nav">
+                <!-- 파일 선택을 위한 숨김 파일 input -->
+				<input type="file" id="txtFileInput" accept=".txt" style="display: none;" onchange="handleTxtFileImport(event)">
+
+				<!-- 기존 버튼 -->
+				<button class="nav-btn" onclick="document.getElementById('txtFileInput').click();">📁 txt 가져오기</button>
+
+				<!-- <button class="nav-btn" onclick="loadtxtfiles()">📁 txt 가져오기</button> -->
+				<button class="nav-btn active" onclick="showEditor()">✍️ 새 글 작성</button>
+                <!-- <button class="nav-btn" onclick="showPosts()">📚 내 글 보기</button>
+                <button class="nav-btn" onclick="showFiles()">📁 파일 관리</button> -->
+				<!-- <button class="btn btn-secondary" onclick="clearAllCache()" style="background: #e74c3c; color: white; border: none;">🗑️ 초기화</button> -->
+				<button class="nav-btn" onclick="deleteCurrentPost()" style="background: #0ff; color: blue; border: none;" title="열람중인 기시글 삭제하기">❌ 이 글삭제</button>
+				<button class="nav-btn active" onclick="clearAllCache()" style="background: #e74c3c; color: white; border: none;" title="로컬 캐시 비우기">🗑️ 초기화</button>
+            </div>
+        </div>
+		
+        <div class="main-content fade-in"  id="mainContent">
+            <div class="sidebar" id="sidebarArea">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleSidebar()">◀ 목록 접기</button>
+				<h3>📝 최근 글</h3>
+                <ul class="post-list" id="postList"></ul>
+            </div>
+
+            <div class="editor-area" id="editorArea">
+                <div class="welcome-screen">
+                    <h2>📣 환영합니다! 🎉</h2>
+                    <p>여기에서 새 글을 작성하거나, 목록의 글을 편집해보세요.</p>
+                    <button class="btn btn-primary" onclick="createNewPost()">새 글 작성하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<!-- 실시간 미리보기 모달 팝업 -->
+	<div id="previewModal" class="preview-modal" onclick="closePreviewModalOutside(event)">
+		<div class="preview-modal-content">
+			<div class="preview-modal-header">
+				<h3>👀 문서 미리보기</h3>
+				<button class="preview-close-btn" onclick="closePreviewModal()">&times;</button>
+			</div>
+			<div class="preview-modal-body">
+				<h1 id="modalPreviewTitle" style="border-bottom: 2px solid #eee; padding-bottom: 15px; color: #333; margin-bottom: 20px;">제목없음</h1>
+				<div id="modalPreviewBody">내용이 없습니다.</div>
+			</div>
+		</div>
+	</div>
+
+
+
+    <script>
+        let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+        let files = JSON.parse(localStorage.getItem('blogFiles') || '[]');
+        let currentPostId = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePostList();
+            if (posts.length === 0) {
+                createSamplePost();
+            }
+        });
+
+        function createSamplePost() {
+            const samplePost = {
+                id: Date.now(),
+                title: '안내 글',
+                content: '로컬 글쓰기 에디터에 오신 것을 환영합니다.\n\n\n여기에서 공유 게시글 게시전 자유롭게 글을 작성하고 편집및 확인 가능.\n\n\n주요 기능:\n\n- 실시간 글 작성 및 편집과 미리보기, 다운로드를 버튼으로 제공\n- 이미지첨부는 이미지주소를 활용하여 해당줄에 이미지주소만을 입력하면 됨.\n- 로컬 다운로드 저장 후에 확인 후 PDF로도 변환 저장이 가능\n- 외...\n\n\n즐거운 글쓰기 되세요! ✨',
+                date: new Date().toLocaleDateString('ko-KR'),
+                files: []
+            };
+            posts.push(samplePost);
+            savePosts();
+            updatePostList();
+        }
+
+        function createNewPost() {
+            currentPostId = null;
+            showPostEditor('', '');
+        }
+
+        function showPostEditor(title = '', content = '') {
+            const editorArea = document.getElementById('editorArea');
+            editorArea.innerHTML = `
+                <div class="editor-toolbar">
+                    <div class="editor-actions">
+                        <button class="btn btn-primary" onclick="savePost()">💾 저장</button>
+                        <button class="btn btn-secondary" onclick="downloadCurrentPost()">📥 PC에 다운로드</button>
+                        <!-- <button class="btn btn-secondary" onclick="downloadPdf()">📄 PDF로 저장</button> -->
+                        <button class="btn btn-secondary" onclick="showWelcome()">📋 목록으로</button>
+						<button class="btn btn-secondary" onclick="openPreviewModal()">👀 미리보기</button>
+						
+						<!-- 글자 크기 조절 버튼 추가 -->
+						<button class="nav-btn" onclick="changeFontSize(1)" onwheel="handleFontWheel(event)" title="글자 크게">A+</button>
+						<button class="nav-btn" onclick="changeFontSize(-1)" onwheel="handleFontWheel(event)" title="글자 작게">A-</button>
+                    </div>
+					
+
+                    <!-- <div>
+                        <input type="file" id="fileInput" multiple style="display: none;" onchange="handleFileUpload()">
+                        <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">📎 파일 첨부</button>
+                    </div> -->
+                </div>
+                <input type="text" class="title-input" placeholder="제목을 입력하세요..." value="${title}" id="postTitle">
+                <textarea class="content-editor" placeholder="내용을 입력하세요..." id="postContent">${content}</textarea>
+                <!--<div class="file-upload-area" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)">
+                    <p>📁 파일을 여기에 드래그하거나 클릭하여 업로드하세요</p>
+                    <small>이미지, 문서, 동영상 등 모든 파일 지원</small>
+                </div>
+				
+				
+                <div class="file-list" id="currentFiles" style="display: none;">
+                    <h4>첨부된 파일:</h4>
+                    <div id="fileItems"></div>
+                </div> -->
+            `;
+            
+            const uploadArea = editorArea.querySelector('.file-upload-area');
+            uploadArea.addEventListener('click', () => {
+                document.getElementById('fileInput').click();
+            });
+
+            updateCurrentFilesList();
+        }
+
+        function savePost() {
+            const title = document.getElementById('postTitle').value.trim();
+            const content = document.getElementById('postContent').value.trim();
+            
+            if (!title) {
+                alert('제목을 입력해주세요.');
+                return;
+            }
+
+            const post = {
+                id: currentPostId || Date.now(),
+                title: title,
+                content: content,
+                date: new Date().toLocaleDateString('ko-KR'),
+                files: currentPostId ? posts.find(p => p.id === currentPostId)?.files || [] : []
+            };
+
+            if (currentPostId) {
+                const index = posts.findIndex(p => p.id === currentPostId);
+                posts[index] = post;
+            } else {
+                posts.unshift(post);
+                currentPostId = post.id;
+            }
+
+            savePosts();
+            updatePostList();
+            
+            const saveBtn = event.target;
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '✅ 저장됨';
+            setTimeout(() => {
+                saveBtn.innerHTML = originalText;
+            }, 2000);
+        }
+
+
+
+/***********************************************************/
+
+
+        // [기능 1] PC에 HTML 파일로 다운로드 (우측 상단 PDF 저장 버튼 포함)
+        async function downloadCurrentPost() {
+            const titleInput = document.getElementById('postTitle');
+            const contentInput = document.getElementById('postContent');
+            
+            const title = titleInput ? titleInput.value.trim() : '제목없음';
+            let contentHtml = contentInput ? contentInput.value.trim() : '';
+            
+            if (!contentHtml) {
+                alert('다운로드할 내용이 없습니다.');
+                return;
+            }
+
+            const urlRegex = /(https?:\/\/[^\s<]+)/gi;
+            let matches = contentHtml.match(urlRegex) || [];
+            
+            let processedContent = contentHtml
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            processedContent = processedContent.replace(/&lt;img([^&]+)&gt;/gi, '<img$1>');
+
+            const imageExtensions = /(png|jpg|jpeg|gif|webp|svg|ico|jfif|avif|bmp|tiff)(\?[^\s<]*)?/i;
+
+            for (let url of matches) {
+                if (url.match(imageExtensions) || url.includes('namu.wiki') || url.includes('blog') || url.includes('img') || url.includes('photo')) {
+                    try {
+                        const response = await fetch(url, { mode: 'cors' });
+                        const blob = await response.blob();
+                        const base64Data = await new Promise((resolve) => {
+                            const reader = new FileReader();
+                            reader.onloadend = () => resolve(reader.result);
+                            reader.readAsDataURL(blob);
+                        });
+                        const escapedUrl = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const regex = new RegExp(escapedUrl, 'g');
+                        processedContent = processedContent.replace(regex, `<img src="${base64Data}" alt="이미지">`);
+                    } catch (e) {
+                        const escapedUrl = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const regex = new RegExp(escapedUrl, 'g');
+                        processedContent = processedContent.replace(regex, `<img src="${url}" alt="이미지">`);
+                    }
+                }
+            }
+
+            processedContent = processedContent.replace(/\n/g, "<br>");
+
+            // HTML 문서 내부에 우측 상단 PDF 저장 버튼 및 인쇄 스타일 적용
+            const finalHtml = `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>${title}</title>
+<style>
+    body { margin: 0; padding: 40px; background: #f4f7f6; font-family: sans-serif; display: flex; justify-content: center; position: relative; }
+    .document-card { width: 100%; max-width: 800px; background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
+    h1 { border-bottom: 2px solid #eee; padding-bottom: 15px; color: #333; margin-bottom: 20px; }
+    .content-body { line-height: 1.6; word-break: break-all; color: #444; }
+    .content-body img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 8px; }
+    
+    /* 우측 상단 PDF 저장 버튼 스타일 */
+    .pdf-save-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        z-index: 1000;
+        transition: transform 0.2s;
+    }
+    .pdf-save-btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* 인쇄할 때는 버튼 숨기기 */
+    @media print {
+        .pdf-save-btn { display: none; }
+        body { background: #fff; padding: 0; }
+        .document-card { box-shadow: none; padding: 0; }
+    }
+</style>
+</head>
+<body>
+
+<button class="pdf-save-btn" onclick="window.print()">📄 PDF로 저장</button>
+
+<div class="document-card">
+    <h1>${title}</h1>
+    <div class="content-body">${processedContent}</div>
+</div>
+
+</body>
+</html>`;
+
+            const safeTitle = (title || '제목없음').replace(/[\\/:*?"<>|]/g, '_');
+            try {
+                const blob = new Blob([finalHtml], { type: 'text/html;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `${safeTitle}.html`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            } catch (e) {
+                alert('오류가 발생했습니다: ' + e.message);
+            }
+        }
+
+        // [기능 2] 에디터 화면에서의 PDF 저장 버튼 (새 창 열기 방식 대신 안내 또는 동일 처리)
+        function downloadPdf() {
+            downloadCurrentPost();
+        }
+
+/***********************************************************/
+
+        // [기능 2] PDF로 저장 (인쇄 창 호출)
+        function downloadPdf() {
+            const titleInput = document.getElementById('postTitle');
+            const contentInput = document.getElementById('postContent');
+            
+            const title = titleInput ? titleInput.value.trim() : '제목없음';
+            let contentHtml = contentInput ? contentInput.value.trim() : '';
+            
+            if (!contentHtml) {
+                alert('저장할 내용이 없습니다.');
+                return;
+            }
+
+            let formattedContent = contentHtml
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\n/g, "<br>");
+
+            formattedContent = formattedContent
+                .replace(/&lt;img/g, "<img")
+                .replace(/&gt;/g, ">")
+                .replace(/&quot;/g, "\"");
+
+            const printWindow = window.open('', '_blank');
+            if (!printWindow) {
+                alert('팝업 차단을 해제해주세요.');
+                return;
+            }
+
+            printWindow.document.write(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>${title}</title>
+<style>
+    body { padding: 20px; font-family: sans-serif; color: #333; }
+    .document-card { max-width: 800px; margin: 0 auto; }
+    h1 { border-bottom: 2px solid #764ba2; padding-bottom: 15px; }
+    .content-body { line-height: 1.6; word-break: break-all; }
+    img { max-width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+<div class="document-card">
+    <h1>${title}</h1>
+    <div class="content-body">${formattedContent}</div>
+</div>
+<script>
+    setTimeout(function() { window.print(); }, 500);
+<\/script>
+</body>
+</html>`);
+            printWindow.document.close();
+        }
+
+/****************************************************************************/
+
+
+// 미리보기 모달 열기 및 실시간 렌더링
+        function openPreviewModal() {
+            const modal = document.getElementById('previewModal');
+            const titleInput = document.getElementById('postTitle');
+            const contentInput = document.getElementById('postContent');
+            
+            const modalTitle = document.getElementById('modalPreviewTitle');
+            const modalBody = document.getElementById('modalPreviewBody');
+
+            const title = titleInput ? titleInput.value.trim() : '제목없음';
+            let contentHtml = contentInput ? contentInput.value.trim() : '';
+
+            modalTitle.textContent = title || '제목없음';
+
+            if (!contentHtml) {
+                modalBody.innerHTML = '<span style="color: #999;">입력된 내용이 없습니다.</span>';
+            } else {
+                // 다운로드 파일과 동일한 방식으로 이미지 및 특수문자 파싱
+                let processedContent = contentHtml
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+
+                processedContent = processedContent.replace(/&lt;img([^&]+)&gt;|&lt;img([^&]+)\/&gt;/gi, '<img$1$2>');
+
+                const imageExtensions = /(png|jpg|jpeg|gif|webp|svg|ico|jfif|avif|bmp|tiff)(\?[^\s<]*)?/i;
+                const urlRegex = /(https?:\/\/[^\s<]+)/gi;
+                let matches = contentHtml.match(urlRegex) || [];
+
+                for (let url of matches) {
+                    if (url.match(imageExtensions) || url.includes('namu.wiki') || url.includes('blog') || url.includes('img') || url.includes('photo')) {
+                        const escapedUrl = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const regex = new RegExp(escapedUrl, 'g');
+                        // 모달 안에서는 웹 주소를 바로 <img> 태그로 매핑하여 미리 표시
+                        processedContent = processedContent.replace(regex, `<img src="${url}" alt="이미지">`);
+                    }
+                }
+
+                processedContent = processedContent.replace(/\n/g, "<br>");
+                modalBody.innerHTML = processedContent;
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        // 미리보기 모달 닫기
+        function closePreviewModal() {
+            const modal = document.getElementById('previewModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        // 모달 바깥 영역(어두운 배경) 클릭 시 닫기
+        function closePreviewModalOutside(event) {
+            const modal = document.getElementById('previewModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+		
+		
+/**********************************************************************************/
+
+		// [기능] 이 에디터와 관련된 로컬 저장소 캐시만 안전하게 비우기
+        function clearAllCache() {
+            if (confirm("⚠️ 정말로 이 에디터에 저장된 모든 글과 파일 데이터를 초기화하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.")) {
+                try {
+                    // 이 에디터 전용 저장소 키만 골라서 삭제
+                    localStorage.removeItem('blogPosts');
+                    localStorage.removeItem('blogFiles');
+                    
+                    // 메모리상의 데이터 변수도 초기화
+                    posts = [];
+                    files = [];
+                    currentPostId = null;
+
+                    //alert("에디터 캐시와 저장된 데이터가 성공적으로 비워졌습니다.");
+                    
+                    // 화면 초기화 및 목록 갱신
+                    updatePostList();
+                    showWelcome();
+                } catch (e) {
+                    alert("초기화 중 오류가 발생했습니다: " + e.message);
+                }
+            }
+        }
+
+
+// [기능] 현재 열람 중인 글 삭제 (목록에서도 즉시 반영)
+        function deleteCurrentPost() {
+            if (!currentPostId) {
+                // 저장되지 않은 새 글 작성 중인 경우 그냥 에디터만 비움
+                const titleInput = document.getElementById('postTitle');
+                const contentInput = document.getElementById('postContent');
+                if (titleInput) titleInput.value = '';
+                if (contentInput) contentInput.value = '';
+                //alert("작성 중이던 내용이 초기화되었습니다.");
+                return;
+            }
+
+            if (confirm("정말로 이 글을 삭제하시겠습니까? 목록에서도 영구히 삭제됩니다.")) {
+                // posts 배열에서 현재 글 제외
+                posts = posts.filter(p => p.id !== currentPostId);
+                
+                // 로컬 스토리지에 변경된 목록 저장
+                savePosts();
+                
+                // 목록 갱신 및 웰컴(목록) 화면으로 이동
+                updatePostList();
+                showWelcome();
+                
+                //alert("글이 삭제되었습니다.");
+            }
+        }
+
+
+
+/***************************************************************************/
+
+		// [기능] 선택한 txt 파일을 제목과 내용으로 불러오고, 자동으로 목록에도 추가 및 저장
+        function handleTxtFileImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // 파일 이름에서 확장자(.txt)를 제거하여 제목으로 사용
+            const fileNameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileContent = e.target.result;
+
+                // 1. 새로운 포스트 객체 생성 (현재 날짜 기준)
+                const newPost = {
+                    id: Date.now(),
+                    title: fileNameWithoutExt,
+                    content: fileContent,
+                    date: new Date().toLocaleDateString('ko-KR'),
+                    files: []
+                };
+
+                // 2. 전체 포스트 목록(posts 배열) 맨 앞에 추가하고 저장
+                posts.unshift(newPost);
+                savePosts();
+                
+                // 3. 사이드바 목록(만약 사용 중이라면) 및 에디터 화면 갱신
+                if (typeof updatePostList === 'function') {
+                    updatePostList();
+                }
+
+                // 4. 에디터에 해당 글 불러오기 (currentPostId를 새로 만든 포스트 ID로 지정)
+                currentPostId = newPost.id;
+                showPostEditor(newPost.title, newPost.content);
+
+                // 5. 미리보기 갱신
+                if (typeof updatePreview === 'function') {
+                    updatePreview();
+                }
+
+                alert(`"${fileNameWithoutExt}" 파일이 성공적으로 임포트되고 목록에 추가되었습니다.`);
+            };
+
+            // 한글 깨짐 방지를 위해 UTF-8 인코딩으로 텍스트 읽기
+            reader.readAsText(file, 'utf-8');
+        }
+
+/*******************************************************************************************/
+
+		// [기능] 사이드바 목록 영역 접기/펼치기 토글
+        function toggleSidebar() {
+			const mainContent = document.getElementById('mainContent');
+			const toggleBtn = document.getElementById('sidebarToggleBtn');
+			
+			// 클래스 토글
+			mainContent.classList.toggle('sidebar-collapsed');
+			
+			// 버튼 텍스트 변경
+			if (mainContent.classList.contains('sidebar-collapsed')) {
+                toggleBtn.innerHTML = '<span style="color: #ff4757; display: inline-block; transition: transform 0.2s ease;" onmouseover="this.style.transform=\'scale(1.62)\'" onmouseout="this.style.transform=\'scale(1)\'">▶</span>'; 
+                toggleBtn.title = '목록 펼치기';
+            } else {
+                toggleBtn.innerHTML = '◀ 목록 접기';
+                toggleBtn.title = '';
+            }
+		}
+
+
+/******************************************************************************************/
+
+		// [기능] 에디터 및 본문 글자 크기 조절 (step: +1 또는 -1)
+        let currentFontSize = parseInt(localStorage.getItem('editorFontSize')) || 16; // 기본 16px
+
+        // 페이지 로드 시 저장된 글자 크기 적용
+        window.addEventListener('DOMContentLoaded', () => {
+            applyFontSize();
+        });
+
+        function changeFontSize(step) {
+            currentFontSize += step;
+            
+            // 너무 작거나 커지지 않도록 제한 (예: 6px ~ 50px)
+            if (currentFontSize < 6) currentFontSize = 6;
+            if (currentFontSize > 50) currentFontSize = 50;
+
+            applyFontSize();
+            
+            // 설정값 저장
+            localStorage.setItem('editorFontSize', currentFontSize);
+        }
+
+        function applyFontSize() {
+            // 에디터 입력창(textarea) 글자 크기 변경
+            const contentEditor = document.querySelector('.content-editor');
+            if (contentEditor) {
+                contentEditor.style.fontSize = currentFontSize + 'px';
+            }
+
+            // 만약 모달 미리보기창 본문 글자 크기도 같이 키우고 싶다면 아래 주석 해제
+            /**/
+            const previewBody = document.querySelector('.preview-modal-body');
+            if (previewBody) {
+                previewBody.style.fontSize = currentFontSize + 'px';
+            }
+            /**/
+        }
+
+/**************************************************************************/
+
+		// [기능] 버튼 위에서 마우스 휠을 굴릴 때 글자 크기 조절
+        function handleFontWheel(event) {
+            event.preventDefault(); // 기본 스크롤 방지
+
+            // wheelDelta 또는 deltaY 값으로 위/아래 방향 감지
+            if (event.deltaY < 0) {
+                // 휠을 위로 올림 -> 글자 크게
+                changeFontSize(1);
+            } else {
+                // 휠을 아래로 내림 -> 글자 작게
+                changeFontSize(-1);
+            }
+        }
+
+
+/***************************************************************************/
+
+// 여기에 추가
+
+
+
+
+
+
+
+
+
+        function updatePostList() {
+            const postList = document.getElementById('postList');
+            postList.innerHTML = '';
+
+            if (posts.length === 0) {
+                postList.innerHTML = '<li style="color: #999; padding: 20px; text-align: center;">작성된 글이 없습니다.</li>';
+                return;
+            }
+
+            posts.forEach(post => {
+                const li = document.createElement('li');
+                li.className = 'post-item';
+                if (post.id === currentPostId) li.classList.add('active');
+                li.innerHTML = `
+                    <div class="post-title">${post.title}</div>
+                    <div class="post-date">${post.date}</div>
+                `;
+                li.onclick = () => loadPost(post.id);
+                postList.appendChild(li);
+            });
+        }
+
+        function loadPost(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+                currentPostId = postId;
+                showPostEditor(post.title, post.content);
+                updatePostList();
+            }
+        }
+
+        function handleFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            processFiles(Array.from(fileInput.files));
+        }
+
+        function processFiles(fileList) {
+            if (!currentPostId) {
+                alert('먼저 글을 저장한 후 파일을 첨부해주세요.');
+                return;
+            }
+
+            const post = posts.find(p => p.id === currentPostId);
+            if (!post.files) post.files = [];
+
+            Array.from(fileList).forEach(file => {
+                const fileObj = {
+                    id: Date.now() + Math.random(),
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    uploadDate: new Date().toLocaleDateString('ko-KR')
+                };
+                post.files.push(fileObj);
+            });
+
+            savePosts();
+            updateCurrentFilesList();
+        }
+
+        function updateCurrentFilesList() {
+            if (!currentPostId) return;
+
+            const post = posts.find(p => p.id === currentPostId);
+            const fileListDiv = document.getElementById('currentFiles');
+            const fileItems = document.getElementById('fileItems');
+            
+            if (!post || !post.files || post.files.length === 0) {
+                if (fileListDiv) fileListDiv.style.display = 'none';
+                return;
+            }
+
+            if (fileListDiv) fileListDiv.style.display = 'block';
+            if (fileItems) {
+                fileItems.innerHTML = '';
+                post.files.forEach(file => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <div>
+                            <strong>${file.name}</strong>
+                            <small style="color: #666; margin-left: 10px;">
+                                ${(file.size / 1024).toFixed(1)} KB | ${file.uploadDate}
+                            </small>
+                        </div>
+                        <button class="delete-btn" onclick="removeFile(${file.id})">삭제</button>
+                    `;
+                    fileItems.appendChild(fileItem);
+                });
+            }
+        }
+
+        function removeFile(fileId) {
+            const post = posts.find(p => p.id === currentPostId);
+            post.files = post.files.filter(f => f.id !== fileId);
+            savePosts();
+            updateCurrentFilesList();
+        }
+
+        function dragOverHandler(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function dragLeaveHandler(e) {
+            e.currentTarget.classList.remove('dragover');
+        }
+
+        function dropHandler(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            
+            if (!currentPostId) {
+                alert('먼저 글을 저장한 후 파일을 첨부해주세요.');
+                return;
+            }
+
+            const files = e.dataTransfer.files;
+            if (files.length === 0) return;
+
+            const textarea = document.getElementById('postContent');
+            if (!textarea) return;
+
+            const cursorStart = textarea.selectionStart;
+            const cursorEnd = textarea.selectionEnd;
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    const base64Data = event.target.result;
+                    
+                    const fileObj = {
+                        id: Date.now() + Math.random(),
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        uploadDate: new Date().toLocaleDateString('ko-KR')
+                    };
+
+                    const post = posts.find(p => p.id === currentPostId);
+                    if (post) {
+                        if (!post.files) post.files = [];
+                        post.files.push(fileObj);
+                    }
+
+                    let insertText = '';
+                    if (file.type.startsWith('image/')) {
+                        insertText = `\n<img src="${base64Data}" alt="${file.name}" style="max-width:100%; height:auto;">\n`;
+                    } else {
+                        insertText = `\n[첨부파일: ${file.name}]\n`;
+                    }
+
+                    const currentText = textarea.value;
+                    textarea.value = currentText.substring(0, cursorStart) + insertText + currentText.substring(cursorEnd);
+                    
+                    savePosts();
+                    updateCurrentFilesList();
+                };
+
+                if (file.type.startsWith('image/')) {
+                    reader.readAsDataURL(file);
+                } else {
+                    reader.onload({ target: { result: '' } });
+                }
+            });
+        }
+
+        function showEditor() {
+            updateNavButtons('editor');
+            createNewPost();
+        }
+
+        function showPosts() {
+            updateNavButtons('posts');
+            showWelcome();
+        }
+
+        function showFiles() {
+            updateNavButtons('files');
+            showFileManager();
+        }
+
+        function showWelcome() {
+            currentPostId = null;
+            updateNavButtons('posts');
+            const editorArea = document.getElementById('editorArea');
+            editorArea.innerHTML = `
+                <div class="welcome-screen">
+                    <h2>🎊 환영합니다! 🎉</h2>
+                    <!-- <p>새 글을 작성하거나 기존 글을 편집해보세요.</p> -->
+                    <button class="btn btn-primary" onclick="showEditor()">🧙 새 글 작성하기</button>
+                </div>
+            `;
+        }
+
+        function showFileManager() {
+            const editorArea = document.getElementById('editorArea');
+            const allFiles = posts.flatMap(post => post.files || []);
+            
+            editorArea.innerHTML = `
+                <div style="padding: 30px; overflow-y: auto; height: 100%;">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">📁 파일 관리</h2>
+                    <div class="file-list" style="padding: 0;">
+                        ${allFiles.length === 0 ?
+                            '<p style="text-align: center; color: #999;">업로드된 파일이 없습니다.</p>' :
+                            allFiles.map(file => `
+                                <div class="file-item">
+                                    <div>
+                                        <strong>${file.name}</strong>
+                                        <small style="color: #666; margin-left: 10px;">
+                                            ${(file.size / 1024).toFixed(1)} KB | ${file.uploadDate}
+                                        </small>
+                                    </div>
+                                    <span style="color: #667eea; font-size: 12px;">첨부됨</span>
+                                </div>
+                            `).join('')
+                        }
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateNavButtons(active) {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const buttons = document.querySelectorAll('.nav-btn');
+            if (active === 'editor' && buttons[0]) buttons[0].classList.add('active');
+            else if (active === 'posts' && buttons[1]) buttons[1].classList.add('active');
+            else if (active === 'files' && buttons[2]) buttons[2].classList.add('active');
+        }
+
+        function savePosts() {
+            localStorage.setItem('blogPosts', JSON.stringify(posts));
+        }
+
+        function saveFiles() {
+            localStorage.setItem('blogFiles', JSON.stringify(files));
+        }
+    </script>
+</body>
+</html>
