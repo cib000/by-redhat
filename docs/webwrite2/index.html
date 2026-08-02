@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로컬 글쓰기 에디터</title>
+	<link rel="shortcut icon" href="./asets/memo_favicon.ico" >
+    
+    <!-- 1. 서머노트 및 필수 라이브러리(jQuery, Bootstrap) CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.min.js"></script>
+	
+	<!-- 사용가능
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="./asets/summernote-ko-KR.min.js"></script>
+	-->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1e1e1e 0%, #575551 100%);
+            width: 90vw;
+            max-width: 95vw;
+            min-height: 100vh;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .container {
+            width: 90vw;
+            max-width: 93vw;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1e1e, #764ba2);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 15px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            width: 35%;
+            font-size: 2.5rem;            
+            -webkit-background-clip: text;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-end;
+            flex-wrap: nowrap;
+            background: rgba(118, 75, 162, 0.1);
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(10, 166, 245, 0.7);
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            height: calc(100vh - 230px);
+            transition: grid-template-columns 0.3s ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            grid-template-columns: 60px 1fr !important;
+        }
+
+        .sidebar {
+            background: rgba(105, 104, 102, 0.35);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+            color: #ccc;
+        }
+
+        .main-content.sidebar-collapsed .sidebar h3,
+        .main-content.sidebar-collapsed .post-list {
+            display: none;
+        }
+
+        .main-content.sidebar-collapsed .sidebar {
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        .sidebar-toggle-btn {
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ccc;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-toggle-btn:hover {
+            background: rgba(102, 126, 234, 0.4);
+            color: #fff;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 15px;
+            color: #ccc;
+            font-size: 1.2rem;
+        }
+
+        .post-list {
+            list-style: none;
+        }
+
+        .post-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            color: #ccc;
+        }
+
+        .post-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-left-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .post-item.active {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-left-color: #764ba2;
+        }
+
+        .post-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #ccc;
+        }
+
+        .post-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .editor-area {
+            background: rgba(100, 100, 100, 0.55);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-toolbar {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(102, 126, 234, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 13px;
+        }
+
+        .btn-primary {
+            background: rgba(10, 166, 245, 0.7);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.8);
+            color: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: transparent;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            outline: none;
+            color: #fff;
+        }
+
+        .title-input::placeholder {
+            color: #ddd;
+        }
+
+        /* 서머노트 다크 테마 맞춤 및 레이아웃 확장 */
+        .note-editor.note-frame {
+            border: none !important;
+            background: transparent !important;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+			font-size: 14px  !important;
+        }
+        .note-editor.note-frame .note-editing-area {
+            flex: 1;
+            background: #262626 !important;
+        }
+        .note-editor.note-frame .note-editing-area .note-editable {
+            color: #f1f1f1 !important;
+            background: #262626 !important;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+		
+		.note-editable {
+			font-size: 14px  !important;
+		}
+		
+        .note-toolbar {
+            background: rgba(50, 50, 50, 0.9) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        .note-toolbar .note-btn {
+            color: #ddd !important;
+            background-color: transparent !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        .note-toolbar .note-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: #fff !important;
+        }
+        .note-popover, .note-dropdown-menu {
+            background-color: #333 !important;
+            color: #fff !important;
+            border: 1px solid #555 !important;
+        }
+        .note-dropdown-item:hover {
+            background-color: #667eea !important;
+            color: #fff !important;
+        }
+
+
+
+        .file-upload-area {
+            margin: 15px 20px 0 20px;
+            padding: 20px;
+            border: 2px dashed rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            text-align: center;
+            background: rgba(102, 126, 234, 0.05);
+            transition: all 0.3s ease;
+            color: #ddd;
+            cursor: pointer;
+			display: none;
+        }
+        .file-upload-area:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        .file-upload-area.dragover {
+            border-color: #764ba2;
+            background: rgba(118, 75, 162, 0.1);
+            transform: scale(1.01);
+        }
+
+        .file-list {
+            margin: 10px 20px 20px 20px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 12px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 6px;
+            color: #333;
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .welcome-screen h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+            font-size: 2rem;
+        }
+
+        .welcome-screen p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* 미리보기 모달 */
+		.preview-modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.6);
+			z-index: 9999;
+			justify-content: center;
+			align-items: center;
+			backdrop-filter: blur(4px);
+		}
+
+		.preview-modal-content {
+			background: #fff;
+			width: 90%;
+			max-width: 850px;
+			height: 85vh;
+			border-radius: 16px;
+			box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+		}
+
+		.preview-modal-header {
+			padding: 20px 25px;
+			background: #f8f9fa;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.preview-modal-header h3 {
+			margin: 0;
+			color: #333;
+			font-size: 1.2rem;
+		}
+		.preview-close-btn {
+			background: none;
+			border: none;
+			font-size: 1.5rem;
+			cursor: pointer;
+			color: #888;
+			font-weight: bold;
+		}
+		.preview-modal-body {
+			padding: 30px;
+			overflow-y: auto;
+			flex: 1;
+			line-height: 1.6;
+			word-break: break-all;
+			color: #444;
+		}
+		.preview-modal-body img {
+			max-width: 100%;
+			height: auto;
+			display: block;
+			margin: 15px 0;
+			border-radius: 8px;
+		}
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header fade-in">
+            <h1>🖋️ 글쓰기 에디터</h1>
+            <div class="header-nav">
+				<input type="file" id="txtFileInput" accept=".txt" style="display: none;" onchange="handleTxtFileImport(event)">
+				<button class="nav-btn" onclick="document.getElementById('txtFileInput').click();">📁 txt 가져오기</button>
+				<button class="nav-btn active" onclick="showEditor()">✍️ 새 글 작성</button>
+                <button class="nav-btn" onclick="showFiles()">📁 파일 관리</button>
+				<button class="nav-btn" onclick="deleteCurrentPost()" style="background: #0ff; color: blue; border: none;" title="열람중인 게시글 삭제하기">❌ 이 글삭제</button>
+				<button class="nav-btn" onclick="clearAllCache()" style="background: #e74c3c; color: white; border: none;" title="로컬 캐시 비우기">🗑️ 초기화</button>
+            </div>
+        </div>
+		
+        <div class="main-content fade-in" id="mainContent">
+            <div class="sidebar" id="sidebarArea">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleSidebar()">◀ 목록 접기</button>
+				<h3>📝 최근 글</h3>
+                <ul class="post-list" id="postList"></ul>
+            </div>
+
+            <div class="editor-area" id="editorArea">
+                <div class="welcome-screen">
+                    <h2>📣 환영합니다! 🎉</h2>
+                    <p>여기서 새 글을 작성하거나, 목록의 글을 편집해보세요.</p>
+                    <button class="btn btn-primary" onclick="showEditor()">새 글 작성하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<!-- 미리보기 모달 -->
+	<div id="previewModal" class="preview-modal" onclick="closePreviewModalOutside(event)">
+		<div class="preview-modal-content">
+			<div class="preview-modal-header">
+				<h3>👀 문서 미리보기</h3>
+				<button class="preview-close-btn" onclick="closePreviewModal()">&times;</button>
+			</div>
+			<div class="preview-modal-body" id="modalPreviewContainer">
+				<h1 id="modalPreviewTitle" style="border-bottom: 2px solid #eee; padding-bottom: 15px; color: #333; margin-bottom: 20px;">제목없음</h1>
+				<div id="modalPreviewBody">내용이 없습니다.</div>
+			</div>
+		</div>
+	</div>
+
+    <script>
+        let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+        let currentPostId = null;
+        let currentFontSize = parseInt(localStorage.getItem('editorFontSize')) || 12;
+		if (currentFontSize > 40 || currentFontSize < 6) currentFontSize = 12;
+				
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePostList();
+            if (posts.length === 0) {
+                createSamplePost();
+            }
+        });
+
+        function createSamplePost() {
+            const samplePost = {
+                id: Date.now(),
+                title: '📌 안내 및 사용 설명서',
+                content: `
+                    <p><strong>로컬 글쓰기 에디터</strong>에 오신 것을 환영합니다! 🎉</p><br>
+                    <p>상단 서식 툴바를 이용해 글을 예쁘게 꾸밀 수 있습니다.</p><br>
+                    <p><strong>주요 기능:</strong></p>
+                    <ul>
+                        <li>실시간 글 작성, 편집 및 <strong>미리보기</strong> 지원</li>
+                        <li>글자 크기 조절 (A+ / A- 버튼 및 마우스 휠)</li>
+                        <li><strong>txt 파일 가져오기</strong> 및 PC HTML 다운로드</li>
+                        <li>하단 드래그 앤 드롭을 통한 파일 첨부</li>
+                    </ul><br>
+                    <p>✨ 즐거운 글쓰기 되세요!</p>
+                `,
+                date: new Date().toLocaleDateString('ko-KR'),
+                files: []
+            };
+            posts.push(samplePost);
+            savePosts();
+            updatePostList();
+        }
+
+        function createNewPost() {
+            currentPostId = null;
+            showPostEditor('', '');
+        }
+
+        // 서머노트 에디터 UI 렌더링 (모든 기능 포함)
+        function showPostEditor(title = '', content = '') {
+            const editorArea = document.getElementById('editorArea');
+            editorArea.innerHTML = `
+                <div class="editor-toolbar">
+                    <div class="editor-actions">
+                        <div style="display: flex; gap: 10px;">
+							<button class="btn btn-primary" onclick="savePost()">💾 저장</button>
+							<button class="btn btn-secondary" onclick="downloadCurrentPost()">📥 PC에 다운로드</button>
+							<button class="btn btn-secondary" onclick="showWelcome()">📋 목록으로</button>
+							<button class="btn btn-secondary" onclick="openPreviewModal()">👀 미리보기</button>
+						</div>
+						
+						<!-- 오른쪽 그룹: 글자 크기 조절 버튼 (margin-left: auto로 우측 밀어냄) -->
+						<div style="display: flex; gap: 6px; margin-left: auto;">
+							<button class="nav-btn" onclick="changeFontSize(-1)" onwheel="handleFontWheel(event)" title="글자 작게">A-</button>
+							<button class="nav-btn" onclick="changeFontSize(1)" onwheel="handleFontWheel(event)" title="글자 크게">A+</button>
+						</div>
+                    </div>
+
+                    <!-- <div>
+                        <input type="file" id="fileInput" multiple style="display: none;" onchange="handleFileUpload()">
+                        <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">📎 파일 첨부</button>
+                    </div> -->
+                </div>
+                <input type="text" class="title-input" placeholder="제목을 입력하세요..." value="${title}" id="postTitle">
+                
+                <!-- 서머노트 textarea -->
+                <textarea id="postContent">${content}</textarea>
+
+                <!-- 드래그 앤 드롭 영역 -->
+                <div class="file-upload-area" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)">
+                    <p>📁 파일을 여기에 드래그하거나 클릭하여 업로드하세요</p>
+                    <small>이미지 및 각종 파일 지원</small>
+                </div>
+				
+                <div class="file-list" id="currentFiles" style="display: none;">
+                    <h4>첨부된 파일:</h4>
+                    <div id="fileItems"></div>
+                </div>
+            `;
+            
+            // 파일 업로드 영역 클릭 시 input 연결
+            document.querySelector('.file-upload-area').addEventListener('click', () => {
+                document.getElementById('fileInput').click();
+            });
+
+            // 서머노트 초기화
+            $('#postContent').summernote({
+                height: 450,
+                lang: 'ko-KR',
+                placeholder: '내용을 입력하세요...',
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['forecolor', 'backcolor']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['codeview']]
+                ]
+            });
+
+            applyFontSize();
+            //updateCurrentFilesList();
+			// 👇 서머노트가 뜬 직후에 글자 크기 강제 동기화
+            setTimeout(() => {
+                applyFontSize();
+            }, 100);
+
+            updateCurrentFilesList();
+			
+        }
+
+        function savePost() {
+            const title = document.getElementById('postTitle').value.trim();
+            const content = $('#postContent').summernote('code').trim();
+            
+            if (!title) {
+                alert('제목을 입력해주세요.');
+                return;
+            }
+
+            const post = {
+                id: currentPostId || Date.now(),
+                title: title,
+                content: content,
+                date: new Date().toLocaleDateString('ko-KR'),
+                files: currentPostId ? posts.find(p => p.id === currentPostId)?.files || [] : []
+            };
+
+            if (currentPostId) {
+                const index = posts.findIndex(p => p.id === currentPostId);
+                posts[index] = post;
+            } else {
+                posts.unshift(post);
+                currentPostId = post.id;
+            }
+
+            savePosts();
+            updatePostList();
+            
+            const saveBtn = event.target;
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '✅ 저장됨';
+            setTimeout(() => {
+                saveBtn.innerHTML = originalText;
+            }, 2000);
+        }
+
+        // PC 다운로드
+        async function downloadCurrentPost() {
+            const titleInput = document.getElementById('postTitle');
+            const title = titleInput ? titleInput.value.trim() : '제목없음';
+            let contentHtml = $('#postContent').summernote('code');
+            
+            if (!contentHtml) {
+                alert('다운로드할 내용이 없습니다.');
+                return;
+            }
+
+            const finalHtml = `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>${title}</title>
+<style>
+    body { margin: 0; padding: 40px; background: #f4f7f6; font-family: sans-serif; display: flex; justify-content: center; position: relative; }
+    .document-card { width: 100%; max-width: 800px; background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
+    h1 { border-bottom: 2px solid #eee; padding-bottom: 15px; color: #333; margin-bottom: 20px; }
+    .content-body { line-height: 1.6; word-break: break-all; color: #444; }
+    .content-body img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 8px; }
+    
+    .pdf-save-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        z-index: 1000;
+    }
+    @media print {
+        .pdf-save-btn { display: none; }
+        body { background: #fff; padding: 0; }
+        .document-card { box-shadow: none; padding: 0; }
+    }
+</style>
+</head>
+<body>
+<button class="pdf-save-btn" onclick="window.print()">📄 PDF로 저장</button>
+<div class="document-card">
+    <h1>${title}</h1>
+    <div class="content-body">${contentHtml}</div>
+</div>
+</body>
+</html>`;
+
+            const safeTitle = (title || '제목없음').replace(/[\\/:*?"<>|]/g, '_');
+            try {
+                const blob = new Blob([finalHtml], { type: 'text/html;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `${safeTitle}.html`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            } catch (e) {
+                alert('오류가 발생했습니다: ' + e.message);
+            }
+        }
+
+        // 미리보기 모달
+        function openPreviewModal() {
+            const modal = document.getElementById('previewModal');
+            const titleInput = document.getElementById('postTitle');
+            const modalTitle = document.getElementById('modalPreviewTitle');
+            const modalBody = document.getElementById('modalPreviewBody');
+
+            const title = titleInput ? titleInput.value.trim() : '제목없음';
+            let contentHtml = $('#postContent').summernote('code');
+
+            modalTitle.textContent = title || '제목없음';
+            modalBody.innerHTML = contentHtml || '<span style="color: #999;">입력된 내용이 없습니다.</span>';
+
+            modal.style.display = 'flex';
+        }
+
+        function closePreviewModal() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+
+        function closePreviewModalOutside(event) {
+            const modal = document.getElementById('previewModal');
+            if (event.target === modal) modal.style.display = 'none';
+        }
+
+		
+		// 글자 크기 조절 기능
+        function changeFontSize(step) {
+            currentFontSize += step;
+            if (currentFontSize < 6) currentFontSize = 6;
+            if (currentFontSize > 40) currentFontSize = 40;
+            
+            applyFontSize();
+            localStorage.setItem('editorFontSize', currentFontSize);
+        }
+
+        function applyFontSize() {
+            // 서머노트 편집 영역 글자 크기 변경
+            const editable = document.querySelector('.note-editable');
+			//currentFontSize = 12;
+			
+            if (editable) {
+                editable.style.setProperty('font-size', currentFontSize + 'px', 'important');
+            }
+            
+            // 미리보기 모달창 글자 크기 변경
+            const previewBody = document.getElementById('modalPreviewBody');
+            if (previewBody) {
+                previewBody.style.setProperty('font-size', currentFontSize + 'px', 'important');
+            }
+        }
+
+        function handleFontWheel(event) {
+            event.preventDefault();
+            if (event.deltaY < 0) changeFontSize(1);
+            else changeFontSize(-1);
+        }
+
+        // 파일 첨부 및 드래그 앤 드롭
+        function handleFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            processFiles(Array.from(fileInput.files));
+        }
+
+        function processFiles(fileList) {
+            if (!currentPostId) {
+                alert('먼저 글을 저장한 후 파일을 첨부해주세요.');
+                return;
+            }
+            const post = posts.find(p => p.id === currentPostId);
+            if (!post.files) post.files = [];
+
+            Array.from(fileList).forEach(file => {
+                const fileObj = {
+                    id: Date.now() + Math.random(),
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    uploadDate: new Date().toLocaleDateString('ko-KR')
+                };
+                post.files.push(fileObj);
+            });
+            savePosts();
+            updateCurrentFilesList();
+        }
+
+        function updateCurrentFilesList() {
+            if (!currentPostId) return;
+            const post = posts.find(p => p.id === currentPostId);
+            const fileListDiv = document.getElementById('currentFiles');
+            const fileItems = document.getElementById('fileItems');
+            
+            if (!post || !post.files || post.files.length === 0) {
+                if (fileListDiv) fileListDiv.style.display = 'none';
+                return;
+            }
+
+            if (fileListDiv) fileListDiv.style.display = 'block';
+            if (fileItems) {
+                fileItems.innerHTML = '';
+                post.files.forEach(file => {
+                    const item = document.createElement('div');
+                    item.className = 'file-item';
+                    item.innerHTML = `
+                        <div>
+                            <strong>${file.name}</strong>
+                            <small style="color: #666; margin-left: 10px;">${(file.size / 1024).toFixed(1)} KB</small>
+                        </div>
+                        <button class="delete-btn" onclick="removeFile(${file.id})">삭제</button>
+                    `;
+                    fileItems.appendChild(item);
+                });
+            }
+        }
+
+        function removeFile(fileId) {
+            const post = posts.find(p => p.id === currentPostId);
+            post.files = post.files.filter(f => f.id !== fileId);
+            savePosts();
+            updateCurrentFilesList();
+        }
+
+        function dragOverHandler(e) { e.preventDefault(); e.currentTarget.classList.add('dragover'); }
+        function dragLeaveHandler(e) { e.currentTarget.classList.remove('dragover'); }
+        function dropHandler(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            if (!currentPostId) {
+                alert('먼저 글을 저장한 후 파일을 첨부해주세요.');
+                return;
+            }
+            const files = e.dataTransfer.files;
+            if (files.length > 0) processFiles(Array.from(files));
+        }
+
+        // 파일 관리자 화면
+        function showFiles() {
+            updateNavButtons('files');
+            const editorArea = document.getElementById('editorArea');
+            const allFiles = posts.flatMap(post => post.files || []);
+            
+            editorArea.innerHTML = `
+                <div style="padding: 30px; overflow-y: auto; height: 100%; color: #fff;">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">📁 전체 파일 관리</h2>
+                    <div class="file-list" style="max-height: none; background: rgba(0,0,0,0.2);">
+                        ${allFiles.length === 0 ?
+                            '<p style="text-align: center; color: #999;">업로드된 파일이 없습니다.</p>' :
+                            allFiles.map(file => `
+                                <div class="file-item">
+                                    <div>
+                                        <strong>${file.name}</strong>
+                                        <small style="color: #666; margin-left: 10px;">${(file.size / 1024).toFixed(1)} KB | ${file.uploadDate}</small>
+                                    </div>
+                                    <span style="color: #667eea; font-size: 12px;">첨부됨</span>
+                                </div>
+                            `).join('')
+                        }
+                    </div>
+                </div>
+            `;
+        }
+
+        // 사이드바 토글
+        function toggleSidebar() {
+			const mainContent = document.getElementById('mainContent');
+			const toggleBtn = document.getElementById('sidebarToggleBtn');
+			mainContent.classList.toggle('sidebar-collapsed');
+			if (mainContent.classList.contains('sidebar-collapsed')) {
+                toggleBtn.innerHTML = '▶'; 
+                toggleBtn.title = '목록 펼치기';
+            } else {
+                toggleBtn.innerHTML = '◀ 목록 접기';
+                toggleBtn.title = '';
+            }
+		}
+
+        // 유틸리티 및 목록 관리
+        function updatePostList() {
+            const postList = document.getElementById('postList');
+            postList.innerHTML = '';
+            if (posts.length === 0) {
+                postList.innerHTML = '<li style="color: #999; padding: 20px; text-align: center;">작성된 글이 없습니다.</li>';
+                return;
+            }
+            posts.forEach(post => {
+                const li = document.createElement('li');
+                li.className = 'post-item';
+                if (post.id === currentPostId) li.classList.add('active');
+                li.innerHTML = `
+                    <div class="post-title">${post.title}</div>
+                    <div class="post-date">${post.date}</div>
+                `;
+                li.onclick = () => loadPost(post.id);
+                postList.appendChild(li);
+            });
+        }
+
+        function loadPost(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+                currentPostId = postId;
+                showPostEditor(post.title, post.content);
+                updatePostList();
+            }
+        }
+
+        function showEditor() {
+            updateNavButtons('editor');
+            createNewPost();
+        }
+
+        function showWelcome() {
+            currentPostId = null;
+            updateNavButtons('posts');
+            document.getElementById('editorArea').innerHTML = `
+                <div class="welcome-screen">
+                    <h2>🎊 환영합니다! 🎉</h2>
+                    <button class="btn btn-primary" onclick="showEditor()">새 글 작성하기</button>
+                </div>
+            `;
+        }
+
+        function updateNavButtons(active) {
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            const buttons = document.querySelectorAll('.header-nav .nav-btn');
+            if (active === 'editor' && buttons[1]) buttons[1].classList.add('active');
+            else if (active === 'files' && buttons[2]) buttons[2].classList.add('active');
+        }
+
+        function clearAllCache() {
+            if (confirm("⚠️ 정말로 이 에디터에 저장된 모든 글과 파일 데이터를 초기화하시겠습니까?")) {
+                localStorage.removeItem('blogPosts');
+                posts = [];
+                currentPostId = null;
+                updatePostList();
+                showWelcome();
+            }
+        }
+
+        function deleteCurrentPost() {
+            if (!currentPostId) {
+                const titleInput = document.getElementById('postTitle');
+                if (titleInput) titleInput.value = '';
+                $('#postContent').summernote('reset');
+                return;
+            }
+            if (confirm("정말로 이 글을 삭제하시겠습니까?")) {
+                posts = posts.filter(p => p.id !== currentPostId);
+                savePosts();
+                updatePostList();
+                showWelcome();
+            }
+        }
+
+        function handleTxtFileImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const fileNameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newPost = {
+                    id: Date.now(),
+                    title: fileNameWithoutExt,
+                    content: `<p>${e.target.result.replace(/\n/g, '<br>')}</p>`,
+                    date: new Date().toLocaleDateString('ko-KR'),
+                    files: []
+                };
+                posts.unshift(newPost);
+                savePosts();
+                updatePostList();
+                currentPostId = newPost.id;
+                showPostEditor(newPost.title, newPost.content);
+                alert(`"${fileNameWithoutExt}" 파일이 임포트되었습니다.`);
+            };
+            reader.readAsText(file, 'utf-8');
+        }
+
+        function savePosts() {
+            localStorage.setItem('blogPosts', JSON.stringify(posts));
+        }
+    </script>
+</body>
+</html>
