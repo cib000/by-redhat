@@ -32,46 +32,43 @@
   <base target="_blank">
   <!--<base href="https://fontsdata.com/">-->
   <!-- <base href="."> -->
-  <style>
-	.linkbtn {
-		color:#fff; 
-		margin:0 auto; 
-		margin-left:-20px; "
-		margin-bottom:-25px; 
-		font-size:2rem; 
-		font-weight:700;
-		background-color: rgba(130, 126, 126, 0.6);
-		padding: 2px 30px;
-		border: 1px #fff solid;
-		border-radius: 10px;
-	}
-		
-	.linkbtn span {
-		display:flex; 
-		gap: 15px;
-	}
-	
-	.linkbtn a {
-		text-decoration: none;
-		cursor: pointer;
-		color: #ccc;
-		background-color: rgba(130, 126, 126, 0.4);
-		padding: 2px;
-		border: 1px #fff solid;
-		border-radius: 50%;
-		transition: transform 0.2s ease-in-out;
-	}
-	
-	.linkbtn a:visited, a:hover (   /* , a:active {  */
-		text-decoration: none;
-		background-color: rgba(255, 0, 0, 0.4);
-		transform: scale(1.2);
-		color: #fff; 
-	}
+<style>
 
+/* 전체 리스트 영역: 가로 스크롤 활성화 */
+.lists-container {
+  display: flex;
+  align-items: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  height: calc(100vh - 120px); /* 화면 높이에 맞춤 */
+  padding: 20px;
+  gap: 15px;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
 
-  
-  </style>
+/* 개별 리스트 박스 */
+.list {
+  flex: 0 0 270px;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #ebecf0;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* 각 리스트 안의 할 일 목록: 세로 스크롤 보장 */
+.list-items {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100%;
+  padding-right: 4px;
+}
+
+</style>
 </head>
 
 <body id="body" class="dark-mode not-loaded flow-body">
@@ -432,7 +429,7 @@
 		<h1 style="height:40px; margin-top: 0px; font-size: 3.0rem; ">
 		<i class="fas fa-wifi logo-icon" aria-hidden="true" style="margin-left: 10%;"></i>
 		EZ fav 인터넷 서핑을 더 편하게 ... by RedHat v5.5p
-		<a href="https://translate.google.co.kr/?hl=ko&tab=TT" title="구글번역 ::- &#10;&#10; 왼쪽 쉬프트키를 누른 후 마우스 스크롤 하면 좌우 이동이 됨니다." style="margin-top:-8px; ">
+		<a href="https://translate.google.co.kr/?hl=ko&tab=TT" title="구글번역 ::- &#10;&#10; 왼쪽 쉬프트키를 누른 후 마우스 스크롤 하면 좌우 이동이 됨니다." style="margin-top:-15px; ">
 		<img src="./imgs/waf-logo(80).gif" width="140px" height="40px" style="margin-left: 3%; padding-top: 8px; " ></a> &emsp;
 		<img src="imgs/favicon.ico" width="60px" height="40px" title="Easy Fav TradMark"></h1>
 	</div>
@@ -2527,7 +2524,23 @@ scrollArea.addEventListener('wheel', (evt) => {
 <!-- ------------------------------------------------------------------------------- -->
 <!-- End of lists container -->
 
+<script>
+  const listsContainer = document.querySelector('.lists-container');
 
+  listsContainer.addEventListener('wheel', (evt) => {
+    // 만약 마우스가 개별 리스트의 카드 목록(.list-items) 위에 있다면
+    // 가로 스크롤로 가로채지 않고, 원래의 세로 스크롤이 작동하도록 내버려 둡니다.
+    if (evt.target.closest('.list-items')) {
+      return; 
+    }
+
+    // 그 외의 영역(리스트 배경, 빈 공간 등)에서는 세로 휠을 가로 스크롤로 변경
+    if (evt.deltaY !== 0) {
+      evt.preventDefault();
+      listsContainer.scrollLeft += evt.deltaY;
+    }
+  });
+</script>
 
 <script>
 function movePage() {
