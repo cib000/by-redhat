@@ -70,12 +70,24 @@
 		color: #fff; 
 	}
 
+	.mconum {
+		font-size: 2.5rem;
+		font-weight:800;
+		width:30px;
+		height:30px;
+		background-color: rgba(150, 150, 150, 0.4);
+		color: #ccc;
+		border: 1px #fff solid;
+		border-radius: 50%;
+		padding-left: 10px;
+	}
 
   
 </style>
   
-<style>
 
+<!--
+<style>
 /* 전체 리스트 영역: 가로 스크롤 활성화 */
 .lists-container {
   display: flex;
@@ -111,7 +123,7 @@
 }
 
 </style>
-
+-->
 
 </head>
 
@@ -481,7 +493,7 @@
 <!-- End of masthead -->
 
 <!-- Board info bar -->
-<section class="board-info-bar" style="margin-left: 70px; margin-top: 20px;">
+<section class="board-info-bar lists-container" style="margin-left: 70px; margin-top: 20px;">
 	<div class="board-controls">
 		<div class="gemini">
 		  <div class="inner">
@@ -658,7 +670,7 @@
 
 
 <div class="list">
-<h3 class="list-title mheadh3" id="page0"><i class="fa fa-fire" aria-hidden="true"></i> ByRH </h3>
+<h3 class="list-title mheadh3" id="page0"><i class="fa fa-fire" aria-hidden="true"></i> ByRH <span class="mconum">0</span></h3>
 	<ul class="list-items">
 
 	<li><a href="https://github.com/cib000/by-redhat" title="ㅁ자의 소일 - 메인 깃허브">
@@ -1083,7 +1095,7 @@
 
 
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title mheadh7" id="page3" >자료 사이트</h3>
 		<ul class="list-items">
 			<!--li><a href="https://gigafile.jp/" title="gigafile.jp 일본">
@@ -1295,7 +1307,6 @@
 			<li></li>
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
 </div>
 
 
@@ -1307,7 +1318,7 @@
 
 
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title mheadh6" id="page4">업로드 공유 클라우드</h3>
 		<ul class="list-items">
 			<li><a href="https://gigafile.jp/" title="gigafile.jp 일본">
@@ -1380,7 +1391,7 @@
 			<li>---</li>
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 
@@ -1392,7 +1403,7 @@
 
 	
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title mheadh7" id="page5">알려진 자료실</h3>
 		<ul class="list-items">
 			<li style="background-color: #fff;color:red;">⚠️ 백신 활성/광고차단필수</li>
@@ -1433,12 +1444,15 @@
 
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 
+
+
+
+
 <div class="list">
-	<div class="list">
 
 		<h3 class="list-title" id="page6">추천 공식 홈</h3>
 		<ul class="list-items">
@@ -1567,7 +1581,6 @@
 
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
 </div>
 
 
@@ -1614,7 +1627,7 @@
 
 
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page8">로컬_인트라넷</h3>
 		<ul class="list-items">
 			<li><a href="http://127.0.0.1:8084">큐빗토렌트 웹</a></li>
@@ -1624,12 +1637,15 @@
 			<li><a href="ftp://127.0.0.1:1010">FTP 접속</a></li>
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 
+
+
+
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page9">주소단축_서비스</h3>
 			<ul class="list-items">
 				<li><a href="https://han.gl/">han.gl</a></li>
@@ -1644,11 +1660,17 @@
 				<li><a href="https://vivoldi.com/">vivoldi.com</a></li>
 			</ul>
 			<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
+
+
+
+
+
+
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page10">번역_서비스</h3>
 		<ul class="list-items">
 			<li><a href="https://translate.google.co.kr/?hl=ko&tab=TT">구글번역 서비스</a></li>
@@ -1663,12 +1685,17 @@
 			<li><a href="http://www.ulleung.go.kr/Live/live2.htm?liveId=01">독도 서비스</a></li>
 		</ul>
 		<br />
-	</div>
+
 </div>
 
 
-<div class="list" id="page2">
-	<div class="list">		
+
+
+
+
+
+<div class="list">
+
 			<h3 class="list-title" id="page12">토렌트_서비스</h3>
 			<ul class="list-items">
 				<li><a href="https://grep.kr/">grep.kr</a></li>
@@ -1684,7 +1711,7 @@
 
 
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page13">온라인백신_서비스</h3>
 		<ul class="list-items">
 			<li>---< 참고 >---</li>
@@ -1715,7 +1742,7 @@
 
 
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page15">생활인_서비스</h3>
 		<ul class="list-items">
 			<li><a href="https://taxvat.calculate.co.kr/">💒 부가가치세 계산기</a></li>
@@ -1741,8 +1768,14 @@
 </div>
 
 
+
+
+
+
+
+
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page17">크롬 확장기능 모음 </h3>
 		<ul class="list-items">
 			<li> <A HREF="https://chrome.google.com/webstore/detail/pig-toolbox-super-gesture/oiplkfaidhjklglajdpfehoagkmlcakh/related">Pig Toolbox (Super Gestures)</A></li>
@@ -1774,12 +1807,12 @@
 		</ul>
 
 		<button class="add-card-btn btn"> + 추가하기 </button>
-	</div>
+
 </div>
 
 
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page18">쇼핑 가격비교 & 쇼핑</h3>
 		<ul class="list-items">
 
@@ -1865,12 +1898,12 @@
 			<li> ... </li>
 		</ul>
 		<button class="add-card-btn btn">....추가하기(수시 갱신함)</button>
-	</div>
+
 </div>
 
 
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page19">추가중 - 분리전 내용</h3>
 		<ul class="list-items">
 			<li><a href="https://msfn.org/board/" title="유틸리티 홈">
@@ -1951,12 +1984,18 @@
 
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 
+
+
+
+
+
+
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page20">예비</h3>
 		<ul class="list-items">
 			<li>----</li>
@@ -1967,7 +2006,7 @@
 			-->
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 	
@@ -1987,7 +2026,7 @@
 
 
 <div class="list">
-	<div class="list">
+
 		<h3 class="list-title" id="page22"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 7</h3>
 			<ul class="list-items">
 
@@ -1995,13 +2034,16 @@
 		<li>-------------------------------</li>
 			</ul>
 			<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 
 
+
+
+
 <div class="list">
-	<div class="list">
+
 	<h3 class="list-title" id="page23"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 8</h3>
 		<ul class="list-items">
 
@@ -2009,12 +2051,18 @@
 		<li>-------------------------------</li>
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 
+
+
+
+
+
+
 <div class="list">
-	<div class="list">
+
 	<h3 class="list-title" id="page24"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 9</h3>
 	<ul class="list-items">
 
@@ -2022,13 +2070,18 @@
 	<li>-------------------------------</li>
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 
 
+
+
+
+
+
 <div class="list">
-	<div class="list">
+
 	<h3 class="list-title" id="page25"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 10</h3>
 		<ul class="list-items">
 
@@ -2036,12 +2089,18 @@
 	<li>-------------------------------</li>
 	</ul>
 	<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 
+
+
+
+
+
+
 <div class="list">
-	<div class="list">
+
 	<h3 class="list-title" id="page26"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 목록 11</h3>
 		<ul class="list-items">
 
@@ -2059,12 +2118,17 @@
 	<li>-------------------------------</li>
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
 
 
+
+
+
+
+
 <div class="list">
-	<div class="list">
+
 	<h3 class="list-title" id="page27"><i class="fa fa-fire" aria-hidden="true"></i> 사용자 이미지 활용</h3>
 		<ul class="list-items">
 		
@@ -2134,8 +2198,11 @@
 
 		</ul>
 		<button class="add-card-btn btn">....추가하기</button>
-	</div>
+
 </div>
+
+
+
 
 
 <-- 
