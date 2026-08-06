@@ -415,7 +415,8 @@ a:active {
 
 /* 추가하기 버튼 */
 .add-card-btn {
-    display: block;
+    width:100%;
+	display: block;
     font-size: 1.4rem;
     font-weight: 400;
 	background-color: var(--addcard_bgcolor);
