@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>우리가족 명절/공휴일 편집기</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2299%22>🏛️</text></svg>">
+<style>
+    /* 스크롤바 디자인 */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f3f5; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: #adb5bd; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6c757d; }
+        
+    body { 
+        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; 
+        margin: 0; 
+        padding: 10px; 
+        background: #f8f9fa; 
+        color: #495057; 
+        box-sizing: border-box;
+    }
+    
+    .wrapper { 
+        max-width: 1000px; 
+        margin: 0 auto; 
+        background: #ffffff; 
+        border-radius: 12px; 
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); 
+        border: 1px solid #e9ecef;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 20px);
+        box-sizing: border-box;
+    }
+
+    .header-area {
+        background: linear-gradient(135deg, #B8BDB0, #888d80);
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-shrink: 0;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+    .header-area h3 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.5px; }
+    
+    .header-guide {
+        font-size: 12px;
+        font-weight: normal;
+        color: #fff;
+        opacity: 0.9;
+        margin: 0;
+    }
+
+    .form-body { 
+        padding: 15px; 
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* 검색 및 필터 바 */
+    .filter-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        background: #f1f3f5;
+        padding: 10px 12px;
+        border-radius: 8px;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    .filter-bar select, .filter-bar input {
+        padding: 8px 12px;
+        font-size: 13px;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        background: #fff;
+    }
+    .filter-bar select { width: 150px; }
+    .filter-bar input { flex-grow: 1; }
+
+    #editForm {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .table-container { 
+        flex-grow: 1;
+        overflow-y: auto; 
+        border: 1px solid #dee2e6; 
+        border-radius: 8px; 
+        background: #fff;
+        margin-bottom: 65px; 
+        position: relative; 
+    }
+    
+    table { width: 100%; border-collapse: collapse; font-size: 14px; table-layout: fixed; background: #fff; }
+    
+    th { 
+        background: #f1f3f5; 
+        color: #495057; 
+        position: sticky; top: 0; z-index: 10; 
+        border-bottom: 2px solid #dee2e6; 
+        padding: 12px 10px; 
+        text-align: center; 
+        font-weight: 600; 
+    }
+    
+    td { 
+        border-bottom: 1px solid #e9ecef; 
+        padding: 8px 8px; 
+        text-align: center; 
+    }
+    tr:hover { background: #f8f9fa; }
+
+    input[type="text"], select { 
+        width: 100%; 
+        padding: 8px 10px; 
+        font-family: inherit; 
+        font-size: 13px; 
+        border: 1px solid #ced4da; 
+        border-radius: 6px; 
+        box-sizing: border-box; 
+        transition: all 0.2s;
+        background: #fff;
+        color: #495057;
+    }
+    input[type="text"]:focus, select:focus { 
+        border-color: #888d80; 
+        outline: none; 
+        box-shadow: 0 0 0 3px rgba(136, 141, 128, 0.15); 
+    }
+
+    /* 지난 일정 (월-일 기준 지남): 청색 표시 */
+    .past-date input[type="text"], 
+    .past-date select { 
+        color: #1c7ed6 !important; 
+        border-color: #74c0fc !important; 
+    }
+
+    /* 하단 플로팅 버튼 그룹 */
+    .btn-group { 
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+        max-width: 980px;
+        background: #ffffff;
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+        border: 1px solid #e9ecef;
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        z-index: 100;
+        box-sizing: border-box;
+    }
+    
+    .footer-guide {
+        font-size: 12px;
+        color: #868e96;
+        margin: 0;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    button { 
+        padding: 8px 16px; 
+        font-size: 13px; 
+        font-weight: 600;
+        cursor: pointer; 
+        border: none; 
+        border-radius: 6px; 
+        font-family: inherit;
+        transition: background 0.2s, transform 0.1s;
+    }
+    button:active { transform: translateY(1px); }
+
+    .btn-add { background: #2f9e44; color: white; }
+    .btn-add:hover { background: #2b8a3e; }
+
+    .btn-reset { background: #ff6b6b; color: white; margin-left: 6px; }
+    .btn-reset:hover { background: #fa5252; }
+
+    .btn-sort { background: #ae3ec9; color: white; margin-left: 6px; }
+    .btn-sort:hover { background: #9c36b5; }
+
+    .btn-help { background: #f59f00; color: white; margin-left: 4px; padding: 8px 11px; }
+    .btn-help:hover { background: #f08c00; }
+
+    .btn-save { background: #228be6; color: white; }
+    .btn-save:hover { background: #1c7ed6; }
+
+    .btn-close { background: #868e96; color: white; margin-left: 6px; }
+    .btn-close:hover { background: #495057; }
+
+    .btn-del { 
+        background: #fa5252; 
+        color: white; 
+        padding: 6px 10px; 
+        font-size: 12px; 
+        white-space: nowrap; 
+        border-radius: 4px;
+    }
+    .btn-del:hover { background: #e03131; }
+
+    /* 도움말 모달 스타일 */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background: #ffffff;
+        width: 90%;
+        max-width: 620px;
+        padding: 20px 24px;
+        border-radius: 10px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        position: relative;
+        box-sizing: border-box;
+    }
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e9ecef;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    .modal-header h4 { margin: 0; font-size: 16px; color: #343a40; }
+    .modal-close-x {
+        background: none; border: none; font-size: 18px; cursor: pointer; color: #868e96; padding: 0;
+    }
+    .modal-close-x:hover { color: #343a40; }
+    .modal-body { font-size: 13px; line-height: 1.6; color: #495057; }
+    .modal-body ul { padding-left: 18px; margin: 8px 0; }
+    .modal-body li { margin-bottom: 6px; }
+</style>
+<script src="holidays.js"></script>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="header-area">
+        <h3>🏛️ 명절 및 공휴일 편집기</h3>
+        <p class="header-guide">※ 명절, 국정 후무일 등의 고정적인 양력 사용 행사일정을 기준하세요. 도움말 참조.</p>
+    </div>
+
+    <div class="form-body">
+        <form id="editForm" onsubmit="saveData(event);">
+            <div class="filter-bar">
+                <select id="filterType" onchange="filterTable()">
+                    <option value="">📁 모든 종류 보기</option>
+                    <option value="명절">명절</option>
+                    <option value="공휴일">공휴일</option>
+                </select>
+                <input type="text" id="searchKeyword" onkeyup="filterTable()" placeholder="🔍 찾으실 명절/공휴일 내용을 입력하세요...">
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 12%;">ID</th>
+                            <th style="width: 25%;">날짜 (YYYY-MM-DD)</th>
+                            <th style="width: 20%;">종류</th>
+                            <th style="width: 33%;">명절/공휴일 내용 (제목)</th>
+                            <th style="width: 10%;">삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- 동적 로드 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="btn-group">
+                <div>
+                    <button type="button" class="btn-add" onclick="addRow()">+ 행 추가</button>
+                    <button type="button" class="btn-reset" onclick="resetTable()">전체 초기화</button>
+                    <button type="button" class="btn-sort" onclick="sortTableByDate()">일자 정렬</button>
+                    <button type="button" class="btn-help" onclick="openHelpModal()" title="도움말">❓</button>
+                </div>
+                <p class="footer-guide">※ 변경 후 📥 저장하기를 반드시 수행하세요.</p>
+                <div>
+                    <button type="button" class="btn-reload" onclick="location.reload()" title="현재 화면 새로고침">🔄</button>
+					<button type="submit" class="btn-save">📥 저장하기</button>
+                    <button type="button" class="btn-close" onclick="window.close();">❌ 닫기</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 도움말 모달 팝업 -->
+<div id="helpModal" class="modal-overlay" onclick="handleModalClick(event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>💡 편집기 이용 가이드</h4>
+            <button type="button" class="modal-close-x" onclick="closeHelpModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li><strong>일자 정렬</strong>: 연도를 무시하고 1월부터 12월까지 순서대로 정렬하며, <br> 
+					&emsp;&emsp;&emsp;&emsp;&emsp; 📥 저장하기 클릭시 즉시 저장소에 📥 다운로드 됩니다.</li><br>
+                <li><strong>날짜 색상 안내</strong>: 
+                    <ul>
+                        <li><span style="color: #1c7ed6; font-weight: bold;">청색</span>: 올해 기준으로 이미 지난 날짜</li>
+                        <li><span style="color: #495057; font-weight: bold;">검정색</span>: 다가오거나 오늘인 날짜</li>
+                    </ul>
+                </li><br>
+                <li><strong>📥 저장하기</strong>: 변경된 내용을 저장함과 동시에 <code>holidays.js</code> 파일이 다운로드됩니다. 다운로드된 파일을 프로젝트 폴더에 덮어씌워 주세요.</li><br><br>
+				<li><strong>입력 활용하기</strong>: <code>holidays.js</code> 파일을 기준합니다. <br>
+					&emsp;&emsp;<strong>행주가</strong> 클릭
+					&emsp;&emsp;<strong>일자</strong>만 맞게 선택 - <strong>종류</strong> 입력 - <strong>행사명</strong> 입력  <br>
+					&emsp;&emsp;<strong>📥 저장하기</strong> 클릭하여 다운로드  <br>
+					&emsp;&emsp;다운로드된 폴더에서 <code>holidays.js</code> 파일을 해당 폴더로 이동복사  <br>
+					&emsp;&emsp;<strong>새로고침 (F5) 를 하면 변경된 내용이 달력에 적용됨니다.  <br>
+					&emsp;&emsp;참고하시면서 연습을 하시면 이후로는 수월하게 됨니다</li><br>
+				
+				
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+let nextIdNum = 1;
+const types = ["명절", "공휴일"];
+const todayStr = new Date().toISOString().split('T')[0];
+
+window.onload = function() {
+    loadData();
+};
+
+// 도움말 모달 제어 함수들
+function openHelpModal() {
+    document.getElementById('helpModal').style.display = 'flex';
+}
+
+function closeHelpModal() {
+    document.getElementById('helpModal').style.display = 'none';
+}
+
+// 모달 바깥 영역 클릭 시 닫기
+function handleModalClick(event) {
+    if (event.target.id === 'helpModal') {
+        closeHelpModal();
+    }
+}
+
+// ESC 키 입력 시 모달 닫기
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeHelpModal();
+    }
+});
+
+function loadData() {
+    if (typeof holidayData !== 'undefined' && holidayData.holidays) {
+        renderTable(holidayData.holidays);
+    } else {
+        let defaultData = [
+            { "id": "h1", "date": "2026-01-01", "title": "신정", "type": "공휴일" },
+            { "id": "h2", "date": "2026-02-17", "title": "설날", "type": "명절" },
+            { "id": "h3", "date": "2026-03-01", "title": "삼일절", "type": "공휴일" },
+            { "id": "h4", "date": "2026-08-15", "title": "광복절", "type": "공휴일" },
+            { "id": "h5", "date": "2026-09-25", "title": "추석", "type": "명절" }
+        ];
+        renderTable(defaultData);
+    }
+}
+
+function renderTable(holidays) {
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+    
+    let maxNum = 0;
+    holidays.forEach(row => {
+        let cleanId = parseInt((row.id || '').replace(/[^0-9]/g, '')) || 0;
+        if (cleanId > maxNum) maxNum = cleanId;
+        
+        appendRow(row.id || '', row.date || '', row.type || '명절', row.title || '');
+    });
+    nextIdNum = maxNum + 1;
+}
+
+function appendRow(id, date, type, title) {
+    const tbody = document.getElementById('tableBody');
+    const newTr = document.createElement('tr');
+
+    let typeOptions = types.map(t => `<option value="${t}" ${t === type ? 'selected' : ''}>${t}</option>`).join('');
+
+    let isPast = (date !== '' && date.slice(5) < todayStr.slice(5));
+    if (isPast) newTr.className = 'past-date';
+
+    newTr.innerHTML = `
+        <td><input type="text" class="val-id" value="${id}" readonly style="background:#f1f3f5; text-align:center; color:#868e96;"></td>
+        <td><input type="text" class="val-date" value="${date}" placeholder="2026-01-01" oninput="updateRowColor(this)"></td>
+        <td><select class="val-type" onchange="updateRowColor(this)">${typeOptions}</select></td>
+        <td><input type="text" class="val-title" value="${title}" placeholder="명절/공휴일 내용"></td>
+        <td><button type="button" class="btn-del" onclick="deleteRow(this)">삭제</button></td>
+    `;
+    tbody.appendChild(newTr);
+}
+
+function addRow() {
+    appendRow('h' + nextIdNum++, todayStr, '명절', '');
+    document.getElementById('filterType').value = '';
+    document.getElementById('searchKeyword').value = '';
+    filterTable();
+    const tbody = document.getElementById('tableBody');
+    tbody.lastElementChild.scrollIntoView({ behavior: 'smooth' });
+}
+
+function deleteRow(btn) {
+    btn.closest('tr').remove();
+}
+
+function resetTable() {
+    if (confirm("정말로 모든 명절/공휴일을 초기화하시겠습니까?")) {
+        document.getElementById('tableBody').innerHTML = '';
+    }
+}
+
+// 연도 무시, 월/일(MM-DD) 기준으로 오름차순(1월~12월) 정렬 및 배열 동기화
+function sortTableByDate() {
+    const tbody = document.getElementById('tableBody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.sort((a, b) => {
+        const dateA = a.querySelector('.val-date').value.trim();
+        const dateB = b.querySelector('.val-date').value.trim();
+
+        if (!dateA) return 1;
+        if (!dateB) return -1;
+
+        const mmddA = dateA.slice(5); 
+        const mmddB = dateB.slice(5); 
+
+        return mmddA.localeCompare(mmddB);
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+
+    let holidaysArray = [];
+    let currentIdNum = 1;
+
+    rows.forEach(row => {
+        const dateInput = row.querySelector('.val-date');
+        const typeSelect = row.querySelector('.val-type');
+        const titleInput = row.querySelector('.val-title');
+
+        if (dateInput && titleInput) {
+            const date = dateInput.value.trim();
+            const type = typeSelect ? typeSelect.value : '명절';
+            const title = titleInput.value.trim();
+
+            if (date !== '' && title !== '') {
+                holidaysArray.push({
+                    "id": "h" + currentIdNum,
+                    "date": date,
+                    "title": title,
+                    "type": type
+                });
+                currentIdNum++;
+            }
+        }
+    });
+
+    const finalData = { "holidays": holidaysArray };
+    localStorage.setItem('family_holidays', JSON.stringify(finalData));
+}
+
+function updateRowColor(element) {
+    const row = element.closest('tr');
+    const dateVal = row.querySelector('.val-date').value;
+
+    if (dateVal !== '' && dateVal.slice(5) < todayStr.slice(5)) {
+        row.classList.add('past-date');
+    } else {
+        row.classList.remove('past-date');
+    }
+}
+
+function filterTable() {
+    const filterType = document.getElementById('filterType').value;
+    const keyword = document.getElementById('searchKeyword').value.toLowerCase();
+    const rows = document.querySelectorAll('#tableBody tr');
+
+    rows.forEach(row => {
+        const typeVal = row.querySelector('.val-type').value;
+        const titleVal = row.querySelector('.val-title').value.toLowerCase();
+        const dateVal = row.querySelector('.val-date').value.toLowerCase();
+
+        const matchType = (filterType === '' || typeVal === filterType);
+        const matchKeyword = (titleVal.includes(keyword) || dateVal.includes(keyword));
+
+        row.style.display = (matchType && matchKeyword) ? '' : 'none';
+    });
+}
+
+function saveData(event) {
+    event.preventDefault();
+    const rows = document.querySelectorAll('#tableBody tr');
+    let holidaysArray = [];
+    let currentIdNum = 1;
+
+    rows.forEach(row => {
+        const dateInput = row.querySelector('.val-date');
+        const typeSelect = row.querySelector('.val-type');
+        const titleInput = row.querySelector('.val-title');
+
+        if (dateInput && titleInput) {
+            const date = dateInput.value.trim();
+            const type = typeSelect ? typeSelect.value : '명절';
+            const title = titleInput.value.trim();
+
+            if (date !== '' && title !== '') {
+                const newId = 'h' + currentIdNum;
+                holidaysArray.push({
+                    "id": newId,
+                    "date": date,
+                    "title": title,
+                    "type": type
+                });
+                currentIdNum++;
+            }
+        }
+    });
+
+    const finalData = { "holidays": holidaysArray };
+    
+    localStorage.setItem('family_holidays', JSON.stringify(finalData));
+
+    const fileContent = "const holidayData = " + JSON.stringify(finalData, null, 4) + ";";
+    const blob = new Blob([fileContent], { type: 'application/javascript;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = 'holidays.js';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    URL.revokeObjectURL(url);
+
+    alert('저장 및 holidays.js 파일 다운로드가 완료되었습니다!\n(다운로드된 파일을 기존 폴더에 덮어쓰기 하시면 영구 적용됩니다.)');
+    
+    if (window.opener && !window.opener.closed) {
+        window.opener.location.reload();
+    }
+    window.close();
+}
+</script>
+
+</body>
+</html>

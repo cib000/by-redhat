@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>일정 편집기</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2299%22>📆</text></svg>">
+<style>
+    /* 스크롤바 디자인 */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f3f5; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: #adb5bd; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6c757d; }
+        
+    body { 
+        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; 
+        margin: 0; 
+        padding: 10px; 
+        background: #f8f9fa; 
+        color: #495057; 
+        box-sizing: border-box;
+    }
+    
+    .wrapper { 
+        max-width: 1000px; 
+        margin: 0 auto; 
+        background: #ffffff; 
+        border-radius: 12px; 
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); 
+        border: 1px solid #e9ecef;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 20px);
+        box-sizing: border-box;
+    }
+
+    .header-area {
+        background: linear-gradient(135deg, #4dabf7, #339af0);
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-shrink: 0;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+    .header-area h3 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.5px; }
+    
+    .header-guide {
+        font-size: 12px;
+        font-weight: normal;
+        color: #fff;
+        opacity: 0.9;
+        margin: 0;
+    }
+
+    .form-body { 
+        padding: 15px; 
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .filter-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        background: #f1f3f5;
+        padding: 10px 12px;
+        border-radius: 8px;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    .filter-bar select, .filter-bar input {
+        padding: 8px 12px;
+        font-size: 13px;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        background: #fff;
+    }
+    .filter-bar select { width: 150px; }
+    .filter-bar input { flex-grow: 1; }
+
+    #editForm {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .table-container { 
+        flex-grow: 1;
+        overflow-y: auto; 
+        border: 1px solid #dee2e6; 
+        border-radius: 8px; 
+        background: #fff;
+        margin-bottom: 65px; 
+        position: relative; 
+    }
+    
+    table { width: 100%; border-collapse: collapse; font-size: 14px; table-layout: fixed; background: #fff; }
+    
+    th { 
+        background: #f1f3f5; 
+        color: #495057; 
+        position: sticky; top: 0; z-index: 10; 
+        border-bottom: 2px solid #dee2e6; 
+        padding: 12px 10px; 
+        text-align: center; 
+        font-weight: 600; 
+    }
+    
+    #tableBody tr:first-child td {
+        padding-top: 12px;
+    }
+    
+    td { 
+        border-bottom: 1px solid #e9ecef; 
+        padding: 8px 8px; 
+        text-align: center; 
+    }
+    tr:hover { background: #f8f9fa; }
+
+    input[type="text"], select { 
+        width: 100%; 
+        padding: 8px 10px; 
+        font-family: inherit; 
+        font-size: 13px; 
+        border: 1px solid #ced4da; 
+        border-radius: 6px; 
+        box-sizing: border-box; 
+        transition: all 0.2s;
+        background: #fff;
+        color: #495057;
+    }
+    input[type="text"]:focus, select:focus { 
+        border-color: #339af0; 
+        outline: none; 
+        box-shadow: 0 0 0 3px rgba(51, 154, 240, 0.15); 
+    }
+
+    /* 1. 반복 없음 & 지남: 적색 */
+    .past-none input[type="text"], 
+    .past-none select { 
+        color: #fa5252 !important; 
+        border-color: #ffc9c9 !important; 
+    }
+
+    /* 2. 반복 있음 & 지남: 청색 */
+    .past-repeat input[type="text"], 
+    .past-repeat select { 
+        color: #1c7ed6 !important; 
+        border-color: #74c0fc !important; 
+    }
+
+    .btn-group { 
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+        max-width: 980px;
+        background: #ffffff;
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+        border: 1px solid #e9ecef;
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        z-index: 100;
+        box-sizing: border-box;
+    }
+    
+    .footer-guide {
+        font-size: 12px;
+        color: #868e96;
+        margin: 0;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    button { 
+        padding: 8px 16px; 
+        font-size: 13px; 
+        font-weight: 600;
+        cursor: pointer; 
+        border: none; 
+        border-radius: 6px; 
+        font-family: inherit;
+        transition: background 0.2s, transform 0.1s;
+    }
+    button:active { transform: translateY(1px); }
+
+    .btn-add { background: #2f9e44; color: white; }
+    .btn-add:hover { background: #2b8a3e; }
+
+    .btn-reset { background: #ff6b6b; color: white; margin-left: 6px; }
+    .btn-reset:hover { background: #fa5252; }
+
+    .btn-save { background: #228be6; color: white; }
+    .btn-save:hover { background: #1c7ed6; }
+
+    .btn-close { background: #868e96; color: white; margin-left: 6px; }
+    .btn-close:hover { background: #495057; }
+
+    .btn-del { 
+        background: #fa5252; 
+        color: white; 
+        padding: 6px 10px; 
+        font-size: 12px; 
+        white-space: nowrap; 
+        border-radius: 4px;
+    }
+    .btn-del:hover { background: #e03131; }
+    
+    .btn-reload { background: #495057; color: white; margin-right: 6px; }
+    .btn-reload:hover { background: #343a40; }
+    
+    /* 도움말 모달 디자인 */
+    .help-modal {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+    .help-modal-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 700px;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        box-sizing: border-box;
+    }
+    .help-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 10px;
+    }
+    .help-modal-header h4 { margin: 0; color: #339af0; font-size: 16px; }
+    .help-modal-body { font-size: 13px; line-height: 1.6; color: #495057; }
+    .help-modal-body ul { padding-left: 20px; margin: 8px 0; }
+    .help-modal-footer { text-align: right; margin-top: 20px; }
+    
+    .btn-help { background: #adb5bd; color: white; margin-left: 6px; padding: 8px 12px; }
+    .btn-help:hover { background: #868e96; }
+</style>
+<script src="title.js"></script>
+<script src="events.js"></script>
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="header-area">
+        <h3>✨ 일정 리스트뷰 편집기</h3>
+        <p class="header-guide">※ 반복없음 과거 일정은 <span style="color:#fa5252"><b>적색</b></span>, 반복있는 과거 일정은 <span style="color:#1c7ed6"><b>청색</b></span>입니다.</p>
+    </div>
+
+    <div class="form-body">
+        <form id="editForm" onsubmit="saveData(event);">
+            <div class="filter-bar">
+                <select id="filterType" onchange="filterTable()">
+                    <option value="">📁 모든 종류 보기</option>
+                    <option value="일정">일정</option>
+                    <option value="가족행사">가족행사</option>
+                    <option value="기념일">기념일</option>
+                    <option value="생일">생일</option>
+                    <option value="경조사">경조사</option>
+                    <option value="모임">모임</option>
+                    <option value="여행">여행</option>
+                    <option value="업무출장">업무출장</option>
+                    <option value="공과금">공과금</option>
+                    <option value="금융">금융</option>
+                    <option value="기제사">기제사</option>
+                    <option value="국정휴무일">국정휴무일</option>
+                    <option value="기타">기타</option>
+                    <option value="메모">메모</option>
+                </select>
+                <input type="text" id="searchKeyword" onkeyup="filterTable()" placeholder="🔍 찾으실 일정 내용을 입력하세요...">
+            </div>
+
+            <div class="table-container">
+                <table id="scheduleTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 8%;">ID</th>
+                            <th style="width: 18%;">날짜 (YYYY-MM-DD)</th>
+                            <th style="width: 15%;">종류</th>
+                            <th style="width: 42%;">일정 내용 (제목)</th>
+                            <th style="width: 10%;">반복</th>
+                            <th style="width: 7%;">삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- 동적 로드 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="btn-group">
+                <div>
+                    <button type="button" class="btn-add" onclick="addRow()">+ 행 추가</button>
+                    <button type="button" class="btn-reset" onclick="resetTable()">전체 초기화</button>
+                    <button type="button" class="btn-help" onclick="openHelpModal()">❓</button>
+                </div>
+                <p class="footer-guide">※ 반복없음(<span style="color:#fa5252">적색</span>) / 반복있음(<span style="color:#1c7ed6">청색</span>)</p>
+                <div>
+                    <button type="button" class="btn-reload" onclick="location.reload()" title="현재 화면 새로고침">🔄</button>
+                    <button type="button" class="btn-reload" onclick="loadJsonData()" title="파일에서 데이터 다시 불러오기" style="background: #3b5bdb;">♻</button>
+                    <button type="submit" class="btn-save">📥 저장하기</button>
+                    <button type="button" class="btn-close" onclick="window.close();">❌ 닫기</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ❓ 도움말 모달 창 추가 -->
+<div id="helpModal" class="help-modal" onclick="if(event.target === this) closeHelpModal();">
+    <div class="help-modal-content">
+        <div class="help-modal-header">
+            <h4>💡 일정 편집기 이용 안내</h4>
+            <button type="button" class="btn-close" onclick="closeHelpModal()" style="padding:4px 8px; font-size:12px;">&times;</button>
+        </div>
+        <div class="help-modal-body">
+            <p><strong>[색상 안내]</strong></p>
+            <ul>
+                <li><span style="color:#fa5252; font-weight:bold;">적색 글자/테두리</span>: 반복이 '없음'이면서 이미 지나간 날짜인 일정입니다.</li>
+                <li><span style="color:#1c7ed6; font-weight:bold;">청색 글자/테두리</span>: 반복이 설정되어('매년', '매월', '매월말일') 있으면서 지나간 날짜인 일정입니다.</li>
+                <li><strong>검정 글자</strong>: 다가오거나 오늘인 정상 일정입니다.</li>
+            </ul>
+            <p style="margin-top:12px;"><strong>[주요 기능]</strong></p>
+            <ul>
+                <li><strong>행 추가</strong>: 새로운 일정을 맨 아래에 추가합니다.</li>
+                <li><strong>저장하기</strong>: 수정된 내용을 <code>events.js</code> 파일로 다운로드합니다. (기존 폴더에 덮어쓰기 하세요)</li>
+            </ul>
+        </div>
+        <div class="help-modal-footer">
+            <button type="button" class="btn-save" onclick="closeHelpModal()" style="padding: 6px 14px;">확인</button>
+        </div>
+    </div>
+</div>
+
+<script>
+let nextId = 1;
+const types = ["일정", "가족행사", "기념일", "생일", "경조사", "모임", "여행", "업무출장", "공과금", "금융", "기제사", "국정휴무일", "기타", "메모"];
+const repeats = ["없음", "매년", "매월", "매월말일"];
+const todayStr = new Date().toISOString().split('T')[0];
+
+window.onload = function() {
+    loadJsonData();
+};
+
+function openHelpModal() {
+    document.getElementById('helpModal').style.display = 'flex';
+}
+
+function closeHelpModal() {
+    document.getElementById('helpModal').style.display = 'none';
+}
+
+function loadJsonData() {
+    let schedules = [];
+    
+    if (typeof scheduleData !== 'undefined' && scheduleData.schedules) {
+        schedules = schedules.concat(scheduleData.schedules);
+    }
+    
+    try {
+        let cached = JSON.parse(localStorage.getItem('temp_schedules') || '[]');
+        if (cached.length > 0) {
+            schedules = schedules.concat(cached);
+        }
+    } catch(e) {
+        console.error("캐시 로드 실패", e);
+    }
+
+    if (schedules.length > 0) {
+        renderTable(schedules);
+    } else {
+        let defaultSchedules = [
+            { "id": "1", "date": "2026-08-15", "title": "광복절 임시모임", "type": "모임", "repeat": "없음" }
+        ];
+        renderTable(defaultSchedules);
+    }
+}
+
+function renderTable(schedules) {
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+    
+    let maxNum = 0;
+    schedules.forEach(row => {
+        let cleanId = parseInt((row.id || '').replace(/[^0-9]/g, '')) || 0;
+        if (cleanId > maxNum) maxNum = cleanId;
+        
+        appendRow(row.id || '', row.date || '', row.type || '일정', row.title || '', row.repeat || '없음');
+    });
+    nextId = maxNum + 1;
+}
+
+function appendRow(id, date, type, title, repeat) {
+    const tbody = document.getElementById('tableBody');
+    const newTr = document.createElement('tr');
+
+    let typeOptions = types.map(t => `<option value="${t}" ${t === type ? 'selected' : ''}>${t}</option>`).join('');
+    let repeatOptions = repeats.map(r => `<option value="${r}" ${r === repeat ? 'selected' : ''}>${r}</option>`).join('');
+
+    // 날짜 및 반복 조건에 따른 클래스 부여
+    if (date !== '' && date < todayStr) {
+        if (repeat === '없음') {
+            newTr.className = 'past-none'; // 적색
+        } else {
+            newTr.className = 'past-repeat'; // 청색
+        }
+    }
+
+    newTr.innerHTML = `
+        <td><input type="text" class="val-id" value="${id}" readonly style="background:#f1f3f5; text-align:center; color:#868e96;"></td>
+        <td><input type="text" class="val-date" value="${date}" placeholder="2026-08-13" oninput="updateRowColor(this)"></td>
+        <td><select class="val-type" onchange="updateRowColor(this)">${typeOptions}</select></td>
+        <td><input type="text" class="val-title" value="${title}" placeholder="일정 내용"></td>
+        <td><select class="val-repeat" onchange="updateRowColor(this)">${repeatOptions}</select></td>
+        <td><button type="button" class="btn-del" onclick="deleteRow(this)">삭제</button></td>
+    `;
+    tbody.appendChild(newTr);
+}
+
+function addRow() {
+    appendRow(String(nextId++), todayStr, '일정', '', '없음');
+    document.getElementById('filterType').value = '';
+    document.getElementById('searchKeyword').value = '';
+    filterTable();
+    const tbody = document.getElementById('tableBody');
+    tbody.lastElementChild.scrollIntoView({ behavior: 'smooth' });
+}
+
+function deleteRow(btn) {
+    btn.closest('tr').remove();
+}
+
+function resetTable() {
+    if (confirm("정말로 모든 일정을 초기화(삭제)하시겠습니까?")) {
+        document.getElementById('tableBody').innerHTML = '';
+    }
+}
+
+// 실시간 색상 업데이트 로직
+function updateRowColor(element) {
+    const row = element.closest('tr');
+    const dateVal = row.querySelector('.val-date').value;
+    const repeatVal = row.querySelector('.val-repeat').value;
+
+    // 기존 클래스 초기화
+    row.classList.remove('past-none', 'past-repeat');
+
+    if (dateVal !== '' && dateVal < todayStr) {
+        if (repeatVal === '없음') {
+            row.classList.add('past-none'); // 적색
+        } else {
+            row.classList.add('past-repeat'); // 청색
+        }
+    }
+}
+
+function filterTable() {
+    const filterType = document.getElementById('filterType').value;
+    const keyword = document.getElementById('searchKeyword').value.toLowerCase();
+    const rows = document.querySelectorAll('#tableBody tr');
+
+    rows.forEach(row => {
+        const typeVal = row.querySelector('.val-type').value;
+        const titleVal = row.querySelector('.val-title').value.toLowerCase();
+        const dateVal = row.querySelector('.val-date').value.toLowerCase();
+
+        const matchType = (filterType === '' || typeVal === filterType);
+        const matchKeyword = (titleVal.includes(keyword) || dateVal.includes(keyword));
+
+        row.style.display = (matchType && matchKeyword) ? '' : 'none';
+    });
+}
+
+function saveData(event) {
+    event.preventDefault();
+    const rows = document.querySelectorAll('#tableBody tr');
+    let schedulesArray = [];
+    let currentId = 1;
+
+    rows.forEach(row => {
+        const idInput = row.querySelector('.val-id');
+        const dateInput = row.querySelector('.val-date');
+        const typeSelect = row.querySelector('.val-type');
+        const titleInput = row.querySelector('.val-title');
+        const repeatSelect = row.querySelector('.val-repeat');
+
+        if (dateInput && titleInput) {
+            const date = dateInput.value.trim();
+            const type = typeSelect ? typeSelect.value : '일정';
+            const title = titleInput.value.trim();
+            const repeat = repeatSelect ? repeatSelect.value : '없음';
+
+            if (date !== '' && title !== '') {
+                if (idInput) idInput.value = currentId;
+
+                schedulesArray.push({
+                    "id": String(currentId),
+                    "date": date,
+                    "title": title,
+                    "type": type,
+                    "repeat": repeat
+                });
+                currentId++;
+            }
+        }
+    });
+
+    const finalData = { "schedules": schedulesArray };
+    
+    let jsContent = "const scheduleData = " + JSON.stringify(finalData, null, 4) + ";";
+
+    let blob = new Blob([jsContent], { type: "text/javascript;charset=utf-8;" });
+    let downloadAnchor = document.createElement('a');
+    downloadAnchor.href = URL.createObjectURL(blob);
+    downloadAnchor.setAttribute("download", "events.js");
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+
+    alert('저장 완료! 다운로드된 events.js 파일을 기존 폴더에 덮어쓰기 해주세요.');
+    
+    if (window.opener && !window.opener.closed) {
+        window.opener.location.reload();
+    }
+    window.close();
+}
+</script>
+
+</body>
+</html>
