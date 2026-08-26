@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>파비콘 링크 생성기</title>
+    <meta
+      name="description"
+      content="복사 붙여넣기용 파비콘 모음입니다. 파비콘을 클릭하면 <link> 태그 전체와 데이터 URI가 클립보드에 복사됩니다. 호스팅할 파일이 필요 없습니다."
+    />
+    <link
+      rel="icon"
+      id="page-favicon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23111827'/><text y='.9em' font-size='90'>🌈</text><circle cx='50' cy='50' r='22' fill='%23fbbf24'/></svg>"
+    />
+	
+
+	
+    <link rel="stylesheet" href="asets/style.css" />
+	
+  </head>
+  
+  
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <div class="shell">
+        <!-- p class="eyebrow">No files. No hosting. No build step.</p -->
+        <h2>파비콘 갤러리</h2>
+<!-- 
+		<p class="lede">          
+		  <code>&lt; link rel="icon"&gt;</code>아이콘을 클릭하면 아트워크가 데이터 URI 형식으로 포함된 전체 태그가 복사됩니다 . 복사한 태그를 붙여넣으면 <head>완료됩니다.
+        </p>
+-->
+
+
+
+        <div class="toolbar">
+          <div class="search">
+            <svg class="search__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <input
+              type="search"
+              id="search"
+              placeholder="Search 55 favicons…"
+              autocomplete="off"
+              aria-label="Search favicons"
+            />
+            <kbd class="search__kbd">/</kbd>
+          </div>
+          <button class="ghost-btn" id="theme-toggle" type="button" aria-pressed="false">
+            <span class="theme-toggle__icon" aria-hidden="true"></span>
+            <span id="theme-label">다크</span>
+          </button>
+        </div>
+
+        <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+      </div>
+    </header>
+
+
+
+    <main class="shell">
+      <section aria-labelledby="gallery-heading">
+        <h2 class="sr-only" id="gallery-heading">파비콘 갤러리</h2>
+        <div class="grid" id="grid"></div>
+        <p class="empty" id="empty" hidden>
+          그 무엇과도 비교할 수 없다. <button class="linkish" id="clear-search" type="button">검색 결과를 지우세요</button>
+        </p>
+      </section>
+
+      <section class="builders" aria-labelledby="builder-heading">
+        <div class="section-head">
+          <h2 id="builder-heading">지금 활용 방법</h2>
+          <!--<p>처음부터 직접 만들기 가장 쉬운 파비콘 두 가지입니다. 수정 후 복사하세요.</p> -->
+		  <p>수정 후 복사하세요.</p>
+        </div>
+
+        <div class="builder-grid">
+          <div class="builder">
+            <div class="builder__preview">
+              <img id="emoji-preview" alt="Live preview of the emoji favicon" />
+            </div>
+            <div class="builder__body">
+              <h3>이모지 파비콘</h3>
+              <p class="builder__hint">
+                One <code>&lt;text&gt;</code> SVG 내부에 있는 요소입니다. <br>모든 최신 브라우저에서 작동합니다.
+              </p>
+              <label class="field">
+                <span>이모지</span>
+                <input id="emoji-input" type="text" value="🎯" maxlength="8" autocomplete="off" />
+              </label>
+              <div class="emoji-quick" id="emoji-quick"></div>
+              <button class="primary-btn" type="button" data-copy-builder="emoji">
+                태그를 복사
+              </button>
+            </div>
+          </div>
+
+          <div class="builder">
+            <div class="builder__preview">
+              <img id="mono-preview" alt="Live preview of the monogram favicon" />
+            </div>
+            <div class="builder__body">
+              <h3>모노그램</h3>
+              <p class="builder__hint">도형 위에 글자가 있는 아이콘. 사이드 프로젝트에 <br>가장 많이 사용되는 파비콘입니다.</p>
+              <div class="field-row">
+                <label class="field">
+                  <span>글자</span>
+                  <input id="mono-input" type="text" value="C" maxlength="2" autocomplete="off" />
+                </label>
+                <label class="field field--color">
+                  <span>배경색</span>
+                  <input id="mono-bg" type="color" value="#4f46e5" />
+                </label>
+                <label class="field field--color">
+                  <span>굴자</span>
+                  <input id="mono-fg" type="color" value="#ffffff" />
+                </label>
+              </div>
+              <div class="segmented" id="mono-shape" role="group" aria-label="Shape">
+                <button type="button" data-shape="squircle" class="is-active">둥근모서리</button>
+                <button type="button" data-shape="circle">원형</button>
+                <button type="button" data-shape="square">사각</button>
+              </div>
+              <button class="primary-btn" type="button" data-copy-builder="mono">
+                링크 복사 태그
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section class="notes" aria-labelledby="notes-heading">
+
+<!--
+        <h2 id="notes-heading">알아두면 좋은 몇 가지 사항</h2>
+        <ul>
+          <li>
+            <strong>SVG 파비콘은 크기 조정이 필요 없습니다. <br>하나의 벡터로 모든 탭, 북마크, 그리고 레티나 디스플레이에 맞춰 크기가 조정됩니다. <br>macOS의 Safari에서도 지원되며, 아주 오래된 브라우저는 <code>/favicon.ico</code> 파일을 사용하는 경우 해당 파일로 대체됩니다.
+          </li>
+          <li>
+            <strong>16진수 색상의 <code>#</code>는 <code>%23</code>으로 인코딩해야 합니다.</strong> <br>그렇지 않으면 브라우저가 URI의 나머지 부분을 조각으로 읽습니다. <br>여기에 복사된 모든 내용은 이미 인코딩되어 있습니다.
+          </li>
+          <li>
+            <strong>이모지는 방문자의 글꼴로 렌더링되므로</strong> <br>동일한 태그라도 macOS, Windows 및 Android에서 약간씩 다르게 보입니다. <br>대부분은 문제가 없으며, 때로는 오히려 매력적일 수도 있습니다.
+          </li>
+          <li>
+            <strong>다크 모드 지원</strong> SVG 파비콘 내부에서 <code>&lt;style&gt;</code> <br>블록 안에 다음 코드를 사용할 수 있습니다. <br>Chrome과 Safari는  이를 지원하지만, Firefox는 아직 지원하지 않습니다.
+          </li>
+        </ul>
+-->
+      </section>
+	  
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+<!--
+        <p>이 페이지의 모든 아이콘은 인라인 마크업입니다. 여기서는 이미지 파일을 전혀 불러오지 않습니다.</p>
+-->
+
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+    <aside
+      class="sheet"
+      id="sheet"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sheet-title"
+      hidden
+    >
+      <button class="sheet__close" id="sheet-close" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+      </button>
+
+      <div class="sheet__top">
+        <div class="sheet__art"><img id="sheet-img" alt="" /></div>
+        <div class="sheet__meta">
+          <p class="sheet__cat" id="sheet-cat"></p>
+          <h2 id="sheet-title"></h2>
+          <div class="sizes" id="sheet-sizes">
+            <figure><img alt="" data-size="16" /><figcaption>16px</figcaption></figure>
+            <figure><img alt="" data-size="32" /><figcaption>32px</figcaption></figure>
+            <figure><img alt="" data-size="64" /><figcaption>64px</figcaption></figure>
+          </div>
+          <div class="tabmock" aria-hidden="true">
+            <span class="tabmock__dot"></span>
+            <span class="tabmock__dot"></span>
+            <span class="tabmock__dot"></span>
+            <span class="tabmock__tab">
+              <img id="tabmock-img" alt="" />
+              <span id="tabmock-title">사이트</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <pre class="code" id="sheet-code" tabindex="0"></pre>
+
+      <div class="sheet__actions">
+        <button class="primary-btn" id="copy-tag" type="button">링크 복사 태그</button>
+        <button class="ghost-btn" id="copy-href" type="button">데이터 URI만 복사</button>
+        <a class="ghost-btn" id="download" download>파일 다운로드</a>
+      </div>
+      <p class="sheet__bytes" id="sheet-bytes"></p>
+    </aside>
+
+    <script src="asets/pixel-icons.js"></script>
+    <script src="asets/encode.js"></script>
+    <script src="asets/favicons.js"></script>
+    <script src="asets/app.js"></script>
+  </body>
+</html>
