@@ -144,6 +144,7 @@
 
 	.calcell {height: 95px; vertical-align: top !important; text-align: left; padding: 4px !important; cursor: pointer;	}
 	.calcell:hover { background-color: rgba(240, 248, 255, 0.8);	}
+
 /*
 	font.num { font-family: tahoma; font-size: 14px; background-color: #ccc; padding: 2px 6px; border-radius: 4px; display: inline-block; color: #000; }
 	font.today-num { font-family: tahoma; font-size: 15px; color: #fff; font-weight: bold; background-color: #f00; border-radius: 50%; display: inline-block; width: 26px; height: 26px; text-align: center; line-height: 26px; }
@@ -163,71 +164,68 @@
 */
 
 
-.calcell {
-    height: var(--cell-height, 95px);
-    vertical-align: top !important;
-    text-align: left;
-    padding: 4px !important;
-    cursor: pointer;
-}
-.calcell:hover {
-    background-color: var(--cell-hover-bg, rgba(240, 248, 255, 0.8));
-}
-
-font.num {
-    font-family: tahoma;
-    font-size: var(--date-font-size, 14px);
-    background-color: var(--num-bg, #ccc);
-    padding: 2px 6px;
-    border-radius: 4px;
-    display: inline-block;
-    color: #000;
-}
-
-font.today-num {
-    font-family: tahoma;
-    font-size: 15px;
-    color: #fff;
-    font-weight: bold;
-    background-color: var(--today-bg, #f00);
-    border-radius: 50%;
-    display: inline-block;
-    width: 26px;
-    height: 26px;
-    text-align: center;
-    line-height: 26px;
-}
-
-font.holy {
-    color: var(--holy-color, #ff0000);
-    font-weight: bold;
-    font-family: tahoma;
-    font-size: var(--date-font-size, 14px);
-    padding: 2px 6px;
-}
-
-font.blue {
-    color: var(--blue-color, #0000ff);
-    font-weight: bold;
-    font-family: tahoma;
-    font-size: var(--date-font-size, 14px);
-    padding: 2px 6px;
-}
-
-/* 뱃지 동적 변수 연결 */
-.badge-명절 { background-color: var(--badge-명절-bg, #f8cecc); color: var(--badge-명절-text, #b85450); font-weight: bold; }
-.badge-공과금 { background-color: var(--badge-공과금-bg, #fff2cc); color: var(--badge-공과금-text, #b45f06); }
-.badge-모임 { background-color: var(--badge-모임-bg, #d9e1f2); color: var(--badge-모임-text, #2f5597); }
-.badge-기념일 { background-color: var(--badge-기념일-bg, #fce4d6); color: var(--badge-기념일-text, #c65911); }
-.badge-일정 { background-color: var(--badge-일정-bg, #e2f0d9); color: var(--badge-일정-text, #385723); }
-.badge-메모 { background-color: var(--badge-메모-bg, #ededed); color: var(--badge-메모-text, #595959); }
-.badge-임시 { background-color: var(--badge-임시-bg, #fff0f5); color: var(--badge-임시-text, #c71585); border: 1px dashed #c71585; }
+	/* 뱃지 동적 변수 연결 */
+	.badge-명절 { background-color: var(--badge-명절-bg, #f8cecc); color: var(--badge-명절-text, #b85450); font-weight: bold; }
+	.badge-공과금 { background-color: var(--badge-공과금-bg, #fff2cc); color: var(--badge-공과금-text, #b45f06); }
+	.badge-모임 { background-color: var(--badge-모임-bg, #d9e1f2); color: var(--badge-모임-text, #2f5597); }
+	.badge-기념일 { background-color: var(--badge-기념일-bg, #fce4d6); color: var(--badge-기념일-text, #c65911); }
+	.badge-일정 { background-color: var(--badge-일정-bg, #e2f0d9); color: var(--badge-일정-text, #385723); }
+	.badge-메모 { background-color: var(--badge-메모-bg, #ededed); color: var(--badge-메모-text, #595959); }
+	.badge-임시 { background-color: var(--badge-임시-bg, #fff0f5); color: var(--badge-임시-text, #c71585); border: 1px dashed #c71585; }
 
 
 
 
+	.calcell {
+		height: var(--cell-height, 95px);
+		vertical-align: top !important;
+		text-align: left;
+		padding: 4px !important;
+		cursor: pointer;
+	}
+	.calcell:hover {
+		background-color: var(--cell-hover-bg, rgba(240, 248, 255, 0.8));
+	}
 
+	font.num {
+		font-family: tahoma;
+		font-size: var(--date-font-size, 14px);
+		background-color: var(--num-bg, #ccc);
+		padding: 2px 6px;
+		border-radius: 4px;
+		display: inline-block;
+		color: #000;
+	}
 
+	font.today-num {
+		font-family: tahoma;
+		font-size: 15px;
+		color: #fff;
+		font-weight: bold;
+		background-color: var(--today-bg, #f00);
+		border-radius: 50%;
+		display: inline-block;
+		width: 26px;
+		height: 26px;
+		text-align: center;
+		line-height: 26px;
+	}
+
+	font.holy {
+		color: var(--holy-color, #ff0000);
+		font-weight: bold;
+		font-family: tahoma;
+		font-size: var(--date-font-size, 14px);
+		padding: 2px 6px;
+	}
+
+	font.blue {
+		color: var(--blue-color, #0000ff);
+		font-weight: bold;
+		font-family: tahoma;
+		font-size: var(--date-font-size, 14px);
+		padding: 2px 6px;
+	}
 
 
 
@@ -337,15 +335,6 @@ font.blue {
 		to { opacity: 1; transform: translateY(0); }
 	}
 	
-	/*
-	.newnotify {
-		display: none; position: fixed; bottom: 8px; left: 50%; 
-		transform: translateX(-50%); background-color: rgba(0, 0, 0, 0.85); 
-		color: #fff; padding: 10px 35px; border-radius: 25px; font-size: 13px; 
-		z-index: 9998; max-width: 92%; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.4); 
-		white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor:default;
-	}
-	*/
 	
 	.newnotify {display: none; position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); 
 		background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 10px 35px; border-radius: 25px; 
@@ -401,6 +390,8 @@ font.blue {
 	
 
 </style>
+
+
 
 <!-- ★ title.js, events.js, holidays.js 파일을 직접 불러옵니다 -->
 <script src="title.js"></script>
@@ -483,6 +474,12 @@ font.blue {
 	<br><br>
     <a href="javascript:void(0);" class="float-btn" onclick="editHolidaysWindow()" title="명절수정">🏛️</a>
     <a href="javascript:void(0);" class="float-btn" onclick="editSchedulesWindow()" title="일정수정">✏️</a>
+	<!-- 임시 캐시된 일정을 저장 (다운로드: 일시_events.js ) -->
+	<!-- <a href="javascript:void(0);" class="float-btn" onclick="backupSchedules();" title="일정백업">💾</a>
+	<a href="javascript:void(0);" class="float-btn" onclick="backupAndDownloadEvents();" title="일정백업">💾</a>
+	<a href="javascript:void(0);" class="float-btn" onclick="saveData({ preventDefault: function() {} });" title="일정백업">💾</a>
+	 -->
+	
 	<br>
     <a href="javascript:void(0);" class="float-btn" onclick="toggleBackground()" title="배경바꿈">🎨</a>
 	<br>
@@ -491,9 +488,124 @@ font.blue {
 		<span class="fs-icon-open">⛶</span>
 		<span class="fs-icon-close" style="display: none;">✅</span>
 	</a>
+	
+	<a href="./rest/index.html" class="float-btn" target="_self" title="가림휴식">👻</a>
+	<br>
+	
     <a href="javascript:void(0);" class="float-btn" onclick="showHelpModal()" title="도움말">❓</a>
-	<a href="javascript:void(0);" class="float-btn" onclick="window.close();" title="창닫기">❌</a>
+	<!-- <a href="javascript:void(0);" class="float-btn" onclick="window.close();" title="창닫기">❌</a> -->
+	<a href="javascript:void(0);" class="float-btn" onclick="try { window.close(); } catch(e) { location.href='about:blank'; }" title="창닫기">❌</a>
 </div>
+
+
+
+
+<script>
+	// 일정백업 버튼 기능
+function backupAndDownloadEvents() {
+    const rows = document.querySelectorAll('#tableBody tr');
+    let schedulesArray = [];
+    let currentId = 1;
+
+    rows.forEach(row => {
+        const idInput = row.querySelector('.val-id');
+        const dateInput = row.querySelector('.val-date');
+        const typeSelect = row.querySelector('.val-type');
+        const titleInput = row.querySelector('.val-title');
+        const repeatSelect = row.querySelector('.val-repeat');
+
+        if (dateInput && titleInput) {
+            const date = dateInput.value.trim();
+            const type = typeSelect ? typeSelect.value : '일정';
+            const title = titleInput.value.trim();
+            const repeat = repeatSelect ? repeatSelect.value : '없음';
+
+            if (date !== '' && title !== '') {
+                if (idInput) idInput.value = currentId;
+
+                schedulesArray.push({
+                    "id": String(currentId),
+                    "date": date,
+                    "title": title,
+                    "type": type,
+                    "repeat": repeat
+                });
+                currentId++;
+            }
+        }
+    });
+
+    const finalData = { "schedules": schedulesArray };
+    let jsContent = "const scheduleData = " + JSON.stringify(finalData, null, 4) + ";";
+
+    let blob = new Blob([jsContent], { type: "text/javascript;charset=utf-8;" });
+    let downloadAnchor = document.createElement('a');
+    
+    // 현재 날짜 및 시간 추출
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeStamp = `${year}${month}${day}_${hours}${minutes}${seconds}`;
+
+    downloadAnchor.href = URL.createObjectURL(blob);
+    
+    // 원하시는 대로 일시가 붙은 백업 파일과 기본 events.js 파일을 동시/선택 다운로드하거나 
+    // 필요에 맞춰 파일명을 지정하실 수 있습니다. (여기서는 기록용 일시 파일명 적용)
+    downloadAnchor.setAttribute("download", `${timeStamp}_events.js`);
+    
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+
+    alert('저장 완료!\n다운로드된 파일을 확인해 주세요.');
+}
+
+/*
+function backupSchedules() {
+    // 1. schedulesArray가 없거나 비어있을 때를 대비한 안전장치
+    // (만약 실제 데이터가 담긴 변수명이 다르면 아래 'schedulesArray' 부분을 해당 변수명으로 바꿔주세요)
+    let targetData = [];
+    try {
+        if (typeof schedulesArray !== 'undefined') {
+            targetData = schedulesArray;
+        }
+    } catch (e) {
+        console.error("데이터 변수를 찾는 중 에러 발생:", e);
+    }
+
+    const finalData = { "schedules": targetData };
+    let jsContent = "const scheduleData = " + JSON.stringify(finalData, null, 4) + ";";
+
+    let blob = new Blob([jsContent], { type: "text/javascript;charset=utf-8;" });
+    let downloadAnchor = document.createElement('a');
+    downloadAnchor.href = URL.createObjectURL(blob);
+
+    // 현재 날짜 및 시간 추출
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    const timeStamp = `${year}${month}${day}_${hours}${minutes}${seconds}`;
+
+    downloadAnchor.setAttribute("download", `${timeStamp}_events.js`);
+
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+
+    alert('저장 완료!\n다운로드된 events.js 파일을 기존 폴더의 기존파일에 덮어쓰기 해주세요.\n일시_events.js 파일은 기록보관용입니다. 보존/삭제 하세요.');
+}
+*/
+</script>
+
 
 
 
@@ -598,6 +710,7 @@ font.blue {
           <option value="말일">말일 반복</option>
         </select>
       </div>
+	  
     </div>
     <div class="custom-modal-footer">
       <button type="button" class="btn btn-default btn-lg" onclick="closeScheduleModal()">취소</button>
@@ -779,9 +892,6 @@ function updateTodayScheduleBar() {
 
 
 
-
-
-
 // 달력의 임시 캐시를 삭제하고 1.5초 후 새로고침하는 함수
 function clearCalendarCache() {
     localStorage.removeItem('temp_schedules');
@@ -872,7 +982,7 @@ function renderCalendar(year, month) {
 		let mouseX = e.clientX;
 		let mouseY = e.clientY;
 
-		// 2초(2000밀리초) 후에 툴팁 표시
+		// 4초(4000밀리초) 후에 툴팁 표시
 		cellHoverTimer = setTimeout(function() {
 			let tooltip = $('#customTooltip');
 			tooltip.text('💡 빈 곳을 클릭하여 \n     임시 일정을 추가하세요.\n\n💡 일정이 있으면 \n      일정내용을 툴팁으로 보여줌니다.').show();
@@ -1125,6 +1235,7 @@ function saveModalSchedule() {
 
 
 
+
 // 창 열기 함수들
 function editSchedulesWindow() {
     const width = 1000;
@@ -1188,11 +1299,6 @@ function editHolidaysWindow() {
 
 <script>
 /*
-
-
-
-
-
 
 <!-- 순수 CSS 일정 입력 모달 창 --><!--
 <div id="scheduleModal" class="custom-modal-overlay" onclick="if(event.target === this) closeScheduleModal();">
@@ -1589,8 +1695,6 @@ function clearCalendarCache() {
             badgeHtml += `<span class="badge-item ${badgeClass}" data-tooltip="[${sch.type}] ${sch.title}">${sch.title}</span>`;
         });
 */
-
-
 
 */
 </script>
