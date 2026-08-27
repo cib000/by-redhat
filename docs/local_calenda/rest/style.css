@@ -1,0 +1,40 @@
+html::before {
+  content: 'CodePen ♥ The Web';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  font-family: monospace;
+  opacity: 0.6;
+  background: rebeccapurple;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+body {
+  background: radial-gradient(at center, #373737, #121212);
+  color: #eaeaea;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  height: 100vh;
+}
+
+svg {
+  border: 2px solid black;
+  background: #212121;
+  max-width: 90vw;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+
+  width: 80vw;   /* 뷰포트 너비의 80% */
+  height: 95vh;  /* 뷰포트 높이의 80% */
+  /* max-width: 600px;  /* 너무 커지는 것 방지 (선택사항) */
+  /* max-height: 600px; /* 너무 커지는 것 방지 (선택사항) */
+  display: block;
+  margin: auto;      /* 중앙 정렬 */
+}
