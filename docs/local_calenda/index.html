@@ -469,6 +469,7 @@
 	<br><br>
     <a href="javascript:void(0);" class="float-btn" onclick="editHolidaysWindow()" title="명절수정">🏛️</a>
     <a href="javascript:void(0);" class="float-btn" onclick="editSchedulesWindow()" title="일정수정">✏️</a>
+	<a href="javascript:void(0);" class="float-btn" onclick="editWindowtitle()" title="제목수정">🚨</a>
 	<!-- 임시 캐시된 일정을 저장 (다운로드: 일시_events.js ) -->
 	<!-- <a href="javascript:void(0);" class="float-btn" onclick="backupSchedules();" title="다운로드">💾</a>
 	<a href="javascript:void(0);" class="float-btn" onclick="backupAndDownloadEvents();" title="일정백업">💾</a>
@@ -1200,6 +1201,15 @@ function editSchedulesWindow() {
     const top = 10; 
     window.open('edit_schedules.html', 'scheduleEditor', `width=${width},height=${height},left=${left},top=${top}`);
 }
+
+function editWindowtitle() {
+    const width = 1000;
+    const height = 310;
+    const left = (window.screen.width - width) / 2;
+    const top = 10; 
+    window.open('change_claenda_title.html', 'change_claenda_title', `width=${width},height=${height},left=${left},top=${top}`);
+}
+
 
 function editHolidaysWindow() {
     const width = 1000;
