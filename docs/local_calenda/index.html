@@ -473,14 +473,14 @@
 	<!-- <a href="javascript:void(0);" class="float-btn" onclick="backupSchedules();" title="다운로드">💾</a>
 	<a href="javascript:void(0);" class="float-btn" onclick="backupAndDownloadEvents();" title="일정백업">💾</a>
 	<a href="javascript:void(0);" class="float-btn" onclick="saveData({ preventDefault: function() {} });" title="일정백업">💾</a>
-	 -->
+	-->
 	
 	<a href="local_calenda.7z" class="float-btn" title="전체 .7z 다운로드">💾</a>
 	
 	<br>
     <a href="javascript:void(0);" class="float-btn" onclick="toggleBackground()" title="배경바꿈">🎨</a>
 	<br>
-	<!--<a href="javascript:void(0);" class="float-btn" onclick="toggleFullScreen()" title="전체화면">⛶</a>-->
+
 	<a href="javascript:void(0);" id="fsBtn" class="float-btn" onclick="toggleFullScreen()" title="전체화면">
 		<span class="fs-icon-open">⛶</span>
 		<span class="fs-icon-close" style="display: none;">✅</span>
@@ -490,7 +490,6 @@
 	<br>
 	
     <a href="javascript:void(0);" class="float-btn" onclick="showHelpModal()" title="도움말">❓</a>
-	<!-- <a href="javascript:void(0);" class="float-btn" onclick="window.close();" title="창닫기">❌</a> -->
 	<a href="javascript:void(0);" class="float-btn" onclick="try { window.close(); } catch(e) { location.href='about:blank'; }" title="창닫기">❌</a>
 </div>
 
@@ -561,46 +560,7 @@ function backupAndDownloadEvents() {
     alert('저장 완료!\n다운로드된 파일을 확인해 주세요.');
 }
 
-/*
-function backupSchedules() {
-    // 1. schedulesArray가 없거나 비어있을 때를 대비한 안전장치
-    // (만약 실제 데이터가 담긴 변수명이 다르면 아래 'schedulesArray' 부분을 해당 변수명으로 바꿔주세요)
-    let targetData = [];
-    try {
-        if (typeof schedulesArray !== 'undefined') {
-            targetData = schedulesArray;
-        }
-    } catch (e) {
-        console.error("데이터 변수를 찾는 중 에러 발생:", e);
-    }
 
-    const finalData = { "schedules": targetData };
-    let jsContent = "const scheduleData = " + JSON.stringify(finalData, null, 4) + ";";
-
-    let blob = new Blob([jsContent], { type: "text/javascript;charset=utf-8;" });
-    let downloadAnchor = document.createElement('a');
-    downloadAnchor.href = URL.createObjectURL(blob);
-
-    // 현재 날짜 및 시간 추출
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-
-    const timeStamp = `${year}${month}${day}_${hours}${minutes}${seconds}`;
-
-    downloadAnchor.setAttribute("download", `${timeStamp}_events.js`);
-
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-
-    alert('저장 완료!\n다운로드된 events.js 파일을 기존 폴더의 기존파일에 덮어쓰기 해주세요.\n일시_events.js 파일은 기록보관용입니다. 보존/삭제 하세요.');
-}
-*/
 </script>
 
 
@@ -711,7 +671,6 @@ function backupSchedules() {
     </div>
     <div class="custom-modal-footer">
       <button type="button" class="btn btn-default btn-lg" onclick="closeScheduleModal()">취소</button>
-      <!--<button type="button" class="btn btn-primary btn-sm" onclick="saveModalSchedule()">저장</button>  btn-lg-->
 	  <button type="button" class="btn btn-primary btn-lg" onclick="saveModalSchedule()">저장</button>
     </div>
   </div>
