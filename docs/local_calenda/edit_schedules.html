@@ -371,44 +371,50 @@ function closeHelpModal() {
     document.getElementById('helpModal').style.display = 'none';
 }
 
+// ♻ 데이터 불러오기 (파일 + 메인 캘린더가 쓰는 로컬스토리지 통합 연동)
 function loadJsonData() {
     let schedules = [];
     
-    if (typeof scheduleData !== 'undefined' && scheduleData.schedules) {
-        schedules = schedules.concat(scheduleData.schedules);
+    // 1. 파일(events.js) 데이터 불러오기
+    let rawData = typeof scheduleData !== 'undefined' ? scheduleData : (typeof eventsData !== 'undefined' ? eventsData : []);
+    if (Array.isArray(rawData)) {
+        schedules = schedules.concat(rawData);
+    } else if (rawData && rawData.schedules) {
+        schedules = schedules.concat(rawData.schedules);
     }
+
+    // 2. 메인 캘린더에서 localStorage에 저장한 데이터 불러오기 
+    // (메인 캘린더가 사용하는 대표적인 로컬스토리지 키들을 모두 검사합니다)
+    const possibleKeys = ['calendar_events', 'schedules', 'events', 'temp_schedules', 'myCalendarEvents'];
     
-    try {
-        let cached = JSON.parse(localStorage.getItem('temp_schedules') || '[]');
-        if (cached.length > 0) {
-            schedules = schedules.concat(cached);
+    possibleKeys.forEach(key => {
+        try {
+            let cached = JSON.parse(localStorage.getItem(key) || '[]');
+            if (Array.isArray(cached) && cached.length > 0) {
+                // 중복 ID가 생기지 않도록 합치기
+                cached.forEach(cItem => {
+                    if (!schedules.some(s => String(s.id) === String(cItem.id) && s.date === cItem.date)) {
+                        schedules.push(cItem);
+                    }
+                });
+            }
+        } catch(e) {
+            console.error(`localStorage 키(${key}) 로드 실패`, e);
         }
-    } catch(e) {
-        console.error("캐시 로드 실패", e);
-    }
+    });
 
     if (schedules.length > 0) {
-        renderTable(schedules);
+        document.getElementById('tableBody').innerHTML = '';
+        schedules.forEach(item => {
+            appendRow(item.id || '', item.date || '', item.type || '일정', item.title || '', item.repeat || '없음');
+        });
+        // 최대 ID 값 계산하여 nextId 설정
+        const maxId = Math.max(...schedules.map(item => parseInt(item.id) || 0), 0);
+        nextId = maxId + 1;
     } else {
-        let defaultSchedules = [
-            { "id": "1", "date": "2026-08-15", "title": "광복절 임시모임", "type": "모임", "repeat": "없음" }
-        ];
-        renderTable(defaultSchedules);
+        appendRow('1', '2026-08-15', '모임', '광복절 임시모임', '없음');
+        nextId = 2;
     }
-}
-
-function renderTable(schedules) {
-    const tbody = document.getElementById('tableBody');
-    tbody.innerHTML = '';
-    
-    let maxNum = 0;
-    schedules.forEach(row => {
-        let cleanId = parseInt((row.id || '').replace(/[^0-9]/g, '')) || 0;
-        if (cleanId > maxNum) maxNum = cleanId;
-        
-        appendRow(row.id || '', row.date || '', row.type || '일정', row.title || '', row.repeat || '없음');
-    });
-    nextId = maxNum + 1;
 }
 
 function appendRow(id, date, type, title, repeat) {
@@ -428,9 +434,9 @@ function appendRow(id, date, type, title, repeat) {
     }
 
     newTr.innerHTML = `
-        <td><input type="text" class="val-id" value="${id}" readonly style="background:#f1f3f5; text-align:center; color:#868e96;"></td>
+        <td><input type="text" class="val-id" value="${id}" style="width:100%; text-align:center;"></td>
         <td><input type="text" class="val-date" value="${date}" placeholder="2026-08-13" oninput="updateRowColor(this)"></td>
-        <td><select class="val-type" onchange="updateRowColor(this)">${typeOptions}</select></td>
+        <td><select class="val-type">${typeOptions}</select></td>
         <td><input type="text" class="val-title" value="${title}" placeholder="일정 내용"></td>
         <td><select class="val-repeat" onchange="updateRowColor(this)">${repeatOptions}</select></td>
         <td><button type="button" class="btn-del" onclick="deleteRow(this)">삭제</button></td>
@@ -463,7 +469,6 @@ function updateRowColor(element) {
     const dateVal = row.querySelector('.val-date').value;
     const repeatVal = row.querySelector('.val-repeat').value;
 
-    // 기존 클래스 초기화
     row.classList.remove('past-none', 'past-repeat');
 
     if (dateVal !== '' && dateVal < todayStr) {
@@ -473,6 +478,52 @@ function updateRowColor(element) {
             row.classList.add('past-repeat'); // 청색
         }
     }
+}
+
+// 💾 저장하기 기능: 화면의 모든 테이블 행 데이터를 수집하여 다운로드 + 로컬스토리지 동기화
+function saveData(event) {
+    if (event) event.preventDefault();
+
+    const rows = document.querySelectorAll('#tableBody tr');
+    let collectedData = [];
+
+    rows.forEach(row => {
+        const id = row.querySelector('.val-id').value;
+        const date = row.querySelector('.val-date').value;
+        const type = row.querySelector('.val-type').value;
+        const title = row.querySelector('.val-title').value;
+        const repeat = row.querySelector('.val-repeat').value;
+
+        collectedData.push({
+            id: id,
+            date: date,
+            title: title,
+            type: type,
+            repeat: repeat
+        });
+    });
+
+    // 편집기에서 저장할 때 로컬스토리지에도 최신 상태로 갱신하여 메인 화면과 싱크를 맞춤
+    try {
+        localStorage.setItem('calendar_events', JSON.stringify(collectedData));
+    } catch(e) {
+        console.error("로컬스토리지 동기화 실패", e);
+    }
+
+    // events.js 파일 다운로드 생성
+    const fileContent = `const scheduleData = {\n    "schedules": ${JSON.stringify(collectedData, null, 4)}\n};`;
+    
+    const blob = new Blob([fileContent], { type: 'text/javascript;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'events.js';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    alert('수정된 모든 일정 내용이 events.js 파일로 저장되었습니다. 기존 파일을 덮어쓰기 하세요.');
 }
 
 function filterTable() {
@@ -491,7 +542,6 @@ function filterTable() {
         row.style.display = (matchType && matchKeyword) ? '' : 'none';
     });
 }
-
 </script>
 
 </body>

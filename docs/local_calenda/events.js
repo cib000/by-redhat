@@ -1,4 +1,4 @@
-const scheduleData = {
+const eventsData = {
     "schedules": [
         {
             "id": "1",
