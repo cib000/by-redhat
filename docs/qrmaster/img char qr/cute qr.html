@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>큐티 QR 만들기</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>🧙</text></svg>">    
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Gulim', '굴림', monospace;
+            font-size: 16px;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* 라이트 모드 기본 스타일 */
+        body { background-color: #f0f2f5; color: #111; }
+        .container-box { background: #ffffff; color: #111; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .panel { background: #fafafa; border: 2px solid #ccc; }
+        .preview-panel { background: #fff; border: 3px solid #333; }
+        .preview-title { border-bottom: 2px solid #eee; color: #111; }
+        input[type="text"], textarea, select { background: #fff; color: #111; border: 2px solid #999; }
+        
+        /* 다크 모드 스타일 */
+        .dark body { background-color: #121212; color: #e0e0e0; }
+        .dark .container-box { background: #1e1e1e; color: #e0e0e0; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .dark .panel { background: #252525; border: 2px solid #444; }
+        .dark .preview-panel { background: #1e1e1e; border: 3px solid #666; }
+        .dark .preview-title { border-bottom: 2px solid #444; color: #fff; }
+        .dark input[type="text"], .dark textarea, .dark select { background: #2d2d2d; color: #fff; border: 2px solid #555; }
+        .dark header { border-bottom: 2px solid #444 !important; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 24px; font-weight: bold; margin: 0; color: rgb(29, 119, 194); }
+        .dark h1 { color: #4da6ff; }
+
+        /* 테마 변경 버튼 스타일 */
+        .theme-btn {
+            background: none;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .theme-btn:hover { transform: scale(1.1); }
+
+        /* 우측 하단 플로팅 창닫기 버튼 스타일 */
+        .floating-close-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Gulim', '굴림', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 1000;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .floating-close-btn:hover {
+            background-color: #bd2130;
+            transform: scale(1.05);
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .workspace { grid-template-columns: 1fr; }
+        }
+
+        .panel {
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .three-cols label, .four-cols label {
+            font-size: 12px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+        }
+
+        label { font-size: 14px; font-weight: bold; }
+
+        input, textarea, select {
+            font-size: 16px;
+            padding: 8px;
+            border-radius: 6px;
+            font-family: inherit;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea#text {
+            height: 50px;
+            resize: vertical;
+        }
+
+        input[type='range'] {
+            cursor: pointer;
+        }
+
+        input[type='color'] {
+            height: 42px;
+            padding: 2px;
+            cursor: pointer;
+        }
+
+        #img-buffer {
+            display: none;
+        }
+
+        /* 인쇄 시트 미리보기 패널 */
+        .preview-panel {
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .preview-title {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding-bottom: 8px;
+            width: 100%;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .qr-wrapper {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 3px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        /* 컨트롤 요소 공통 규격 */
+        .action-control {
+            height: 44px;
+            padding: 0 12px;
+            font-size: 15px;
+            border-radius: 6px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .action-btn {
+            cursor: pointer;
+            white-space: nowrap;
+            border: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .download-btn { background-color: #2563eb; color: white; }
+        .download-btn:hover { background-color: #1d4ed8; }
+        .print-btn { background-color: #16a34a; color: white; }
+        .print-btn:hover { background-color: #15803d; }
+
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            body {
+                background: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            #container, #container * {
+                visibility: visible !important;
+            }
+            #container {
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                background: none !important;
+            }
+        }
+    </style>
+
+    <!-- 원문 큐티 QR 엔진 스크립트 -->
+    <script src="kjua-0.10.0.min.js"></script>
+    <script>
+    (function () {
+        var win = window;
+        var FR = win.FileReader;
+        var doc = win.document;
+        var kjua = win.kjua;
+
+        var gui_val_pairs = [
+            ['size', 'px'],
+            ['minversion', ''],
+            ['quiet', ''], 
+            ['rounded', '%'],
+            ['msize', '%'],
+            ['mposx', '%'],
+            ['mposy', '%']
+        ];
+
+        function el_by_id(id) {
+            return doc.getElementById(id);
+        }
+
+        function val_by_id(id) {
+            var el = el_by_id(id);
+            return el && el.value;
+        }
+
+        function int_by_id(id) {
+            return parseInt(val_by_id(id), 10);
+        }
+
+        function on_event(el, type, fn) {
+            if (el) el.addEventListener(type, fn);
+        }
+
+        function on_ready(fn) {
+            on_event(doc, 'DOMContentLoaded', fn);
+        }
+
+        function for_each(list, fn) {
+            Array.prototype.forEach.call(list, fn);
+        }
+
+        function all(query, fn) {
+            var els = doc.querySelectorAll(query);
+            if (fn) {
+                for_each(els, fn);
+            }
+            return els;
+        }
+
+        function update_gui() {
+            gui_val_pairs.forEach(function (pair) {
+                var label = all('label[for="' + pair[0] + '"]')[0];
+                if (label) {
+                    var text = label.innerHTML.split(':')[0];
+                    label.innerHTML = text + ': ' + val_by_id(pair[0]) + pair[1];
+                }
+            });
+        }
+
+        function update_qrcode() {
+            var fontName = val_by_id('font') || '굴림';
+            var fontColor = val_by_id('fontcolor') || '#ff0000';
+
+            var options = {
+                render: 'canvas',
+                crisp: true,
+                ecLevel: val_by_id('eclevel'),
+                minVersion: int_by_id('minversion'),
+
+                fill: val_by_id('fill'),
+                back: val_by_id('back'),
+
+                text: val_by_id('text'),
+                size: int_by_id('size'),
+                rounded: int_by_id('rounded'),
+                quiet: int_by_id('quiet'),
+
+                mode: val_by_id('mode'),
+
+                mSize: int_by_id('msize'),
+                mPosX: int_by_id('mposx'),
+                mPosY: int_by_id('mposy'),
+
+                label: val_by_id('label'),
+                fontname: fontName,
+                fontcolor: fontColor,
+
+                image: el_by_id('img-buffer')
+            };
+
+            var container = el_by_id('container');
+            var rawQr = kjua(options);
+            
+            for_each(container.childNodes, function (child) {
+                container.removeChild(child);
+            });
+
+            if (rawQr) {
+                var wrapper = doc.createElement('div');
+                wrapper.className = 'qr-wrapper';
+                wrapper.appendChild(rawQr);
+                container.appendChild(wrapper);
+            }
+        }
+
+        function update() {
+            update_gui();
+            update_qrcode();
+            updateModeVisibility();
+        }
+
+        function updateModeVisibility() {
+            var mode = val_by_id('mode');
+            var textGroup = el_by_id('text-group');
+            var subTextGroup = el_by_id('subtext-group');
+            var subTextLabelGroup = el_by_id('subtext-label-group');
+            var imageGroup = el_by_id('image-group');
+
+            if (mode === 'plain') {
+                if (textGroup) textGroup.style.display = 'flex';
+                if (subTextGroup) subTextGroup.style.display = 'none';
+                if (subTextLabelGroup) subTextLabelGroup.style.display = 'none';
+                if (imageGroup) imageGroup.style.display = 'none';
+            } else if (mode === 'label') {
+                if (textGroup) textGroup.style.display = 'flex';
+                if (subTextGroup) subTextGroup.style.display = 'flex';
+                if (subTextLabelGroup) subTextLabelGroup.style.display = 'flex';
+                if (imageGroup) imageGroup.style.display = 'none';
+            } else if (mode === 'image') {
+                if (textGroup) textGroup.style.display = 'flex';
+                if (subTextGroup) subTextGroup.style.display = 'none';
+                if (subTextLabelGroup) subTextLabelGroup.style.display = 'none';
+                if (imageGroup) imageGroup.style.display = 'flex';
+            }
+        }
+
+        function on_img_input() {
+            var input = el_by_id('image');
+            if (input.files && input.files[0]) {
+                var reader = new FR();
+                reader.onload = function (ev) {
+                    el_by_id('img-buffer').setAttribute('src', ev.target.result);
+                    el_by_id('mode').value = 'image';
+                    setTimeout(update, 250);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        on_ready(function () {
+            on_event(el_by_id('image'), 'change', on_img_input);
+            all('input, textarea, select', function (el) {
+                on_event(el, 'input', update);
+                on_event(el, 'change', update);
+            });
+            on_event(win, 'load', update);
+            update();
+        });
+    }());
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-zinc-900 text-gray-900 dark:text-gray-100">
+
+    <div class="container container-box">
+        <header>
+            <h1>🧙 큐티 QR 만들기</h1>
+            <!-- 테마 변경 버튼 -->
+            <button id="themeToggleBtn" class="theme-btn" onclick="toggleTheme()" title="테마 변경">🌙</button>
+        </header>
+
+        <div class="workspace">
+            <!-- 좌측 통합 컨트롤 패널 -->
+            <div class="panel">
+                <!-- 렌더링 모드 & QR 모드선택 1라인 배치 -->
+                <div class="input-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <div>
+                        <label for="render">렌더링 모드</label>
+                        <select id="render">
+                            <option value="canvas" selected="selected">캔바스</option>
+                            <option value="image">이미지</option>
+                            <option value="svg">SVG</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="mode">QR 모드선택</label>
+                        <select id="mode">
+                            <option value="plain">QR코드</option>
+                            <option value="label" selected="selected">문자 사용</option>
+                            <option value="image">이미지 사용</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- [크기] + [QR색상] + [배경 색상] 3분할 1라인 배치 -->
+                <div class="input-group three-cols" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-items: flex-end;">
+                    <div>
+                        <label for="size">크기:</label>
+                        <input id="size" type="range" value="250" min="100" max="1000" step="10">
+                    </div>
+                    <div>
+                        <label for="fill">QR색상</label>
+                        <input id="fill" type="color" value="#333333" style="height: 38px; padding: 2px;">
+                    </div>
+                    <div>
+                        <label for="back">배경 색상</label>
+                        <input id="back" type="color" value="#ffffff" style="height: 38px; padding: 2px;">
+                    </div>
+                </div>
+
+                <div class="input-group" id="text-group">
+                    <label for="text">문장입력</label>
+                    <textarea id="text">강릉 키오스크</textarea>
+                </div>
+
+                <!-- 원문 필수 숨김 요소 보존 -->
+                <label for="minversion" style="display:none;">MIN VERSION:</label>
+                <input id="minversion" type="range" value="1" min="1" max="10" step="1" style="display:none;">
+
+                <label for="eclevel" style="display:none;">오류 수정 수준</label>
+                <select id="eclevel" style="display:none;">
+                    <option value="L">L - low (7%)</option>
+                    <option value="M">M - medium (15%)</option>
+                    <option value="Q">Q - quartile (25%)</option>
+                    <option value="H" selected="selected">H - high (30%)</option>
+                </select>
+
+                <label for="rounded" style="display:none;">모서리:</label>
+                <input id="rounded" type="range" value="10" min="0" max="100" step="10" style="display:none;">
+                <!-- // -->
+
+                <hr class="border-gray-300 dark:border-zinc-700 my-2">
+
+                <!-- 여백너비, 크기, 가로위치, 세로위치 4분할 1라인 배치 -->
+                <div class="input-group four-cols" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+                    <div>
+                        <label for="quiet">여백 너비:</label>
+                        <input id="quiet" type="range" value="2" min="0" max="4" step="1">
+                    </div>
+                    <div>
+                        <label for="msize">크기:</label>
+                        <input id="msize" type="range" value="12" min="0" max="40" step="1">
+                    </div>
+                    <div>
+                        <label for="mposx">가로위치:</label>
+                        <input id="mposx" type="range" value="50" min="0" max="100" step="1">
+                    </div>
+                    <div>
+                        <label for="mposy">세로위치:</label>
+                        <input id="mposy" type="range" value="95" min="0" max="100" step="1">
+                    </div>
+                </div>
+
+                <!-- [폰트선택(바탕, 굴림, 궁서)] + [글자색상] 완벽한 5:5(1fr 1fr) 비율 1줄 배치 -->
+                <div class="input-group" id="subtext-group">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: flex-end;">
+                        <div>
+                            <label for="font">폰트 선택</label>
+                            <select id="font">
+                                <option value="굴림" selected>굴림체</option>
+                                <option value="바탕">바탕체</option>
+                                <option value="궁서">궁서체</option>
+								<option value="맑은 고딕">맑은 고딕</option>
+								<option value="나눔 고딕">나눔 고딕</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="fontcolor">글자 색상</label>
+                            <input id="fontcolor" type="color" value="#ff0000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group" id="subtext-label-group">
+                    <label for="label">표시 문자</label>
+                    <input id="label" type="text" value="강릉아재">
+                </div>
+
+                <div class="input-group" id="image-group">
+                    <label for="image">로고 이미지</label>
+                    <input id="image" type="file" style="padding: 4px; font-size: 14px;">
+                </div>
+            </div>
+
+            <!-- 우측 QR코드 미리보기 패널 -->
+            <div class="preview-panel">
+                <div class="preview-title">🖨️ 미리보기</div>
+                <div id="container"></div>
+
+                <!-- 다운로드 및 인쇄 컨트롤 영역 (정확히 절반씩 50:50 균형 배치) -->
+                <div class="w-full mt-auto flex flex-col gap-2">
+                    <!-- 1번째 줄: 파일명 입력(50%) + 다운로드 버튼(50%) -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: center; width: 100%;">
+                        <input type="text" id="filenameInput" class="action-control" placeholder="파일명 (미입력시 cute_qr)">
+                        <button class="action-control action-btn download-btn" onclick="downloadQR()">다운로드</button>
+                    </div>
+                    <!-- 2번째 줄: 확장자 선택(50%) + 인쇄 버튼(50%) -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: center; width: 100%;">
+                        <select id="extSelect" class="action-control">
+                            <option value="jpg" selected>JPG</option>
+                            <option value="png">PNG</option>
+                            <option value="bmp">BMP</option>
+                            <option value="svg">SVG</option>
+                        </select>
+                        <button class="action-control action-btn print-btn" onclick="window.print()">인쇄</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 우측 하단 플로팅 창닫기 버튼 -->
+    <button class="floating-close-btn" onclick="window.close()" title="창 닫기">
+        ❌ 창닫기
+    </button>
+
+    <img id="img-buffer" src="./dummy.png">
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById("themeToggleBtn");
+            
+            if (html.classList.contains("dark")) {
+                html.classList.remove("dark");
+                btn.textContent = "☀️";
+            } else {
+                html.classList.add("dark");
+                btn.textContent = "🌙";
+            }
+        }
+
+        // 다운로드 실행 함수 (둥근네모 + 패딩 3px + 사용자 설정 크기 반영)
+        function downloadQR() {
+            var rawContainer = document.getElementById('container').querySelector('canvas');
+            if (!rawContainer) {
+                alert('QR코드가 생성되지 않았습니다.');
+                return;
+            }
+
+            var targetSize = parseInt(document.getElementById('size').value, 10) || 250;
+            var padding = 3;
+            var borderRadius = 16;
+
+            var canvas = document.createElement('canvas');
+            canvas.width = targetSize;
+            canvas.height = targetSize;
+            var ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+            ctx.moveTo(borderRadius, 0);
+            ctx.lineTo(targetSize - borderRadius, 0);
+            ctx.quadraticCurveTo(targetSize, 0, targetSize, borderRadius);
+            ctx.lineTo(targetSize, targetSize - borderRadius);
+            ctx.quadraticCurveTo(targetSize, targetSize, targetSize - borderRadius, targetSize);
+            ctx.lineTo(borderRadius, targetSize);
+            ctx.quadraticCurveTo(0, targetSize, 0, targetSize - borderRadius);
+            ctx.lineTo(0, borderRadius);
+            ctx.quadraticCurveTo(0, 0, borderRadius, 0);
+            ctx.closePath();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            ctx.save();
+            ctx.clip();
+
+            var innerSize = targetSize - (padding * 2);
+            ctx.drawImage(rawContainer, padding, padding, innerSize, innerSize);
+            ctx.restore();
+
+            var userInput = document.getElementById('filenameInput').value.trim();
+            var ext = document.getElementById('extSelect').value;
+            var filename = userInput === '' ? 'cute_qr.' + ext : userInput + '_cute_qr.' + ext;
+
+            var mimeType = 'image/jpeg';
+            if (ext === 'png') mimeType = 'image/png';
+            else if (ext === 'bmp') mimeType = 'image/bmp';
+            else if (ext === 'svg') {
+                var dataURL = canvas.toDataURL('image/png');
+                var svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${targetSize}" height="${targetSize}"><image href="${dataURL}" width="${targetSize}" height="${targetSize}"/></svg>`;
+                var blob = new Blob([svgContent], { type: 'image/svg+xml' });
+                var link = document.createElement('a');
+                link.download = filename;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                return;
+            }
+
+            var dataURL = canvas.toDataURL(mimeType, 0.95);
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = dataURL;
+            link.click();
+        }
+    </script>
+</body>
+</html>
