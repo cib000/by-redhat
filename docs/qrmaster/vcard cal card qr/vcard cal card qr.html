@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연락처 및 일정 QR / 파일 통합 생성기</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>🔣</text></svg>">
+    
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Comfortaa'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
+
+<style>
+    :root {
+        --bg-color: #121212;
+        --text-color: #e0e0e0;
+        --panel-bg: #1e1e1e;
+        --border-color: #333333;
+        --input-bg: #2a2a2a;
+        --input-border: #444444;
+        --accent-color: #4db6ac;
+        --label-color: #b0b0b0;
+    }
+
+    body.light-theme {
+        --bg-color: #f4f4f9;
+        --text-color: #222222;
+        --panel-bg: #ffffff;
+        --border-color: #dddddd;
+        --input-bg: #f9f9f9;
+        --input-border: #cccccc;
+        --accent-color: #007bff;
+        --label-color: #555555;
+    }
+
+    body {
+        background: var(--bg-color);
+        color: var(--text-color);
+        font-family: 'Comfortaa', sans-serif;
+        transition: background 0.3s, color 0.3s;
+        margin: 0;
+        padding: 2rem 0;
+    }
+
+    #contentArea {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .header-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    .theme-btn {
+        background: var(--input-bg);
+        color: var(--text-color);
+        border: 1px solid var(--input-border);
+        padding: 0.4em 0.8em;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+    }
+
+    .nav-tabs {
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-tabs .nav-link {
+        color: var(--text-color);
+        background: transparent;
+        border: none;
+        border-bottom: 3px solid transparent;
+        padding: 0.7rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .nav-tabs .nav-link.active {
+        color: var(--accent-color);
+        background: var(--panel-bg);
+        border-color: var(--accent-color);
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+    }
+
+    .tab-content {
+        background: var(--panel-bg);
+        border: 1px solid var(--border-color);
+        border-top: none;
+        padding: 2rem;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    .form-control {
+        background: var(--input-bg) !important;
+        color: var(--text-color) !important;
+        border: 1px solid var(--input-border) !important;
+        border-radius: 6px !important;
+    }
+
+    .form-control:focus {
+        border-color: var(--accent-color) !important;
+        box-shadow: none !important;
+    }
+
+    label {
+        color: var(--label-color);
+        font-size: 0.9rem;
+        font-weight: bold;
+    }
+
+    button {
+        border: 0;
+        border-radius: 6px;
+        background: var(--accent-color);
+        color: white;
+        padding: 0.6rem 1.2rem;
+        cursor: pointer;
+        font-weight: bold;
+        transition: opacity 0.2s;
+    }
+
+    button:hover {
+        opacity: 0.9;
+        color: white;
+    }
+
+    .btn-secondary-custom {
+        background: #6c757d;
+    }
+    .btn-warning-custom {
+        background: #e0a800;
+        color: #212529;
+    }
+    .btn-warning-custom:hover {
+        color: #212529;
+    }
+    .btn-info-custom {
+        background: #17a2b8;
+    }
+
+    a {
+        color: var(--accent-color);
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .result-box {
+        background: var(--panel-bg);
+        border: 1px solid var(--border-color);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+
+    #qrcode-canvas {
+        background-color: #ffffff;
+        padding: 12px;
+        border-radius: 6px;
+        display: inline-block;
+        max-width: 220px;
+        height: auto;
+    }
+
+    .download-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 1.2rem;
+    }
+
+    .download-select {
+        background: var(--input-bg) !important;
+        color: var(--text-color) !important;
+        border: 1px solid var(--input-border) !important;
+        padding: 0.5rem 0.8rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        background-color: var(--panel-bg) !important;
+        color: var(--text-color) !important;
+        border: 1px solid var(--border-color) !important;
+    }
+    .modal-header, .modal-footer {
+        border-color: var(--border-color) !important;
+    }
+    .close {
+        color: var(--text-color) !important;
+        text-shadow: none !important;
+    }
+
+    .footer {
+        font-size: small;
+        text-align: center;
+        margin-top: 3rem;
+        color: var(--label-color);
+    }
+	
+			
+		/* 닫기 버튼 스타일 */
+		.tab-close-btn {
+			position: fixed;
+			bottom: 5%;
+			right: 10%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 28px; /* 버튼 크기를 조금 더 키워 클릭하기 편하게 수정 */
+			height: 28px;
+			padding: 0;
+			margin: 0;
+			background: rgba(0, 0, 0, 0.05); /* 은은한 기본 배경 추가 */
+			color: #666666;
+			border: 1px solid #d1d5db; /* 얇은 테두리 추가 */
+			border-radius: 50%;
+			cursor: pointer;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			z-index: 9999; /* 화면 최상단에 위치하도록 설정 */
+			transition: all 0.2s ease;
+		}
+
+		/* 마우스 오버 시 효과 */
+		.tab-close-btn:hover {
+			background-color: #ff3b30; /* 호버 시 배경을 빨간색으로 변경 */
+			color: #ffffff; /* 아이콘 색상을 흰색으로 변경 */
+			border-color: #ff3b30;
+		}
+
+		/* 클릭 시 효과 */
+		.tab-close-btn:active {
+			transform: scale(0.92);
+		}
+		
+</style>
+
+	<script>
+		function closeCurrentTab() {
+			window.open('', '_self').close(); 
+			// 혹은 기본형: window.close();
+		}
+	</script>
+
+
+</head>
+    
+<body class="dark-theme">
+  <div class="container-fluid">
+        <div id="contentArea">
+            
+            <div class="header-bar">
+                <h1>연락처 및 일정 QR / 파일 통합 생성기</h1>
+                <button class="theme-btn" id="theme-toggle-btn" onclick="toggleTheme()">☀️ 라이트 모드</button>
+            </div>
+        
+
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#singleQr" role="tab" onclick="setActiveMode('vcard')">연락처 vCard 개별</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#eventTab" role="tab" onclick="setActiveMode('event')">일정 vCalendar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" id="navMultiQr" href="#multipleQr" role="tab" onclick="setActiveMode('csv')">연락처 CSV 일괄</a>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+                
+
+                <div class="tab-pane active" id="singleQr" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="title">직급 / 호칭</label>
+                                <input type="text" class="form-control vcard-input" name="title" id="title" placeholder="예: 팀장, 님, Dr.">
+                            </div>
+                            <div class="form-group">
+                                <label for="FirstN">이름</label>
+                                <input type="text" class="form-control vcard-input" name="FirstN" id="FirstN" placeholder="예: 길동">
+                            </div>
+                            <div class="form-group">
+                                <label for="LastN">성</label>
+                                <input type="text" class="form-control vcard-input" name="LastN" id="LastN" placeholder="예: 홍">
+                            </div>
+                            <div class="form-group">
+                                <label for="TITLE">직무 (직책)</label>
+                                <input type="text" class="form-control vcard-input" name="TITLE" id="TITLE" placeholder="예: 프론트엔드 개발자">
+                            </div>
+                            <div class="form-group">
+                                <label for="ORG">회사명</label>
+                                <input type="text" class="form-control vcard-input" name="ORG" id="ORG" placeholder="예: (주)한국테크">
+                            </div>
+                            <div class="form-group">
+                                <label for="URL">웹사이트</label>
+                                <input type="text" class="form-control vcard-input" name="URL" id="URL" placeholder="예: https://example.com">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="address_street">주소</label>
+                                <input type="text" class="form-control mb-2 vcard-input" name="address_street" id="address_street" placeholder="도로명 주소">
+                                <div class="row">
+                                    <div class="col-6 pr-1"><input type="text" class="form-control vcard-input" name="address_zip" id="address_zip" placeholder="우편번호"></div>
+                                    <div class="col-6 pl-1"><input type="text" class="form-control vcard-input" name="address_city" id="address_city" placeholder="도시 (예: 서울)"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="TEL;type=WORK">회사 전화번호</label>
+                                <input type="text" class="form-control vcard-input" name="TEL;type=WORK" id="TEL;type=WORK" placeholder="예: 02-123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label for="TEL;type=CELL">휴대폰 번호</label>
+                                <input type="text" class="form-control vcard-input" name="TEL;type=CELL" id="TEL;type=CELL" placeholder="예: 010-1234-5678">
+                            </div>
+                            <div class="form-group">
+                                <label for="EMAIL;type=WORK">이메일 주소</label>
+                                <input class="form-control vcard-input" name="EMAIL;type=WORK" id="email_input" placeholder="예: name@example.com" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                        <button id="createQR" type="button">연락처 QR 생성</button>
+                        <button id="resetForm" type="button" class="btn-secondary-custom">초기화</button>
+                        <button id="refreshPage" type="button" class="btn-warning-custom">새로고침</button>
+                    </div>
+                </div>
+             
+
+                <div class="tab-pane" id="eventTab" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ev_category">일정 종류 (Category)</label>
+                                <select class="form-control event-input" id="ev_category">
+                                    <option value="">-- 선택 안함 (기본) --</option>
+                                    <option value="업무/회의">업무 / 회의</option>
+                                    <option value="기제사">기제사</option>
+                                    <option value="생일">생일</option>
+                                    <option value="기념일">기념일</option>
+                                    <option value="명절">명절</option>
+                                    <option value="기타">기타</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ev_summary">일정 제목 (Summary)</label>
+                                <input type="text" class="form-control event-input" id="ev_summary" placeholder="예: 아버님 기제사 / 김철수 생일">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ev_start">시작 일시 (Start)</label>
+                                <input type="datetime-local" class="form-control event-input" id="ev_start">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ev_end">종료 일시 (End)</label>
+                                <input type="datetime-local" class="form-control event-input" id="ev_end">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="ev_location">장소 또는 링크 (Location) - *선택사항</label>
+                                <input type="text" class="form-control event-input" id="ev_location" placeholder="예: 자택 / 서울 강남구 테헤란로 123">
+                            </div>
+                            <div class="form-group">
+                                <label for="ev_desc">상세 설명 및 메모 (Description) - *선택사항</label>
+                                <textarea class="form-control event-input" id="ev_desc" rows="3" placeholder="일정 세부 내용 또는 메모 입력"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                        <button id="createEventQR" type="button">일정 QR 생성</button>
+                        <button id="downloadIcsBtn" type="button" class="btn-info-custom"><i class="fas fa-calendar-alt"></i> .ics 파일 직접 다운로드</button>
+                        <button id="resetEventForm" type="button" class="btn-secondary-custom">초기화</button>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane" id="multipleQr" role="tabpanel">
+                    <div class="text-center py-4">
+                        <p>CSV 파일을 업로드하여 여러 개의 연락처 QR 코드를 한 번에 생성 및 다운로드하세요.</p>
+                        
+                        <button type="button" class="btn btn-outline-info btn-sm mb-3 mr-2" data-toggle="modal" data-target="#csvHelpModal">
+                            <i class="fas fa-question-circle"></i> CSV 파일 작성방법 보기
+                        </button>
+                        <br>
+                        <input type="file" id="files" accept=".csv" class="form-control-file d-inline-block w-auto mt-2">
+                        
+                        <div class="mt-4">
+                            <label for="batchImageFormat" class="mr-2">일괄 다운로드 형식:</label>
+                            <select id="batchImageFormat" class="download-select d-inline-block w-auto">
+                                <option value="png">PNG 형식</option>
+                                <option value="jpeg">JPG 형식</option>
+                                <option value="bmp">BMP 형식</option>
+                                <option value="svg">SVG 형식</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button id="parseCreateQR" type="button">일괄 생성 및 다운로드</button>
+                    </div>
+                 </div>
+
+            </div>
+
+
+            <div class="hidden result-box" id="qrCode">
+                <canvas id="qrcode-canvas" class="hidden"></canvas>
+                <div id="svg-container" class="hidden"></div>
+                <div class="download-controls">
+                    <select id="imageFormat" class="download-select">
+                        <option value="png">PNG 형식</option>
+                        <option value="jpeg">JPG 형식</option>
+                        <option value="bmp">BMP 형식</option>
+                        <option value="svg">SVG 형식</option>
+                    </select>
+                    <button type="button" id="imgDownload" onclick="downloadImage()">선택한 형식으로 다운로드</button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="modal fade" id="csvHelpModal" tabindex="-1" role="dialog" aria-labelledby="csvHelpModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="csvHelpModalLabel"><i class="fas fa-info-circle"></i> CSV 파일 작성 방법 가이드</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>엑셀이나 메모장을 사용하여 CSV 파일을 작성할 수 있습니다.</p>
+                <ul>
+                    <li><strong>이름:</strong> Name, Firstname, 이름</li>
+                    <li><strong>전화번호:</strong> Mobile, Phone, 전화번호, TEL;type=CELL</li>
+                </ul>
+                <pre style="background: var(--input-bg); color: var(--text-color); padding: 12px; border-radius: 6px; font-size: 0.85rem;">Name,Mobile,ORG,TITLE
+홍길동,010-1234-5678,(주)한국테크,팀장</pre>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <p>QR 코드로 조금 더 빠르고 정확하게...</p>
+        </footer>
+    </div>
+	
+	
+
+	<!-- 탭 닫기 버튼 HTML -->
+	<button class="tab-close-btn" onclick="closeCurrentTab()" aria-label="탭 닫기" aria-label="탭 닫기">
+		<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<line x1="18" y1="6" x2="6" y2="18"></line>
+			<line x1="6" y1="6" x2="18" y2="18"></line>
+		</svg>
+	</button>
+
+
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js'></script>
+
+    <script>
+    var currentMode = 'vcard'; 
+    var fullName = "contact";
+    var globalQrObj = null;
+
+    function setActiveMode(mode) {
+        currentMode = mode;
+        document.getElementById("qrCode").classList.add("hidden");
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        if (body.classList.contains('dark-theme')) {
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+            themeBtn.textContent = '🌙 다크 모드';
+        } else {
+            body.classList.remove('light-theme');
+            body.classList.add('dark-theme');
+            themeBtn.textContent = '☀️ 라이트 모드';
+        }
+    }
+
+    document.getElementById("ev_start").addEventListener("change", function() {
+        var startVal = this.value;
+        var endInput = document.getElementById("ev_end");
+        endInput.min = startVal;
+        if (endInput.value && endInput.value < startVal) {
+            endInput.value = startVal;
+        }
+    });
+
+
+    function buildICalendarString() {
+        var category = document.getElementById("ev_category").value;
+        var summary = document.getElementById("ev_summary").value || "일정";
+        var startRaw = document.getElementById("ev_start").value;
+        var endRaw = document.getElementById("ev_end").value;
+        var location = document.getElementById("ev_location").value;
+        var desc = document.getElementById("ev_desc").value;
+
+        const formatTime = (dtStr) => {
+            if (!dtStr) return "";
+            return dtStr.replace(/[-:]/g, "") + "00Z";
+        };
+
+
+        if (startRaw && endRaw && startRaw > endRaw) {
+            endRaw = startRaw;
+        }
+
+        fullName = summary.replace(/[\s\/\\:*?"<>|]/g, "_");
+
+        let ics = "BEGIN:VCALENDAR\r\n";
+        ics += "VERSION:2.0\r\n";
+        ics += "PRODID:-//Event QR Generator//KR\r\n";
+        ics += "BEGIN:VEVENT\r\n";
+        ics += "SUMMARY:" + summary + "\r\n";
+        
+        if (category) ics += "CATEGORIES:" + category + "\r\n";
+        if (startRaw) ics += "DTSTART:" + formatTime(startRaw) + "\r\n";
+        if (endRaw) ics += "DTEND:" + formatTime(endRaw) + "\r\n";
+        if (location) ics += "LOCATION:" + location + "\r\n";
+        if (desc) ics += "DESCRIPTION:" + desc.replace(/\n/g, "\\n") + "\r\n";
+        
+        ics += "END:VEVENT\r\n";
+        ics += "END:VCALENDAR";
+
+        return ics;
+    }
+
+
+    function redrawQrCode(customData) {
+      var qrData = customData;
+      if (!qrData) {
+          if (currentMode === 'vcard') {
+              qrData = "BEGIN:VCARD\r\nVERSION:3.0\r\nN:"+document.getElementById("LastN").value+";"+document.getElementById("FirstN").value+";;"+document.getElementById("title").value+";";
+              fullName = (document.getElementById("title").value + " " + document.getElementById("FirstN").value + " " + document.getElementById("LastN").value).trim();
+              if(!fullName) fullName = "contact";
+              qrData += "\r\nFN:;;"+fullName;
+              if (document.getElementById("address_street").value != "") {
+                var address = document.getElementById("address_street").value+";"+document.getElementById("address_city").value+";;"+document.getElementById("address_zip").value;
+                qrData += "\r\nADR;type=WORK:"+address;
+              }
+              $('.vcard-input').each( function() {
+                  if (this.value != "" && this.name !="FirstN" && this.name !="LastN" && this.name !="title" && this.name !="address_street" && this.name !="address_city" && this.name !="address_zip") {
+                    qrData += "\r\n"+this.name+":"+this.value;
+                  }
+              });
+              qrData += "\r\nEND:VCARD";
+          } else if (currentMode === 'event') {
+              qrData = buildICalendarString();
+          }
+      }
+
+      try {
+          qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+          var qr = qrcode(0, 'M');
+          qr.addData(qrData, 'Byte');
+          qr.make();
+          globalQrObj = qr;
+
+          var canvas = document.getElementById("qrcode-canvas");
+          var svgContainer = document.getElementById("svg-container");
+          var format = document.getElementById("imageFormat").value;
+
+          if (format === 'svg') {
+              canvas.classList.add("hidden");
+              svgContainer.classList.remove("hidden");
+              svgContainer.innerHTML = qr.createSvgTag(6, 4);
+              var svgEl = svgContainer.querySelector("svg");
+              if(svgEl) {
+                  svgEl.style.maxWidth = "220px";
+                  svgEl.style.height = "auto";
+                  svgEl.style.backgroundColor = "#ffffff";
+                  svgEl.style.padding = "12px";
+                  svgEl.style.borderRadius = "6px";
+              }
+          } else {
+              svgContainer.classList.add("hidden");
+              canvas.classList.remove("hidden");
+
+              var ctx = canvas.getContext("2d");
+              var moduleCount = qr.getModuleCount();
+              var tileSize = 6;
+              var margin = 4;
+              var totalSize = (moduleCount + margin * 2) * tileSize;
+
+              canvas.width = totalSize;
+              canvas.height = totalSize;
+
+              ctx.fillStyle = "#FFFFFF";
+              ctx.fillRect(0, 0, totalSize, totalSize);
+
+              ctx.fillStyle = "#000000";
+              for (var r = 0; r < moduleCount; r++) {
+                  for (var c = 0; c < moduleCount; c++) {
+                      if (qr.isDark(r, c)) {
+                          ctx.fillRect((c + margin) * tileSize, (r + margin) * tileSize, tileSize, tileSize);
+                      }
+                  }
+              }
+          }
+      } catch (e) {
+          console.error("QR 렌더링 에러:", e);
+      }
+    };
+
+
+    function downloadImage(customName, customFormat, customQrObj) {
+      var format = customFormat || document.getElementById("imageFormat").value;
+      var nameStr = customName || fullName || "qr_code";
+      var qr = customQrObj || globalQrObj;
+      if (!qr) return;
+
+      if (format === 'svg') {
+          var svgTag = qr.createSvgTag(6, 4);
+          var blob = new Blob([svgTag], { type: "image/svg+xml;charset=utf-8" });
+          var url = URL.createObjectURL(blob);
+          var downloadLink = document.createElement("a");
+          downloadLink.href = url;
+          downloadLink.download = "QR_" + nameStr + ".svg";
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          URL.revokeObjectURL(url);
+      } else {
+          var canvas = document.createElement("canvas");
+          var ctx = canvas.getContext("2d");
+          var moduleCount = qr.getModuleCount();
+          var tileSize = 6;
+          var margin = 4;
+          var totalSize = (moduleCount + margin * 2) * tileSize;
+
+          canvas.width = totalSize;
+          canvas.height = totalSize;
+
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, totalSize, totalSize);
+
+          ctx.fillStyle = "#000000";
+          for (var r = 0; r < moduleCount; r++) {
+              for (var c = 0; c < moduleCount; c++) {
+                  if (qr.isDark(r, c)) {
+                      ctx.fillRect((c + margin) * tileSize, (r + margin) * tileSize, tileSize, tileSize);
+                  }
+              }
+          }
+
+          var mimeType = "image/png";
+          var ext = "png";
+          if (format === "jpeg") { mimeType = "image/jpeg"; ext = "jpg"; }
+          else if (format === "bmp") { mimeType = "image/bmp"; ext = "bmp"; }
+
+          var imageURL = canvas.toDataURL(mimeType);
+          var downloadLink = document.createElement("a");
+          downloadLink.href = imageURL;
+          downloadLink.download = "QR_" + nameStr + "." + ext;
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+      }
+    }
+
+
+    $('#downloadIcsBtn').on('click', function(){
+        var icsContent = buildICalendarString();
+        var blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+        var link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = (fullName || "event") + ".ics";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+
+    $('#imageFormat').on('change', function(){
+        if(!document.getElementById("qrCode").classList.contains("hidden")) {
+            redrawQrCode();
+        }
+    });
+
+    $("#createQR").on("click", function(){
+      currentMode = 'vcard';
+      redrawQrCode(); 
+      document.getElementById("qrCode").classList.remove("hidden");
+    }); 
+
+    $("#createEventQR").on("click", function(){
+      currentMode = 'event';
+      redrawQrCode();
+      document.getElementById("qrCode").classList.remove("hidden");
+    });
+
+    $("#resetForm").on("click", function(){
+      $('.vcard-input').val('');
+      document.getElementById("qrCode").classList.add("hidden");
+      fullName = "contact";
+    });
+
+    $("#resetEventForm").on("click", function(){
+      $('.event-input').val('');
+      document.getElementById("qrCode").classList.add("hidden");
+      fullName = "event";
+    });
+
+    $("#refreshPage").on("click", function(){
+      location.reload();
+    });
+
+    $('#parseCreateQR').click(function(){
+        var fileInput = document.getElementById('files');
+        if (fileInput.files.length === 0) {
+            alert('업로드할 CSV 파일을 선택해주세요.');
+            return;
+        }
+
+        var file = fileInput.files[0];
+        var selectedFormat = document.getElementById("batchImageFormat").value;
+        $('#parseCreateQR').prop('disabled', true);
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var text = e.target.result;
+            Papa.parse(text, {
+                header: true,
+                dynamicTyping: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    if (results.data.length === 0) {
+                        alert('CSV 파일에 데이터가 없습니다.');
+                        $('#parseCreateQR').prop('disabled', false);
+                        return;
+                    }
+
+                    results.data.forEach(function(row, index) {
+                        var nameVal = row.Name || row.Firstname || row.이름 || "";
+                        var phoneVal = row.Mobile || row.Phone || row.전화번호 || row["TEL;type=CELL"] || "";
+                        if (!nameVal && !phoneVal) return;
+
+                        var vCardfromCSV = "BEGIN:VCARD\r\nVERSION:3.0\r\nN:;" + nameVal + ";;;\r\nFN:" + nameVal;
+                        if (phoneVal) vCardfromCSV += "\r\nTEL;type=CELL:" + phoneVal;
+                        vCardfromCSV += "\r\nEND:VCARD";
+                        
+                        setTimeout(function() {
+                            try {
+                                qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+                                var qrTemp = qrcode(0, 'M');
+                                qrTemp.addData(vCardfromCSV, 'Byte');
+                                qrTemp.make();
+
+                                var currentName = nameVal || "contact";
+                                downloadImage(currentName, selectedFormat, qrTemp);
+
+                                if (index === 0) {
+                                    currentMode = 'vcard';
+                                    redrawQrCode(vCardfromCSV);
+                                    document.getElementById("qrCode").classList.remove("hidden");
+                                }
+                            } catch(err) {
+                                console.error("일괄 생성 중 에러:", err);
+                            }
+                        }, index * 350);
+                    });
+
+                    setTimeout(function() {
+                        $('#parseCreateQR').prop('disabled', false);
+                        alert('총 ' + results.data.length + '개의 QR 코드 이미지가 [' + selectedFormat.toUpperCase() + '] 형식으로 일괄 다운로드되었습니다!');
+                    }, results.data.length * 350 + 200);
+                },
+                error: function(err) {
+                    $('#parseCreateQR').prop('disabled', false);
+                    alert('CSV 파일 파싱 오류');
+                }
+            });
+        };
+        reader.readAsText(file, "UTF-8");
+    });
+    </script>
+</body>
+</html>

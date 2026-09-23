@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>텍스트 구문 QR 코드 만들기</title>
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>🔣</text></svg>">
+	<style>
+		:root {
+			--bg-color: #101010;
+			--text-color: #f0f0f0;
+			--panel-bg: #1a1a1a;
+			--border-color: #333;
+			--input-bg: #222;
+			--input-border: #444;
+			--accent-color: #5a9;
+			--label-color: #ccc;
+			--stat-color: #aaa;
+			--qr-bg: #E8E8E8;
+		}
+
+
+		body.light-theme {
+			--bg-color: #f4f4f9;
+			--text-color: #222222;
+			--panel-bg: #ffffff;
+			--border-color: #dddddd;
+			--input-bg: #f9f9f9;
+			--input-border: #cccccc;
+			--accent-color: #2b7a78;
+			--label-color: #555555;
+			--stat-color: #666666;
+			--qr-bg: #ffffff;
+		}
+
+		body {
+			background: var(--bg-color);
+			color: var(--text-color);
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			margin: 2em auto;
+			max-width: 900px;
+			padding: 0 1em;
+			transition: background 0.3s, color 0.3s;
+		}
+
+		header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 1px solid var(--border-color);
+			padding-bottom: 0.5em;
+			margin-bottom: 1.5em;
+		}
+
+		h1 {
+			margin: 0;
+			font-size: 1.5rem;
+		}
+
+		.theme-btn {
+			background: var(--input-bg);
+			color: var(--text-color);
+			border: 1px solid var(--input-border);
+			padding: 0.5em 1em;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.9rem;
+			transition: all 0.2s;
+		}
+		.theme-btn:hover {
+			border-color: var(--accent-color);
+		}
+
+		.form-container {
+			display: flex;
+			flex-direction: column;
+			gap: 1.2em;
+		}
+
+		.form-group {
+			display: flex;
+			flex-direction: column;
+			gap: 0.4em;
+			background: var(--panel-bg);
+			padding: 1em;
+			border-radius: 8px;
+			border: 1px solid var(--border-color);
+		}
+
+		.form-row-inline {
+			display: flex;
+			gap: 1em;
+		}
+		.form-row-inline .form-group {
+			flex: 1;
+		}
+
+		.form-label {
+			font-weight: bold;
+			color: var(--label-color);
+			font-size: 0.95rem;
+		}
+
+		input[type=radio], input[type=checkbox] {
+			margin: 0;
+			accent-color: var(--accent-color);
+		}
+
+		.radio-group, .checkbox-group {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1em;
+			align-items: center;
+			margin-top: 0.2em;
+		}
+
+		input[type=radio] + label, input[type=checkbox] + label {
+			margin-right: 0.5em;
+			cursor: pointer;
+		}
+
+		input[type=number], textarea {
+			background: var(--input-bg);
+			color: var(--text-color);
+			border: 1px solid var(--input-border);
+			border-radius: 4px;
+			padding: 0.6em;
+			font-family: inherit;
+		}
+
+		input[type=number]:focus, textarea:focus {
+			outline: none;
+			border-color: var(--accent-color);
+		}
+
+
+		.main-content-layout {
+			display: flex;
+			gap: 1.2em;
+		}
+
+		.left-empty-panel {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			gap: 1.2em;
+		}
+
+		.right-output-panel {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.qr-output-box {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			padding: 0.5em;
+			width: 100%;
+			box-sizing: border-box;
+			gap: 1em;
+		}
+
+		#qrcode-canvas, #qrcode-svg {
+			border-radius: 8px;
+			box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+			background-color: var(--qr-bg);
+			padding: 0.5em;
+			width: auto;
+			max-width: 250px;
+			max-height: 250px;
+			height: auto;
+			box-sizing: border-box;
+		}
+
+		.download-btn-group {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 0.5em;
+			width: 100%;
+			max-width: 300px;
+		}
+
+		.dl-btn {
+			background: var(--input-bg);
+			color: var(--text-color);
+			border: 1px solid var(--input-border);
+			padding: 0.5em 0.3em;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 0.8rem;
+			font-weight: bold;
+			transition: all 0.2s;
+			text-align: center;
+		}
+
+		.dl-btn:hover {
+			border-color: var(--accent-color);
+			background: var(--accent-color);
+			color: #fff;
+		}
+
+	
+		#statistics-output {
+			white-space: pre-wrap;
+			color: var(--stat-color);
+			font-family: monospace;
+			background: var(--input-bg);
+			padding: 0.8em;
+			border-radius: 4px;
+			border: 1px solid var(--input-border);
+		}
+
+		#svg-xml-output {
+			font-family: monospace;
+		}
+		
+				
+		/* 닫기 버튼 스타일 */
+		.tab-close-btn {
+			position: fixed;
+			bottom: 5%;
+			right: 10%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 28px; /* 버튼 크기를 조금 더 키워 클릭하기 편하게 수정 */
+			height: 28px;
+			padding: 0;
+			margin: 0;
+			background: rgba(0, 0, 0, 0.05); /* 은은한 기본 배경 추가 */
+			color: #666666;
+			border: 1px solid #d1d5db; /* 얇은 테두리 추가 */
+			border-radius: 50%;
+			cursor: pointer;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			z-index: 9999; /* 화면 최상단에 위치하도록 설정 */
+			transition: all 0.2s ease;
+		}
+
+		/* 마우스 오버 시 효과 */
+		.tab-close-btn:hover {
+			background-color: #ff3b30; /* 호버 시 배경을 빨간색으로 변경 */
+			color: #ffffff; /* 아이콘 색상을 흰색으로 변경 */
+			border-color: #ff3b30;
+		}
+
+		/* 클릭 시 효과 */
+		.tab-close-btn:active {
+			transform: scale(0.92);
+		}
+		
+	</style>
+
+	<script>
+		function closeCurrentTab() {
+			window.open('', '_self').close(); 
+			// 혹은 기본형: window.close();
+		}
+	</script>	
+</head>
+
+<body class="dark-theme">
+	<header>
+		<h1>텍스트 구문 QR 코드 만들기</h1>
+		<button class="theme-btn" id="theme-toggle-btn" onclick="toggleTheme()">☀️ 라이트 모드</button>
+	</header>
+	
+	<form action="#" method="get" onsubmit="return false;">
+		<div class="form-container">
+			
+			<div class="main-content-layout">
+				<div class="left-empty-panel">
+					<div class="form-group" style="height: 100%; box-sizing: border-box;">
+						<label class="form-label" for="text-input">텍스트 구문</label>
+						<textarea placeholder="QR 코드로 변환할 텍스트를 입력하세요" id="text-input" style="width:100%; flex-grow:1; resize:none;">불편함은 호기심을 낳는다.</textarea>
+					</div>
+				</div>
+
+				<div class="form-group right-output-panel">
+					<label class="form-label">QR 코드 출력</label>
+					<div class="qr-output-box">
+						<canvas id="qrcode-canvas"></canvas>
+						<svg id="qrcode-svg" style="width:20em; height:20em; display:none;">
+							<rect width="100%" height="100%" fill="#FFFFFF" stroke-width="0"></rect>
+							<path d="" fill="#000000" stroke-width="0"></path>
+						</svg>
+
+						<div class="download-btn-group">
+							<button type="button" class="dl-btn" onclick="downloadQR('png')">PNG 다운로드</button>
+							<button type="button" class="dl-btn" onclick="downloadQR('jpg')">JPG 다운로드</button>
+							<button type="button" class="dl-btn" onclick="downloadQR('bmp')">BMP 다운로드</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" style="display:none">
+				<label class="form-label">오류 정정 수준</label>
+				<div class="radio-group">
+					<div><input type="radio" name="errcorlvl" id="errcorlvl-low"><label for="errcorlvl-low">낮음</label></div>
+					<div><input type="radio" name="errcorlvl" id="errcorlvl-medium"><label for="errcorlvl-medium">중간</label></div>
+					<div><input type="radio" name="errcorlvl" id="errcorlvl-quartile" checked="checked"><label for="errcorlvl-quartile">높음</label></div>
+					<div><input type="radio" name="errcorlvl" id="errcorlvl-high"><label for="errcorlvl-high">최상</label></div>
+				</div>
+			</div>
+
+			<div class="form-group" style="display:none">
+				<label class="form-label">출력 형식</label>
+				<div class="radio-group">
+					<div><input type="radio" name="output-format" id="output-format-bitmap" checked="checked"><label for="output-format-bitmap">비트맵</label></div>
+					<div><input type="radio" name="output-format" id="output-format-vector"><label for="output-format-vector">벡터</label></div>
+				</div>
+			</div>
+
+			<div class="form-group" style="display:none">
+				<label class="form-label" for="border-input">테두리 여백</label>
+				<div><input type="number" value="2" min="0" max="100" step="1" id="border-input" style="width:6em"> 모듈</div>
+			</div>
+
+			<div class="form-row-inline" style="display:none">
+				<div class="form-group" id="scale-row">
+					<label class="form-label" for="scale-input">크기 배율</label>
+					<div><input type="number" value="4" min="1" max="30" step="1" id="scale-input" style="width:6em"> 픽셀 / 모듈</div>
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" for="mask-input">마스크 패턴</label>
+					<div><input type="number" value="-1" min="-1" max="7" step="1" id="mask-input" style="width:6em"> (-1: 자동, 0~7: 수동)</div>
+				</div>
+			</div>
+
+			<div class="form-group" style="display:none">
+				<label class="form-label">버전 범위</label>
+				<div style="display: flex; gap: 1em; align-items: center;">
+					<span>최소 = <input type="number" value="1" min="1" max="40" step="1" id="version-min-input" style="width:5em"></span>
+					<span>최대 = <input type="number" value="40" min="1" max="40" step="1" id="version-max-input" style="width:5em"></span>
+				</div>
+			</div>
+
+			<div class="form-group" style="display:none">
+				<label class="form-label">ECC 강화</label>
+				<div class="checkbox-group">
+					<input type="checkbox" checked="checked" id="boost-ecc-input">
+					<label for="boost-ecc-input">동일한 버전 내에서 오류 정정(ECC) 수준 향상</label>
+				</div>
+			</div>
+
+			<div class="form-group" style="display:none">
+				<label class="form-label">통계 정보</label>
+				<div id="statistics-output"></div>
+			</div>
+
+			<div class="form-group" id="svg-xml-row" style="display:none">
+				<label class="form-label" for="svg-xml-output">SVG XML 코드</label>
+				<textarea id="svg-xml-output" readonly="readonly" style="width:100%; height:12em;"></textarea>
+			</div>
+
+		</div>
+	</form>
+	
+	<!-- 탭 닫기 버튼 HTML -->
+	<button class="tab-close-btn" onclick="closeCurrentTab()" aria-label="탭 닫기" aria-label="탭 닫기">
+		<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<line x1="18" y1="6" x2="6" y2="18"></line>
+			<line x1="6" y1="6" x2="18" y2="18"></line>
+		</svg>
+	</button>	
+
+
+	<script>
+		function toggleTheme() {
+			const body = document.body;
+			const themeBtn = document.getElementById('theme-toggle-btn');
+			
+			if (body.classList.contains('dark-theme')) {
+				body.classList.remove('dark-theme');
+				body.classList.add('light-theme');
+				themeBtn.textContent = '🌙 다크 모드';
+			} else {
+				body.classList.remove('light-theme');
+				body.classList.add('dark-theme');
+				themeBtn.textContent = '☀️ 라이트 모드';
+			}
+		}
+
+
+		function downloadQR(format) {
+			const canvas = document.getElementById('qrcode-canvas');
+			const link = document.createElement('a');
+			link.download = `qrcode.${format}`;
+
+			let mimeType = 'image/png';
+			if (format === 'jpg') mimeType = 'image/jpeg';
+			if (format === 'bmp') mimeType = 'image/bmp';
+
+			if (format === 'jpg') {
+				const tempCanvas = document.createElement('canvas');
+				tempCanvas.width = canvas.width;
+				tempCanvas.height = canvas.height;
+				const ctx = tempCanvas.getContext('2d');
+				ctx.fillStyle = '#FFFFFF';
+				ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+				ctx.drawImage(canvas, 0, 0);
+				link.href = tempCanvas.toDataURL(mimeType, 1.0);
+			} else {
+				link.href = canvas.toDataURL(mimeType);
+			}
+			link.click();
+		}
+	</script>
+	
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js" integrity="sha512-is1ls2rgwpFZyixqKFEExPHVUUL+pPkBEPw47s/6NDQ4n1m6T/ySeDW3p54jp45z2EJ0RSOgilqee1WhtelXfA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src='https://raw.githubusercontent.com/nayuki/QR-Code-generator/master/javascript/qrcodegen.js'></script>
+	<script src="./script.js"></script>
+</body>
+</html>

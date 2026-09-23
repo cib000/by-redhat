@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>와이파이 QR 코드 생성기</title>
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>🔣</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+
+<style>
+html, body { height: 100%; width: 100%; overflow-x: hidden; }
+    body {
+      font-family: 'Urbanist', sans-serif;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72, #2a5298);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      padding: 40px 15px;
+      position: relative;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 40px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      position: relative;
+      z-index: 2;
+    }
+    .qr-box {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    #qrcode:empty::before {
+      content: "";
+      width: 50px;
+      height: 50px;
+      border: 5px solid #333;
+      border-top: 5px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      position: absolute;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    input, select {
+      background: rgba(255,255,255,0.15) !important;
+      color: #fff !important;
+      border: 1px solid rgba(255,255,255,0.3) !important;
+    }
+    select option {
+      color: #000 !important;
+      background: #fff !important;
+    }
+    .form-check-input {
+      background-color: transparent !important;
+      border: 2px solid #fff !important;
+    }
+    .form-check-input:checked {
+      background-color: #ffc107 !important;
+      border-color: #ffc107 !important;
+    }
+    label { font-weight: 600; }
+ .btn-custom {
+  background: rgba(255, 255, 255, 0.3); /* Più opaco = più visibile */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  color: #000; /* Contrasto scuro su hover */
+}
+    .floating-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .line {
+      position: absolute;
+      width: 2px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.2);
+      animation: moveLine 20s linear infinite;
+    }
+    @keyframes moveLine {
+      0% {transform: translateY(-200px) translateX(0);}
+      100% {transform: translateY(120vh) translateX(100px);}
+    }
+	
+	/* 닫기 버튼 스타일 */
+		.tab-close-btn {
+			position: fixed;
+			bottom: 5%;
+			right: 10%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 28px; /* 버튼 크기를 조금 더 키워 클릭하기 편하게 수정 */
+			height: 28px;
+			padding: 0;
+			margin: 0;
+			background: rgba(0, 0, 0, 0.05); /* 은은한 기본 배경 추가 */
+			color: #666666;
+			border: 1px solid #d1d5db; /* 얇은 테두리 추가 */
+			border-radius: 50%;
+			cursor: pointer;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			z-index: 9999; /* 화면 최상단에 위치하도록 설정 */
+			transition: all 0.2s ease;
+		}
+
+		/* 마우스 오버 시 효과 */
+		.tab-close-btn:hover {
+			background-color: #ff3b30; /* 호버 시 배경을 빨간색으로 변경 */
+			color: #ffffff; /* 아이콘 색상을 흰색으로 변경 */
+			border-color: #ff3b30;
+		}
+
+		/* 클릭 시 효과 */
+		.tab-close-btn:active {
+			transform: scale(0.92);
+		}
+		
+</style>
+
+	<script>
+		function closeCurrentTab() {
+			window.open('', '_self').close(); 
+			// 혹은 기본형: window.close();
+		}
+	</script>
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>🔣</text></svg>">
+  <title>WiFi QR 코드 생성기</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+  <div class="floating-lines">
+    <div class="line" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="line" style="left: 30%; animation-delay: 5s;"></div>
+    <div class="line" style="left: 50%; animation-delay: 10s;"></div>
+    <div class="line" style="left: 70%; animation-delay: 15s;"></div>
+    <div class="line" style="left: 90%; animation-delay: 20s;"></div>
+  </div>
+
+  <div class="container glass text-center">
+    <h1 class="text-warning mb-3">와이파이 QR 코드 생성기</h1>
+    
+	
+    <div class="row mt-2">
+      <div class="col-md-6 d-flex flex-column justify-content-center align-items-center mb-4 mb-md-0">
+        <div id="qrcode" class="qr-box"></div>
+        <button id="downloadBtn" class="btn btn-custom mt-3" onclick="downloadQRCode()" disabled>QR 코드 다운로드</button>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label text-warning">네트워크 이름(SSID)</label>
+          <input type="text" id="ssid" class="form-control" placeholder="SSID 입력">
+        </div>
+        <div class="mb-3">
+          <label class="form-label text-warning">비밀번호</label>
+          <input type="password" id="password" class="form-control" placeholder="비밀번호 입력">
+        </div>
+        <div class="mb-3">
+          <label class="form-label text-warning">암호화 유형</label>
+          <select id="encryption" class="form-control">
+            <option value="WPA">WPA/WPA2</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">자유 공용</option>
+          </select>
+        </div>
+        <div class="form-check mb-3 text-start">
+          <input class="form-check-input" type="checkbox" id="hiddenSSID">
+          <label class="form-check-label" for="hiddenSSID"> SSID 숨기기</label>
+        </div>
+        <button class="btn btn-custom w-100" onclick="generateQRCode()">QR 코드 이미지 만들기</button>
+      </div>
+    </div>
+  </div>
+
+	<!-- 탭 닫기 버튼 HTML -->
+	<button class="tab-close-btn" onclick="closeCurrentTab()" aria-label="탭 닫기" aria-label="탭 닫기">
+		<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<line x1="18" y1="6" x2="6" y2="18"></line>
+			<line x1="6" y1="6" x2="18" y2="18"></line>
+		</svg>
+	</button>
+
+  <script>
+  function generateQRCode() {
+      const ssid = document.getElementById("ssid").value;
+      const password = document.getElementById("password").value;
+      const encryption = document.getElementById("encryption").value;
+      const hidden = document.getElementById("hiddenSSID").checked;
+      let qrData = `WIFI:T:${encryption};S:${ssid};`;
+      if (encryption !== "nopass") {
+        qrData += `P:${password};`;
+      }
+      if (hidden) {
+        qrData += `H:true;`;
+      }
+      qrData += `;`;
+      document.getElementById("qrcode").innerHTML = "";
+      new QRCode(document.getElementById("qrcode"), {
+        text: qrData,
+        width: 200,
+        height: 200,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+      setTimeout(() => {
+        document.getElementById("downloadBtn").disabled = false;
+      }, 500);
+    }
+
+    function downloadQRCode() {
+      const qrCanvas = document.querySelector("#qrcode canvas");
+      if (qrCanvas) {
+        const link = document.createElement('a');
+        link.href = qrCanvas.toDataURL("image/png");
+        link.download = "wifi-qrcode.png";
+        link.click();
+      } else {
+        alert("Please generate the QR code first.");
+      }
+    }
+  
+  </script>
+</body>
+</html>
+      <script>
+  function generateQRCode() {
+      const ssid = document.getElementById("ssid").value;
+      const password = document.getElementById("password").value;
+      const encryption = document.getElementById("encryption").value;
+      const hidden = document.getElementById("hiddenSSID").checked;
+      let qrData = `WIFI:T:${encryption};S:${ssid};`;
+      if (encryption !== "nopass") {
+        qrData += `P:${password};`;
+      }
+      if (hidden) {
+        qrData += `H:true;`;
+      }
+      qrData += `;`;
+      document.getElementById("qrcode").innerHTML = "";
+      new QRCode(document.getElementById("qrcode"), {
+        text: qrData,
+        width: 200,
+        height: 200,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+      setTimeout(() => {
+        document.getElementById("downloadBtn").disabled = false;
+      }, 500);
+    }
+
+    function downloadQRCode() {
+      const qrCanvas = document.querySelector("#qrcode canvas");
+      if (qrCanvas) {
+        const link = document.createElement('a');
+        link.href = qrCanvas.toDataURL("image/png");
+        link.download = "wifi-qrcode.png";
+        link.click();
+      } else {
+        alert("Please generate the QR code first.");
+      }
+    }
+  
+  </script>
+
+  </body>
+  
+</html>

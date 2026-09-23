@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR 코드 해독 도우미</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>🔣</text></svg>">
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.5;
+            background-color: #ffffff;
+            color: #333333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h1 { margin: 0; }
+
+        .theme-btn {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            background: #f8f9fa;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover { background: #e2e6ea; }
+
+        .mode-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #ccc;
+            background: #ffffff;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mode-btn:hover { border-color: #888; background: #f5f5f5; }
+        .mode-btn.active { background: #007bff; border-color: #007bff; color: white; }
+
+        /* 이미지 입력 및 미리보기 컨테이너 (7:3 비율) */
+        .image-input-container {
+            display: flex;
+            width: 100%;
+            height: 220px;
+            gap: 10px;
+            margin: 0 auto 20px;
+        }
+
+        #dropArea {
+            flex: 7;
+            border: 3px dashed #ccc;
+            border-radius: 12px;
+            min-width: 0;
+            height: 100%;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        #dropArea:hover { border-color: #888; background-color: rgba(0, 0, 0, 0.02); }
+        #dropArea.highlight { border-color: #0066cc; background-color: rgba(0, 102, 204, 0.1); }
+
+        #imagePreviewArea {
+            flex: 3;
+            min-width: 0;
+            height: 100%;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+
+        #imagePreviewPlaceholder {
+            color: #888;
+            font-size: 13px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .dropzone-text { font-size: 18px; }
+        .dropzone-hint { font-size: 14px; color: #777; margin-top: 8px; }
+        #fileElem { display: none; }
+
+        /* 웹캠 영역 */
+        .webcam-container { display: none; width: 100%; margin-bottom: 20px; }
+        .webcam-container.active { display: block; }
+
+        .video-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+            touch-action: none;
+            max-height: 400px;
+        }
+
+        #webcam-video {
+            width: 100%;
+            max-height: 400px;
+            display: block;
+            background: #000;
+            object-fit: cover;
+        }
+
+        .zoom-hint {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .video-wrapper:active .zoom-hint { opacity: 1; }
+
+        .webcam-placeholder {
+            width: 100%;
+            height: 300px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+        }
+        .webcam-placeholder-icon { font-size: 48px; margin-bottom: 10px; }
+
+        .webcam-bottom-controls { display: none; }
+        .webcam-bottom-controls.active { display: block; }
+
+        .webcam-controls { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        .webcam-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .webcam-btn.start { background: #28a745; color: white; }
+        .webcam-btn.stop { background: #dc3545; color: white; }
+        .webcam-btn.switch { background: #6c757d; color: white; }
+        .webcam-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .webcam-status { text-align: center; padding: 10px; font-size: 14px; }
+
+        /* 결과 박스 */
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            word-break: break-all;
+            font: italic bold 16px/1.5 'Malgun Gothic', sans-serif;
+            color: #00F;
+        }
+        #result-box:empty { display: none; }
+        #result-text { flex: 1; }
+        #result-text a { color: #0066cc; }
+
+        .copy-btn {
+            padding: 8px 14px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover { background: #218838; }
+        .copy-btn.copied { background: #17a2b8; }
+
+        /* QR코드 만들기 섹션 */
+        .qr-create-section { display: none; margin-top: 30px; width: 100%; }
+        .qr-create-divider { width: 100%; height: 1px; background-color: #ccc; margin-bottom: 15px; }
+        .qr-create-btn {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #007bff;
+            background: #007bff;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .qr-create-btn:hover { background: #0056b3; border-color: #0056b3; }
+
+        /* 다크 모드 스타일 */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        body.dark-mode .theme-btn { background: #2a2a2a; color: #e0e0e0; border-color: #444; }
+        body.dark-mode .theme-btn:hover { background: #3a3a3a; }
+        body.dark-mode .mode-btn { background: #1e1e1e; color: #e0e0e0; border-color: #444; }
+        body.dark-mode .mode-btn:hover { background: #2a2a2a; border-color: #666; }
+        body.dark-mode .mode-btn.active { background: #0d6efd; border-color: #0d6efd; color: white; }
+        body.dark-mode #dropArea { border-color: #444; background-color: #1a1a1a; }
+        body.dark-mode #dropArea:hover { border-color: #666; background-color: #222222; }
+        body.dark-mode .dropzone-hint { color: #aaa; }
+        body.dark-mode #imagePreviewArea { border-color: #555; background-color: #1a1a1a; }
+        body.dark-mode #imagePreviewPlaceholder { color: #888; }
+        body.dark-mode .result-box { background-color: #1a1a1a; border-color: #f00; color: #fff; }
+        body.dark-mode #result-text a { color: #6ea8fe; }
+        body.dark-mode .qr-create-divider { background-color: #444; }
+        body.dark-mode .qr-create-btn { background: #0d6efd; border-color: #0d6efd; }
+        body.dark-mode .qr-create-btn:hover { background: #0b5ed7; border-color: #0b5ed7; }
+
+        @media (max-width: 500px) {
+            .image-input-container { height: 200px; }
+            .dropzone-text { font-size: 15px; }
+            .dropzone-hint { font-size: 12px; }
+        }
+		
+		/* 접근성 고려 바로가기 허브 패널 */
+		.accessibility-hub {
+			margin-top: 40px;
+			padding: 20px;
+			border: 2px solid #007bff;
+			border-radius: 12px;
+			background-color: #f8f9fa;
+		}
+		body.dark-mode .accessibility-hub {
+			background-color: #1a1a1a;
+			border-color: #0d6efd;
+		}
+
+		.hub-title {
+			font-size: 16px;
+			font-weight: bold;
+			margin-bottom: 12px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.hub-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 10px;
+		}
+
+		.hub-btn {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 12px 16px;
+			background: #ffffff;
+			color: #333333;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			text-decoration: none;
+			font-size: 14px;
+			font-weight: bold;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+			transition: all 0.2s;
+		}
+		.hub-btn:hover {
+			background: #007bff;
+			color: white;
+			border-color: #007bff;
+			transform: translateY(-2px);
+		}
+		body.dark-mode .hub-btn {
+			background: #2a2a2a;
+			color: #e0e0e0;
+			border-color: #444;
+		}
+		body.dark-mode .hub-btn:hover {
+			background: #0d6efd;
+			color: white;
+			border-color: #0d6efd;
+		}
+		
+		/* 닫기 버튼 스타일 */
+		.tab-close-btn {
+			position: fixed;
+			bottom: 5%;
+			right: 10%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 28px; /* 버튼 크기를 조금 더 키워 클릭하기 편하게 수정 */
+			height: 28px;
+			padding: 0;
+			margin: 0;
+			background: rgba(0, 0, 0, 0.05); /* 은은한 기본 배경 추가 */
+			color: #666666;
+			border: 1px solid #d1d5db; /* 얇은 테두리 추가 */
+			border-radius: 50%;
+			cursor: pointer;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			z-index: 9999; /* 화면 최상단에 위치하도록 설정 */
+			transition: all 0.2s ease;
+		}
+
+		/* 마우스 오버 시 효과 */
+		.tab-close-btn:hover {
+			background-color: #ff3b30; /* 호버 시 배경을 빨간색으로 변경 */
+			color: #ffffff; /* 아이콘 색상을 흰색으로 변경 */
+			border-color: #ff3b30;
+		}
+
+		/* 클릭 시 효과 */
+		.tab-close-btn:active {
+			transform: scale(0.92);
+		}
+		
+    </style>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+	<script>
+		function closeCurrentTab() {
+			window.open('', '_self').close(); 
+			// 혹은 기본형: window.close();
+		}
+	</script>
+
+</head>
+
+
+<body class="dark-mode">
+    <div class="header-container">
+        <h1>🔥 QR 코드 해독 도우미 🧙</h1>
+        <button class="theme-btn" id="theme-toggle-btn">🌙 다크모드</button>
+    </div>
+    <p>
+        레퍼런스
+        <a href="https://github.com/simonw/tools/blob/main/qr.html" target="_blank">👀 원문</a>
+    </p>
+
+    <div class="mode-toggle">
+        <button class="mode-btn active" id="image-mode-btn">🔥 QR 이미지</button>
+        <button class="mode-btn" id="webcam-mode-btn">🎥 웹캠 (Webcam)</button>
+        <button class="mode-btn" id="qr-create-mode-btn">🛠️ QR코드 만들기</button>
+    </div>
+
+
+    <div class="image-input-container">
+        <div id="dropArea">
+            <input type="file" id="fileElem" accept="image/*">
+            <div class="dropzone-text">💥 여기에 이미지를 놓거나 클릭하여 선택하세요.</div>
+            <div class="dropzone-hint">📋 클립보드에서 이미지를 붙여넣을 수도 있습니다(Ctrl/Cmd+V).</div>
+        </div>
+        <div id="imagePreviewArea">
+            <div id="imagePreviewPlaceholder">선택된 이미지<br>💯 미리보기</div>
+            <img id="imagePreview" alt="선택된 이미지">
+        </div>
+    </div>
+	
+
+    <div class="webcam-container" id="webcam-container">
+        <div class="webcam-placeholder" id="webcam-placeholder">
+            <div class="webcam-placeholder-icon">&#x1F4F9;</div>
+            <div>시작하려면 "카메라 시작"을 클릭하세요.</div>
+        </div>
+        <div class="video-wrapper" id="video-wrapper" style="display: none;">
+            <video id="webcam-video" autoplay playsinline></video>
+            <div class="zoom-hint" id="zoom-hint">손가락을 모으거나 벌려 확대/축소</div>
+        </div>
+    </div>
+
+
+    <div id="result-container" class="result-box" style="display: none;">
+        <div id="result-text">해독된 콘텐츠: 대기중...</div>
+        <button class="copy-btn" id="copy-btn">📋 복사</button>
+    </div>
+
+
+    <div class="webcam-bottom-controls" id="webcam-bottom-controls">
+        <div class="webcam-controls">
+            <button class="webcam-btn start" id="start-camera-btn">카메라 시작</button>
+            <button class="webcam-btn stop" id="stop-camera-btn" style="display: none;">카메라 중지</button>
+            <button class="webcam-btn switch" id="switch-camera-btn" style="display: none;">카메라 전환</button>
+        </div>
+        <div class="webcam-status" id="webcam-status"></div>
+    </div>
+
+
+
+    <div class="qr-create-container" id="qr-create-container" style="display: none; width: 100%; margin-bottom: 20px;">
+        
+        <div class="qr-create-select-wrapper" style="margin-bottom: 15px;">
+            <select id="qr-create-type-select" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 15px;">
+                <option value="">-- 생성할 QR코드 타입을 선택하세요 --</option>
+                <option value="url">웹사이트 주소 (URL)</option>
+                <option value="text">일반 텍스트</option>
+                <option value="wifi">Wi-Fi 정보</option>
+                <option value="vcard">연락처 정보 (vCard)</option>
+                <option value="tel">전화번호 연결</option>
+                <option value="email">이메일 보내기</option>
+                <option value="geo">위치 / 지도</option>
+                <option value="login">홈페이지 로그인</option>
+                <option value="ftp">FTP 로그인</option>
+            </select>
+        </div>
+
+        <div class="qr-create-workspace" style="display: flex; width: 100%; height: 220px; gap: 10px; margin-bottom: 20px;">
+            <div id="qr-input-area" style="flex: 7; border: 2px dashed #ccc; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; background: #fafafa; overflow-y: auto; max-height: 270px; box-sizing: border-box;">
+                <div style="font-size: 16px; color: #666;">QR 생성에 필요한 정보를 입력하세요.</div>
+            </div>
+            <div id="qr-output-area" style="flex: 3; border: 2px solid #ccc; border-radius: 12px; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center;">
+                <div style="color: #888; font-size: 13px; text-align: center;">생성된 QR코드<br>미리보기</div>
+            </div>
+        </div>
+
+    </div>
+
+
+	<div id="qr-action-section" style="display: none; justify-content: center; align-items: center; gap: 10px; margin-top: 15px;">
+		<select id="download-format-select"  style="padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px;">
+			<option value="png">PNG</option>
+			<option value="jpg" selected>JPG</option>
+			<option value="svg">SVG</option>
+		</select>
+
+		<button id="qr-download-btn" onclick="downloadQRCode()" style="padding: 6px 14px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 13px; cursor: pointer; font-weight: bold;">
+			QR 코드 다운로드
+		</button>
+	</div>
+
+
+
+    <div class="accessibility-hub" role="region" aria-label="전문 QR 기능 바로가기 모음">
+        <div class="hub-title">
+            <span>💡</span> 전문 QR 생성 및 맞춤형 도구 바로가기
+        </div>
+        <div class="hub-grid">
+            <a href="web link qr/web link qr.html" target="_blank" class="hub-btn" title="웹사이트 주소 QR 생성">
+                <span style="font-size: 18px;">🏠</span>
+                <span>웹사이트 주소 QR</span>
+            </a>
+			
+			<a href="wifi qr/wifi qr type 1.html" target="_blank" class="hub-btn" title="와이파이 연결용 QR코드 생성 (타입 1)">
+                <span style="font-size: 18px;">📶</span>
+                <span>WiFi QR (타입 1)</span>
+            </a>
+            <a href="wifi qr/wifi qr type 2.html" target="_blank" class="hub-btn" title="와이파이 연결용 QR코드 생성 (타입 2)">
+                <span style="font-size: 18px;">📶</span>
+                <span>WiFi QR (타입 2)</span>
+            </a>
+			
+            <a href="text qr/text contents qr-code.html" target="_blank" class="hub-btn" title="긴 텍스트나 안내문구용 QR코드 생성">
+                <span style="font-size: 18px;">💬</span>
+                <span>텍스트 컨텐츠 QR</span>
+            </a>
+			
+            <a href="vcard cal card qr/vcard cal card qr.html" target="_blank" class="hub-btn" title="연락처(vCard) 및 일정(vCalendar) 카드 QR 생성">
+                <span style="font-size: 18px;">📇</span>
+                <span>연락처 / 일정 카드 QR</span>
+            </a>
+			
+			<!-- 메일보내기 QR -->
+			<a href="email qr/email qr.html" target="_blank" class="hub-btn" title="메일보내기용 QR코드 생성">
+				<span style="font-size: 18px;">✉</span>
+				<span>메일보내기 QR</span>
+			</a>
+			
+			<!-- 전화번호 바로 걸기 QR -->
+			<a href="tel qr/tel qr.html" target="_blank" class="hub-btn" title="전화 연결용 QR코드 생성">
+				<span style="font-size: 18px;">📞</span>
+				<span>전화 연결 QR</span>
+			</a>
+
+			<!-- 문자발송 발송 QR -->
+			<a href="sms qr/sms qr.html" target="_blank" class="hub-btn" title="문자발송 QR코드 생성">
+				<span style="font-size: 18px;">💬</span>
+				<span>문자발송 QR</span>
+			</a>
+			
+			
+			<!-- 긴급 시트 인쇄용 QR -->
+			<a href="emergency qr/emergency_contact_qr.html" target="_blank" class="hub-btn" title="긴급 시트 인쇄용 QR 생성">
+				<span style="font-size: 18px;">🚨</span>
+				<span>긴급 시트 인쇄용 QR</span>
+			</a>
+			
+
+			
+            <a href="index.html" target="_blank" class="hub-btn" title="QR 코드 해독기 메인 페이지 새창으로 열기">
+                <span style="font-size: 18px;">🔮</span>
+                <span>해독기 메인 새창</span>
+            </a>
+        </div>
+    </div>
+
+
+	<!-- 탭 닫기 버튼 HTML (크기 30px 적용) -->
+	<button class="tab-close-btn" onclick="closeCurrentTab()" aria-label="탭 닫기">
+		<svg viewBox="0 0 30 30" width="30" height="30" stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<line x1="21" y1="9" x2="9" y2="21"></line>
+			<line x1="9" y1="9" x2="21" y2="21"></line>
+		</svg>
+	</button>
+
+<script>
+        window.onload = function() {
+			const qrCreateBtn = document.getElementById('qr-create-btn');
+			if (qrCreateBtn) {
+				qrCreateBtn.addEventListener('click', () => {
+				});
+			}
+
+            if (typeof jsQR === 'undefined') {
+
+                const resText =
+                    document.getElementById('result-text') ||
+                    document.getElementById('result');
+
+                if (resText) {
+                    resText.innerHTML =
+                        "오류: QR 코드 라이브러리가 로드되지 않았습니다.";
+                }
+
+                return;
+            }
+
+
+            const themeToggleBtn =
+                document.getElementById('theme-toggle-btn');
+            const savedTheme =
+                localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.remove('dark-mode');
+                if (themeToggleBtn) {
+                    themeToggleBtn.textContent =
+                        '🌙 다크모드';
+                }
+            } else {
+                document.body.classList.add('dark-mode');
+                if (themeToggleBtn) {
+                    themeToggleBtn.textContent =
+                        '☀️ 라이트모드';
+                }
+            }
+
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    document.body.classList.toggle('dark-mode');
+                    const isDark =
+                        document.body.classList.contains('dark-mode');
+                    themeToggleBtn.textContent =
+                        isDark
+                            ? '☀️ 라이트모드'
+                            : '🌙 다크모드';
+                    localStorage.setItem(
+                        'theme',
+                        isDark ? 'dark' : 'light'
+                    );
+                });
+            }
+
+
+            const dropArea =
+                document.getElementById('dropArea');
+
+            const fileElem =
+                document.getElementById('fileElem');
+
+
+            const imagePreview =
+                document.getElementById('imagePreview');
+
+            const imagePreviewPlaceholder =
+                document.getElementById('imagePreviewPlaceholder');
+
+
+            const resultContainer =
+                document.getElementById('result-container');
+
+            const resultText =
+                document.getElementById('result-text');
+
+            const copyBtn =
+                document.getElementById('copy-btn');
+
+            let rawDecodedData = "";
+
+
+            const imageModeBtn =
+                document.getElementById('image-mode-btn');
+
+            const webcamModeBtn =
+                document.getElementById('webcam-mode-btn');
+
+
+            const qrCreateModeBtn =
+                document.getElementById('qr-create-mode-btn');
+
+            const qrCreateContainer =
+                document.getElementById('qr-create-container');
+
+            const qrCreateActionSection =
+                document.getElementById('qr-create-action-section');
+
+            const webcamContainer =
+                document.getElementById('webcam-container');
+
+            const webcamBottomControls =
+                document.getElementById('webcam-bottom-controls');
+
+            const webcamVideo =
+                document.getElementById('webcam-video');
+
+            const webcamPlaceholder =
+                document.getElementById('webcam-placeholder');
+
+            const videoWrapper =
+                document.getElementById('video-wrapper');
+
+            const zoomHint =
+                document.getElementById('zoom-hint');
+
+            const startCameraBtn =
+                document.getElementById('start-camera-btn');
+
+            const stopCameraBtn =
+                document.getElementById('stop-camera-btn');
+
+            const switchCameraBtn =
+                document.getElementById('switch-camera-btn');
+
+            const webcamStatus =
+                document.getElementById('webcam-status');
+
+            let currentMode = 'image';
+            let webcamStream = null;
+            let scanInterval = null;
+            let currentFacingMode = 'environment';
+
+            [
+                'dragenter',
+                'dragover',
+                'dragleave',
+                'drop'
+            ].forEach(eventName => {
+
+                dropArea.addEventListener(
+                    eventName,
+                    preventDefaults,
+                    false
+                );
+
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+
+            [
+                'dragenter',
+                'dragover'
+            ].forEach(eventName => {
+                dropArea.addEventListener(
+                    eventName,
+                    () => dropArea.classList.add('highlight'),
+                    false
+                );
+            });
+
+
+            [
+                'dragleave',
+                'drop'
+            ].forEach(eventName => {
+
+                dropArea.addEventListener(
+                    eventName,
+                    () => dropArea.classList.remove('highlight'),
+                    false
+                );
+
+            });
+
+
+            dropArea.addEventListener(
+                'click',
+                () => fileElem.click()
+            );
+
+            dropArea.addEventListener(
+                'drop',
+                (e) => handleFiles(e.dataTransfer.files),
+                false
+            );
+
+            fileElem.addEventListener(
+                'change',
+                function() {
+                    handleFiles(this.files);
+                },
+                false
+            );
+
+            document.addEventListener(
+                'paste',
+                handlePaste,
+                false
+            );
+
+
+            function handleFiles(files) {
+                const file = files[0];
+                if (file) {
+                    showImagePreview(file);
+                    decodeQR(file);
+                }
+            }
+
+
+            function showImagePreview(file) {
+                if (!file.type.startsWith('image/')) {
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    imagePreviewPlaceholder.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+
+
+            function handlePaste(e) {
+                const items =
+                    e.clipboardData.items;
+                for (
+                    let i = 0;
+                    i < items.length;
+                    i++
+                ) {
+                    if (
+                        items[i].type.indexOf('image') !== -1
+                    ) {
+                        const file =
+                            items[i].getAsFile();
+                        if (file) {
+                            showImagePreview(file);
+                            decodeQR(file);
+                        }
+                        break;
+                    }
+                }
+            }
+
+
+            function decodeQR(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas =
+                            document.createElement('canvas');
+                        const context =
+                            canvas.getContext('2d');
+                        canvas.width =
+                            img.width;
+                        canvas.height =
+                            img.height;
+                        context.drawImage(
+                            img,
+                            0,
+                            0,
+                            img.width,
+                            img.height
+                        );
+                        const imageData =
+                            context.getImageData(
+                                0,
+                                0,
+                                canvas.width,
+                                canvas.height
+                            );
+                        const code =
+                            jsQR(
+                                imageData.data,
+                                imageData.width,
+                                imageData.height
+                            );
+                        if (code) {
+                            displayResult(code.data);
+                        } else {
+                            if (resultContainer) {
+                                resultContainer.style.display =
+                                    'flex';
+                                resultText.innerHTML =
+                                    "이미지에서 QR 코드를 찾을 수 없습니다.";
+                            }
+                        }
+                    };
+                    img.src =
+                        e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+
+            function displayResult(data) {
+                rawDecodedData = data;
+                if (resultContainer) {
+                    resultContainer.style.display =
+                        'flex';
+                }
+                let content =
+                    escapeHtml(data);
+                if (isValidUrl(data)) {
+                    content =
+                        `<a href="${content}" target="_blank">${content}</a>`;
+                }
+                if (resultText) {
+                    resultText.innerHTML =
+                        `${content}`;
+                }
+            }
+
+
+            if (copyBtn) {
+                copyBtn.addEventListener(
+                    'click',
+                    () => {
+                        if (!rawDecodedData) {
+                            return;
+                        }
+                        navigator.clipboard
+                            .writeText(rawDecodedData)
+                            .then(() => {
+                                copyBtn.textContent =
+                                    '✅ 복사완료!';
+                                copyBtn.classList.add(
+                                    'copied'
+                                );
+
+                                setTimeout(() => {
+                                    copyBtn.textContent =
+                                        '📋 복사';
+                                    copyBtn.classList.remove(
+                                        'copied'
+                                    );
+                                }, 1500);
+                            })
+                            .catch(err => {
+                                alert(
+                                    '클립보드 복사 실패: ' +
+                                    err
+                                );
+                            });
+                    }
+                );
+            }
+
+
+            function isValidUrl(string) {
+                try {
+                    new URL(string);
+                    return true;
+                } catch (_) {
+                    return false;
+                }
+            }
+
+
+            function escapeHtml(str) {
+                const div =
+                    document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+
+            function setMode(mode) {
+                currentMode = mode;
+                const imageInputContainer = document.querySelector('.image-input-container');
+                if (mode === 'image') {
+                    imageModeBtn.classList.add('active');
+                    webcamModeBtn.classList.remove('active');
+                    if (qrCreateModeBtn) qrCreateModeBtn.classList.remove('active');
+                    imageInputContainer.style.display = 'flex';
+                    webcamContainer.classList.remove('active');
+                    webcamBottomControls.classList.remove('active');
+                    if (qrCreateContainer) qrCreateContainer.style.display = 'none';
+                    if (qrCreateActionSection) qrCreateActionSection.style.display = 'none';
+                    stopWebcam();
+                } else if (mode === 'webcam') {
+                    webcamModeBtn.classList.add('active');
+                    imageModeBtn.classList.remove('active');
+                    if (qrCreateModeBtn) qrCreateModeBtn.classList.remove('active');
+                    imageInputContainer.style.display = 'none';
+                    webcamContainer.classList.add('active');
+                    webcamBottomControls.classList.add('active');
+                    if (qrCreateContainer) qrCreateContainer.style.display = 'none';
+                    if (qrCreateActionSection) qrCreateActionSection.style.display = 'none';
+                    if (resultContainer) {
+                        resultContainer.style.display = 'none';
+                    }
+                } else if (mode === 'qr-create') {
+                    if (qrCreateModeBtn) qrCreateModeBtn.classList.add('active');
+                    imageModeBtn.classList.remove('active');
+                    webcamModeBtn.classList.remove('active');
+                    imageInputContainer.style.display = 'none';
+                    webcamContainer.classList.remove('active');
+                    webcamBottomControls.classList.remove('active');
+                    if (qrCreateContainer) qrCreateContainer.style.display = 'block';
+                    if (qrCreateActionSection) qrCreateActionSection.style.display = 'block';
+                    if (resultContainer) {
+                        resultContainer.style.display = 'none';
+                    }
+                    stopWebcam();
+                }
+            }
+
+            imageModeBtn.addEventListener(
+                'click',
+                () => setMode('image')
+            );
+            webcamModeBtn.addEventListener(
+                'click',
+                () => setMode('webcam')
+            );
+
+            if (qrCreateModeBtn) {
+                qrCreateModeBtn.addEventListener(
+                    'click',
+                    () => setMode('qr-create')
+                );
+            }
+
+			document.getElementById('qr-action-section').style.display = 'flex';
+
+            async function startWebcam() {
+                try {
+                    webcamStatus.textContent =
+                        '카메라 접근 요청 중...';
+                    webcamStream =
+                        await navigator.mediaDevices.getUserMedia({
+                            video: {
+                                facingMode:
+                                    currentFacingMode
+                            }
+                        });
+                    webcamVideo.srcObject =
+                        webcamStream;
+                    videoWrapper.style.display =
+                        'block';
+                    webcamPlaceholder.style.display =
+                        'none';
+                    startCameraBtn.style.display =
+                        'none';
+                    stopCameraBtn.style.display =
+                        'inline-block';
+                    webcamStatus.textContent =
+                        'QR 코드 스캔 중...';
+                    startScanLoop();
+                } catch (error) {
+                    webcamStatus.textContent =
+                        `카메라 오류: 접근권한이 없음.`;
+                }
+            }
+
+            function stopWebcam() {
+                if (scanInterval) {
+                    clearInterval(scanInterval);
+                    scanInterval = null;
+                }
+                if (webcamStream) {
+                    webcamStream
+                        .getTracks()
+                        .forEach(
+                            track => track.stop()
+                        );
+                    webcamStream = null;
+                }
+                webcamVideo.srcObject =
+                    null;
+                videoWrapper.style.display =
+                    'none';
+                webcamPlaceholder.style.display =
+                    'flex';
+                startCameraBtn.style.display =
+                    'inline-block';
+                stopCameraBtn.style.display =
+                    'none';
+                webcamStatus.textContent =
+                    '';
+            }
+
+            function scanFrame() {
+                const canvas =
+                    document.createElement('canvas');
+                canvas.width =
+                    webcamVideo.videoWidth;
+                canvas.height =
+                    webcamVideo.videoHeight;
+                if (canvas.width === 0) {
+                    return;
+                }
+                const ctx =
+                    canvas.getContext('2d');
+                ctx.drawImage(
+                    webcamVideo,
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+                const code =
+                    jsQR(
+                        ctx.getImageData(
+                            0,
+                            0,
+                            canvas.width,
+                            canvas.height
+                        ).data,
+                        canvas.width,
+                        canvas.height
+                    );
+                if (code) {
+                    displayResult(code.data);
+                }
+            }
+
+            function startScanLoop() {
+                scanInterval =
+                    setInterval(
+                        () => {
+                            if (webcamStream) {
+                                scanFrame();
+                            }
+                        },
+                        200
+                    );
+            }
+
+            startCameraBtn.addEventListener(
+                'click',
+                startWebcam
+            );
+            stopCameraBtn.addEventListener(
+                'click',
+                stopWebcam
+            );
+        };
+		
+		
+        const qrCreateTypeSelect = document.getElementById('qr-create-type-select');
+        const qrInputArea = document.getElementById('qr-input-area');
+        if (qrCreateTypeSelect && qrInputArea) {
+            qrCreateTypeSelect.addEventListener('change', function() {
+                const selectedType = this.value;
+                let formHtml = '';
+                switch (selectedType) {
+                    case 'url':
+                        formHtml = `
+                            <div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+                                <label style="font-weight: bold; font-size: 14px; color: #333;">웹사이트 주소 (URL)</label>
+                                <input type="url" id="input-url" placeholder="https://example.com" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                                <button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+                            </div>
+                        `;
+                        break;
+                    case 'text':
+                        formHtml = `
+                            <div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+                                <label style="font-weight: bold; font-size: 14px; color: #333;">일반 텍스트</label>
+                                <textarea id="input-text" placeholder="표시할 텍스트를 입력하세요." style="width: 100%; height: 70px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; resize: none; box-sizing: border-box;"></textarea>
+                                <button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+                            </div>
+                        `;
+                        break;
+                    case 'wifi':
+                        formHtml = `
+                            <div style="width: 100%; display: flex; flex-direction: column; gap: 4px; box-sizing: border-box;">
+                                <label style="font-weight: bold; font-size: 12px; color: #333;">네트워크 이름 (SSID)</label>
+                                <input type="text" id="input-wifi-ssid" placeholder="Wi-Fi 이름 입력" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+                                <label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">비밀번호</label>
+                                <input type="text" id="input-wifi-pass" placeholder="비밀번호 입력" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+                                <label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">암호화 방식</label>
+                                <select id="input-wifi-type" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+                                    <option value="WPA">WPA / WPA2 / WPA3</option>
+                                    <option value="WEP">WEP</option>
+                                    <option value="nopass">비밀번호 없음 (개방형)</option>
+                                </select>
+                                <button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+                            </div>
+                        `;
+                        break;
+                    case 'vcard':
+                        formHtml = `
+                            <div style="width: 100%; display: flex; flex-direction: column; gap: 4px; box-sizing: border-box; padding-bottom: 5px;">
+                                <label style="font-weight: bold; font-size: 11px; color: #333;">이름 (성 / 이름)</label>
+                                <div style="display: flex; gap: 4px; width: 100%;">
+                                    <input type="text" id="input-vcard-lastname" placeholder="성 (예: 홍)" style="width: 50%; padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; box-sizing: border-box;">
+                                    <input type="text" id="input-vcard-firstname" placeholder="이름 (예: 길동)" style="width: 50%; padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; box-sizing: border-box;">
+                                </div>
+                                <label style="font-weight: bold; font-size: 11px; color: #333; margin-top: 2px;">전화번호</label>
+                                <input type="tel" id="input-vcard-tel" placeholder="010-1234-5678" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; box-sizing: border-box;">
+                                <label style="font-weight: bold; font-size: 11px; color: #333; margin-top: 2px;">이메일</label>
+                                <input type="email" id="input-vcard-email" placeholder="email@example.com" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; box-sizing: border-box;">
+                                <button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+                            </div>
+                        `;
+                        break;
+                    case 'tel':
+                        formHtml = `
+                            <div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+                                <label style="font-weight: bold; font-size: 14px; color: #333;">전화번호</label>
+                                <input type="tel" id="input-tel" placeholder="01012345678" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                                <button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+                            </div>
+                        `;
+                        break;
+                    case 'email':
+                        formHtml = `
+                            <div style="width: 100%; display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-weight: bold; font-size: 13px; color: #333;">받는 사람 이메일</label>
+                                <input type="email" id="input-email-to" placeholder="abc@example.com" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+                                <label style="font-weight: bold; font-size: 13px; color: #333; margin-top: 4px;">제목</label>
+                                <input type="text" id="input-email-subject" placeholder="메일 제목" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+                                <button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+                            </div>
+                        `;
+                        break;
+                    case 'geo':
+                        formHtml = `
+                            <div style="width: 100%; display: flex; flex-direction: column; gap: 6px;">
+                                <label style="font-weight: bold; font-size: 13px; color: #333;">위도 (Latitude)</label>
+                                <input type="text" id="input-geo-lat" placeholder="37.5665" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+                                <label style="font-weight: bold; font-size: 13px; color: #333; margin-top: 4px;">경도 (Longitude)</label>
+                                <input type="text" id="input-geo-lng" placeholder="126.9780" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+                                <button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+                            </div>
+                        `;
+                        break;
+                    case 'event':
+						formHtml = `
+							<div style="width: 100%; max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px; box-sizing: border-box;">
+								<label style="font-weight: bold; font-size: 12px; color: #333;">일정 제목 (필수)</label>
+								<input type="text" id="input-event-title" placeholder="예: 팀 미팅" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">시작 일시 (필수)</label>
+								<input type="datetime-local" id="input-event-start" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">종료 일시 (선택)</label>
+								<input type="datetime-local" id="input-event-end" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">장소 (선택)</label>
+								<input type="text" id="input-event-location" placeholder="예: 회의실 A" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">설명 (선택)</label>
+								<textarea id="input-event-desc" placeholder="일정 세부 내용" style="width: 100%; height: 50px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box; resize: none;"></textarea>
+								
+								<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+							</div>
+						`;
+						break;
+                    case 'login':
+						formHtml = `
+							<div style="width: 100%; max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px; box-sizing: border-box;">
+								<label style="font-weight: bold; font-size: 12px; color: #333;">웹사이트 주소 (URL)</label>
+								<input type="url" id="input-login-url" placeholder="https://example.com/login" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">아이디 (선택)</label>
+								<input type="text" id="input-login-user" placeholder="입력 안 하면 기본 사이트로 이동" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">비밀번호 (선택)</label>
+								<input type="password" id="input-login-pass" placeholder="비밀번호" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+							</div>
+						`;
+						break;
+					case 'ftp':
+						formHtml = `
+							<div style="width: 100%; max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px; box-sizing: border-box;">
+								<label style="font-weight: bold; font-size: 12px; color: #333;">FTP 호스트 / 주소</label>
+								<input type="text" id="input-ftp-host" placeholder="ftp.example.com" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">FTP 아이디</label>
+								<input type="text" id="input-ftp-user" placeholder="아이디" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">FTP 비밀번호</label>
+								<input type="password" id="input-ftp-pass" placeholder="비밀번호" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								
+								<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+							</div>
+						`;
+						break;
+                    case 'custom-image':
+						formHtml = `
+							<div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+								<label style="font-weight: bold; font-size: 13px; color: #333;">텍스트 또는 링크</label>
+								<input type="text" id="input-custom-text" placeholder="https://example.com" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+								
+								<label style="font-weight: bold; font-size: 13px; color: #333; margin-top: 4px;">중앙 로고 이미지 업로드</label>
+								<input type="file" id="input-custom-logo" accept="image/*" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; box-sizing: border-box; background: #fff;">
+								
+								<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+							</div>
+						`;
+						break;
+                    default:
+                        formHtml = `
+                            <div style="font-size: 14px; color: #666; text-align: center; margin: auto 0;">
+                                생성할 타입을 선택하고 정보를 입력하세요.
+                            </div>
+                        `;
+                        break;
+                }
+                qrInputArea.innerHTML = formHtml;
+            });
+        }
+
+
+		function updateQRCodeForm() {
+			const qrCreateTypeSelect = document.getElementById('qr-create-type-select');
+			const qrInputArea = document.getElementById('qr-input-area'); 
+			if (!qrInputArea || !qrCreateTypeSelect) return;
+			const selectedType = qrCreateTypeSelect.value;
+			let formHtml = '';
+			switch (selectedType) {
+				case 'url':
+					formHtml = `
+						<div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+							<label style="font-weight: bold; font-size: 14px; color: #333;">웹사이트 주소 (URL)</label>
+							<input type="url" id="input-url" placeholder="https://example.com" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'text':
+					formHtml = `
+						<div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+							<label style="font-weight: bold; font-size: 14px; color: #333;">일반 텍스트</label>
+							<textarea id="input-text" placeholder="표시할 텍스트를 입력하세요." style="width: 100%; height: 70px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; resize: none; box-sizing: border-box;"></textarea>
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'wifi':
+					formHtml = `
+						<div style="width: 100%; display: flex; flex-direction: column; gap: 4px; box-sizing: border-box;">
+							<label style="font-weight: bold; font-size: 12px; color: #333;">네트워크 이름 (SSID)</label>
+							<input type="text" id="input-wifi-ssid" placeholder="Wi-Fi 이름 입력" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">비밀번호</label>
+							<input type="text" id="input-wifi-pass" placeholder="비밀번호 입력" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">암호화 방식</label>
+							<select id="input-wifi-type" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+								<option value="WPA">WPA / WPA2 / WPA3</option>
+								<option value="WEP">WEP</option>
+								<option value="nopass">비밀번호 없음 (개방형)</option>
+							</select>
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'vcard':
+					formHtml = `
+						<div style="width: 100%; display: flex; flex-direction: column; gap: 4px; box-sizing: border-box; padding-bottom: 5px;">
+							<label style="font-weight: bold; font-size: 11px; color: #333;">이름 (성 / 이름)</label>
+							<div style="display: flex; gap: 4px; width: 100%;">
+								<input type="text" id="input-vcard-lastname" placeholder="성 (예: 홍)" style="width: 50%; padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; box-sizing: border-box;">
+								<input type="text" id="input-vcard-firstname" placeholder="이름 (예: 길동)" style="width: 50%; padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; box-sizing: border-box;">
+							</div>
+							<label style="font-weight: bold; font-size: 11px; color: #333; margin-top: 2px;">전화번호</label>
+							<input type="tel" id="input-vcard-tel" placeholder="010-1234-5678" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; box-sizing: border-box;">
+							<label style="font-weight: bold; font-size: 11px; color: #333; margin-top: 2px;">이메일</label>
+							<input type="email" id="input-vcard-email" placeholder="email@example.com" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; box-sizing: border-box;">
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'tel':
+					formHtml = `
+						<div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+							<label style="font-weight: bold; font-size: 14px; color: #333;">전화번호</label>
+							<input type="tel" id="input-tel" placeholder="01012345678" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'email':
+					formHtml = `
+						<div style="width: 100%; display: flex; flex-direction: column; gap: 6px;">
+							<label style="font-weight: bold; font-size: 13px; color: #333;">받는 사람 이메일</label>
+							<input type="email" id="input-email-to" placeholder="abc@example.com" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+							<label style="font-weight: bold; font-size: 13px; color: #333; margin-top: 4px;">제목</label>
+							<input type="text" id="input-email-subject" placeholder="메일 제목" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'geo':
+					formHtml = `
+						<div style="width: 100%; display: flex; flex-direction: column; gap: 6px;">
+							<label style="font-weight: bold; font-size: 13px; color: #333;">위도 (Latitude)</label>
+							<input type="text" id="input-geo-lat" placeholder="37.5665" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+							<label style="font-weight: bold; font-size: 13px; color: #333; margin-top: 4px;">경도 (Longitude)</label>
+							<input type="text" id="input-geo-lng" placeholder="126.9780" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 8px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'event':
+					formHtml = `
+						<div style="width: 100%; max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px; box-sizing: border-box;">
+							<label style="font-weight: bold; font-size: 12px; color: #333;">일정 제목 (필수)</label>
+							<input type="text" id="input-event-title" placeholder="예: 팀 미팅" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">시작 일시 (필수)</label>
+							<input type="datetime-local" id="input-event-start" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">종료 일시 (선택)</label>
+							<input type="datetime-local" id="input-event-end" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">장소 (선택)</label>
+							<input type="text" id="input-event-location" placeholder="예: 회의실 A" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">설명 (선택)</label>
+							<textarea id="input-event-desc" placeholder="일정 세부 내용" style="width: 100%; height: 50px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box; resize: none;"></textarea>
+							
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'login':
+					formHtml = `
+						<div style="width: 100%; max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px; box-sizing: border-box;">
+							<label style="font-weight: bold; font-size: 12px; color: #333;">웹사이트 주소 (URL)</label>
+							<input type="url" id="input-login-url" placeholder="https://example.com/login" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">아이디 (선택)</label>
+							<input type="text" id="input-login-user" placeholder="입력 안 하면 기본 사이트로 이동" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">비밀번호 (선택)</label>
+							<input type="password" id="input-login-pass" placeholder="비밀번호" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'ftp':
+					formHtml = `
+						<div style="width: 100%; max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px; box-sizing: border-box;">
+							<label style="font-weight: bold; font-size: 12px; color: #333;">FTP 호스트 / 주소</label>
+							<input type="text" id="input-ftp-host" placeholder="ftp.example.com" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">FTP 아이디</label>
+							<input type="text" id="input-ftp-user" placeholder="아이디" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<label style="font-weight: bold; font-size: 12px; color: #333; margin-top: 2px;">FTP 비밀번호</label>
+							<input type="password" id="input-ftp-pass" placeholder="비밀번호" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; box-sizing: border-box;">
+							
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				case 'custom-image':
+					formHtml = `
+						<div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+							<label style="font-weight: bold; font-size: 13px; color: #333;">텍스트 또는 링크</label>
+							<input type="text" id="input-custom-text" placeholder="https://example.com" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+							
+							<label style="font-weight: bold; font-size: 13px; color: #333; margin-top: 4px;">중앙 로고 이미지 업로드</label>
+							<input type="file" id="input-custom-logo" accept="image/*" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; box-sizing: border-box; background: #fff;">
+							
+							<button type="button" onclick="generateQRCode()" style="width: 100%; padding: 10px; background-color: #2196F3; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 5px;">QR 코드 생성하기</button>
+						</div>
+					`;
+					break;
+				default:
+					formHtml = `
+						<div style="font-size: 14px; color: #666; text-align: center; margin: auto 0;">
+							생성할 타입을 선택하고 정보를 입력하세요.
+						</div>
+					`;
+					break;
+			}
+			qrInputArea.innerHTML = formHtml;
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			const qrCreateTypeSelect = document.getElementById('qr-create-type-select');
+			if (qrCreateTypeSelect) {
+				qrCreateTypeSelect.addEventListener('change', updateQRCodeForm);
+				updateQRCodeForm(); 
+			}
+		});
+	
+
+        function generateQRCode() {
+            const outputArea = document.getElementById('qr-output-area');
+            const actionSection = document.getElementById('qr-action-section');
+            if (!outputArea) return;
+            outputArea.innerHTML = "";
+            let qrData = "";
+            let customLogoFile = null; 
+            const selectedType = qrCreateTypeSelect ? qrCreateTypeSelect.value : '';
+
+            if (selectedType === 'url') {
+                const el = document.getElementById('input-url');
+                if (el) qrData = el.value;
+            } else if (selectedType === 'text') {
+                const el = document.getElementById('input-text');
+                if (el) qrData = el.value;
+            } else if (selectedType === 'wifi') {
+                const ssid = document.getElementById('input-wifi-ssid') ? document.getElementById('input-wifi-ssid').value : '';
+                const pass = document.getElementById('input-wifi-pass') ? document.getElementById('input-wifi-pass').value : '';
+                const type = document.getElementById('input-wifi-type') ? document.getElementById('input-wifi-type').value : 'WPA';
+                if (ssid) qrData = `WIFI:T:${type};S:${ssid};P:${pass};;`;
+            } else if (selectedType === 'vcard') {
+                const ln = document.getElementById('input-vcard-lastname') ? document.getElementById('input-vcard-lastname').value : '';
+                const fn = document.getElementById('input-vcard-firstname') ? document.getElementById('input-vcard-firstname').value : '';
+                const tel = document.getElementById('input-vcard-tel') ? document.getElementById('input-vcard-tel').value : '';
+                const email = document.getElementById('input-vcard-email') ? document.getElementById('input-vcard-email').value : '';
+                if (ln || fn || tel) {
+                    qrData = `BEGIN:VCARD\nVERSION:3.0\nN:${ln};${fn};;;\nFN:${fn} ${ln}\nTEL;TYPE=CELL:${tel}\nEMAIL:${email}\nEND:VCARD`;
+                }
+            } else if (selectedType === 'tel') {
+                const el = document.getElementById('input-tel');
+                if (el) qrData = `tel:${el.value}`;
+            } else if (selectedType === 'email') {
+                const to = document.getElementById('input-email-to') ? document.getElementById('input-email-to').value : '';
+                const sub = document.getElementById('input-email-subject') ? document.getElementById('input-email-subject').value : '';
+                if (to) qrData = `mailto:${to}?subject=${encodeURIComponent(sub)}`;
+            } else if (selectedType === 'geo') {
+                const lat = document.getElementById('input-geo-lat') ? document.getElementById('input-geo-lat').value : '';
+                const lng = document.getElementById('input-geo-lng') ? document.getElementById('input-geo-lng').value : '';
+                if (lat && lng) qrData = `geo:${lat},${lng}`;
+            } else if (selectedType === 'event') {
+                const title = document.getElementById('input-event-title') ? document.getElementById('input-event-title').value.trim() : '';
+                const start = document.getElementById('input-event-start') ? document.getElementById('input-event-start').value : ''; 
+                const end = document.getElementById('input-event-end') ? document.getElementById('input-event-end').value : '';     
+                const loc = document.getElementById('input-event-location') ? document.getElementById('input-event-location').value.trim() : '';
+                const desc = document.getElementById('input-event-desc') ? document.getElementById('input-event-desc').value.trim() : '';
+
+                if (!title || !start) {
+                    alert("일정 제목과 시작일시는 필수 입력 항목입니다!");
+                    return;
+                }
+
+                function formatDateToICal(dateStr) {
+                    if (!dateStr) return '';
+                    const clean = dateStr.replace(/[-:]/g, '');
+                    return clean.includes('T') ? clean + '00Z' : clean + 'T000000Z';
+                }
+
+                const dtStart = formatDateToICal(start);
+                const dtEnd = end ? formatDateToICal(end) : dtStart;
+
+                qrData = [
+                    "BEGIN:VCALENDAR",
+                    "VERSION:2.0",
+                    "BEGIN:VEVENT",
+                    `SUMMARY:${title}`,
+                    `DTSTART:${dtStart}`,
+                    `DTEND:${dtEnd}`,
+                    loc ? `LOCATION:${loc}` : "",
+                    desc ? `DESCRIPTION:${desc}` : "",
+                    "END:VEVENT",
+                    "END:VCALENDAR"
+                ].filter(Boolean).join("\n");
+            
+            } else if (selectedType === 'login') {
+                const url = document.getElementById('input-login-url') ? document.getElementById('input-login-url').value.trim() : '';
+                const user = document.getElementById('input-login-user') ? document.getElementById('input-login-user').value.trim() : '';
+                const pass = document.getElementById('input-login-pass') ? document.getElementById('input-login-pass').value.trim() : '';
+
+                if (!url) {
+                    alert("웹사이트 주소(URL)를 입력해주세요!");
+                    return;
+                }
+
+                if (!user && !pass) {
+                    qrData = url;
+                } else {
+                    const delimiter = url.includes('?') ? '&' : '?';
+                    let queryParts = [];
+                    if (user) queryParts.push(`id=${encodeURIComponent(user)}`);
+                    if (pass) queryParts.push(`pw=${encodeURIComponent(pass)}`);
+                    qrData = `${url}${delimiter}${queryParts.join('&')}`;
+                }
+            } else if (selectedType === 'ftp') {
+                const host = document.getElementById('input-ftp-host') ? document.getElementById('input-ftp-host').value.trim() : '';
+                const user = document.getElementById('input-ftp-user') ? document.getElementById('input-ftp-user').value.trim() : '';
+                const pass = document.getElementById('input-ftp-pass') ? document.getElementById('input-ftp-pass').value.trim() : '';
+                if (host) {
+                    qrData = user ? `ftp://${user}:${pass}@${host}` : `ftp://${host}`;
+                }
+            } else if (selectedType === 'custom-image') {
+                const el = document.getElementById('input-custom-text');
+                if (el) qrData = el.value;
+                
+                const fileEl = document.getElementById('input-custom-logo');
+                if (fileEl && fileEl.files && fileEl.files[0]) {
+                    customLogoFile = fileEl.files[0];
+                }
+            }
+
+            if (!qrData.trim()) {
+                alert("QR 코드로 생성할 내용을 올바르게 입력해주세요!");
+                return;
+            }
+
+            new QRCode(outputArea, {
+                text: qrData,
+                width: 150,
+                height: 150,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H 
+            });
+
+            function drawLogoToCanvas() {
+                const canvas = outputArea.querySelector('canvas');
+                if (!canvas) {
+                    setTimeout(drawLogoToCanvas, 50);
+                    return;
+                }
+
+                const ctx = canvas.getContext('2d');
+                if (!customLogoFile) return;
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const logo = new Image();
+                    logo.onload = function() {
+                        const size = 40; 
+                        const x = (canvas.width - size) / 2;
+                        const y = (canvas.height - size) / 2;
+
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.fillRect(x - 4, y - 4, size + 8, size + 8);
+
+                        ctx.drawImage(logo, x, y, size, size);
+                    };
+                    logo.src = e.target.result;
+                };
+                reader.readAsDataURL(customLogoFile);
+            }
+
+            if (customLogoFile) {
+                drawLogoToCanvas();
+            }
+
+            if (actionSection) {
+                actionSection.style.display = 'flex';
+            }
+        }
+
+
+        function downloadQRCode() {
+            const outputArea = document.getElementById('qr-output-area');
+            if (!outputArea) return;
+
+            const canvas = outputArea.querySelector('canvas');
+            const img = outputArea.querySelector('img');
+            const svg = outputArea.querySelector('svg');
+
+            const formatSelect = document.getElementById('download-format-select') || document.getElementById('qr-download-format');
+            const format = formatSelect ? formatSelect.value.toLowerCase() : 'png';
+
+            const downloadLink = document.createElement('a');
+            let filename = `qrcode_scan_fixed.${format === 'jpeg' ? 'jpg' : format}`;
+
+            let baseCanvas = canvas;
+            if (!baseCanvas && img) {
+                baseCanvas = document.createElement('canvas');
+                baseCanvas.width = img.naturalWidth || 130;
+                baseCanvas.height = img.naturalHeight || 130;
+                const ctx = baseCanvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+            }
+
+            if (!baseCanvas && !svg) {
+                alert("먼저 QR 코드를 생성해주세요!");
+                return;
+            }
+
+            if (format === 'svg') {
+                let svgData = "";
+                if (svg) {
+                    svgData = new XMLSerializer().serializeToString(svg);
+                } else if (baseCanvas) {
+                    const dataUrl = baseCanvas.toDataURL("image/png");
+                    svgData = `<svg xmlns="http://www.w3.org/2000/svg" width="${baseCanvas.width + 80}" height="${baseCanvas.height + 80}" viewBox="0 0 ${baseCanvas.width + 80} ${baseCanvas.height + 80}">
+                        <rect width="100%" height="100%" fill="#FFFFFF"/>
+                        <rect x="30" y="30" width="${baseCanvas.width + 20}" height="${baseCanvas.height + 20}" fill="none" stroke="#E0E0E0" stroke-width="2" rx="4"/>
+                        <image href="${dataUrl}" x="40" y="40" width="${baseCanvas.width}" height="${baseCanvas.height}"/>
+                    </svg>`;
+                }
+
+                const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = filename;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                return;
+            }
+
+            const padding = 5;
+            const origWidth = baseCanvas ? baseCanvas.width : 150;
+            const origHeight = baseCanvas ? baseCanvas.height : 150;
+
+            const paddedCanvas = document.createElement('canvas');
+            paddedCanvas.width = origWidth + (padding * 2);
+            paddedCanvas.height = origHeight + (padding * 2);
+
+            const pCtx = paddedCanvas.getContext('2d');
+
+            pCtx.fillStyle = '#FFFFFF';
+            pCtx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
+
+            pCtx.strokeStyle = '#D1D5DB'; 
+            pCtx.lineWidth = 2;
+            pCtx.strokeRect(padding - 5, padding - 5, origWidth + 10, origHeight + 10);
+
+            if (baseCanvas) {
+                pCtx.drawImage(baseCanvas, padding, padding);
+            } else if (img) {
+                pCtx.drawImage(img, padding, padding, origWidth, origHeight);
+            }
+
+            let mimeType = 'image/png';
+            let quality = 1.0;
+            if (format === 'jpg' || format === 'jpeg') {
+                mimeType = 'image/jpeg';
+            }
+
+            let imageUrl = paddedCanvas.toDataURL(mimeType, quality);
+
+            downloadLink.href = imageUrl;
+            downloadLink.download = filename;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
+
+    </script>
+</body>
+</html>

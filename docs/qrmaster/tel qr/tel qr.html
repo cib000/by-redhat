@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>전화 연결 QR 코드 만들기</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>📞</text></svg>">    
+    <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(to right, #fffc00, #ffffff);
+            --box-bg: #f7f7f7;
+            --text-color: #222222;
+            --input-bg: #AliceBlue;
+            --input-border: #cdcdcd;
+            --accent-color: #3369ff;
+            --accent-hover: #2050db;
+            --output-bg: #0ff;
+            --link-btn-bg: #e2e8f0;
+            --paste-btn-bg: #10b981;
+            --paste-btn-hover: #059669;
+        }
+
+        body.dark-theme {
+            --bg-gradient: linear-gradient(to right, #1f1f1f, #121212);
+            --box-bg: #1e1e1e;
+            --text-color: #f1f1f1;
+            --input-bg: #2a2a2a;
+            --input-border: #444444;
+            --accent-color: #4f79ff;
+            --accent-hover: #3b63db;
+            --output-bg: #0ff;
+            --link-btn-bg: #2d2d2d;
+            --paste-btn-bg: #059669;
+            --paste-btn-hover: #047857;
+        }
+
+        body {
+            text-align: center;
+            letter-spacing: 1.5px;
+            font-family: 'Staatliches', cursive, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        #border {
+            text-align: center;
+            width: 80vw;
+            max-width: 900px;
+            min-height: 600px;
+            background-color: var(--box-bg);
+            position: relative;
+            border-radius: 25px;
+            box-shadow: 0 0 15px rgba(0,0,0, 0.3);
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background-color 0.3s;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            border-bottom: 1px solid var(--input-border);
+            padding-bottom: 0.6em;
+            margin-bottom: 1.2em;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-align: left;
+        }
+
+        .theme-btn {
+            background: var(--input-bg);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            font-family: inherit;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+        .theme-btn:hover {
+            border-color: var(--accent-color);
+        }
+
+        #content {
+            padding: 0 2% 2% 2%;
+            box-sizing: border-box;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .textbox {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        #QR_Input {
+            width: 85%;
+            height: 30px;
+            border: 2px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 14px;
+            border-radius: 10px;
+            padding: 0.4em 0.8em;
+            font-family: inherit;
+        }
+        #QR_Input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .buttons {
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        button.action-btn {
+            font-size: 16px;
+            font-weight: 700;
+            display: inline-block;
+            padding: 0.7em 1.4em;
+            margin: 0 0.3em 0.3em 0;
+            border-radius: 0.25em;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: 'Roboto', sans-serif, inherit;
+            text-transform: uppercase;
+            color: #f7f7f7;
+            background-color: var(--accent-color);
+            border: none;
+            box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button.action-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        button.paste-btn {
+            background-color: var(--paste-btn-bg) !important;
+        }
+        button.paste-btn:hover {
+            background-color: var(--paste-btn-hover) !important;
+        }
+
+        button.action-btn:active {
+            top: 0.1em;
+            position: relative;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #outputBorder {
+            height: 280px;
+            width: 280px;
+            margin: auto;
+            background-color: var(--output-bg);
+            border-radius: 25px;
+            box-shadow: 0 0 5px rgba(0,0,0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 13px;
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        #output {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 250px;
+            height: 250px;
+            background-color: #ffffff;
+        }
+
+        #output img {
+            width: 250px !important;
+            height: 250px !important;
+            margin: 0 !important;
+            display: block !important;
+        }
+
+        .download-btn-group {
+            display: grid;
+            grid-template-columns: 80px repeat(4, 1fr);
+            gap: 0.4em;
+            width: 100%;
+            max-width: 440px;
+            margin-top: 12px;
+            align-items: center;
+        }
+
+        .dl-prefix-input {
+            background: var(--input-bg);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
+            padding: 0.4em 0.3em;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-align: center;
+            font-family: inherit;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .dl-prefix-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .dl-btn {
+            background: var(--input-bg);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
+            padding: 0.4em 0.2em;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: all 0.2s;
+            text-align: center;
+            font-family: inherit;
+        }
+        .dl-btn:hover {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid var(--input-border);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .external-link-btn {
+            background: var(--link-btn-bg);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
+            padding: 0.4em 0.8em;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .external-link-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        #saveMessage {
+            font-size: 0.85rem;
+            margin-top: 6px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            #border {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+            .download-btn-group {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+		
+		/* 닫기 버튼 스타일 */
+		.tab-close-btn {
+			position: fixed;
+			bottom: 5%;
+			right: 10%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 28px; /* 버튼 크기를 조금 더 키워 클릭하기 편하게 수정 */
+			height: 28px;
+			padding: 0;
+			margin: 0;
+			background: rgba(0, 0, 0, 0.05); /* 은은한 기본 배경 추가 */
+			color: #666666;
+			border: 1px solid #d1d5db; /* 얇은 테두리 추가 */
+			border-radius: 50%;
+			cursor: pointer;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			z-index: 9999; /* 화면 최상단에 위치하도록 설정 */
+			transition: all 0.2s ease;
+		}
+
+		/* 마우스 오버 시 효과 */
+		.tab-close-btn:hover {
+			background-color: #ff3b30; /* 호버 시 배경을 빨간색으로 변경 */
+			color: #ffffff; /* 아이콘 색상을 흰색으로 변경 */
+			border-color: #ff3b30;
+		}
+
+		/* 클릭 시 효과 */
+		.tab-close-btn:active {
+			transform: scale(0.92);
+		}
+		
+    </style>
+
+	<script>
+		function closeCurrentTab() {
+			window.open('', '_self').close(); 
+			// 혹은 기본형: window.close();
+		}
+	</script>
+
+
+</head>
+<body class="dark-theme">
+
+    <div id="border">
+        <div id="content">
+            <header>
+                <h1>전화 연결 QR 코드</h1>
+                <button id="theme-toggle-btn" class="theme-btn" onclick="toggleTheme()">☀️ 라이트 모드</button>
+            </header>
+        
+            <div class="textbox">
+                <textarea id="QR_Input" name="QR_Input" rows="1" placeholder="전화번호를 입력하세요 (예: 010-1234-5678)"></textarea>
+            </div>
+            
+            <div class="buttons">
+                <button id="pasteButton" class="action-btn paste-btn" onclick="pasteFromClipboard()">붙여넣기</button>
+                <button id="submitButton" class="action-btn" onclick="displayQrCodeInfo()">QR 만들기</button>
+                <button id="startOverButton" class="action-btn" style="background-color:#668fff" onclick="startOver()">새로 만들기</button>
+            </div>
+            
+            <div id="outputBorder">
+                <div id="output"></div>
+            </div>       
+            
+            <div id="saveMessage"></div>
+
+            <div class="download-btn-group" id="download-group" style="display: none;">
+                <input type="text" id="dlPrefixInput" class="dl-prefix-input" maxlength="10" placeholder="파일명">
+                <button type="button" class="dl-btn" onclick="downloadQR('png')">PNG 다운</button>
+                <button type="button" class="dl-btn" onclick="downloadQR('jpg')">JPG 다운</button>
+                <button type="button" class="dl-btn" onclick="downloadQR('svg')">SVG 다운</button>
+                <button type="button" class="dl-btn" onclick="downloadQR('bmp')">BMP 다운</button>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="https://bitly.com" target="_blank" class="external-link-btn">Bitly 단축하기 ↗</a>
+            <a href="https://tinyurl.com" target="_blank" class="external-link-btn">TinyURL 단축하기 ↗</a>
+        </div>
+    </div>    
+
+
+	<!-- 탭 닫기 버튼 HTML -->
+	<button class="tab-close-btn" onclick="closeCurrentTab()" aria-label="탭 닫기" aria-label="탭 닫기">
+		<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<line x1="18" y1="6" x2="6" y2="18"></line>
+			<line x1="6" y1="6" x2="18" y2="18"></line>
+		</svg>
+	</button>
+
+
+    <script src="https://davidshimjs.github.io/qrcodejs/qrcode.min.js"></script>
+    
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.getElementById('theme-toggle-btn');
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeBtn.textContent = '🌙 다크 모드';
+            } else {
+                body.classList.add('dark-theme');
+                themeBtn.textContent = '☀️ 라이트 모드';
+            }
+        }
+
+        async function pasteFromClipboard() {
+            try {
+                if (navigator.clipboard && navigator.clipboard.readText) {
+                    const text = await navigator.clipboard.readText();
+                    if (text.trim() !== "") {
+                        document.getElementById("QR_Input").value = text.trim();
+                    } else {
+                        alert("클립보드에 복사된 텍스트가 없습니다.");
+                    }
+                }
+            } catch (err) {
+                alert("클립보드 접근 권한이 차단되었습니다.");
+            }
+        }
+
+        function displayQrCodeInfo() {
+            let phoneNum = document.getElementById("QR_Input").value.trim();
+            let display = document.getElementById("output");
+           
+            if (phoneNum !== "") {
+                display.innerHTML = "";
+                let telData = "tel:" + phoneNum;
+                
+                let qrcode = new QRCode("output", {
+                    text: telData,
+                    width: 250,
+                    height: 250,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff"
+                });
+                
+                displayMessage();
+                disableBtn();
+                document.getElementById("download-group").style.display = "grid";
+            } else {
+                alert("전화번호를 입력해주세요!");
+            }
+        }
+
+        function disableBtn() {
+            document.getElementById("submitButton").disabled = true;
+        }
+
+        function startOver() {
+            document.getElementById("QR_Input").value = '';
+            document.getElementById("dlPrefixInput").value = '';
+            document.getElementById("output").innerHTML = '';
+            document.getElementById("saveMessage").innerText = '';
+            document.getElementById("download-group").style.display = "none";
+            document.getElementById("submitButton").disabled = false;
+        }
+
+        function displayMessage(){
+            document.getElementById('saveMessage').innerText = "버튼을 눌러 다운로드하거나 우클릭으로 저장하세요!";
+        }
+
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function downloadQR(format) {
+            const img = document.querySelector('#output img');
+            if (!img) { alert('먼저 QR 코드를 생성해 주세요!'); return; }
+
+            const qrSize = img.naturalWidth || 250;
+            const padding = 24; 
+            const canvasSize = qrSize + (padding * 2);
+
+            const canvas = document.createElement('canvas');
+            canvas.width = canvasSize;
+            canvas.height = canvasSize;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvasSize, canvasSize);
+
+            const boxSize = canvasSize - 12;
+            const boxOffset = 6;
+            const radius = 20;
+
+            ctx.save();
+            drawRoundedRect(ctx, boxOffset, boxOffset, boxSize, boxSize, radius);
+            ctx.fillStyle = '#FFFFFF'; 
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#d1d5db'; 
+            ctx.stroke();
+            ctx.restore();
+
+            ctx.drawImage(img, padding, padding, qrSize, qrSize);
+
+            const link = document.createElement('a');
+            const prefixValue = document.getElementById("dlPrefixInput").value.trim();
+            let fileName = "tel_qrcode";
+            if (prefixValue !== "") {
+                let sanitized = prefixValue.replace(/[\/\\:*?"<>|]/g, '').trim();
+                if (sanitized !== "") fileName = `${sanitized}_qrcode`;
+            }
+            link.download = `${fileName}.${format}`;
+
+            if (format === 'svg') {
+                const dataUrl = canvas.toDataURL('image/png');
+                const svgData = `<svg xmlns="http://www.w3.org/2000/svg" width="${canvasSize}" height="${canvasSize}"><image href="${dataUrl}" width="100%" height="100%"/></svg>`;
+                const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                link.href = URL.createObjectURL(blob);
+            } else {
+                let mimeType = 'image/png';
+                if (format === 'jpg') mimeType = 'image/jpeg';
+                if (format === 'bmp') mimeType = 'image/bmp';
+                link.href = canvas.toDataURL(mimeType);
+            }
+            link.click();
+        }
+    </script>
+</body>
+</html>
