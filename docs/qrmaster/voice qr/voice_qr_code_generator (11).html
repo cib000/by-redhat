@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice QR (음성 읽어주기 QR)</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='50' r='50' fill='%233369ff'/><text x='50%' y='55%' font-size='50' text-anchor='middle' dominant-baseline='middle'>🗣️</text></svg>">    
+    <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(to right, #fffc00, #ffffff);
+            --box-bg: #f7f7f7;
+            --text-color: #222222;
+            --input-bg: #f0f4f8;
+            --input-border: #cdcdcd;
+            --accent-color: #3369ff;
+            --accent-hover: #2050db;
+            --output-bg: #e2e8f0;
+            --link-btn-bg: #e2e8f0;
+        }
+
+        body.dark-theme {
+            --bg-gradient: linear-gradient(to right, #1f1f1f, #121212);
+            --box-bg: #1e1e1e;
+            --text-color: #f1f1f1;
+            --input-bg: #2a2a2a;
+            --input-border: #444444;
+            --accent-color: #4f79ff;
+            --accent-hover: #3b63db;
+            --output-bg: #2d2d2d;
+            --link-btn-bg: #2d2d2d;
+        }
+
+        body {
+            text-align: center;
+            letter-spacing: 1px;
+            font-family: 'Staatliches', cursive, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        #border {
+            text-align: center;
+            width: 85vw;
+            max-width: 900px;
+            min-height: 650px;
+            background-color: var(--box-bg);
+            position: relative;
+            border-radius: 25px;
+            box-shadow: 0 0 20px rgba(0,0,0, 0.25);
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background-color 0.3s;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            border-bottom: 1px solid var(--input-border);
+            padding-bottom: 0.6em;
+            margin-bottom: 1em;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-align: left;
+        }
+
+        .theme-btn {
+            background: var(--input-bg);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            font-family: inherit;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+        .theme-btn:hover {
+            border-color: var(--accent-color);
+        }
+
+        #content {
+            padding: 0 2% 2% 2%;
+            box-sizing: border-box;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-group {
+            width: 85%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        textarea.input-field {
+            width: 100%;
+            height: 90px;
+            border: 2px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 14px;
+            border-radius: 10px;
+            padding: 0.6em 0.8em;
+            font-family: inherit;
+            box-sizing: border-box;
+            resize: none;
+        }
+        textarea.input-field:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .buttons {
+            margin-top: 5px;
+            margin-bottom: 12px;
+        }
+
+        button.action-btn {
+            font-size: 15px;
+            font-weight: 700;
+            display: inline-block;
+            padding: 0.6em 1.2em;
+            margin: 0 0.3em;
+            border-radius: 0.25em;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: 'Roboto', sans-serif, inherit;
+            text-transform: uppercase;
+            color: #f7f7f7;
+            background-color: var(--accent-color);
+            border: none;
+            box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button.action-btn:hover {
+            background-color: var(--accent-hover);
+        }
+        button.action-btn:active {
+            top: 0.1em;
+            position: relative;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #outputBorder {
+            height: 250px;
+            width: 250px;
+            margin: auto;
+            background-color: var(--output-bg);
+            border-radius: 25px;
+            box-shadow: 0 0 5px rgba(0,0,0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        #output {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 230px;
+            height: 230px;
+            background-color: #ffffff;
+        }
+
+        #output img {
+            width: 230px !important;
+            height: 230px !important;
+            margin: 0 !important;
+            display: block !important;
+        }
+
+        .download-btn-group {
+            display: grid;
+            grid-template-columns: 80px repeat(4, 1fr);
+            gap: 0.4em;
+            width: 100%;
+            max-width: 440px;
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        .dl-prefix-input {
+            background: var(--input-bg);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
+            padding: 0.4em 0.3em;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-align: center;
+            font-family: inherit;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .dl-prefix-input:focus { border-color: var(--accent-color); }
+
+        .dl-btn {
+            background: var(--input-bg);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
+            padding: 0.4em 0.2em;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: all 0.2s;
+            text-align: center;
+            font-family: inherit;
+        }
+        .dl-btn:hover {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--input-border);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #saveMessage {
+            font-size: 0.85rem;
+            margin-top: 5px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .tab-close-btn {
+            position: fixed;
+            bottom: 5%;
+            right: 10%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            margin: 0;
+            background: rgba(0, 0, 0, 0.05);
+            color: #666666;
+            border: 1px solid #d1d5db;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            transition: all 0.2s ease;
+        }
+        .tab-close-btn:hover {
+            background-color: #ff3b30;
+            color: #ffffff;
+            border-color: #ff3b30;
+        }
+        .tab-close-btn:active {
+            transform: scale(0.92);
+        }
+
+        @media (max-width: 600px) {
+            #border { width: 100%; height: 100%; border-radius: 0; }
+            .download-btn-group { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+
+    <script>
+        function closeCurrentTab() {
+            window.open('', '_self').close(); 
+        }
+    </script>
+</head>
+<body class="dark-theme">
+
+    <div id="border">
+        <div id="content">
+            <header>
+                <h1>🗣️ 음성(Voice) QR 코드</h1>
+                <button id="theme-toggle-btn" class="theme-btn" onclick="toggleTheme()">☀️ 라이트 모드</button>
+            </header>
+        
+            <div class="input-group">
+                <textarea id="msgInput" class="input-field" placeholder="스마트폰으로 스캔했을 때 음성으로 읽어줄 문장을 입력하세요. (예: 긴급 구조를 요청합니다. 나는 홍길동입니다. 도와주세요.)">긴급 구조를 요청합니다. 나는 홍길동입니다. 도와주세요.</textarea>
+            </div>
+            
+            <div class="buttons">
+                <button id="submitButton" class="action-btn" onclick="displayQrCodeInfo()">음성 QR 만들기</button>
+                <button id="startOverButton" class="action-btn" style="background-color:#668fff" onclick="startOver()">새로 만들기</button>
+            </div>
+            
+            <div id="outputBorder">
+                <div id="output"></div>
+            </div>       
+            
+            <div id="saveMessage"></div>
+
+            <div class="download-btn-group" id="download-group" style="display: none;">
+                <input type="text" id="dlPrefixInput" class="dl-prefix-input" maxlength="10" placeholder="파일명">
+                <button type="button" class="dl-btn" onclick="downloadQR('png')">PNG 다운</button>
+                <button type="button" class="dl-btn" onclick="downloadQR('jpg')">JPG 다운</button>
+                <button type="button" class="dl-btn" onclick="downloadQR('svg')">SVG 다운</button>
+                <button type="button" class="dl-btn" onclick="downloadQR('bmp')">BMP 다운</button>
+            </div>
+        </div>
+    </div>
+    
+    <button class="tab-close-btn" onclick="closeCurrentTab()" aria-label="탭 닫기">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </button>    
+
+    <!-- QRCode.js 라이브러리 -->
+    <script src="https://davidshimjs.github.io/qrcodejs/qrcode.min.js"></script>
+    
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.getElementById('theme-toggle-btn');
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeBtn.textContent = '🌙 다크 모드';
+            } else {
+                body.classList.add('dark-theme');
+                themeBtn.textContent = '☀️ 라이트 모드';
+            }
+        }
+
+        function displayQrCodeInfo() {
+            let msg = document.getElementById("msgInput").value.trim();
+            let display = document.getElementById("output");
+           
+            if (msg !== "") {
+                display.innerHTML = "";
+                
+                // QR 코드 바이트 용량을 극대화하고 스마트폰 카메라가 웹페이지 URL로 완벽하게 인식하도록 압축 데이터 URI 포맷 구성
+                // (URL 인코딩을 거쳐 길이를 최적화하고 에러 검출 레벨 조정)
+                const htmlPayload = `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>음성 재생</title><meta name="viewport" content="width=device-width,initial-scale=1.0"></head><body style="font-family:sans-serif;text-align:center;padding:30px;background:#f8fafc"><div style="background:white;padding:25px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.1);max-width:350px;margin:auto"><h2>🔊 음성 메시지</h2><p style="font-size:16px;line-height:1.5;color:#334155;margin:20px 0;">${msg.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p><button onclick="speak()" style="background:#3369ff;color:white;border:none;padding:12px 24px;font-size:16px;font-weight:bold;border-radius:8px;cursor:pointer;width:100%">다시 듣기</button></div><script>function speak(){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(${JSON.stringify(msg)});u.lang='ko-KR';window.speechSynthesis.speak(u);}window.onload=function(){setTimeout(speak,400);}<\/script></body></html>`;
+                
+                const voiceUri = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlPayload);
+
+                try {
+                    // qrcode.js 객체 생성 시 용량 오버플로우 방지를 위한 최적화 설정 적용
+                    let qrcode = new QRCode("output", {
+                        text: voiceUri,
+                        width: 230,
+                        height: 230,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.L // 낮은 에러 검출 레벨(L)을 사용하여 한글 텍스트 수용 용량을 최대로 확보
+                    });
+                    
+                    displayMessage();
+                    disableBtn();
+                    document.getElementById("download-group").style.display = "grid";
+                } catch (e) {
+                    alert("문장이 너무 길어 QR 코드로 변환할 수 없습니다. 글자 수를 조금 줄여주세요.");
+                }
+            } else {
+                alert("읽어줄 문장을 입력해주세요!");
+            }
+        }
+
+        function disableBtn() {
+            document.getElementById("submitButton").disabled = true;
+        }
+
+        function startOver() {
+            document.getElementById("msgInput").value = '';
+            document.getElementById("dlPrefixInput").value = '';
+            document.getElementById("output").innerHTML = '';
+            document.getElementById("saveMessage").innerText = '';
+            document.getElementById("download-group").style.display = "none";
+            document.getElementById("submitButton").disabled = false;
+        }
+
+        function displayMessage(){
+            document.getElementById('saveMessage').innerText = "버튼을 눌러 다운로드하거나 우클릭으로 저장하세요!";
+        }
+
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function downloadQR(format) {
+            const img = document.querySelector('#output img');
+            if (!img) { alert('먼저 QR 코드를 생성해 주세요!'); return; }
+
+            const qrSize = img.naturalWidth || 230;
+            const padding = 24; 
+            const canvasSize = qrSize + (padding * 2);
+
+            const canvas = document.createElement('canvas');
+            canvas.width = canvasSize;
+            canvas.height = canvasSize;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvasSize, canvasSize);
+
+            const boxSize = canvasSize - 12;
+            const boxOffset = 6;
+            const radius = 20;
+
+            ctx.save();
+            drawRoundedRect(ctx, boxOffset, boxOffset, boxSize, boxSize, radius);
+            ctx.fillStyle = '#FFFFFF'; 
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#d1d5db'; 
+            ctx.stroke();
+            ctx.restore();
+
+            ctx.drawImage(img, padding, padding, qrSize, qrSize);
+
+            const link = document.createElement('a');
+            const prefixValue = document.getElementById("dlPrefixInput").value.trim();
+            let fileName = "voice_qrcode";
+            if (prefixValue !== "") {
+                let sanitized = prefixValue.replace(/[\/\\:*?"<>|]/g, '').trim();
+                if (sanitized !== "") fileName = `${sanitized}_qrcode`;
+            }
+            link.download = `${fileName}.${format}`;
+
+            if (format === 'svg') {
+                const dataUrl = canvas.toDataURL('image/png');
+                const svgData = `<svg xmlns="http://www.w3.org/2000/svg" width="${canvasSize}" height="${canvasSize}"><image href="${dataUrl}" width="100%" height="100%"/></svg>`;
+                const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                link.href = URL.createObjectURL(blob);
+            } else {
+                let mimeType = 'image/png';
+                if (format === 'jpg') mimeType = 'image/jpeg';
+                if (format === 'bmp') mimeType = 'image/bmp';
+                link.href = canvas.toDataURL(mimeType);
+            }
+            link.click();
+        }
+    </script>
+</body>
+</html>

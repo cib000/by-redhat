@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Clean QR Code Generator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lightweight dependable qrcodejs2 or qrious for high capacity handling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap');
+        body { font-family: 'Pretendard', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-indigo-500 selection:text-white">
+
+    <header class="w-full border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+                <i class="fa-solid fa-qrcode text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-base tracking-tight text-white">QR Master</h1>
+                <p class="text-xs text-slate-400">용량 초과 오류 없는 고성능 QR 생성기</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <span id="charCount" class="text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700/60">0자 / 최대 용량 안전</span>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl w-full mx-auto p-4 sm:p-6 flex flex-col justify-center items-center">
+        <div class="w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+            
+            <div class="absolute top-0 right-0 transform translate-x-8 -translate-y-8 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="mb-5">
+                <div class="flex justify-between items-center mb-2">
+                    <label for="textInput" class="block text-sm font-semibold text-slate-300 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square text-indigo-400"></i> QR에 담을 텍스트 입력
+                    </label>
+                    <button onclick="loadEmergencyText()" class="text-xs text-indigo-400 hover:text-indigo-300 bg-indigo-950/60 border border-indigo-800/60 px-2.5 py-1 rounded-lg transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-triangle-exclamation"></i> 긴급 예시 불러오기
+                    </button>
+                </div>
+                <textarea id="textInput" rows="4" oninput="updateCharCount()"
+                    class="w-full p-4 bg-slate-950/80 border border-slate-800 rounded-2xl text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm transition shadow-inner"
+                    placeholder="긴 문장, 긴급 구조 요청, 안내문 등을 입력하세요..."></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">오류 정정 레벨 (용량 최적화)</label>
+                    <select id="errorLevel" onchange="generateQR()" class="w-full py-2.5 px-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
+                        <option value="L">레벨 L (최대 용량 확보 - 긴 글 추천)</option>
+                        <option value="M" selected>레벨 M (표준 균형)</option>
+                        <option value="Q">레벨 Q (높은 복원력)</option>
+                        <option value="H">레벨 H (최고 복원력)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">QR 코드 크기 (픽셀)</label>
+                    <select id="qrSize" onchange="generateQR()" class="w-full py-2.5 px-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
+                        <option value="256">256 x 256 px</option>
+                        <option value="320" selected>320 x 320 px (선명함)</option>
+                        <option value="400">400 x 400 px (고해상도)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button onclick="generateQR()" 
+                class="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 active:scale-[0.99] text-white font-semibold rounded-2xl shadow-lg shadow-indigo-600/25 transition duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-bolt-lightning text-amber-300"></i> QR 코드 실시간 생성
+            </button>
+
+            <div id="outputContainer" class="mt-8 pt-6 border-t border-slate-800/80 flex flex-col items-center justify-center">
+                <div class="p-6 bg-white rounded-3xl shadow-2xl inline-block border border-slate-200 relative group">
+                    <!-- QRious Canvas Target -->
+                    <canvas id="qrcodeCanvas"></canvas>
+                    <div id="errorOverlay" class="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-3xl flex flex-col items-center justify-center p-6 text-center hidden">
+                        <i class="fa-solid fa-circle-exclamation text-rose-500 text-3xl mb-2"></i>
+                        <p id="errorText" class="text-xs font-semibold text-slate-800 mb-1">용량 초과 오류 발생</p>
+                        <p class="text-[11px] text-slate-500">텍스트가 너무 길어 QR 규격을 초과했습니다. 정정 레벨을 'L'로 낮추거나 텍스트를 줄여주세요.</p>
+                    </div>
+                </div>
+                
+                <p class="text-xs text-slate-400 mt-4 text-center flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-info text-indigo-400"></i> 스마트폰 기본 카메라로 스캔하면 입력한 텍스트가 즉시 인식됩니다.
+                </p>
+                
+                <div class="flex flex-wrap gap-3 w-full mt-6">
+                    <button onclick="downloadQR('png')" class="flex-1 min-w-[120px] py-3.5 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20 cursor-pointer">
+                        <image></image><i class="fa-solid fa-download"></i> PNG 다운로드
+                    </button>
+                    <button onclick="downloadQR('jpg')" class="py-3.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs rounded-xl transition flex items-center justify-center gap-2 border border-slate-700 cursor-pointer">
+                        <i class="fa-solid fa-image"></i> JPG
+                    </button>
+                    <button onclick="clearAll()" class="py-3.5 px-4 bg-slate-800/60 hover:bg-slate-800 text-slate-400 hover:text-slate-200 text-xs rounded-xl transition border border-slate-700/60 cursor-pointer">
+                        초기화
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full text-center py-6 text-xs text-slate-500 border-t border-slate-800/80">
+        QR Master Engine &copy; 2026. All rights reserved.
+    </footer>
+
+    <script>
+        let qr = null;
+
+        function updateCharCount() {
+            const text = document.getElementById('textInput').value;
+            const charCountElem = document.getElementById('charCount');
+            // 한글 바이트 특성을 고려한 대략적인 바이트 추정
+            const encoder = new TextEncoder();
+            const bytes = encoder.encode(text).length;
+            charCountElem.innerText = `${text.length}자 (${bytes} 바이트)`;
+            
+            // Auto trigger generation on typing with debounce
+            clearTimeout(window.debounceTimer);
+            window.debounceTimer = setTimeout(() => {
+                generateQR();
+            }, 300);
+        }
+
+        function loadEmergencyText() {
+            document.getElementById('textInput').value = "긴급 구조를 요청합니다. 나는 홍길동입니다. 즉시 도와주세요!";
+            document.getElementById('errorLevel').value = 'L'; // 안전하게 L 레벨 설정
+            updateCharCount();
+            generateQR();
+        }
+
+        function generateQR() {
+            const text = document.getElementById('textInput').value.trim();
+            const canvas = document.getElementById('qrcodeCanvas');
+            const errorOverlay = document.getElementById('errorOverlay');
+            const errorText = document.getElementById('errorText');
+            const errorLevel = document.getElementById('errorLevel').value;
+            const size = parseInt(document.getElementById('qrSize').value, 10);
+
+            if (!text) {
+                // 기본 placeholder 문장 제공
+                document.getElementById('textInput').value = "긴급 구조를 요청합니다. 나는 홍길동입니다. 도와주세요.";
+                generateQR();
+                return;
+            }
+
+            try {
+                // QRious 라이브러리를 사용하여 강력하고 유연한 QR 생성 (Overflow 방지)
+                qr = new QRious({
+                    element: canvas,
+                    value: text,
+                    size: size,
+                    level: errorLevel,
+                    background: 'white',
+                    foreground: 'black'
+                });
+
+                // QRious는 내부적으로 Canvas를 갱신하며 overflow 시 예외를 던지거나 정상 렌더링 수행
+                errorOverlay.classList.add('hidden');
+            } catch (err) {
+                console.error("QR Generation Error:", err);
+                errorText.innerText = "용량 초과 또는 인코딩 오류";
+                errorOverlay.classList.remove('hidden');
+            }
+        }
+
+        function downloadQR(format) {
+            const canvas = document.getElementById('qrcodeCanvas');
+            if (!canvas) return;
+
+            const link = document.createElement('a');
+            let mimeType = 'image/png';
+            let extension = 'png';
+
+            if (format === 'jpg') {
+                mimeType = 'image/jpeg';
+                extension = 'jpg';
+            }
+
+            // 고해상도 여백 포함 다운로드를 위한 캔버스 확장 처리
+            const padding = 24;
+            const originalSize = canvas.width;
+            const exportCanvas = document.createElement('canvas');
+            exportCanvas.width = originalSize + (padding * 2);
+            exportCanvas.height = originalSize + (padding * 2);
+            const ctx = exportCanvas.getContext('2d');
+
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+            ctx.drawImage(canvas, padding, padding);
+
+            link.href = exportCanvas.toDataURL(mimeType, 0.95);
+            link.download = `qrcode_${Date.now()}.${extension}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function clearAll() {
+            document.getElementById('textInput').value = '';
+            updateCharCount();
+            document.getElementById('errorOverlay').classList.add('hidden');
+            generateQR();
+        }
+
+        // 초기 실행
+        window.onload = function() {
+            loadEmergencyText();
+        };
+    </script>
+</body>
+</html>

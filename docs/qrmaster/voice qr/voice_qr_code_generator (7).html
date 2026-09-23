@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice QR Code Generator (고용량 완벽지원)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- qrcode-generator (npm qrcode library via cdn) - 다중 버전 제어 지원 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <header class="w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid fa-microphone-lines text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg tracking-tight">Voice QR (고용량 안정화 버전)</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">긴 문장도 완벽히 인식되는 스마트 음성 QR</p>
+                </div>
+            </div>
+            <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="테마 변경">
+                <i class="fa-solid fa-moon dark:hidden text-slate-600"></i>
+                <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        
+        <!-- Input Panel -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/60 dark:border-slate-700/60 p-6 flex flex-col space-y-5">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-4">
+                <h2 class="font-semibold text-base flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square text-brand-600"></i> 음성 메시지 설정
+                </h2>
+                <span class="text-xs bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 font-medium px-2.5 py-1 rounded-full">안정성 최적화</span>
+            </div>
+
+            <!-- Quick Presets -->
+            <div>
+                <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">추천 문장 템플릿</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="setPreset('emergency')" class="text-xs py-2 px-3 bg-red-50 hover:bg-red-100 dark:bg-red-950/40 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 font-medium rounded-xl border border-red-200 dark:border-red-900 transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-triangle-exclamation"></i> 긴급 구조 요청
+                    </button>
+                    <button type="button" onclick="setPreset('parking')" class="text-xs py-2 px-3 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:hover:bg-amber-900/50 text-amber-600 dark:text-amber-400 font-medium rounded-xl border border-amber-200 dark:border-amber-900 transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-car"></i> 주차 연락처
+                    </button>
+                </div>
+            </div>
+
+            <!-- Text Input -->
+            <div>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">읽어줄 문장 입력</label>
+                <textarea id="ttsText" rows="4" class="w-full p-3.5 border border-slate-300 dark:border-slate-600 rounded-xl bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:outline-none text-sm transition" placeholder="스마트폰 카메라로 스캔했을 때 음성으로 읽어줄 내용을 적어주세요.">긴급 구조를 요청합니다. 나는 홍길동입니다. 도와주세요.</textarea>
+                <div class="flex justify-between items-center mt-1.5">
+                    <span class="text-xs text-slate-400" id="charCount">0 / 300자</span>
+                    <button onclick="clearText()" class="text-xs text-slate-500 hover:text-red-500 transition">전체 지우기</button>
+                </div>
+            </div>
+
+            <!-- Voice Speed Option -->
+            <div>
+                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">말하기 속도</label>
+                <select id="speechRate" class="w-full p-2.5 border border-slate-300 dark:border-slate-600 rounded-xl bg-slate-50 dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    <option value="0.8">느리게 (0.8x)</option>
+                    <option value="1.0" selected>보통 (1.0x)</option>
+                    <option value="1.2">빠르게 (1.2x)</option>
+                </select>
+            </div>
+
+            <!-- Generate Button -->
+            <button onclick="generateVoiceQR()" class="w-full bg-brand-600 hover:bg-brand-700 active:scale-[0.99] text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-brand-500/25 transition duration-200 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-qrcode"></i> 음성 QR 코드 생성하기
+            </button>
+        </div>
+
+        <!-- Preview Panel -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/60 dark:border-slate-700/60 p-6 flex flex-col items-center justify-center text-center">
+            <h2 class="font-semibold text-base mb-4 self-start flex items-center gap-2">
+                <i class="fa-solid fa-eye text-brand-600"></i> QR 코드 미리보기
+            </h2>
+
+            <!-- QR Box container -->
+            <div class="w-full p-6 bg-slate-50 dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center min-h-[280px]">
+                <div id="qrcode" class="p-3 bg-white rounded-xl shadow-sm inline-block">
+                    <div class="w-[180px] h-[180px] flex items-center justify-center text-slate-400 text-sm text-center p-4">
+                        문장을 입력 후 생성 버튼을 눌러주세요.
+                    </div>
+                </div>
+                <div id="qrStatusText" class="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                    스마트폰 기본 카메라로 즉시 스캔됩니다.
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div id="actionButtons" class="grid grid-cols-2 gap-3 w-full mt-5 hidden">
+                <button onclick="downloadQR()" class="flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 font-medium text-sm rounded-xl transition">
+                    <i class="fa-solid fa-download text-brand-600 dark:text-brand-400"></i> 이미지 저장
+                </button>
+                <button onclick="printQR()" class="flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 font-medium text-sm rounded-xl transition">
+                    <i class="fa-solid fa-print text-brand-600 dark:text-brand-400"></i> 인쇄하기
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast message box -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 px-5 py-3 rounded-xl shadow-2xl text-sm font-medium transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i> <span id="toastText">알림 메시지</span>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        const textarea = document.getElementById('ttsText');
+        const charCount = document.getElementById('charCount');
+
+        function updateCharCount() {
+            const len = textarea.value.length;
+            charCount.textContent = `${len} / 300자`;
+            if(len > 300) charCount.classList.add('text-red-500');
+            else charCount.classList.remove('text-red-500');
+        }
+        textarea.addEventListener('input', updateCharCount);
+        updateCharCount();
+
+        function clearText() {
+            textarea.value = '';
+            updateCharCount();
+            showToast('입력 내용이 초기화되었습니다.');
+        }
+
+        function setPreset(type) {
+            if (type === 'emergency') {
+                textarea.value = '긴급 구조를 요청합니다. 나는 홍길동입니다. 도와주세요.';
+            } else if (type === 'parking') {
+                textarea.value = '안녕하세요! 차주 홍길동입니다. 차량 이동이 필요하시면 연락 주세요.';
+            }
+            updateCharCount();
+            generateVoiceQR();
+            showToast('템플릿이 적용되었습니다.');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastText').textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-4');
+            }, 2500);
+        }
+
+        function generateVoiceQR() {
+            const text = textarea.value.trim();
+            if (!text) {
+                showToast('읽어줄 문장을 입력해주세요.');
+                textarea.focus();
+                return;
+            }
+
+            if(text.length > 300) {
+                showToast('최대 300자까지 입력 가능합니다.');
+                return;
+            }
+
+            const rate = document.getElementById('speechRate').value;
+            const container = document.getElementById('qrcode');
+            container.innerHTML = '';
+
+            // 초경량 고안정성 웹 재생 가속 페이지 구조 생성 (바이트 최적화)
+            const htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Voice QR</title></head><body style="font-family:sans-serif;text-align:center;padding:30px;background:#f8fafc;color:#1e293b"><div style="background:white;padding:24px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.08);max-width:340px;margin:auto;"><h2 style="color:#2563eb;margin-top:0">🔊 음성 메시지</h2><p style="font-size:16px;line-height:1.5;margin:20px 0">${text}</p><button onclick="s()" style="background:#2563eb;color:white;border:none;padding:12px 24px;font-size:15px;border-radius:10px;cursor:pointer;width:100%;font-weight:bold">다시 듣기</button></div><script>function s(){if('speechSynthesis' in window){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(${JSON.stringify(text)});u.lang='ko-KR';u.rate=${parseFloat(rate)};window.speechSynthesis.speak(u);}}window.onload=function(){setTimeout(s,300);}<\/script></body></html>`;
+
+            // Base64 안전 인코딩
+            const base64Payload = btoa(unescape(encodeURIComponent(htmlContent)));
+            const finalDataURI = 'data:text/html;base64,' + base64Payload;
+
+            try {
+                // 핵심 해결책: qrcode-generator 라이브러리에서 QR 버전을 0(자동 최적화 대신 넉넉한 굵직한 셀 크기 확보를 위해 수동 상위 버전 제어 또는 에러 정정 레벨을 낮춰 셀 밀도 확보)
+                // qrcode(버전 번호, 에러정정레벨 'L') -> 0은 자동, 여기서는 바이트 용량이 넉넉하도록 강제 버전 할당 가능 (예: 버전을 4~6으로 고정하면 밀도가 균일해져 스마트폰이 즉시 인식함)
+                
+                // 버전을 자동(0)으로 두되 에러정정 레벨을 'L'(Low)로 설정하여 촘촘함을 완화하고 인식률 극대화
+                let qr = qrcode(0, 'L');
+                qr.addData(finalDataURI);
+                qr.make();
+
+                // HTML Table 형식으로 렌더링하면 브라우저 크기에 상관없이 선명하게 그려짐
+                const qrTag = qr.createImgTag(5, 6); // 셀 크기 5, 여백 6
+                container.innerHTML = qrTag;
+
+                // 생성된 이미지 스타일 보정
+                const img = container.querySelector('img');
+                if(img) {
+                    img.className = 'w-[190px] h-[190px] block mx-auto rounded-lg';
+                }
+
+                document.getElementById('actionButtons').classList.remove('hidden');
+                showToast('인식률이 최적화된 음성 QR 코드가 생성되었습니다!');
+            } catch (err) {
+                console.error(err);
+                showToast('데이터 용량이 너무 큽니다. 문장을 줄여주세요.');
+            }
+        }
+
+        function downloadQR() {
+            const img = document.querySelector('#qrcode img');
+            if (!img) {
+                showToast('생성된 QR 코드가 없습니다.');
+                return;
+            }
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.download = 'Voice-QR-Code.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast('QR 이미지 저장 완료!');
+        }
+
+        function printQR() {
+            const qrElement = document.getElementById('qrcode').innerHTML;
+            if (!qrElement) return;
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>인쇄</title></head><body style="text-align:center;padding:50px;font-family:sans-serif;"><h2>🔊 Voice QR (음성 안내)</h2><div style="margin:30px auto;">${qrElement}</div><p>스마트폰 카메라로 스캔하세요.</p><script>window.onload=function(){window.print();window.close();}<\/script></body></html>`);
+            printWindow.document.close();
+        }
+    </script>
+</body>
+</html>

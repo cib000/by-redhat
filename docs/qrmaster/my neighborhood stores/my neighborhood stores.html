@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 우리집 근처 소개 QR 시트 만들기</title>
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>💡</text></svg>">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Gulim', '굴림', sans-serif;
+            font-size: 18px;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* 라이트 모드 기본 스타일 */
+        body { background-color: #f0f2f5; color: #111; }
+        .container-box { background: #ffffff; color: #111; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .panel { background: #fafafa; border: 2px solid #ccc; }
+        .preview-panel { background: #fff; border: 3px solid #333; }
+        .preview-title { border-bottom: 2px solid #eee; color: #111; }
+        input[type="text"], select { background: #fff; color: #111; border: 2px solid #999; }
+        .radio-group { background: #fff; border: 2px solid #999; color: #111; }
+        .qr-card { background: #fff; border: 2px solid #333; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .qr-card:hover { border-color: #007bff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,123,255,0.2); }
+        .qr-card.selected { border: 3px solid #007bff; background: rgba(0,123,255,0.05); }
+        #sheetContainer { background: transparent; }
+
+        /* 다크 모드 스타일 */
+        .dark body { background-color: #121212; color: #e0e0e0; }
+        .dark .container-box { background: #1e1e1e; color: #e0e0e0; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .dark .panel { background: #252525; border: 2px solid #444; }
+        .dark .preview-panel { background: #1e1e1e; border: 3px solid #666; }
+        .dark .preview-title { border-bottom: 2px solid #444; color: #fff; }
+        .dark input[type="text"], .dark select { background: #2d2d2d; color: #fff; border: 2px solid #555; }
+        .dark .radio-group { background: #2d2d2d; border: 2px solid #555; color: #fff; }
+        .dark .qr-card { background: #252525; border: 2px solid #666; }
+        .dark .qr-card:hover { border-color: #3b82f6; }
+        .dark .qr-card.selected { border: 3px solid #3b82f6; background: rgba(59,130,246,0.15); }
+        .dark header { border-bottom: 2px solid #444 !important; }
+
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 24px; font-weight: bold; margin: 0; }
+
+        /* 테마 변경 버튼 스타일 */
+        .theme-btn {
+            background: none;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .theme-btn:hover { transform: scale(1.1); }
+
+        /* 우측 하단 플로팅 창닫기 버튼 스타일 */
+        .floating-close-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 15px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Gulim', '굴림', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 1000;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .floating-close-btn:hover {
+            background-color: #bd2130;
+            transform: scale(1.05);
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 950px) {
+            .workspace { grid-template-columns: 1fr; }
+        }
+
+        .panel {
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label { font-size: 16px; font-weight: bold; }
+
+        input[type="text"], select {
+            font-size: 16px;
+            padding: 9px 10px;
+            border-radius: 6px;
+            font-family: 'Gulim', '굴림', sans-serif;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .row-group { display: flex; gap: 8px; }
+        .row-group .name-box { flex: 3; }
+        .row-group .type-box { flex: 2; }
+
+        /* 체크박스 영역 스타일 */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 2px 0;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            font-size: 15px;
+            font-weight: bold;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Gulim', '굴림', sans-serif;
+            background-color: #007bff;
+            color: white;
+            flex: 1;
+        }
+        .action-btn:hover { background-color: #0056b3; }
+        .sub-btn { background-color: #28a745; }
+        .sub-btn:hover { background-color: #218838; }
+
+        /* 인쇄 시트 미리보기 패널 */
+        .preview-panel {
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .preview-title {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #sheetContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 520px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .qr-card {
+            border-radius: 8px;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .qr-card-header {
+            padding: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            width: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            word-break: keep-all;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .qr-card-body {
+            display: flex;
+            padding: 10px;
+            gap: 12px;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .qr-card-img img {
+            width: 80px;
+            height: 80px;
+            display: block;
+        }
+
+        .qr-card-info {
+            font-size: 14px;
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
+        /* 공통 모달 스타일 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            color: #111;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            font-family: 'Gulim', '굴림', sans-serif;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .dark .modal-content {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border: 2px solid #444;
+        }
+        .modal-header {
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dark .modal-header { border-bottom: 2px solid #444; }
+        .modal-body {
+            font-size: 15px;
+            line-height: 1.6;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+        .modal-close-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Gulim', '굴림', sans-serif;
+        }
+        .modal-close-btn:hover { background-color: #5a6268; }
+
+        /* 색상 설정 아이템 행 스타일 */
+        .color-setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .dark .color-setting-row { border-bottom: 1px solid #333; }
+        .color-setting-row input[type="color"] {
+            width: 50px;
+            height: 35px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: none;
+        }
+
+        /* 인쇄 최적화 (그림자 제거 및 UI 숨김) */
+        @media print {
+            body { 
+                padding: 0; 
+            }
+            .container-box { 
+                border: none; 
+                box-shadow: none !important; 
+                padding: 0; 
+                max-width: 100%; 
+                width: 100%; 
+            }
+            .container > *:not(.workspace), .workspace > *:not(.preview-panel), .action-btn, .preview-title, .floating-close-btn, .modal-overlay { 
+                display: none !important; 
+            }
+            .workspace { display: block; }
+            .preview-panel { 
+                border: none !important; 
+                padding: 0; 
+                box-shadow: none !important; 
+                width: 100%; 
+            }
+            #sheetContainer { 
+                max-height: none; 
+                overflow: visible; 
+                gap: 12px; 
+            }
+            .qr-card { 
+                page-break-inside: avoid; 
+                box-shadow: none !important; 
+            }
+            .qr-card-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-zinc-900 text-gray-900 dark:text-gray-100">
+
+    <div class="container container-box">
+        <header>
+            <h1>🏠 우리집 근처 소개 QR 시트 만들기</h1>
+            <!-- 테마 변경 버튼 -->
+            <button id="themeToggleBtn" class="theme-btn" onclick="toggleTheme()" title="테마 변경">🌙</button>
+        </header>
+
+        <div class="workspace">
+            <!-- 입력 패널 -->
+            <div class="panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+                    <label id="formTitle" style="font-size: 17px; color: #007bff;">➕ 새 항목 추가 모드</label>
+                    <button id="cancelEditBtn" style="display: none; background: #6c757d; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 13px; cursor: pointer;" onclick="resetFormMode()">수정 취소</button>
+                </div>
+
+                <div class="row-group">
+                    <div class="input-group name-box">
+                        <label>업소명 (상호명)</label>
+                        <input type="text" id="inputStoreName" placeholder="예: 행복한 철물점">
+                    </div>
+                    <div class="input-group type-box">
+                        <label>구분 선택</label>
+                        <select id="selectTypePreset" onchange="onSelectPreset(this)">
+                            <option value="">-- 선택 또는 직접입력 --</option>
+                            <option value="철물점">철물점</option>
+                            <option value="중식점">중식점</option>
+                            <option value="식당">식당</option>
+                            <option value="전기수리">전기 수리</option>
+                            <option value="에어콘 수리/청소">에어콘 수리/청소</option>
+                            <option value="상하수도 설비업체">상하수도 설비업체</option>
+                            <option value="잡화점">잡화점</option>
+                            <option value="지업사">지업사</option>
+                            <option value="커튼점">커튼점</option>
+                            <option value="병.의원">병.의원</option>
+							<option value="약국">약국</option>
+                            <option value="마트">마트</option>
+                            <option value="세탁소">세탁소</option>
+                            <option value="이삿짐센터">이삿짐센터</option>
+                            <option value="전문청소">전문청소</option>
+                            <option value="관리사무소">관리사무소</option>
+                            <option value="관할 동사무소">관할 동사무소</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>구분 (분류 태그)</label>
+                    <input type="text" id="inputType" value="철물점" placeholder="예: 철물점" oninput="onTypeInputChanged()">
+                </div>
+
+                <div class="input-group">
+                    <label>주소</label>
+                    <input type="text" id="inputAddress" placeholder="예: 서울시 강남구 테헤란로 123">
+                </div>
+
+                <div class="input-group">
+                    <label>연락처 1 <span style="font-size: 13px; color: #007bff;">(QR 스캔 시 수신자로 지정되어 통화 연결)</span></label>
+                    <input type="text" id="inputPhone1" placeholder="예: 02-123-4567 또는 010-1234-5678">
+                </div>
+
+                <div class="input-group">
+                    <label>연락처 2 (추가 번호)</label>
+                    <input type="text" id="inputPhone2" placeholder="예: 010-9876-5432 (선택 사항)">
+                </div>
+
+                <div class="input-group">
+                    <label>특이사항</label>
+                    <input type="text" id="inputMemo" placeholder="예: 일요일 휴무, 배달 가능 등">
+                </div>
+
+                <!-- 개인정보 보호를 위한 연락처1 표시 여부 체크박스 -->
+                <div class="input-group">
+                    <label class="checkbox-group">
+                        <input type="checkbox" id="showTelCheck" checked onchange="renderSheet()">
+                        <span>카드에 연락처1(tel:) 텍스트 함께 표시</span>
+                    </label>
+                </div>
+
+                <div class="btn-row">
+                    <button id="submitBtn" class="action-btn" onclick="saveCard()">항목 추가</button>
+                    <button class="action-btn sub-btn" onclick="document.getElementById('csvFileInput').click()">CSV 불러오기</button>
+                    <input type="file" id="csvFileInput" accept=".csv" style="display:none" onchange="handleCSV(event)">
+                </div>
+
+                <div class="btn-row">
+                    <button class="action-btn" style="background-color: #17a2b8;" onclick="exportCurrentCSV()">현재 목록 CSV로 저장</button>
+                    <button class="action-btn" style="background-color: #6f42c1;" onclick="openColorModal()">🎨 색상 커스텀 설정</button>
+                </div>
+
+                <div class="btn-row">
+                    <button class="action-btn" style="background-color: #6c757d; flex: 1;" onclick="downloadCSVTemplate()">📥 템플릿</button>
+                    <button class="action-btn" style="background-color: #6c757d; flex: 1;" onclick="openHelpModal()">❓ 도움말</button>
+                </div>
+
+                <div class="btn-row">
+                    <button class="action-btn" style="background-color: #dc3545;" onclick="clearList()">전체 초기화</button>
+                </div>
+            </div>
+
+            <!-- 인쇄 시트 미리보기 패널 -->
+            <div class="preview-panel">
+                <div class="preview-title">
+                    <span>🖨️ 인쇄시트 미리보기</span>
+                    <span style="font-size: 12px; font-weight: normal; color: #888;">(항목 클릭 시 수정 가능)</span>
+                </div>
+                <div id="sheetContainer"></div>
+                <button class="action-btn sub-btn" style="width: 100%; padding: 12px; font-size: 18px;" onclick="window.print()">시트 인쇄하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 색상 커스텀 설정 모달 창 -->
+    <div id="colorModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <span>🎨 구분(태그)별 색상 커스텀 설정</span>
+                <button style="background:none; border:none; font-size:22px; cursor:pointer; color:inherit; font-weight:bold;" onclick="closeColorModal()">×</button>
+            </div>
+            <div class="modal-body" id="colorSettingsList">
+                <!-- 동적으로 채워짐 -->
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button class="action-btn" style="background-color: #6c757d;" onclick="resetDefaultColors()">기본 색상 복원</button>
+                <button class="action-btn sub-btn" onclick="closeColorModal()">적용 및 닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 도움말 모달 창 -->
+    <div id="helpModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 900px; width: 85%; height: auto; max-height: 88vh; padding: 20px 25px;">
+            <div class="modal-header" style="padding-bottom: 6px; margin-bottom: 0;">
+                <span style="font-size: 20px; font-weight: bold;">📖 우리집 근처 소개 QR 시트 만들기 도움말</span>
+                <button style="background:none; border:none; font-size:22px; cursor:pointer; color:inherit; font-weight:bold;" onclick="closeHelpModal()">×</button>
+            </div>
+            <div class="modal-body" style="flex-grow: 1; overflow-y: auto; padding-right: 5px;">
+                <ul style="list-style-type: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5;">
+                    <li style="background: rgba(0,0,0,0.03); padding: 9px 12px; border-radius: 6px; border-left: 4px solid #007bff;">
+                        <strong style="color: #007bff; display: block; margin-bottom: 2px;">📝 1. 항목 추가 및 수정 방법</strong>
+                        • <strong>추가:</strong> 빈 입력폼에 정보를 넣고 [항목 추가]를 누르세요.<br>
+                        • <strong>수정:</strong> 오른쪽 미리보기 시트에서 수정하고 싶은 <strong>카드를 클릭</strong>하면, 왼쪽 입력창에 내용이 불러와집니다. 내용을 수정 후 <strong>[항목 수정 완료]</strong>를 누르면 즉시 반영됩니다!
+                    </li>
+                    <li style="background: rgba(0,0,0,0.03); padding: 9px 12px; border-radius: 6px; border-left: 4px solid #007bff;">
+                        <strong style="color: #007bff; display: block; margin-bottom: 2px;">🎨 2. 구분별 색상 커스텀 설정</strong>
+                        • <strong>[색상 커스텀 설정]</strong> 버튼을 눌러 각 분류 태그의 배경 색상을 원하는 색상으로 자유롭게 변경할 수 있습니다.<br>
+                        • 지정된 색상은 **CSV 파일 저장 및 불러오기 시에도 그대로 함께 저장**됩니다.
+                    </li>
+                    <li style="background: rgba(0,0,0,0.03); padding: 9px 12px; border-radius: 6px; border-left: 4px solid #007bff;">
+                        <strong style="color: #007bff; display: block; margin-bottom: 2px;">📞 3. 연락처1 통화 연결 기능</strong>
+                        <strong>연락처1</strong>은 QR코드 스캔 시 스마트폰에서 곧바로 전화 통화(tel:) 화면으로 연결되도록 설정됩니다.
+                    </li>
+                </ul>
+            </div>
+            <div style="padding-top: 4px;">
+                <button class="modal-close-btn" style="width: 100%; padding: 10px; font-size: 17px; background-color: #dc3545;" onclick="closeHelpModal()">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 우측 하단 플로팅 창닫기 버튼 -->
+    <button class="floating-close-btn" onclick="window.close()" title="창 닫기">
+        ❌닫기
+    </button>
+
+    <script>
+        // '기타'를 차분하고 무난한 밝은 회색(#95a5a6)으로 설정
+        let categoryColors = {
+            "철물점": "#555555",       // 안정적인 진회색 (철물 느낌)
+            "중식점": "#dc3545",       // 빨간색
+            "식당": "#fd7e14",         // 주황색
+            "전기수리": "#e67e22",     // 진한 오렌지
+            "에어콘 수리/청소": "#009688", // 시원한 틸/청록색
+            "상하수도 설비업체": "#03a9f4", // 물 느낌의 하늘색
+            "잡화점": "#9c27b0",       // 보라색
+            "지업사": "#20c997",       // 청민트색
+            "커튼점": "#6f42c1",       // 진보라색
+            "약국": "#e91e63",         // 핑크/레드
+            "마트": "#00bcd4",         // 시원한 시안색
+            "세탁소": "#ff9800",       // 황토/노란빛
+            "이삿짐센터": "#795548",   // 갈색 (박스 느낌)
+            "전문청소": "#4caf50",     // 초록색 (청결 느낌)
+            "관리사무소": "#34495e",   // 네이비
+            "관할 동사무소": "#3f51b5", // 인디고 블루
+            "기타": "#95a5a6"          // 무난하고 차분한 밝은 회색 (기타)
+        };
+
+        let contactList = [
+            { storeName: "우리동네 철물점", type: "철물점", address: "서울시 강남구 동네로 12", phone1: "02-555-1234", phone2: "010-1111-2222", memo: "일요일 휴무 / 열쇠 복사 가능", color: "#555555" },
+            { storeName: "우리동네 관리사무소", type: "관리사무소", address: "서울시 강남구 동네로 20", phone1: "02-555-9999", phone2: "", memo: "단지 내 민원 접수", color: "#34495e" }
+        ];
+
+        let editingIndex = null;
+
+        function onSelectPreset(select) {
+            if (select.value) {
+                document.getElementById("inputType").value = select.value;
+                onTypeInputChanged();
+            }
+        }
+
+        function onTypeInputChanged() {}
+
+        function getCategoryColor(type) {
+            const trimmed = (type || "기타").trim();
+            if (categoryColors[trimmed]) {
+                return categoryColors[trimmed];
+            }
+            categoryColors[trimmed] = "#95a5a6"; // 신규 기타 항목 기본 색상 (밝은 회색)
+            return categoryColors[trimmed];
+        }
+
+        function openColorModal() {
+            const typesSet = new Set(Object.keys(categoryColors));
+            contactList.forEach(item => {
+                if (item.type) typesSet.add(item.type.trim());
+            });
+
+            const listContainer = document.getElementById("colorSettingsList");
+            listContainer.innerHTML = "";
+
+            typesSet.forEach(type => {
+                const currentColor = categoryColors[type] || "#95a5a6";
+                const row = document.createElement("div");
+                row.className = "color-setting-row";
+                row.innerHTML = `
+                    <span style="font-weight: bold; font-size: 15px;">📁 [${type}]</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 14px; color: #888;" id="hex_${type}">${currentColor}</span>
+                        <input type="color" value="${currentColor}" onchange="updateCategoryColor('${type}', this.value)">
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+
+            document.getElementById("colorModal").style.display = "flex";
+        }
+
+        function updateCategoryColor(type, colorHex) {
+            categoryColors[type] = colorHex;
+            const hexSpan = document.getElementById(`hex_${type}`);
+            if (hexSpan) hexSpan.innerText = colorHex;
+
+            contactList.forEach(item => {
+                if ((item.type || "").trim() === type) {
+                    item.color = colorHex;
+                }
+            });
+
+            renderSheet();
+        }
+
+        function resetDefaultColors() {
+            categoryColors = {
+                "철물점": "#555555",
+                "중식점": "#dc3545",
+                "식당": "#fd7e14",
+                "전기수리": "#e67e22",
+                "에어콘 수리/청소": "#009688",
+                "상하수도 설비업체": "#03a9f4",
+                "잡화점": "#9c27b0",
+                "지업사": "#20c997",
+                "커튼점": "#6f42c1",
+                "약국": "#e91e63",
+                "마트": "#00bcd4",
+                "세탁소": "#ff9800",
+                "이삿짐센터": "#795548",
+                "전문청소": "#4caf50",
+                "관리사무소": "#34495e",
+                "관할 동사무소": "#3f51b5",
+                "기타": "#95a5a6"
+            };
+            openColorModal();
+            renderSheet();
+        }
+
+        function closeColorModal() {
+            document.getElementById("colorModal").style.display = "none";
+        }
+
+        function openHelpModal() {
+            document.getElementById("helpModal").style.display = "flex";
+        }
+        function closeHelpModal() {
+            document.getElementById("helpModal").style.display = "none";
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById("themeToggleBtn");
+            
+            if (html.classList.contains("dark")) {
+                html.classList.remove("dark");
+                btn.textContent = "☀️";
+            } else {
+                html.classList.add("dark");
+                btn.textContent = "🌙";
+            }
+        }
+
+        function renderSheet() {
+            const container = document.getElementById("sheetContainer");
+            container.innerHTML = "";
+
+            const showTel = document.getElementById("showTelCheck").checked;
+
+            contactList.forEach((item, index) => {
+                const cardType = item.type || "기타";
+                const cardColor = item.color || getCategoryColor(cardType);
+
+                const card = document.createElement("div");
+                card.className = "qr-card" + (editingIndex === index ? " selected" : "");
+                card.onclick = () => loadCardForEdit(index);
+
+                const cleanPhone = item.phone1 ? item.phone1.replace(/[^0-9+]/g, '') : '';
+                const qrData = cleanPhone ? `tel:${cleanPhone}` : '연락처없음';
+                const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=${encodeURIComponent(qrData)}`;
+
+                const tel1Html = (showTel && item.phone1) ? `<br>📞 연락처1: <span style="font-weight: bold;">${item.phone1}</span> (통화연결)` : '';
+                const tel2Html = item.phone2 ? `<br>📞 연락처2: ${item.phone2}` : '';
+                const addrHtml = item.address ? `<br>📍 주소: ${item.address}` : '';
+                const memoHtml = item.memo ? `<br>💡 특이사항: ${item.memo}` : '';
+
+                card.innerHTML = `
+                    <div class="qr-card-header" style="background-color: ${cardColor};">
+                        <span style="font-size: 12px; opacity: 0.85;">[${cardType}]</span>
+                        <strong style="font-size: 14px; margin-top: 2px;">${item.storeName}</strong>
+                    </div>
+                    <div class="qr-card-body">
+                        <div class="qr-card-img">
+                            <img src="${qrUrl}" alt="QR">
+                        </div>
+                        <div class="qr-card-info">
+                            <strong>${item.storeName}</strong>
+                            ${addrHtml}
+                            ${tel1Html}
+                            ${tel2Html}
+                            ${memoHtml}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function loadCardForEdit(index) {
+            const item = contactList[index];
+            if (!item) return;
+
+            editingIndex = index;
+            document.getElementById("inputStoreName").value = item.storeName;
+            document.getElementById("inputType").value = item.type;
+            document.getElementById("inputAddress").value = item.address;
+            document.getElementById("inputPhone1").value = item.phone1;
+            document.getElementById("inputPhone2").value = item.phone2;
+            document.getElementById("inputMemo").value = item.memo;
+
+            document.getElementById("formTitle").innerText = `✏️ 항목 수정 중 (No. ${index + 1})`;
+            document.getElementById("formTitle").style.color = "#28a745";
+            document.getElementById("submitBtn").innerText = "항목 수정 완료";
+            document.getElementById("submitBtn").style.backgroundColor = "#28a745";
+            document.getElementById("cancelEditBtn").style.display = "block";
+
+            renderSheet();
+        }
+
+        function resetFormMode() {
+            editingIndex = null;
+            document.getElementById("inputStoreName").value = "";
+            document.getElementById("inputType").value = "철물점";
+            document.getElementById("inputAddress").value = "";
+            document.getElementById("inputPhone1").value = "";
+            document.getElementById("inputPhone2").value = "";
+            document.getElementById("inputMemo").value = "";
+            document.getElementById("selectTypePreset").value = "";
+
+            document.getElementById("formTitle").innerText = "➕ 새 항목 추가 모드";
+            document.getElementById("formTitle").style.color = "#007bff";
+            document.getElementById("submitBtn").innerText = "항목 추가";
+            document.getElementById("submitBtn").style.backgroundColor = "#007bff";
+            document.getElementById("cancelEditBtn").style.display = "none";
+
+            renderSheet();
+        }
+
+        function saveCard() {
+            const storeName = document.getElementById("inputStoreName").value.trim();
+            const type = document.getElementById("inputType").value.trim() || "기타";
+            const address = document.getElementById("inputAddress").value.trim();
+            const phone1 = document.getElementById("inputPhone1").value.trim();
+            const phone2 = document.getElementById("inputPhone2").value.trim();
+            const memo = document.getElementById("inputMemo").value.trim();
+            const color = categoryColors[type] || getCategoryColor(type);
+
+            if (!storeName || !phone1) {
+                alert("업소명과 연락처1은 필수 입력 항목입니다!");
+                return;
+            }
+
+            if (editingIndex !== null) {
+                contactList[editingIndex] = { storeName, type, address, phone1, phone2, memo, color };
+                alert("성공적으로 수정되었습니다!");
+                resetFormMode();
+            } else {
+                contactList.push({ storeName, type, address, phone1, phone2, memo, color });
+                renderSheet();
+                
+                document.getElementById("inputStoreName").value = "";
+                document.getElementById("inputAddress").value = "";
+                document.getElementById("inputPhone1").value = "";
+                document.getElementById("inputPhone2").value = "";
+                document.getElementById("inputMemo").value = "";
+            }
+        }
+
+        function clearList() {
+            if (confirm("목록을 전체 초기화하시겠습니까?")) {
+                contactList = [];
+                resetFormMode();
+                renderSheet();
+            }
+        }
+
+        function exportCurrentCSV() {
+            if (contactList.length === 0) {
+                alert("저장할 항목이 없습니다.");
+                return;
+            }
+
+            const now = new Date();
+            const timestamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+
+            let csvContent = "storeName,type,address,phone1,phone2,memo,color\n";
+            contactList.forEach(item => {
+                const sName = `"${(item.storeName || '').replace(/"/g, '""')}"`;
+                const sType = `"${(item.type || '').replace(/"/g, '""')}"`;
+                const sAddr = `"${(item.address || '').replace(/"/g, '""')}"`;
+                const sP1 = `"${(item.phone1 || '').replace(/"/g, '""')}"`;
+                const sP2 = `"${(item.phone2 || '').replace(/"/g, '""')}"`;
+                const sMemo = `"${(item.memo || '').replace(/"/g, '""')}"`;
+                const sColor = `"${(item.color || categoryColors[item.type] || '#95a5a6').replace(/"/g, '""')}"`;
+                csvContent += `${sName},${sType},${sAddr},${sP1},${sP2},${sMemo},${sColor}\n`;
+            });
+
+            const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `${timestamp}_my_neighborhood_stores.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function downloadCSVTemplate() {
+            const csvContent = "storeName,type,address,phone1,phone2,memo,color\n우리동네 철물점,철물점,서울시 강남구 동네로 12,02-555-1234,010-1111-2222,일요일 휴무,#555555\n우리동네 관리사무소,관리사무소,서울시 강남구 동네로 20,02-555-9999,,단지 내 민원,#34495e";
+            const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", "neighborhood_qr_template.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function handleCSV(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const lines = text.split(/\r\n|\n/);
+                let newList = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+                    
+                    const cols = [];
+                    let inQuotes = false;
+                    let currentCol = "";
+                    for (let char of line) {
+                        if (char === '"') {
+                            inQuotes = !inQuotes;
+                        } else if (char === ',' && !inQuotes) {
+                            cols.push(currentCol.trim().replace(/^"|"$/g, ''));
+                            currentCol = "";
+                        } else {
+                            currentCol += char;
+                        }
+                    }
+                    cols.push(currentCol.trim().replace(/^"|"$/g, ''));
+
+                    if (cols.length >= 4) {
+                        const sType = cols[1] || "기타";
+                        const sColor = cols[6] || categoryColors[sType] || "#95a5a6";
+                        
+                        categoryColors[sType] = sColor;
+
+                        newList.push({
+                            storeName: cols[0] || "",
+                            type: sType,
+                            address: cols[2] || "",
+                            phone1: cols[3] || "",
+                            phone2: cols[4] || "",
+                            memo: cols[5] || "",
+                            color: sColor
+                        });
+                    }
+                }
+
+                if (newList.length > 0) {
+                    contactList = newList;
+                    resetFormMode();
+                    renderSheet();
+                    alert("CSV 불러오기 완료!");
+                } else {
+                    alert("파일 형식을 확인해주세요.");
+                }
+            };
+            reader.readAsText(file, 'utf-8');
+        }
+
+        window.onload = function() {
+            if (document.documentElement.classList.contains("dark")) {
+                document.getElementById("themeToggleBtn").textContent = "🌙";
+            } else {
+                document.getElementById("themeToggleBtn").textContent = "☀️";
+            }
+            renderSheet();
+        };
+    </script>
+</body>
+</html>

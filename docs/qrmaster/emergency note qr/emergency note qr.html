@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>맞춤형 응급 정보 QR 생성기</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --border-color: #444;
+            --preview-bg: #2a2a2a;
+            --preview-border: #444;
+            --input-bg: #2d2d2d;
+            --modal-bg: #2c2c2c;
+        }
+        [data-theme="light"] {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #ccc;
+            --preview-bg: #fafafa;
+            --preview-border: #eee;
+            --input-bg: #ffffff;
+            --modal-bg: #ffffff;
+        }
+
+        body { 
+            font-family: 'Malgun Gothic', sans-serif; 
+            background: var(--bg-color); 
+            color: var(--text-color);
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .card { 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
+            width: 100%; 
+            max-width: 850px; 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 30px; 
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .header-top {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 10px;
+        }
+
+        h2 { color: #d9534f; margin: 0; font-size: 22px; }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover { background: rgba(255,255,255,0.1); }
+
+        .left-pane { flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 10px; }
+        .right-pane { flex: 1; min-width: 280px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; background: var(--preview-bg); padding: 20px; border-radius: 12px; border: 1px dashed var(--border-color); transition: background 0.3s; }
+
+        label { font-weight: bold; display: block; margin-bottom: 4px; font-size: 13px; }
+        input[type="text"], select { width: 100%; padding: 8px 10px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+        
+        .row-group { display: flex; gap: 10px; }
+        .row-group .name-box { flex: 3; }
+        .row-group .blood-box { flex: 2; }
+
+        .action-btn { display: block; width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; font-weight: bold; margin-top: 5px; transition: background 0.2s; }
+        .action-btn:hover { background: #0056b3; }
+
+        .qr-wrapper {
+            background: #ffffff;
+            padding: 4px;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
+        }
+        #qrImg { display: block; max-width: 180px; border-radius: 8px; }
+
+        .sub-btn-group { display: flex; gap: 6px; width: 100%; margin-top: 10px; }
+        .sub-btn { flex: 1; padding: 10px; background: #6c757d; color: white; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: bold; transition: background 0.2s; text-align: center; }
+        .sub-btn.download-trigger { background: #28a745; }
+        .sub-btn.print-trigger { background: #17a2b8; }
+        .sub-btn:hover { opacity: 0.9; }
+
+        .preview-text { font-size: 12px; color: var(--text-color); width: 100%; text-align: left; white-space: pre-wrap; background: var(--card-bg); padding: 10px; border: 1px solid var(--preview-border); border-radius: 6px; box-sizing: border-box; margin-top: 10px; }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center; align-items: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: var(--modal-bg);
+            color: var(--text-color);
+            padding: 25px;
+            border-radius: 12px;
+            width: 350px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            border: 1px solid var(--border-color);
+        }
+        .modal-content h3 { margin-top: 0; font-size: 18px; color: #007bff; }
+        .modal-group { margin-bottom: 15px; }
+        .modal-buttons { display: flex; gap: 8px; margin-top: 20px; }
+        .modal-buttons button { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .btn-confirm { background: #28a745; color: white; }
+        .btn-cancel { background: #6c757d; color: white; }
+        .radio-label { font-weight: normal; display: flex; align-items: center; gap: 8px; margin-top: 8px; cursor: pointer; font-size: 14px; }
+
+        .floating-close {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .floating-close:hover { background: #bd2130; transform: scale(1.05); }
+
+        @media print {
+            body { 
+                background: white !important; 
+                color: black !important; 
+                display: block !important; 
+                align-items: unset !important; 
+                justify-content: unset !important;
+                margin: 0 !important;
+                padding: 10mm !important;
+            }
+            .left-pane, .theme-btn, .action-btn, .sub-btn-group, .floating-close, .modal-overlay, .preview-text { display: none !important; }
+            
+            .card { 
+                box-shadow: none !important; 
+                border: none !important; 
+                width: 100% !important; 
+                max-width: 100% !important; 
+                background: white !important; 
+                margin: 0 !important;
+                padding: 0 !important;
+                display: block !important;
+            }
+            
+            .right-pane { 
+                border: none !important; 
+                background: white !important; 
+                width: 100% !important; 
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                justify-content: flex-start !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .qr-wrapper {
+                box-shadow: none !important;
+                border: 1px solid #ddd;
+                margin: 0 !important;
+            }
+            
+            body.print-with-text .preview-text { 
+                display: block !important; 
+                background: white !important; 
+                color: black !important; 
+                border: 1px solid #ccc !important; 
+                margin-top: 15px !important;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+<div class="card">
+    <div class="header-top">
+        <h2>🚨 응급 정보 QR 생성기</h2>
+        <button class="theme-btn" onclick="toggleTheme()">☀️ 라이트모드</button>
+    </div>
+
+    <!-- 좌측: 입력부 -->
+    <div class="left-pane">
+        <div class="row-group">
+            <div class="name-box">
+                <label>성함 및 출생연도</label>
+                <input type="text" id="nameInput" placeholder="예: 김민수 (1982년생)" oninput="generateCustomQR()">
+            </div>
+            <div class="blood-box">
+                <label>혈액형 (Rh)</label>
+                <select id="bloodSelect" onchange="generateCustomQR()">
+                    <option value="">선택 안 함</option>
+                    <option value="Rh+ A형">Rh+ A형</option>
+                    <option value="Rh+ B형">Rh+ B형</option>
+                    <option value="Rh+ O형">Rh+ O형</option>
+                    <option value="Rh+ AB형">Rh+ AB형</option>
+                    <option value="Rh- A형">Rh- A형</option>
+                    <option value="Rh- B형">Rh- B형</option>
+                    <option value="Rh- O형">Rh- O형</option>
+                    <option value="Rh- AB형">Rh- AB형</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <label>비상연락처 (보호자)</label>
+            <input type="text" id="phoneInput" placeholder="예: 010-9876-5432" oninput="generateCustomQR()">
+        </div>
+
+        <div>
+            <label>주요 지병 (선택 시 내용이 누적 추가됩니다)</label>
+            <select id="diseaseSelect" onchange="appendDisease(this); generateCustomQR();" style="margin-bottom: 5px;">
+                <option value="">-- 복수 선택 가능 (클릭 시 자동 추가) --</option>
+                <option value="당뇨병 (인슐린 의존/비의존)">당뇨병 (인슐린 의존/비의존)</option>
+                <option value="고혈압 및 심혈관계 질환">고혈압 및 심혈관계 질환</option>
+                <option value="심장질환 (협심증 / 심근경색 이력)">심장질환 (협심증 / 심근경색 이력)</option>
+                <option value="뇌혈관질환 (뇌졸중 / 뇌출혈 이력)">뇌혈관질환 (뇌졸중 / 뇌출혈 이력)</option>
+                <option value="간질 / 뇌전증 발작 증후군">간질 / 뇌전증 발작 증후군</option>
+                <option value="천식 및 중증 호흡기 질환">천식 및 중증 호흡기 질환</option>
+                <option value="만성 신장질환 (투석 중)">만성 신장질환 (투석 중)</option>
+                <option value="특정 약물/성분 알레르기 있음">특정 약물/성분 알레르기 있음</option>
+                <option value="해당 없음 (건강함)">해당 없음 (건강함)</option>
+            </select>
+            <input type="text" id="diseaseInput" placeholder="예: 고혈압, 초기 당뇨 (직접 입력도 가능)" oninput="generateCustomQR()">
+        </div>
+
+        <div>
+            <label>복용 약물</label>
+            <input type="text" id="medicationInput" placeholder="예: 항혈소판제, 혈압약 복용 중" oninput="generateCustomQR()">
+        </div>
+
+        <div>
+            <label>알레르기 / 특이사항</label>
+            <input type="text" id="allergyInput" placeholder="예: 페니실린 쇼크, 특정 항생제 알레르기" oninput="generateCustomQR()">
+        </div>
+
+        <div>
+            <label>주치 병원 및 주치의</label>
+            <input type="text" id="hospitalInput" placeholder="예: 서울아산병원 / 홍길동 교수" oninput="generateCustomQR()">
+        </div>
+		
+		<div>
+            <label>주치 병원 응급실 연락처</label>
+            <input type="text" id="hospitalInput" placeholder="예: 033-1234-5678" oninput="generateCustomQR()">
+        </div>
+
+        <button class="action-btn" onclick="generateCustomQR()">QR코드 새로고침</button>
+    </div>
+
+    <!-- 우측: QR 및 시트인쇄 버튼 -->
+    <div class="right-pane">
+        <div class="qr-wrapper">
+            <img id="qrImg" alt="QR코드">
+        </div>
+        
+        <div class="sub-btn-group">
+            <button class="sub-btn download-trigger" onclick="openDownloadModal()">다운로드</button>
+            <button class="sub-btn print-trigger" onclick="openPrintModal()">시트인쇄</button>
+        </div>
+
+        <div id="previewBox" class="preview-text"></div>
+    </div>
+</div>
+
+<!-- 다운로드 설정 모달 -->
+<div id="downloadModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3>📥 QR코드 다운로드 설정</h3>
+        <div class="modal-group">
+            <label>파일 이름</label>
+            <input type="text" id="modalFileName" value="emergency_qr">
+        </div>
+        <div class="modal-group">
+            <label>확장자 선택</label>
+            <select id="modalFileExt">
+                <option value="png">PNG (권장)</option>
+                <option value="jpg">JPG</option>
+                <option value="svg">SVG</option>
+                <option value="bmp">BMP</option>
+            </select>
+        </div>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="closeDownloadModal()">취소</button>
+            <button class="btn-confirm" onclick="executeDownload()">다운로드 시작</button>
+        </div>
+    </div>
+</div>
+
+<!-- 시트 인쇄 옵션 모달 -->
+<div id="printModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3>🖨️ 시트 인쇄 옵션 선택</h3>
+        <div class="modal-group">
+            <label>인쇄 방식을 선택하세요</label>
+            <label class="radio-label">
+                <input type="radio" name="printOption" value="qrOnly" checked> QR 코드만 상단에 인쇄
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="printOption" value="withText"> QR 코드 + 하단 내용 함께 인쇄
+            </label>
+        </div>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="closePrintModal()">취소</button>
+            <button class="btn-confirm" onclick="executePrint()">인쇄하기</button>
+        </div>
+    </div>
+</div>
+
+<!-- 하단 플로팅 창닫기 버튼 (확인창 없이 즉시 종료) -->
+<button class="floating-close" onclick="closeWindow()">창 닫기 ✕</button>
+
+<script>
+    let currentQRUrl = "";
+
+    function appendDisease(selectElement) {
+        const selectedValue = selectElement.value;
+        if (!selectedValue) return;
+
+        const diseaseInput = document.getElementById("diseaseInput");
+        const currentValue = diseaseInput.value.trim();
+
+        if (currentValue === "") {
+            diseaseInput.value = selectedValue;
+        } else {
+            if (!currentValue.includes(selectedValue)) {
+                diseaseInput.value = currentValue + ", " + selectedValue;
+            }
+        }
+        selectElement.value = "";
+    }
+
+    function generateCustomQR() {
+        const nameRaw = document.getElementById("nameInput").value.trim();
+        const blood = document.getElementById("bloodSelect").value;
+        const cleanName = nameRaw ? nameRaw.split('(')[0].trim().replace(/\s+/g, '_') : "emergency_user";
+        document.getElementById("modalFileName").value = `${cleanName}_emergency_qr`;
+
+        const phone = document.getElementById("phoneInput").value.trim();
+        const disease = document.getElementById("diseaseInput").value.trim();
+        const medication = document.getElementById("medicationInput").value.trim();
+        const allergy = document.getElementById("allergyInput").value.trim();
+        const hospital = document.getElementById("hospitalInput").value.trim();
+
+        let textLines = ["[응급환자 정보]"];
+        if (nameRaw) textLines.push(`- 성함: ${nameRaw}`);
+        if (blood) textLines.push(`- 혈액형: ${blood}`);
+        if (phone) textLines.push(`- 비상연락: ${phone} (보호자)`);
+        if (disease) textLines.push(`- 주요지병: ${disease}`);
+        if (medication) textLines.push(`- 복용약물: ${medication}`);
+        if (allergy) textLines.push(`- 알레르기: ${allergy}`);
+        if (hospital) textLines.push(`- 주치병원: ${hospital}`);
+        textLines.push(`- 특이사항: 의식 소실 시 즉시 119 신고 요망`);
+
+        const combinedText = textLines.join("\n");
+
+        document.getElementById("previewBox").innerText = combinedText;
+
+        const encodedText = encodeURIComponent(combinedText);
+        currentQRUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedText}`;
+        document.getElementById("qrImg").src = currentQRUrl;
+    }
+
+    function openDownloadModal() {
+        document.getElementById("downloadModal").style.display = "flex";
+    }
+    function closeDownloadModal() {
+        document.getElementById("downloadModal").style.display = "none";
+    }
+
+    function openPrintModal() {
+        document.getElementById("printModal").style.display = "flex";
+    }
+    function closePrintModal() {
+        document.getElementById("printModal").style.display = "none";
+    }
+
+    function executePrint() {
+        const selectedOption = document.querySelector('input[name="printOption"]:checked').value;
+        
+        document.body.classList.remove('print-qr-only', 'print-with-text');
+        if (selectedOption === 'qrOnly') {
+            document.body.classList.add('print-qr-only');
+        } else {
+            document.body.classList.add('print-with-text');
+        }
+
+        closePrintModal();
+        setTimeout(() => {
+            window.print();
+        }, 100);
+    }
+
+    async function executeDownload() {
+        const fileName = document.getElementById("modalFileName").value || "emergency_qr";
+        const fileExt = document.getElementById("modalFileExt").value;
+        
+        try {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = currentQRUrl;
+            
+            await new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+            });
+
+            const padding = 12;
+            const radius = 16;
+            const size = img.width + (padding * 2);
+
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+            ctx.moveTo(radius, 0);
+            ctx.lineTo(size - radius, 0);
+            ctx.quadraticCurveTo(size, 0, size, radius);
+            ctx.lineTo(size, size - radius);
+            ctx.quadraticCurveTo(size, size, size - radius, size);
+            ctx.lineTo(radius, size);
+            ctx.quadraticCurveTo(0, size, 0, size - radius);
+            ctx.lineTo(0, radius);
+            ctx.quadraticCurveTo(0, 0, radius, 0);
+            ctx.closePath();
+
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+
+            ctx.clip();
+            ctx.drawImage(img, padding, padding, img.width, img.height);
+
+            let mimeType = "image/png";
+            if (fileExt === "jpg") mimeType = "image/jpeg";
+            else if (fileExt === "bmp") mimeType = "image/bmp";
+            else if (fileExt === "svg") mimeType = "image/svg+xml";
+
+            const dataUrl = canvas.toDataURL(mimeType);
+
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = `${fileName}.${fileExt}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            closeDownloadModal();
+        } catch (error) {
+            alert("이미지 처리 중 오류가 발생했습니다. 다시 시도해 주세요.");
+        }
+    }
+
+    function toggleTheme() {
+        const html = document.documentElement;
+        const btn = document.querySelector('.theme-btn');
+        if (html.getAttribute('data-theme') === 'dark') {
+            html.setAttribute('data-theme', 'light');
+            btn.innerText = "🌙 다크모드";
+        } else {
+            html.setAttribute('data-theme', 'dark');
+            btn.innerText = "☀️ 라이트모드";
+        }
+    }
+
+    function closeWindow() {
+        window.close();
+    }
+
+    window.onload = function() {
+        generateCustomQR();
+    };
+</script>
+
+</body>
+</html>

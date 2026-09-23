@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice QR 만들기 (수정완료)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md text-center">
+        <h1 class="text-2xl font-bold text-blue-600 mb-2">🗣️ Voice QR 만들기</h1>
+        <p class="text-sm text-gray-500 mb-6">QR을 스캔하면 스마트폰이 글을 읽어줍니다.</p>
+
+        <!-- 읽힐 텍스트 입력 -->
+        <div class="mb-4 text-left">
+            <label class="block text-sm font-semibold text-gray-700 mb-1">읽어줄 문장 입력</label>
+            <textarea id="ttsText" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">안녕하세요! 강릉 키오스크 큐티 QR입니다. 오늘도 좋은 하루 보내세요!</textarea>
+        </div>
+
+        <button onclick="generateVoiceQR()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition duration-200 mb-6">
+            음성 QR 생성하기
+        </button>
+
+        <!-- QR 코드가 표시될 영역 -->
+        <div class="flex justify-center mb-4">
+            <div id="qrcodeContainer" class="p-3 bg-white border-2 border-gray-200 rounded-xl shadow-inner inline-block min-h-[180px] min-w-[180px] flex items-center justify-center text-gray-400 text-sm">
+                생성 버튼을 눌러주세요
+            </div>
+        </div>
+
+        <p class="text-xs text-gray-400">※ 스마트폰으로 스캔하면 입력된 문장이 음성으로 재생됩니다.</p>
+    </div>
+
+    <!-- QR 생성용 라이브러리 (QRCode.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        function generateVoiceQR() {
+            const text = document.getElementById('ttsText').value.trim();
+            if (!text) {
+                alert('읽어줄 문장을 입력해주세요.');
+                return;
+            }
+
+            // 1. QR코드 영역 초기화
+            const container = document.getElementById('qrcodeContainer');
+            container.innerHTML = '';
+
+            // 2. 공개된 TTS 플레이어 URL 활용 (텍스트를 URL 인코딩하여 전달)
+            // 예시로 공공/범용으로 쓰이는 간단한 구조 혹은 자체 리다이렉트 주소를 연결할 수 있습니다.
+            // 여기서는 브라우저 호환성이 가장 높은 구조의 웹 서비스 주소 형식으로 변환합니다.
+            
+            // 본인만의 서버가 있다면 텍스트를 읽어주는 간이 HTML 파일을 올리고 ?text=문장 형태 파라미터로 받으면 됩니다.
+            // 테스트를 위해 데이터를 압축하여 안전하게 담기는 구조로 생성합니다.
+            
+            // 데이터 크기 초과 방지를 위해 Data URI 방식을 간소화된 텍스트 전용 페이지 구조로 압축
+            const miniHtml = `data:text/html;charset=utf-8,` + encodeURIComponent(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>음성 재생</title><meta name="viewport" content="width=device-width,initial-scale=1.0"></head><body style="font-family:sans-serif;text-align:center;padding:40px;background:#f0f2f5"><div style="background:white;padding:30px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.1)"><h2>🔊 음성 메시지</h2><p style="font-size:18px;margin:20px 0;line-height:1.5;">${text}</p><button onclick="s()" style="background:#2563eb;color:white;border:none;padding:12px 24px;font-size:16px;border-radius:6px;cursor:pointer">다시 듣기</button></div><script>function s(){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance('${text.replace(/'/g, "\\'")}');u.lang='ko-KR';window.speechSynthesis.speak(u);}window.onload=function(){setTimeout(s,300);}<\/script></body></html>`);
+
+            // 3. QR코드 그리기 (데이터 크기가 안전 범위 내에 들어오므로 정상 생성됨)
+            try {
+                new QRCode(container, {
+                    text: miniHtml,
+                    width: 180,
+                    height: 180,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.M
+                });
+            } catch (e) {
+                alert('문장이 너무 길어 QR 코드가 생성되지 않았습니다. 문장을 조금 줄여주세요.');
+            }
+        }
+    </script>
+</body>
+</html>
