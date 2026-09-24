@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🏠 우리집 근처 소개 QR 시트 만들기</title>
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>💡</text></svg>">
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>🖨️</text></svg>">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -32,7 +32,7 @@
         .preview-title { border-bottom: 2px solid #eee; color: #111; }
         input[type="text"], select { background: #fff; color: #111; border: 2px solid #999; }
         .radio-group { background: #fff; border: 2px solid #999; color: #111; }
-        .qr-card { background: #fff; border: 2px solid #333; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .qr-card { background: #fff; border: 2px solid #333; cursor: pointer; transition: all 0.2s; }
         .qr-card:hover { border-color: #007bff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,123,255,0.2); }
         .qr-card.selected { border: 3px solid #007bff; background: rgba(0,123,255,0.05); }
         #sheetContainer { background: transparent; }
@@ -88,7 +88,7 @@
         .floating-close-btn {
             position: fixed;
             bottom: 25px;
-            right: 15px;
+            right: 25px;
             background-color: #dc3545;
             color: white;
             border: none;
@@ -223,10 +223,10 @@
 
         .qr-card-header {
             padding: 8px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
             color: white;
-            width: 120px;
+            width: 110px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -335,30 +335,41 @@
             background: none;
         }
 
-        /* 1. 평소 화면에서는 '인쇄 전용 헤더'를 숨김 */
+        
+		/* 1. 평소 화면에서는 '인쇄 전용 헤더'를 숨김 */
 		.print-only-header {
 			display: none;
 		}
+		
+		/* 인쇄 최적화 (배경색 제거 및 깔끔한 출력) */
+        @media print {
+            * {
+                background: transparent !important;
+                color: #000 !important;
+                box-shadow: none !important;
+            }
+            body { 
+                background: #ffffff !important; 
+                color: #000 !important; 
+                padding: 0; 
+            }
+            .container-box { 
+                background: #ffffff !important; 
+                color: #000 !important; 
+                border: none; 
+                padding: 0; 
+                max-width: 100%; 
+                width: 100%; 
+            }
 
-		/* 인쇄 최적화 영역 (@media print 안쪽) */
-		@media print {
-			body { 
-				padding: 0; 
-			}
+            /* 컨테이너 자식 중 workspace만 허용하고, 불필요한 UI 및 기본 헤더는 완벽히 숨김 */
+            .container > *:not(.workspace):not(.print-only-header), 
+            header, /* 👈 기본 헤더 인쇄 시 무조건 숨김 */
+            .workspace > *:not(.preview-panel), 
+            .action-btn, .preview-title, .floating-close-btn, .modal-overlay, #themeToggleBtn { 
+                display: none !important; 
+            }
 			
-			.container-box { 
-				border: none; 
-				box-shadow: none !important; 
-				padding: 0; 
-				max-width: 100%; 
-				width: 100%; 
-			}
-
-			/* 기존 화면용 헤더는 완전히 숨기고 싶다면 여기에 header를 포함시킵니다 */
-			header, .panel, .preview-title, .action-btn, .floating-close-btn, .modal-overlay { 
-				display: none !important; 
-			}
-
 			/* 2. 💡 인쇄할 때만 '인쇄 전용 헤더'를 나타나게 지정! */
 			.print-only-header {
 				display: flex !important;
@@ -366,41 +377,35 @@
 				align-items: center !important;
 				border-bottom: 2px solid #000 !important;
 				padding-bottom: 10px !important;
-				margin-bottom: 45px !important;
-			}
-			.print-only-header h1 {
-				font-size: 22px !important;
-				color: #000 !important;
-				margin: 0 !important;
-			}
-			
-			.print-only-header .print-date {
-				font-size: 14px !important;
-				color: #555 !important;
-				font-weight: normal !important;
+				margin-bottom: 30px !important; /* 👈 이제 이 숫자를 바꾸면 여백이 즉시 조절됩니다! */
 			}
 
-			.workspace { display: block; }
-			.preview-panel { 
-				border: none !important; 
-				padding: 0; 
-				box-shadow: none !important; 
-				width: 100%; 
-			}
-			#sheetContainer { 
-				max-height: none; 
-				overflow: visible; 
-				gap: 12px; 
-			}
-			.qr-card { 
-				page-break-inside: avoid; 
-				box-shadow: none !important; 
-			}
-			.qr-card-header {
-				-webkit-print-color-adjust: exact;
-				print-color-adjust: exact;
-			}
-		}
+            .workspace { display: block; }
+            .preview-panel { 
+                background: #ffffff !important; 
+                border: none !important; 
+                padding: 0; 
+                width: 100%; 
+            }
+            #sheetContainer { 
+                max-height: none; 
+                overflow: visible; 
+                gap: 12px; 
+            }
+            .qr-card { 
+                background: #ffffff !important; 
+                page-break-inside: avoid; 
+                border: 2px solid #000 !important; 
+            }
+            .qr-card-header {
+                background: #ffffff !important;
+                color: #000 !important;
+                border-right: 2px solid #000 !important;
+            }
+            .qr-card-info, .qr-card-header span, .qr-card-header strong { 
+                color: #000 !important; 
+            }
+        }
     </style>
 	
 	<script>
@@ -421,22 +426,26 @@
 		// 인쇄 전용 헤더의 span 태그에 텍스트 넣기
 		const dateSpan = document.getElementById('printDate');
 		if (dateSpan) {
-			dateSpan.innerText = `출력일시: ${formattedDate}`;
+			dateSpan.innerText = `🖨️ 출력일시: ${formattedDate}`;
 		}
 	});
 	</script>
-
+	
 </head>
 <body class="bg-gray-100 dark:bg-zinc-900 text-gray-900 dark:text-gray-100">
 
+	
+
     <div class="container container-box">
-        <!-- 화면에서는 안 보이고, 오직 인쇄할 때만 나타나는 별도 헤더 -->
+	
+		<!-- 화면에서는 안 보이고, 오직 인쇄할 때만 나타나는 별도 헤더 -->
 		<div class="print-only-header">
 			<h1>🏠 우리집 근처 소개 QR 시트</h1>
 			<span id="printDate" class="print-date"></span> <!-- 필요시 날짜 등 추가 가능 -->
 		</div>
 		
-		<header>
+		
+        <header>
             <h1>🏠 우리집 근처 소개 QR 시트 만들기</h1>
             <!-- 테마 변경 버튼 -->
             <button id="themeToggleBtn" class="theme-btn" onclick="toggleTheme()" title="테마 변경">🌙</button>
@@ -462,20 +471,11 @@
                             <option value="철물점">철물점</option>
                             <option value="중식점">중식점</option>
                             <option value="식당">식당</option>
-                            <option value="전기수리">전기 수리</option>
-                            <option value="에어콘 수리/청소">에어콘 수리/청소</option>
-                            <option value="상하수도 설비업체">상하수도 설비업체</option>
-                            <option value="잡화점">잡화점</option>
                             <option value="지업사">지업사</option>
                             <option value="커튼점">커튼점</option>
-                            <option value="병.의원">병.의원</option>
-							<option value="약국">약국</option>
+                            <option value="약국">약국</option>
                             <option value="마트">마트</option>
                             <option value="세탁소">세탁소</option>
-                            <option value="이삿짐센터">이삿짐센터</option>
-                            <option value="전문청소">전문청소</option>
-                            <option value="관리사무소">관리사무소</option>
-                            <option value="관할 동사무소">관할 동사무소</option>
                         </select>
                     </div>
                 </div>
@@ -579,12 +579,16 @@
                     </li>
                     <li style="background: rgba(0,0,0,0.03); padding: 9px 12px; border-radius: 6px; border-left: 4px solid #007bff;">
                         <strong style="color: #007bff; display: block; margin-bottom: 2px;">🎨 2. 구분별 색상 커스텀 설정</strong>
-                        • <strong>[색상 커스텀 설정]</strong> 버튼을 눌러 각 분류 태그의 배경 색상을 원하는 색상으로 자유롭게 변경할 수 있습니다.<br>
+                        • <strong>[색상 커스텀 설정]</strong> 버튼을 눌러 각 분류 태그(철물점, 중식점 등)의 배경 색상을 원하는 색상으로 자유롭게 변경할 수 있습니다.<br>
                         • 지정된 색상은 **CSV 파일 저장 및 불러오기 시에도 그대로 함께 저장**됩니다.
                     </li>
                     <li style="background: rgba(0,0,0,0.03); padding: 9px 12px; border-radius: 6px; border-left: 4px solid #007bff;">
                         <strong style="color: #007bff; display: block; margin-bottom: 2px;">📞 3. 연락처1 통화 연결 기능</strong>
                         <strong>연락처1</strong>은 QR코드 스캔 시 스마트폰에서 곧바로 전화 통화(tel:) 화면으로 연결되도록 설정됩니다.
+                    </li>
+                    <li style="background: rgba(0,0,0,0.03); padding: 9px 12px; border-radius: 6px; border-left: 28a745 solid #28a745;">
+                        <strong style="color: #28a745; display: block; margin-bottom: 2px;">📊 4. 엑셀(CSV) 파일 형식 안내</strong>
+                        CSV 파일 저장 및 업로드 시 필드는 <strong>storeName, type, address, phone1, phone2, memo, color</strong> 순서로 구성됩니다.
                     </li>
                 </ul>
             </div>
@@ -596,37 +600,29 @@
 
     <!-- 우측 하단 플로팅 창닫기 버튼 -->
     <button class="floating-close-btn" onclick="window.close()" title="창 닫기">
-        ❌닫기
+        ❌ 창닫기
     </button>
 
     <script>
-        // '기타'를 차분하고 무난한 밝은 회색(#95a5a6)으로 설정
+        // 기본 구분별 색상 정의 맵
         let categoryColors = {
-            "철물점": "#555555",       // 안정적인 진회색 (철물 느낌)
-            "중식점": "#dc3545",       // 빨간색
-            "식당": "#fd7e14",         // 주황색
-            "전기수리": "#e67e22",     // 진한 오렌지
-            "에어콘 수리/청소": "#009688", // 시원한 틸/청록색
-            "상하수도 설비업체": "#03a9f4", // 물 느낌의 하늘색
-            "잡화점": "#9c27b0",       // 보라색
-            "지업사": "#20c997",       // 청민트색
-            "커튼점": "#6f42c1",       // 진보라색
-            "약국": "#e91e63",         // 핑크/레드
-            "마트": "#00bcd4",         // 시원한 시안색
-            "세탁소": "#ff9800",       // 황토/노란빛
-            "이삿짐센터": "#795548",   // 갈색 (박스 느낌)
-            "전문청소": "#4caf50",     // 초록색 (청결 느낌)
-            "관리사무소": "#34495e",   // 네이비
-            "관할 동사무소": "#3f51b5", // 인디고 블루
-            "기타": "#95a5a6"          // 무난하고 차분한 밝은 회색 (기타)
+            "철물점": "#6c757d",
+            "중식점": "#dc3545",
+            "식당": "#fd7e14",
+            "지업사": "#20c997",
+            "커튼점": "#6f42c1",
+            "약국": "#e83e8c",
+            "마트": "#17a2b8",
+            "세탁소": "#ffc107",
+            "기타": "#007bff"
         };
 
         let contactList = [
-            { storeName: "우리동네 철물점", type: "철물점", address: "서울시 강남구 동네로 12", phone1: "02-555-1234", phone2: "010-1111-2222", memo: "일요일 휴무 / 열쇠 복사 가능", color: "#555555" },
-            { storeName: "우리동네 관리사무소", type: "관리사무소", address: "서울시 강남구 동네로 20", phone1: "02-555-9999", phone2: "", memo: "단지 내 민원 접수", color: "#34495e" }
+            { storeName: "우리동네 철물점", type: "철물점", address: "서울시 강남구 동네로 12", phone1: "02-555-1234", phone2: "010-1111-2222", memo: "일요일 휴무 / 열쇠 복사 가능", color: "#6c757d" },
+            { storeName: "행복한 중식점", type: "중식점", address: "서울시 강남구 동네로 25", phone1: "02-555-8888", phone2: "", memo: "배달 가능 / 매주 월요일 휴무", color: "#dc3545" }
         ];
 
-        let editingIndex = null;
+        let editingIndex = null; // 현재 수정 중인 항목의 인덱스 (null이면 추가 모드)
 
         function onSelectPreset(select) {
             if (select.value) {
@@ -642,7 +638,7 @@
             if (categoryColors[trimmed]) {
                 return categoryColors[trimmed];
             }
-            categoryColors[trimmed] = "#95a5a6"; // 신규 기타 항목 기본 색상 (밝은 회색)
+            categoryColors[trimmed] = "#007bff";
             return categoryColors[trimmed];
         }
 
@@ -656,11 +652,11 @@
             listContainer.innerHTML = "";
 
             typesSet.forEach(type => {
-                const currentColor = categoryColors[type] || "#95a5a6";
+                const currentColor = categoryColors[type] || "#007bff";
                 const row = document.createElement("div");
                 row.className = "color-setting-row";
                 row.innerHTML = `
-                    <span style="font-weight: bold; font-size: 15px;">📁 [${type}]</span>
+                    <span style="font-weight: bold; font-size: 16px;">📁 [${type}]</span>
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-size: 14px; color: #888;" id="hex_${type}">${currentColor}</span>
                         <input type="color" value="${currentColor}" onchange="updateCategoryColor('${type}', this.value)">
@@ -688,23 +684,15 @@
 
         function resetDefaultColors() {
             categoryColors = {
-                "철물점": "#555555",
+                "철물점": "#6c757d",
                 "중식점": "#dc3545",
                 "식당": "#fd7e14",
-                "전기수리": "#e67e22",
-                "에어콘 수리/청소": "#009688",
-                "상하수도 설비업체": "#03a9f4",
-                "잡화점": "#9c27b0",
                 "지업사": "#20c997",
                 "커튼점": "#6f42c1",
-                "약국": "#e91e63",
-                "마트": "#00bcd4",
-                "세탁소": "#ff9800",
-                "이삿짐센터": "#795548",
-                "전문청소": "#4caf50",
-                "관리사무소": "#34495e",
-                "관할 동사무소": "#3f51b5",
-                "기타": "#95a5a6"
+                "약국": "#e83e8c",
+                "마트": "#17a2b8",
+                "세탁소": "#ffc107",
+                "기타": "#007bff"
             };
             openColorModal();
             renderSheet();
@@ -759,8 +747,8 @@
 
                 card.innerHTML = `
                     <div class="qr-card-header" style="background-color: ${cardColor};">
-                        <span style="font-size: 12px; opacity: 0.85;">[${cardType}]</span>
-                        <strong style="font-size: 14px; margin-top: 2px;">${item.storeName}</strong>
+                        <span style="font-size: 13px; opacity: 0.85;">[${cardType}]</span>
+                        <strong style="font-size: 15px; margin-top: 2px;">${item.storeName}</strong>
                     </div>
                     <div class="qr-card-body">
                         <div class="qr-card-img">
@@ -874,7 +862,7 @@
                 const sP1 = `"${(item.phone1 || '').replace(/"/g, '""')}"`;
                 const sP2 = `"${(item.phone2 || '').replace(/"/g, '""')}"`;
                 const sMemo = `"${(item.memo || '').replace(/"/g, '""')}"`;
-                const sColor = `"${(item.color || categoryColors[item.type] || '#95a5a6').replace(/"/g, '""')}"`;
+                const sColor = `"${(item.color || categoryColors[item.type] || '#007bff').replace(/"/g, '""')}"`;
                 csvContent += `${sName},${sType},${sAddr},${sP1},${sP2},${sMemo},${sColor}\n`;
             });
 
@@ -889,7 +877,7 @@
         }
 
         function downloadCSVTemplate() {
-            const csvContent = "storeName,type,address,phone1,phone2,memo,color\n우리동네 철물점,철물점,서울시 강남구 동네로 12,02-555-1234,010-1111-2222,일요일 휴무,#555555\n우리동네 관리사무소,관리사무소,서울시 강남구 동네로 20,02-555-9999,,단지 내 민원,#34495e";
+            const csvContent = "storeName,type,address,phone1,phone2,memo,color\n행복한 철물점,철물점,서울시 강남구 동네로 12,02-555-1234,010-1111-2222,일요일 휴무 / 열쇠 복사 가능,#6c757d\n맛있는 중식점,중식점,서울시 강남구 동네로 25,02-555-8888,,배달 가능,#dc3545";
             const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
@@ -930,7 +918,7 @@
 
                     if (cols.length >= 4) {
                         const sType = cols[1] || "기타";
-                        const sColor = cols[6] || categoryColors[sType] || "#95a5a6";
+                        const sColor = cols[6] || categoryColors[sType] || "#007bff";
                         
                         categoryColors[sType] = sColor;
 
