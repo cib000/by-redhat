@@ -183,6 +183,34 @@
       border-radius: 8px;
       cursor: pointer;
     }
+	
+	/* 우측 하단 플로팅 창닫기 버튼 스타일 */
+    .floating-close-btn {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: 'Gulim', '굴림', sans-serif;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        z-index: 1000;
+        transition: background-color 0.2s, transform 0.2s;
+    }
+    .floating-close-btn:hover {
+        background-color: #bd2130;
+        transform: scale(1.05);
+    }
+
+	
   </style>
 
   <!-- 초기 로딩 시 깜빡임 방지 및 저장된 테마 적용 스크립트 -->
@@ -322,7 +350,10 @@
     </footer>
   </div>
 
-
+    <!-- 우측 하단 플로팅 창닫기 버튼 -->
+    <button class="floating-close-btn" onclick="window.close()" title="창 닫기">
+        ❌ 창닫기
+    </button>
 
   
 	<!-- 다운로드 설정 커스텀 모달 창 -->
