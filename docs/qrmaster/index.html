@@ -307,14 +307,40 @@
 			transition: all 0.2s;
 		}
 		.hub-btn:hover {
-			background: #007bff;
+			background: #ff0000; /*  #007bff  */
 			color: white;
 			border-color: #007bff;
 			transform: translateY(-2px);
 		}
+
+
+
+		.hub-btn2 {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 12px 16px;
+			background: #ffffff; /* #ffffff; rgba(255,0,0,0.5); */
+			color: #333333;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			text-decoration: none;
+			font-size: 14px;
+			font-weight: bold;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+			transition: all 0.2s;
+		}
+		.hub-btn2:hover {
+			background: #ff0000; /*  #007bff  */
+			color: white;
+			border-color: #007bff;
+			transform: translateY(-2px);
+		}
+		
+		
 		body.dark-mode .hub-btn {
 			background: #2a2a2a;
-			color: #e0e0e0;
+			color: #ffffff;
 			border-color: #444;
 		}
 		body.dark-mode .hub-btn:hover {
@@ -322,6 +348,20 @@
 			color: white;
 			border-color: #0d6efd;
 		}
+		
+		
+		body.dark-mode .hub-btn2 {
+			background: #2a2a2a;
+			color: #ffffff;
+			border-color: #444;
+		}
+		body.dark-mode .hub-btn2:hover {
+			background: #f00;
+			color: white;
+			border-color: #0d6efd;
+		}
+		
+
 		
 		/* 닫기 버튼 스타일 */
 		.tab-close-btn {
@@ -576,7 +616,7 @@
 			
 			
 			<!-- 긴급 시트 인쇄용 QR -->
-			<a href="emergency qr/emergency_contact_qr.html" target="_blank" class="hub-btn" title="긴급 시트 인쇄용 QR 생성">
+			<a href="emergency qr/emergency_contact_qr.html" target="_blank" class="hub-btn2" title="긴급 시트 인쇄용 QR 생성">
 				<span style="font-size: 18px;">🚨</span>
 				<span>긴급 시트 인쇄용 QR</span>
 			</a>
@@ -594,8 +634,8 @@
 			</a>
 			
 			<!-- 우리집 주변 가게들 QR -->
-			<a href="emergency note qr\emergency note qr.html" target="_blank" class="hub-btn" title="응급 노트 메모 QR 생성">
-				<span style="font-size: 18px;">🏡️</span>
+			<a href="emergency note qr\emergency note qr.html" target="_blank" class="hub-btn2" title="응급 노트 메모 QR 생성" >
+				<span style="font-size: 18px;">📝</span>
 				<span>응급 노트 메모 QR</span>
 			</a>
 			
