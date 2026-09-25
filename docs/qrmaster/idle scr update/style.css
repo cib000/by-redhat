@@ -1,0 +1,161 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.update{
+    background-color: #005aa0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.update__content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.update__spinner{
+    text-align: center;
+    margin: 20px;
+}
+
+.update__text{
+    text-align: center;
+    color: #fbfdfd;
+    font-family: sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+
+/* 플로팅 버튼 그룹 컨테이너 (위치 및 세로 정렬 담당) */
+.rfloatingbtn {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    gap: 12px; /* 버튼 사이 간격 */
+}
+
+
+.rfloatingbtn a {
+	width: 32px;
+    height: 32px;
+    background-color: #333333;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* a 태그 밑줄 제거 */
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.rfloatingbtn :hover {
+    background-color: #000000;
+    transform: scale(1.08);
+}
+
+.rfloatingbtn :active {
+    transform: scale(0.95);
+}
+
+
+
+/* 공통 플로팅 버튼 스타일 */
+/*
+.floating-item {
+    width: 50px;
+    height: 50px;
+    background-color: #333333;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.floating-item:hover {
+    background-color: #000000;
+    transform: scale(1.08);
+}
+
+.floating-item:active {
+    transform: scale(0.95);
+}
+*/
+
+
+.update__loader{
+    height: 50px;
+    width: 50px;
+    margin: 20px;
+}
+
+.update__spinner{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    position: absolute;
+    margin: 0;
+    animation-name: rotate;
+    animation-duration: 1.4s;
+    animation-timing-function: cubic-bezier(0.05, 0.57, 0.63, 0.38);
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
+.update__spinner--second{
+    animation-delay: 0.2s;
+}
+
+.update__spinner--third{
+    animation-delay: 0.4s;
+}
+
+.update__spinner--four{
+    animation-delay: 0.6s;
+}
+
+.update__spinner--five{
+    animation-delay: 0.8s;
+}
+
+.update__spinner--six{
+    animation-delay: 1s;
+}
+
+.spinner__point{
+    width: 7px;
+    height: 7px;
+    border-radius: 10px;
+    background-color: white
+}
+
+@keyframes rotate{
+    0% {
+        transform: rotate(0.7turn)
+    }       
+    100%{
+        transform: rotate(1.7turn)
+    }
+}
+
+
+		
+		

@@ -403,39 +403,59 @@
 		
 
 		
-		/* 닫기 버튼 스타일 */
-		.tab-close-btn {
+		/* 플로팅 버튼 그룹 컨테이너 */
+		.rfloatingbtn {
 			position: fixed;
 			bottom: 5%;
 			right: 10%;
+			display: flex;
+			flex-direction: column; /* 세로 정렬 */
+			gap: 10px;              /* 버튼 사이 간격 (br 태그 대신 이 속성이 간격을 잡아줍니다) */
+			z-index: 9999;          
+		}
+
+		/* 공통 플로팅 버튼 스타일 */
+		.tab-close-btn {
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
-			width: 28px; /* 버튼 크기를 조금 더 키워 클릭하기 편하게 수정 */
-			height: 28px;
+			width: 38px;  /* 이미지나 텍스트가 들어가기 좋게 크기 조절 (필요시 수정) */
+			height: 38px;
 			padding: 0;
 			margin: 0;
-			background: rgba(0, 0, 0, 0.05); /* 은은한 기본 배경 추가 */
+			background: #ffffff;          
 			color: #666666;
-			border: 1px solid #d1d5db; /* 얇은 테두리 추가 */
-			border-radius: 50%;
+			border: 1px solid #d1d5db;    
+			border-radius: 50%;           
 			cursor: pointer;
 			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-			z-index: 9999; /* 화면 최상단에 위치하도록 설정 */
 			transition: all 0.2s ease;
 		}
 
-		/* 마우스 오버 시 효과 */
-		.tab-close-btn:hover {
-			background-color: #ff3b30; /* 호버 시 배경을 빨간색으로 변경 */
-			color: #ffffff; /* 아이콘 색상을 흰색으로 변경 */
-			border-color: #ff3b30;
+		/* 버튼 내부 이미지 스타일 */
+		.tab-close-btn .btn-icon {
+			width: 25px;  /* 버튼 안에서 아이콘이 차지할 크기 */
+			height: 25px;
+			object-fit: contain; /* 비율 유지 */
 		}
 
-		/* 클릭 시 효과 */
-		.tab-close-btn:active {
-			transform: scale(0.92);
+
+		/* 마우스 오버 시 효과 */
+		.tab-close-btn:hover {
+			background-color: #00ffff; /* #ff3b30;  */
+			color: #ffffff; 
+			border-color: #00ffff; /* #ff3b30; */
+			transform: scale(1.08); 
 		}
+
+
+		/* 닫기 버튼만 특별히 빨간색으로 호버하고 싶다면 아래와 같이 개별 지정도 가능합니다 */
+		.tab-close-btn:hover {
+			background-color: #ff0000;
+			color: #ffffff;
+			border-color: #000000;
+		}
+
 
 
 		
@@ -685,6 +705,20 @@
 				<span>4종 올인원 QR QR</span>
 			</a>
 			
+			
+			<!-- 화면 가림 1 -->
+			<a href="./idle scr bosd/index.html" target="_self" class="hub-btn3" title="화면 가림 1 블루스크린">
+				<span style="font-size: 18px;">📺</span>
+				<span>화면 가림 1 블루스크린</span>
+			</a>
+			
+			
+			<!-- 화면 가림 2 -->
+			<a href="./idle scr update/index.html" target="_self" class="hub-btn3" title="화면 가림 2 업데이트">
+				<span style="font-size: 18px;">📺</span>
+				<span>화면 가림 2 업데이트</span>
+			</a>
+			
 
 			<!-- 
             <a href="index.html" target="_blank" class="hub-btn" title="QR 코드 해독기 메인 페이지 새창으로 열기">
@@ -699,13 +733,105 @@
 	<img class="span1">
 	
 
-	<!-- 탭 닫기 버튼 HTML (크기 30px 적용) -->
+	<!-- 탭 닫기 버튼 HTML (크기 30px 적용)
 	<button class="tab-close-btn" onclick="closeCurrentTab()" aria-label="탭 닫기">
 		<svg viewBox="0 0 30 30" width="30" height="30" stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
 			<line x1="21" y1="9" x2="9" y2="21"></line>
 			<line x1="9" y1="9" x2="21" y2="21"></line>
 		</svg>
 	</button>
+	-->
+	
+	<div class="rfloatingbtn">
+
+		<!-- 1. 이미지 버튼 예시 (주소단축 6) -->
+		<button class="tab-close-btn" title="주소단축 : bitly.com" onclick="window.open('https://bitly.com/', '_blank')">
+			<img src="imgs/bitly logo.png" alt="아이콘" class="btn-icon">
+		</button>
+
+		<button class="tab-close-btn" title="주소단축 : tinyurl" onclick="window.open('https://tinyurl.com/', '_blank')">
+			<img src="imgs/TinyURL logo.png" alt="아이콘" class="btn-icon">
+		</button>
+
+		<button class="tab-close-btn" title="주소단축 : is.gd" onclick="window.open('https://is.gd/', '_blank')">
+			<img src="imgs/isgd logo.png" alt="아이콘" class="btn-icon">
+		</button>
+
+		<button class="tab-close-btn" title="주소단축 : cutt.ly" onclick="window.open('https://cutt.ly/', '_blank')">
+			<img src="imgs/cuttly logo.png" alt="아이콘" class="btn-icon">
+		</button>
+
+
+		<button class="tab-close-btn" title="주소단축 : zrr.kr" onclick="window.open('https://zrr.kr/', '_blank')">
+			<img src="imgs/zrr logo.png" alt="아이콘" class="btn-icon">
+		</button>
+
+		<button class="tab-close-btn" title="주소단축 : lrl.kr" onclick="window.open('https://lrl.kr/', '_blank')">
+			<img src="imgs/lrl logo.png" alt="아이콘" class="btn-icon">
+		</button>
+
+		<button class="tab-close-btn" title="주소단축 : myip.co.kr" onclick="window.open('https://myip.co.kr/', '_blank')">
+			<img src="imgs/myip logo.png" alt="아이콘" class="btn-icon">
+		</button>
+		
+		<br>
+
+		<!-- 전체화면 버튼 -->
+		<button class="tab-close-btn" id="fullscreen-btn" title="전체화면 토글" style="font-size:28px;">
+			⛶
+		</button>
+
+		<!-- 뒤로가기 버튼 
+		<button class="tab-close-btn" onclick="history.back()" title="뒤로 가기">
+			🔙
+		</button>
+		-->
+		
+		<br>
+		
+		
+		<!-- 탭 닫기 버튼 -->
+		<button class="tab-close-btn" onclick="closeCurrentTab()" aria-label="탭 닫기" title="탭 닫기">
+			<svg viewBox="0 0 30 30" width="16" height="16" stroke="currentColor" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+				<line x1="21" y1="9" x2="9" y2="21"></line>
+				<line x1="9" y1="9" x2="21" y2="21"></line>
+			</svg>
+		</button>
+
+	</div>
+
+
+
+	<script>
+        const btn = document.getElementById('fullscreen-btn');
+
+        btn.addEventListener('click', () => {
+            // 현재 전체화면 상태인지 확인
+            if (!document.fullscreenElement) {
+                // 전체화면이 아니라면 문서 전체를 전체화면으로 요청
+                document.documentElement.requestFullscreen().catch(err => {
+                    alert(`전체화면 전환 실패: ${err.message}`);
+                });
+            } else {
+                // 이미 전체화면이라면 해제
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        // 사용자가 F11이나 Esc 키 등으로 전체화면 상태를 바꿨을 때 버튼 아이콘 동기화
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                btn.textContent = '✕'; // 전체화면 중일 때 아이콘 변경
+                btn.setAttribute('title', '일반화면으로 전환');
+            } else {
+                btn.textContent = '⛶'; // 일반화면일 때 원래 아이콘으로 복구
+                btn.setAttribute('title', '전체화면으로 전환');
+            }
+        });
+    </script>
+
 	
 
 <script>

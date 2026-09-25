@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>화면 가림 2 업데이트</title>
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx='50' cy='70' r='70' /><text y=%22.9em%22 font-size=%2299%22>📺</text></svg>">
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <body>
+    <div class="update">
+        <div class="update__content">
+
+            <div class="update__loader">
+                <div class="update__spinner">
+                    <div class="spinner__point"></div>
+                </div>
+                <div class="update__spinner update__spinner--second">
+                    <div class="spinner__point"></div>
+                </div>
+                <div class="update__spinner update__spinner--third">
+                        <div class="spinner__point"></div>
+                </div>
+                <div class="update__spinner update__spinner--four">
+                        <div class="spinner__point"></div>
+                </div>
+                <div class="update__spinner update__spinner--five">
+                        <div class="spinner__point"></div>
+                </div>
+            </div>
+            
+            <div class="update__text">
+                <p>Working on updates</p>
+                <p id="update__percentage">0% complete</p>
+                <p>Don't turn of your computer</p>
+            </div>
+        </div>
+    </div>
+	
+	<div  class="rfloatingbtn">
+		<!-- 플로팅 전체화면 버튼 -->
+		<a id="fullscreen-btn" title="전체화면 토글">⛶</a>
+		<a onclick="history.back()">🔙</a>
+	</div>
+	
+	<script>
+        const btn = document.getElementById('fullscreen-btn');
+
+        btn.addEventListener('click', () => {
+            // 현재 전체화면 상태인지 확인
+            if (!document.fullscreenElement) {
+                // 전체화면이 아니라면 문서 전체를 전체화면으로 요청
+                document.documentElement.requestFullscreen().catch(err => {
+                    alert(`전체화면 전환 실패: ${err.message}`);
+                });
+            } else {
+                // 이미 전체화면이라면 해제
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        // 사용자가 F11이나 Esc 키 등으로 전체화면 상태를 바꿨을 때 버튼 아이콘 동기화
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                btn.textContent = '✕'; // 전체화면 중일 때 아이콘 변경
+                btn.setAttribute('title', '일반화면으로 전환');
+            } else {
+                btn.textContent = '⛶'; // 일반화면일 때 원래 아이콘으로 복구
+                btn.setAttribute('title', '전체화면으로 전환');
+            }
+        });
+    </script>
+
+
+
+</body>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
